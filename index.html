@@ -296,6 +296,7 @@
 
         .discord-srv-rcon-command-pill-box { display: flex; align-items: center; justify-content: space-between; background: #070a13; border: 1px solid var(--accent-cyan); border-radius: 6px; padding: 8px 12px; font-family: monospace; font-size: 0.78rem; color: #fff; max-width: 320px; margin-top: 8px; box-shadow: var(--neon-glow); }
 
+        /* MULTILINGUAL PLAYER CHATBOT WIDGET OVERLAY STYLES */
         .ai-chat-launcher-pill-trigger {
             position: fixed; bottom: 35px; left: 40px; z-index: 999;
             background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
@@ -316,6 +317,7 @@
         .ai-chat-input-row-container { padding: 10px; background: rgba(2,4,10,0.4); border-top: 1px solid var(--glass-border); display: flex; gap: 8px; }
         .ai-chat-input-row-container input { flex-grow: 1; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; font-size: 0.85rem; }
 
+        /* PRIVILEGED AI BLUEPRINT SANDBOX MONITOR LAYOUTS */
         .ai-sandbox-blueprint-preview-panel {
             background: rgba(2,4,10,0.85); border: 1px solid var(--accent-cyan);
             border-radius: 12px; padding: 20px; margin-top: 15px; display: none;
@@ -446,6 +448,21 @@
     <div class="floating-action-basket-pill" id="globalPrimaryCartFloatingWidget">
         <div><i class="fa-solid fa-cube" style="color:var(--accent-cyan);"></i> <span id="cartWidgetDisplayItemsUnitsCountText" style="font-weight:800; color:#fff; margin-left:6px;">0</span> Items</div>
         <button class="terminal-interaction-btn" style="padding: 10px 20px; font-size: 0.8rem; width:auto;" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')">Checkout</button>
+    </div>
+
+    <div class="ai-chat-launcher-pill-trigger" onclick="toggleServerCompanionChatViewPane()"><i class="fa-solid fa-robot"></i> Server AI Helper</div>
+    <div class="ai-chat-window-viewport-block" id="serverCompanionChatWindowFrame">
+        <div class="ai-chat-header-bar">
+            <span style="font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-circle-nodes" style="color:var(--accent-cyan)"></i> Cylestial AI Guide</span>
+            <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="toggleServerCompanionChatViewPane()"></i>
+        </div>
+        <div class="ai-chat-messages-stream-stack" id="serverCompanionChatMessagesStreamStack">
+            <div class="ai-chat-bubble-node assistant">Greetings player! Welcome to CylestialMC, undeniably the most magnificent Minecraft server network in the universe! Ask me anything about our IPs, ports, or shop tokens in any language. Let's play!</div>
+        </div>
+        <div class="ai-chat-input-row-container">
+            <input type="text" id="serverCompanionChatInputTextField" placeholder="Ask about IP, connection ports, ranks...">
+            <button class="terminal-interaction-btn" style="width:auto; padding:0 14px;" onclick="executeServerCompanionChatResponseCycle()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
     </div>
 
     <div id="checkoutSystemProcessingModalWindow" class="window-blur-overlay-mask">
@@ -618,6 +635,7 @@
 
                     <h3 style="color:var(--color-gold); font-weight:800; margin-bottom:15px;"><i class="fa-solid fa-brain"></i> Cylestial AI Developer Copilot Terminal</h3>
                     <div style="background:rgba(11,15,25,0.9); padding:20px; border-radius:12px; border:1px solid rgba(251,191,36,0.3); margin-bottom:25px;">
+                        <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:12px;">Describe layout styling requirements, warning alerts, or promotional banners. The AI will output a working interface sandbox snapshot before going live.</p>
                         <textarea id="ownerAIPromptTextAreaField" rows="3" placeholder="Example: Add an emergency maintenance red banner across the storefront displaying text..." style="width:100%; background:#000; border:1px solid var(--glass-border); border-radius:8px; color:#fff; padding:12px; font-family:monospace; outline:none; font-size:0.85rem;"></textarea>
                         <button class="terminal-interaction-btn" style="margin-top:10px; background:linear-gradient(135deg, var(--color-gold) 0%, #d97706 100%); color:#000;" onclick="executeOwnerAIArchitectSimulationSequence()">Generate Architecture Sandbox Preview</button>
                         
@@ -703,7 +721,7 @@
         let flagStaffEmailAddressIsRevokedBlacklisted = localStorage.getItem('db_kill_staff') === 'true';
         let publicApprovedSupportersLeaderboardArray = JSON.parse(localStorage.getItem('db_supporters')) || [];
 
-        // PERSISTED CONFIGURATION RESOLUTION LOOPS
+        // PERSISTED DOM STATE LOAD PARSES
         if(localStorage.getItem('live_cfg_brand')) document.getElementById('liveDOMTextServerBrandNameTitle').innerText = localStorage.getItem('live_cfg_brand');
         if(localStorage.getItem('live_cfg_sub')) document.getElementById('liveDOMTextServerBrandSubtitle').innerText = localStorage.getItem('live_cfg_sub');
         if(localStorage.getItem('live_cfg_motd')) document.getElementById('liveDOMTextServerMotdMessageDisplay').innerText = localStorage.getItem('live_cfg_motd');
@@ -716,7 +734,7 @@
             setTimeout(() => { const icon = document.getElementById('themeStatusWidgetIconElement'); if(icon) icon.className = "fa-solid fa-moon"; }, 100);
         }
 
-        // GLOBAL MODAL COMPONENT CONTROLLERS
+        // ABSOLUTE VISIBILITY STATE LAYER HANDLERS
         function openSystemModalWindow(id) {
             document.getElementById(id).style.display = 'flex';
             if(id === 'checkoutSystemProcessingModalWindow') { buildModalCheckoutItemsRowsUIDOM(); }
@@ -987,7 +1005,6 @@
             evaluateFloatingCartWidgetUIStateFeedback();
         }
 
-        // CONTROL QUANTITY LOGIC PIPELINE
         function alterCartItemQuantityValue(targetIndexLocation, mathematicalModifierValue) {
             memoryAllocationCartStack[targetIndexLocation].quantity += mathematicalModifierValue;
             if (memoryAllocationCartStack[targetIndexLocation].quantity <= 0) { memoryAllocationCartStack.splice(targetIndexLocation, 1); }
@@ -1060,6 +1077,21 @@
         
         function transitionUIToAuthenticatedDashboardState() {
             document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'none'; document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'block'; const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'User'; const activeRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff'; document.getElementById('terminalLiveGreetingAdminName').innerText = activeName; document.getElementById('terminalLiveGreetingAdminRole').innerText = activeRole; const ownerPanel = document.getElementById('ownerPrivilegedExclusiveOperationsDashboard'); if (activeRole === 'Owner') { ownerPanel.style.display = 'block'; renderOwnerSessionsLogs(); } else { ownerPanel.style.display = 'none'; } renderTerminalDashboardInteractiveTableQueueEngine();
+        }
+
+        function parseInGameRconCommandString(playerName, productsPayloadSummaryText) {
+            let item = productsPayloadSummaryText.toLowerCase();
+            if(item.includes("knight")) return `lp user ${playerName} parent add knight`;
+            if(item.includes("lord")) return `lp user ${playerName} parent add lord`;
+            if(item.includes("paladin")) return `lp user ${playerName} parent add paladin`;
+            if(item.includes("duke")) return `lp user ${playerName} parent add duke`;
+            if(item.includes("king")) return `lp user ${playerName} parent add king`;
+            if(item.includes("vote")) return `crate give vote ${playerName} 1`;
+            if(item.includes("common")) return `crate give common ${playerName} 1`;
+            if(item.includes("rare")) return `crate give rare ${playerName} 1`;
+            if(item.includes("epic")) return `crate give epic ${playerName} 1`;
+            if(item.includes("superior")) return `crate give superior ${playerName} 1`;
+            return `say Order verified for user: ${playerName}`;
         }
 
         function renderTerminalDashboardInteractiveTableQueueEngine() {
