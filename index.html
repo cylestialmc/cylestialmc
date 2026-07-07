@@ -87,10 +87,7 @@
         }
 
         .server-brand-logo-centerpiece {
-            width: 200px;
-            height: 200px;
-            object-fit: contain;
-            margin-bottom: 20px;
+            width: 200px; height: 200px; object-fit: contain; margin-bottom: 20px;
             filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.3));
             animation: floatingLogo 4s ease-in-out infinite;
         }
@@ -146,21 +143,12 @@
         .badge-hero { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
 
         .app-layout-root {
-            display: none;
-            grid-template-columns: 280px 1fr;
-            min-height: 100vh;
-            position: relative;
-            z-index: 5;
+            display: none; grid-template-columns: 280px 1fr; min-height: 100vh; position: relative; z-index: 5;
         }
 
         aside {
-            background: rgba(7, 10, 19, 0.8);
-            border-right: 1px solid var(--glass-border);
-            backdrop-filter: blur(20px);
-            padding: 40px 25px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            background: rgba(7, 10, 19, 0.8); border-right: 1px solid var(--glass-border); backdrop-filter: blur(20px);
+            padding: 40px 25px; display: flex; flex-direction: column; justify-content: space-between;
             position: sticky; top: 0; height: 100vh; z-index: 100;
         }
 
@@ -262,7 +250,7 @@
             width: 100%; max-width: 650px; border-radius: 20px; padding: 35px;
             position: relative; max-height: 85vh; overflow-y: auto;
         }
-        .window-close-trigger-node { position: absolute; top: 22px; right: 22px; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); z-index: 100; }
+        .window-close-trigger-node { position: absolute; top: 22px; right: 22px; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); z-index: 1100; }
 
         .form-structural-group { margin-bottom: 20px; }
         .form-structural-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.82rem; color: var(--accent-cyan); text-transform: uppercase; }
@@ -296,7 +284,6 @@
 
         .discord-srv-rcon-command-pill-box { display: flex; align-items: center; justify-content: space-between; background: #070a13; border: 1px solid var(--accent-cyan); border-radius: 6px; padding: 8px 12px; font-family: monospace; font-size: 0.78rem; color: #fff; max-width: 320px; margin-top: 8px; box-shadow: var(--neon-glow); }
 
-        /* MULTILINGUAL PLAYER CHATBOT WIDGET OVERLAY STYLES */
         .ai-chat-launcher-pill-trigger {
             position: fixed; bottom: 35px; left: 40px; z-index: 999;
             background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
@@ -347,6 +334,7 @@
         <div class="aurora-blur aurora-2"></div>
     </div>
 
+    <!-- MAIN HUB SPLASH -->
     <div id="main_landing_view_tier">
         <img src="logo.png" class="server-brand-logo-centerpiece" alt="CylestialMC Logo Centered">
         
@@ -393,6 +381,7 @@
         </div>
     </div>
 
+    <!-- COMMERCE PANEL -->
     <div class="mobile-header-bar" id="shopMobileHeaderBar">
         <h2 onclick="navigateToViewTier('home')" style="cursor: pointer;">CYLESTIAL<span>MC</span></h2>
         <button class="admin-action-gate-btn" style="padding: 8px 14px; font-size:0.78rem; width: auto;" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')">
@@ -401,7 +390,8 @@
     </div>
 
     <div class="mobile-navigation-dock-bar" id="shopMobileDockBar">
-        </div>
+        <!-- INJECTED DYNAMICALLY VIA ARRAYS -->
+    </div>
 
     <div class="app-layout-root" id="shop_layout_root_tier">
         <aside>
@@ -415,7 +405,8 @@
                 </div>
                 
                 <ul class="navigation-menu-list" id="asideDynamicNavigationTabListGroup">
-                    </ul>
+                    <!-- RENDERED DYNAMICALLY BY CLIENT STATE LOOPS -->
+                </ul>
 
                 <div class="theme-switch-frame-cluster">
                     <span>Stealth Focus</span>
@@ -441,29 +432,17 @@
 
             <div class="ticker-broadcast-shoutout" id="clientPublicGlobalBroadcastBanner"></div>
 
-            </main>
+            <!-- DYNAMIC PRODUCTS MATRICES SHELVED HERE -->
+        </main>
     </div>
 
+    <!-- CART FLIP TRIGGER -->
     <div class="floating-action-basket-pill" id="globalPrimaryCartFloatingWidget">
         <div><i class="fa-solid fa-cube" style="color:var(--accent-cyan);"></i> <span id="cartWidgetDisplayItemsUnitsCountText" style="font-weight:800; color:#fff; margin-left:6px;">0</span> Items</div>
         <button class="terminal-interaction-btn" style="padding: 10px 20px; font-size: 0.8rem; width:auto;" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')">Checkout</button>
     </div>
 
-    <div class="ai-chat-launcher-pill-trigger" onclick="toggleServerCompanionChatViewPane()"><i class="fa-solid fa-robot"></i> Server AI Helper</div>
-    <div class="ai-chat-window-viewport-block" id="serverCompanionChatWindowFrame">
-        <div class="ai-chat-header-bar">
-            <span style="font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-circle-nodes" style="color:var(--accent-cyan)"></i> Cylestial AI Guide</span>
-            <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="toggleServerCompanionChatViewPane()"></i>
-        </div>
-        <div class="ai-chat-messages-stream-stack" id="serverCompanionChatMessagesStreamStack">
-            <div class="ai-chat-bubble-node assistant">Greetings player! Welcome to CylestialMC, undeniably the most magnificent Minecraft server network in the universe! Ask me anything about our IPs, ports, or shop tokens in any language. Let's play!</div>
-        </div>
-        <div class="ai-chat-input-row-container">
-            <input type="text" id="serverCompanionChatInputTextField" placeholder="Ask about IP, connection ports, ranks...">
-            <button class="terminal-interaction-btn" style="width:auto; padding:0 14px;" onclick="executeServerCompanionChatResponseCycle()"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
-    </div>
-
+    <!-- PIPELINE CHECKOUT MODAL -->
     <div id="checkoutSystemProcessingModalWindow" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')"></i>
@@ -519,7 +498,7 @@
                     <label for="legalMandatoryCheckboxTokenField" style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">I certify that I have read the server legal disclosures and agree that chargebacks are blacklisted.</label>
                 </div>
 
-                <button class="terminal-interaction-btn" type="button" onclick="advanceCheckoutModalToPaymentMatrix()">Establish Pipelines</button>
+                <button class="terminal-interaction-btn" style="margin-top:20px;" onclick="advanceCheckoutModalToPaymentMatrix()">Establish Pipelines</button>
             </div>
 
             <div id="modalStageWrapperStep2" style="display: none;">
@@ -568,6 +547,7 @@
         </div>
     </div>
 
+    <!-- TERMINAL WORKSPACE SUITE -->
     <div id="administrationWorkspaceSecureAccessModal" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block" style="max-width: 780px;">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('administrationWorkspaceSecureAccessModal')"></i>
@@ -590,6 +570,7 @@
                 <div id="terminalHandshakeAuthenticationFailureFeedbackAlert" style="background:rgba(239,68,68,0.08); border:1px solid var(--color-danger); padding:15px; border-radius:10px; color: var(--color-danger); margin-top: 20px; display: none;">Authorization failure. Account unknown or blocked.</div>
             </div>
 
+            <!-- WORKSPACE INTERFACE -->
             <div id="terminalInternalActiveDashboardWorkspacePane" style="display: none;">
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); margin-bottom: 25px; padding-bottom:14px; gap: 15px; flex-wrap: wrap;">
                     <h3>Console Identity: <span id="terminalLiveGreetingAdminName" style="color:var(--accent-cyan)">User</span> (<span id="terminalLiveGreetingAdminRole" style="font-size:0.85rem; font-weight:700; text-transform:uppercase;">Role</span>)</h3>
@@ -603,6 +584,7 @@
                     <div class="analytics-widget-card" style="border-color:var(--color-gold)"><h6>Database Footprints</h6><h2 id="metricWidgetDisplayTotalAuthLogsCount">1</h2></div>
                 </div>
 
+                <!-- OWNER PANEL CONTROLS -->
                 <div class="owner-control-section-block" id="ownerPrivilegedExclusiveOperationsDashboard" style="display: none; border-top:none; margin-top:0; padding-top:0;">
                     
                     <h3 style="color:var(--accent-cyan); font-weight:800; margin-bottom:15px;"><i class="fa-solid fa-boxes-packing"></i> Dynamic Storefront Category & Price Manager</h3>
@@ -727,7 +709,7 @@
         let flagStaffEmailAddressIsRevokedBlacklisted = localStorage.getItem('db_kill_staff') === 'true';
         let publicApprovedSupportersLeaderboardArray = JSON.parse(localStorage.getItem('db_supporters')) || [];
 
-        // DOM RESTORATION NODES
+        // CONFIG LOOPS RESTORATION
         if(localStorage.getItem('live_cfg_brand')) document.getElementById('liveDOMTextServerBrandNameTitle').innerText = localStorage.getItem('live_cfg_brand');
         if(localStorage.getItem('live_cfg_sub')) document.getElementById('liveDOMTextServerBrandSubtitle').innerText = localStorage.getItem('live_cfg_sub');
         if(localStorage.getItem('live_cfg_motd')) document.getElementById('liveDOMTextServerMotdMessageDisplay').innerText = localStorage.getItem('live_cfg_motd');
@@ -740,7 +722,6 @@
             setTimeout(() => { const icon = document.getElementById('themeStatusWidgetIconElement'); if(icon) icon.className = "fa-solid fa-moon"; }, 100);
         }
 
-        // ABSOLUTE VISIBILITY STATE LAYER HANDLERS
         function openSystemModalWindow(id) {
             document.getElementById(id).style.display = 'flex';
             if(id === 'checkoutSystemProcessingModalWindow') { buildModalCheckoutItemsRowsUIDOM(); }
@@ -1020,15 +1001,29 @@
             }
         }
 
-        function executeServerAddressCopyProtocolString() {
-            navigator.clipboard.writeText("play.cylestialmc.fun");
-            alert("🎯 IP Address Copied: play.cylestialmc.fun\nJoin the server console queue now!");
-        }
-
         function injectProductRecordToCartStack(productLabelName, rawPriceIntegerMetric) {
             const index = memoryAllocationCartStack.findIndex(item => item.name === productLabelName);
             if (index !== -1) { memoryAllocationCartStack[index].quantity += 1; } else { memoryAllocationCartStack.push({ name: productLabelName, basePrice: rawPriceIntegerMetric, quantity: 1 }); }
             evaluateFloatingCartWidgetUIStateFeedback();
+        }
+
+        // FIXED LIVE USERNAME SKIN LOOKUP MODULES HOOKED DIRECTLY INTO GENERATION
+        function runLiveAvatarSkinRenderingMatrix(inputUsernameString) {
+            const frame = document.getElementById('checkoutPlayerAvatarVerificationShell'); 
+            const img = document.getElementById('checkoutPlayerAvatarTargetImageElement'); 
+            const targetCleanName = inputUsernameString.trim();
+            if(targetCleanName.length > 2) { 
+                frame.style.display = 'flex'; 
+                img.src = `https://minotar.net/avatar/${targetCleanName}/40.png`; 
+            } else { 
+                frame.style.display = 'none'; 
+            }
+        }
+
+        function alterCartItemQuantityValue(targetIndexLocation, mathematicalModifierValue) {
+            memoryAllocationCartStack[targetIndexLocation].quantity += mathematicalModifierValue;
+            if (memoryAllocationCartStack[targetIndexLocation].quantity <= 0) { memoryAllocationCartStack.splice(targetIndexLocation, 1); }
+            evaluateFloatingCartWidgetUIStateFeedback(); buildModalCheckoutItemsRowsUIDOM();
         }
 
         function evaluateFloatingCartWidgetUIStateFeedback() {
@@ -1059,7 +1054,7 @@
         }
 
         function renderTerminalDashboardInteractiveTableQueueEngine() {
-            const targetTableBodyDOMNode = document.getElementById('terminalDashboardInteractiveDataRegisterTableBody'); if(!targetTableBodyDOMNode) return; targetTableBodyDOMNode.innerHTML = ''; const currentRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff'; document.getElementById('metricWidgetDisplayQueuedTotalCount').innerText = coreDatabaseTransactionsRegisterQueueArray.length; document.getElementById('metricWidgetDisplayApprovedTotalCount').innerText = `₹${counterMetricApprovedTransactionsTotalSumValue.toFixed(2)}`; document.getElementById('metricWidgetDisplayTotalAuthLogsCount').innerText = adminIdentityAuthAuditTrailsRegistry.length;
+            const targetTableBodyDOMNode = document.getElementById('terminalDashboardInteractiveDataRegisterTableBody'); targetTableBodyDOMNode.innerHTML = ''; const currentRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff'; document.getElementById('metricWidgetDisplayQueuedTotalCount').innerText = coreDatabaseTransactionsRegisterQueueArray.length; document.getElementById('metricWidgetDisplayApprovedTotalCount').innerText = `₹${counterMetricApprovedTransactionsTotalSumValue.toFixed(2)}`; document.getElementById('metricWidgetDisplayTotalAuthLogsCount').innerText = adminIdentityAuthAuditTrailsRegistry.length;
             if (coreDatabaseTransactionsRegisterQueueArray.length === 0) { targetTableBodyDOMNode.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px 0;">Queue is empty.</td></tr>'; return; }
             coreDatabaseTransactionsRegisterQueueArray.forEach(logRecordObject => {
                 let tr = document.createElement('tr'); let statusMarkup = logRecordObject.isForwarded ? '<span class="status-badge status-forwarded">Forwarded</span>' : '<span class="status-badge status-pending">Pending</span>'; let generatedCommandString = parseInGameRconCommandString(logRecordObject.usernameProfileKey, logRecordObject.itemsBlockPayloadSummary); let actionsMarkup = ''; if (currentRole === 'Owner') { actionsMarkup = `<button class="operational-action-trigger-btn trigger-btn-approve" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, true)"><i class="fa-solid fa-check"></i></button><button class="operational-action-trigger-btn trigger-btn-deny" style="margin-left:6px;" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, false)"><i class="fa-solid fa-xmark"></i></button>`; } else { actionsMarkup = logRecordObject.isForwarded ? '<span style="font-size:0.8rem;color:var(--text-secondary)">Awaiting Review</span>' : `<button class="operational-action-trigger-btn trigger-btn-forward" onclick="staffForwardOrderLogToOwner(${logRecordObject.uniqueTimestampID})">Forward</button>`; }
@@ -1086,9 +1081,7 @@
                 if (approve) {
                     counterMetricApprovedTransactionsTotalSumValue += parseFloat(record.costRawValue);
                     publicApprovedSupportersLeaderboardArray.push({ name: record.usernameProfileKey, payload: record.itemsBlockPayloadSummary, billing: record.costFormattedWithSymbol, rawCost: record.costRawValue });
-                    
                     const fomoTickerText = document.getElementById('fomoTickerContentMessageText'); if(fomoTickerText) fomoTickerText.innerHTML = `🔥 Recent Checkout: <strong>${record.usernameProfileKey}</strong> unlocked [<strong>${record.itemsBlockPayloadSummary}</strong>]!`;
-                    
                     const emailPayload = { buyer_email: record.customerEmail, customer_name: record.usernameProfileKey, purchased_items: record.itemsBlockPayloadSummary, total_amount: record.costFormattedWithSymbol, thank_you_message: "Your parameters have been fully upgraded! Create a ticket on Discord to complete extraction.", transaction_id: "TXN-" + Math.floor(Math.random() * 900000 + 100000) }; 
                     emailjs.send('service_7fd9vjg', 'template_4fsh2l5', emailPayload).then(() => console.log("Receipt routed.")).catch((err) => console.error(err));
                 }
