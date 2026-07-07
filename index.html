@@ -87,10 +87,7 @@
         }
 
         .server-brand-logo-centerpiece {
-            width: 200px;
-            height: 200px;
-            object-fit: contain;
-            margin-bottom: 20px;
+            width: 200px; height: 200px; object-fit: contain; margin-bottom: 20px;
             filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.3));
             animation: floatingLogo 4s ease-in-out infinite;
         }
@@ -337,7 +334,6 @@
         <div class="aurora-blur aurora-2"></div>
     </div>
 
-    <!-- MAIN HUB SPLASH -->
     <div id="main_landing_view_tier">
         <img src="logo.png" class="server-brand-logo-centerpiece" alt="CylestialMC Logo Centered">
         
@@ -384,7 +380,6 @@
         </div>
     </div>
 
-    <!-- COMMERCE PANEL -->
     <div class="mobile-header-bar" id="shopMobileHeaderBar">
         <h2 onclick="navigateToViewTier('home')" style="cursor: pointer;">CYLESTIAL<span>MC</span></h2>
         <button class="admin-action-gate-btn" style="padding: 8px 14px; font-size:0.78rem; width: auto;" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')">
@@ -393,8 +388,7 @@
     </div>
 
     <div class="mobile-navigation-dock-bar" id="shopMobileDockBar">
-        <!-- INJECTED DYNAMICALLY VIA ARRAYS -->
-    </div>
+        </div>
 
     <div class="app-layout-root" id="shop_layout_root_tier">
         <aside>
@@ -408,8 +402,7 @@
                 </div>
                 
                 <ul class="navigation-menu-list" id="asideDynamicNavigationTabListGroup">
-                    <!-- RENDERED DYNAMICALLY BY CLIENT STATE LOOPS -->
-                </ul>
+                    </ul>
 
                 <div class="theme-switch-frame-cluster">
                     <span>Stealth Focus</span>
@@ -435,17 +428,29 @@
 
             <div class="ticker-broadcast-shoutout" id="clientPublicGlobalBroadcastBanner"></div>
 
-            <!-- DYNAMIC PRODUCTS MATRICES SHELVED HERE -->
-        </main>
+            </main>
     </div>
 
-    <!-- CART FLIP TRIGGER -->
     <div class="floating-action-basket-pill" id="globalPrimaryCartFloatingWidget">
         <div><i class="fa-solid fa-cube" style="color:var(--accent-cyan);"></i> <span id="cartWidgetDisplayItemsUnitsCountText" style="font-weight:800; color:#fff; margin-left:6px;">0</span> Items</div>
         <button class="terminal-interaction-btn" style="padding: 10px 20px; font-size: 0.8rem; width:auto;" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')">Checkout</button>
     </div>
 
-    <!-- PIPELINE CHECKOUT MODAL -->
+    <div class="ai-chat-launcher-pill-trigger" onclick="toggleServerCompanionChatViewPane()"><i class="fa-solid fa-robot"></i> Server AI Helper</div>
+    <div class="ai-chat-window-viewport-block" id="serverCompanionChatWindowFrame">
+        <div class="ai-chat-header-bar">
+            <span style="font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-circle-nodes" style="color:var(--accent-cyan)"></i> Cylestial AI Guide</span>
+            <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="toggleServerCompanionChatViewPane()"></i>
+        </div>
+        <div class="ai-chat-messages-stream-stack" id="serverCompanionChatMessagesStreamStack">
+            <div class="ai-chat-bubble-node assistant">Greetings player! Welcome to CylestialMC, undeniably the most magnificent Minecraft server network in the universe! Ask me anything about our IPs, ports, or shop tokens in any language. Let's play!</div>
+        </div>
+        <div class="ai-chat-input-row-container">
+            <input type="text" id="serverCompanionChatInputTextField" placeholder="Ask about IP, connection ports, ranks...">
+            <button class="terminal-interaction-btn" style="width:auto; padding:0 14px;" onclick="executeServerCompanionChatResponseCycle()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
     <div id="checkoutSystemProcessingModalWindow" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')"></i>
@@ -533,7 +538,7 @@
                     </div>
                 </div>
 
-                <button class="terminal-interaction-btn" type="button" style="background: var(--color-success); color:#02040a; margin-top: 15px;" onclick="pushOrderRecordDataObjectsToQueue()">Submit Registration Ledger</button>
+                <button class="terminal-interaction-btn" style="background: var(--color-success); color:#02040a; margin-top: 15px;" onclick="pushOrderRecordDataObjectsToQueue()">Submit Registration Ledger</button>
             </div>
 
             <div id="modalStageWrapperStep3" style="display: none; text-align: center; padding: 30px 0;">
@@ -545,12 +550,11 @@
                     <i class="fa-brands fa-discord"></i> Open Discord Ticket
                 </a>
                 
-                <button class="terminal-interaction-btn" type="button" style="margin-top: 10px; width: auto; padding: 12px 40px; display: block; margin: 0 auto;" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')">Return To Store</button>
+                <button class="terminal-interaction-btn" style="margin-top: 10px; width: auto; padding: 12px 40px; display: block; margin: 0 auto;" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')">Return To Store</button>
             </div>
         </div>
     </div>
 
-    <!-- TERMINAL WORKSPACE SUITE -->
     <div id="administrationWorkspaceSecureAccessModal" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block" style="max-width: 780px;">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('administrationWorkspaceSecureAccessModal')"></i>
@@ -573,7 +577,6 @@
                 <div id="terminalHandshakeAuthenticationFailureFeedbackAlert" style="background:rgba(239,68,68,0.08); border:1px solid var(--color-danger); padding:15px; border-radius:10px; color: var(--color-danger); margin-top: 20px; display: none;">Authorization failure. Account unknown or blocked.</div>
             </div>
 
-            <!-- WORKSPACE INTERFACE -->
             <div id="terminalInternalActiveDashboardWorkspacePane" style="display: none;">
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); margin-bottom: 25px; padding-bottom:14px; gap: 15px; flex-wrap: wrap;">
                     <h3>Console Identity: <span id="terminalLiveGreetingAdminName" style="color:var(--accent-cyan)">User</span> (<span id="terminalLiveGreetingAdminRole" style="font-size:0.85rem; font-weight:700; text-transform:uppercase;">Role</span>)</h3>
@@ -587,7 +590,6 @@
                     <div class="analytics-widget-card" style="border-color:var(--color-gold)"><h6>Database Footprints</h6><h2 id="metricWidgetDisplayTotalAuthLogsCount">1</h2></div>
                 </div>
 
-                <!-- OWNER PANEL CONTROLS -->
                 <div class="owner-control-section-block" id="ownerPrivilegedExclusiveOperationsDashboard" style="display: none; border-top:none; margin-top:0; padding-top:0;">
                     
                     <h3 style="color:var(--accent-cyan); font-weight:800; margin-bottom:15px;"><i class="fa-solid fa-boxes-packing"></i> Dynamic Storefront Category & Price Manager</h3>
@@ -712,7 +714,7 @@
         let flagStaffEmailAddressIsRevokedBlacklisted = localStorage.getItem('db_kill_staff') === 'true';
         let publicApprovedSupportersLeaderboardArray = JSON.parse(localStorage.getItem('db_supporters')) || [];
 
-        // LOAD CACHED PARAMETERS
+        // CACHED PARAMETER RE-LOADS
         if(localStorage.getItem('live_cfg_brand')) document.getElementById('liveDOMTextServerBrandNameTitle').innerText = localStorage.getItem('live_cfg_brand');
         if(localStorage.getItem('live_cfg_sub')) document.getElementById('liveDOMTextServerBrandSubtitle').innerText = localStorage.getItem('live_cfg_sub');
         if(localStorage.getItem('live_cfg_motd')) document.getElementById('liveDOMTextServerMotdMessageDisplay').innerText = localStorage.getItem('live_cfg_motd');
@@ -1039,9 +1041,6 @@
             if (totalUnits > 0) { widgetFrameElement.style.display = 'flex'; counterTextValueElement.innerText = totalUnits; } else { widgetFrameElement.style.display = 'none'; }
         }
 
-        document.addEventListener("DOMContentLoaded", () => { buildStorefrontDynamicNavigationAndLayoutDOM(); synchronizeOwnerEmailRevocationUIElementsState(); renderPublicSupportersLeaderboardUIDOM(); });
-        function appendAuditLogMessage(text) { const box = document.getElementById('terminalLiveAuditLoggerOutputStackBox'); if(!box) return; box.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${text}</div>`; box.scrollTop = box.scrollHeight; }
-
         function buildModalCheckoutItemsRowsUIDOM() {
             const targetRowsDisplayContainer = document.getElementById('modalCartItemsRowsOutputContainer'); const totalCostSumTextElement = document.getElementById('checkoutGrandTotalCostOutputText'); targetRowsDisplayContainer.innerHTML = '';
             let computedFinancialValueAccumulatorSum = 0;
@@ -1057,51 +1056,41 @@
             totalCostSumTextElement.innerText = `${systemExchangeBaseCurrencySymbol}${computedFinancialValueAccumulatorSum.toFixed(2)}`;
         }
 
-        function runTerminalSecurityAuthorizationSequence() {
-            const nameField = document.getElementById('fieldSecurityAdminFullLegalName').value.trim(); const emailField = document.getElementById('fieldSecurityAdminEmailIdentifier').value.trim().toLowerCase(); const passField = document.getElementById('fieldSecurityAdminPasswordKeyphrase').value;
-            let role = ""; if (emailField === 'rishit27.3.2008@gmail.com' && passField === 'Rishit@270308') { role = "Owner"; } else if (emailField === 'cylestialmc@gmail.com' && passField === 'PaSsWoRd') { if (flagStaffEmailAddressIsRevokedBlacklisted) { alert('Access disabled.'); return; } role = "Staff"; } else { document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'block'; return; }
-            document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'none'; adminIdentityAuthAuditTrailsRegistry.push({ id: Date.now(), name: nameField, email: emailField, role: role, time: new Date().toLocaleTimeString(), status: "Active" }); localStorage.setItem('cylestialTerminalAdminAuditFullName', nameField); localStorage.setItem('cylestialTerminalAdminAssignedRolePrivilege', role); syncLocalStorageDatabaseKernel(); transitionUIToAuthenticatedDashboardState();
-        }
-
-        function renderTerminalDashboardInteractiveTableQueueEngine() {
-            const targetTableBodyDOMNode = document.getElementById('terminalDashboardInteractiveDataRegisterTableBody'); targetTableBodyDOMNode.innerHTML = ''; const currentRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff'; document.getElementById('metricWidgetDisplayQueuedTotalCount').innerText = coreDatabaseTransactionsRegisterQueueArray.length; document.getElementById('metricWidgetDisplayApprovedTotalCount').innerText = `₹${counterMetricApprovedTransactionsTotalSumValue.toFixed(2)}`; document.getElementById('metricWidgetDisplayTotalAuthLogsCount').innerText = adminIdentityAuthAuditTrailsRegistry.length;
-            if (coreDatabaseTransactionsRegisterQueueArray.length === 0) { targetTableBodyDOMNode.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px 0;">Queue is empty.</td></tr>'; return; }
-            coreDatabaseTransactionsRegisterQueueArray.forEach(logRecordObject => {
-                let tr = document.createElement('tr'); let statusMarkup = logRecordObject.isForwarded ? '<span class="status-badge status-forwarded">Forwarded</span>' : '<span class="status-badge status-pending">Pending</span>'; let generatedCommandString = parseInGameRconCommandString(logRecordObject.usernameProfileKey, logRecordObject.itemsBlockPayloadSummary); let actionsMarkup = ''; if (currentRole === 'Owner') { actionsMarkup = `<button class="operational-action-trigger-btn trigger-btn-approve" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, true)"><i class="fa-solid fa-check"></i></button><button class="operational-action-trigger-btn trigger-btn-deny" style="margin-left:6px;" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, false)"><i class="fa-solid fa-xmark"></i></button>`; } else { actionsMarkup = logRecordObject.isForwarded ? '<span style="font-size:0.8rem;color:var(--text-secondary)">Awaiting Review</span>' : `<button class="operational-action-trigger-btn trigger-btn-forward" onclick="staffForwardOrderLogToOwner(${logRecordObject.uniqueTimestampID})">Forward</button>`; }
-                tr.innerHTML = `<td><strong>${logRecordObject.usernameProfileKey}</strong></td><td>${logRecordObject.itemsBlockPayloadSummary}<div class="discord-srv-rcon-command-pill-box"><span>${generatedCommandString}</span></div></td><td><span style="color:var(--accent-cyan);font-weight:700;">${logRecordObject.costFormattedWithSymbol}</span></td><td>${statusMarkup}</td><td style="text-align:center;min-width:130px;">${actionsMarkup}</td>`; targetTableBodyDOMNode.appendChild(tr);
-            });
-        }
-
-        function renderOwnerSessionsLogs() {
-            const tbody = document.getElementById('ownerTerminalDashboardIdentityLogsOutputTableBody'); if(!tbody) return; tbody.innerHTML = ''; adminIdentityAuthAuditTrailsRegistry.forEach(log => { let activeBadge = log.status === "Active" ? `<span style="color:var(--color-success);font-weight:700;">Active</span>` : `<span style="color:var(--text-secondary);font-size:0.75rem;">${log.status}</span>`; let actionBtn = (log.role === 'Owner' || log.status !== "Active") ? `<span style="color:var(--text-secondary);font-size:0.8rem;">Locked</span>` : `<button class="operational-action-trigger-btn trigger-btn-deny" style="width:auto;padding:2px 8px;font-size:0.75rem;" onclick="ownerForceTerminateStaffSession(${log.id})">Kill</button>`; let tr = document.createElement('tr'); tr.innerHTML = `<td><strong>${log.name}</strong></td><td style="font-family:monospace;font-size:0.8rem;">${log.email}</td><td><span style="color:${log.role === 'Owner'?'var(--accent-purple)':'var(--accent-cyan)'};font-weight:700;">${log.role}</span></td><td>${log.time} (${activeBadge})</td><td style="text-align:center;">${actionBtn}</td>`; tbody.appendChild(tr); });
-        }
-
-        function staffForwardOrderLogToOwner(targetUniqueTimestampID) {
-            const index = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === targetUniqueTimestampID); if (index === -1) return; const record = coreDatabaseTransactionsRegisterQueueArray[index]; record.isForwarded = true; 
-            const staffNotifierName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'Staff Auditor'; 
-            const alertTemplatePayload = { buyer_email: "cylestialmc@gmail.com", customer_name: "Owner Master Core", purchased_items: `ALERT: Action Ingested by ${staffNotifierName}. Player [ ${record.usernameProfileKey} ] is waiting for purchase parameters.`, total_amount: record.costAggregateFormattedString, thank_you_message: "PENDING APPROVAL REQUEST.", transaction_id: "PENDING-FWD-" + Math.floor(Math.random() * 9000 + 1000) }; 
-            emailjs.send('service_7fd9vjg', 'template_4fsh2l5', alertTemplatePayload).then(() => { console.log("Forward complete."); }).catch((err) => console.error(err));
-            syncLocalStorageDatabaseKernel(); renderTerminalDashboardInteractiveTableQueueEngine(); alert('Order forwarded to Owner workspace pipeline.');
-        }
-
-        function evaluateQueuedOrderLogTransactionRecord(id, approve) { 
-            const i = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === id); 
-            if (i !== -1) { 
-                const record = coreDatabaseTransactionsRegisterQueueArray[i];
-                if (approve) {
-                    counterMetricApprovedTransactionsTotalSumValue += parseFloat(record.costRawValue);
-                    publicApprovedSupportersLeaderboardArray.push({ name: record.usernameProfileKey, payload: record.itemsBlockPayloadSummary, billing: record.costFormattedWithSymbol, rawCost: record.costRawValue });
-                    const fomoTickerText = document.getElementById('fomoTickerContentMessageText'); if(fomoTickerText) fomoTickerText.innerHTML = `🔥 Recent Checkout: <strong>${record.usernameProfileKey}</strong> unlocked [<strong>${record.itemsBlockPayloadSummary}</strong>]!`;
-                    const emailPayload = { buyer_email: record.customerEmail, customer_name: record.usernameProfileKey, purchased_items: record.itemsBlockPayloadSummary, total_amount: record.costFormattedWithSymbol, thank_you_message: "Your parameters have been fully upgraded! Create a ticket on Discord to complete extraction.", transaction_id: "TXN-" + Math.floor(Math.random() * 900000 + 100000) }; 
-                    emailjs.send('service_7fd9vjg', 'template_4fsh2l5', emailPayload).then(() => console.log("Receipt routed.")).catch((err) => console.error(err));
-                }
-                coreDatabaseTransactionsRegisterQueueArray.splice(i, 1); syncLocalStorageDatabaseKernel(); renderTerminalDashboardInteractiveTableQueueEngine(); alert(approve ? 'Order Approved!' : 'Order Denied.'); 
+        // FIXED PIPELINE CHECKBOX PARSING ENGINE FOR STABLE STAGE SWITCHING
+        function advanceCheckoutModalToPaymentMatrix() { 
+            const inputFieldUsernameTextContext = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); 
+            const inputFieldEmailTextContext = document.getElementById('formFieldCustomerEmailInput').value.trim(); 
+            const legalChecked = document.getElementById('legalMandatoryCheckboxTokenField').checked; 
+            
+            if (!inputFieldUsernameTextContext || !inputFieldEmailTextContext) { 
+                alert('Please fill out your username and email details before continuing.'); 
+                return; 
             } 
+            if(!legalChecked) { 
+                alert('You must accept the terms of service and refund disclosures to proceed.'); 
+                return; 
+            } 
+            
+            let checkoutCostSumValue = 0; 
+            memoryAllocationCartStack.forEach(product => { checkoutCostSumValue += (product.basePrice * product.quantity); }); 
+            const calculatedCleanFinalValue = (checkoutCostSumValue * systemExchangeConversionRatioMetric).toFixed(2); 
+            const upiStringPayloadUrl = `upi://pay?pa=9515411111@fam&pn=CylestialMC%20Webstore&am=${calculatedCleanFinalValue}&cu=INR`; 
+            
+            document.getElementById('premiumAutomatedBillingQRImageTarget').src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(upiStringPayloadUrl)}`; 
+            document.getElementById('modalStageWrapperStep1').style.display = 'none'; 
+            document.getElementById('modalStageWrapperStep2').style.display = 'block'; 
         }
 
-        function ownerForceTerminateStaffSession(sessionID) {
-            const idx = adminIdentityAuthAuditTrailsRegistry.findIndex(s => s.id === sessionID); if (idx === -1) return; adminIdentityAuthAuditTrailsRegistry[idx].status = "Revoked"; syncLocalStorageDatabaseKernel(); renderOwnerSessionsLogs();
-        }
+        function recalculateStorefrontExchangePricesMatrix() { const exchangeSelectMenuNode = document.getElementById('formFieldGeographicCurrencySelector'); const activePickedOptionNode = exchangeSelectMenuNode.options[exchangeSelectMenuNode.selectedIndex]; systemExchangeConversionRatioMetric = parseFloat(activePickedOptionNode.getAttribute('data-ratio')); systemExchangeBaseCurrencySymbol = activePickedOptionNode.getAttribute('data-symbol'); document.querySelectorAll('.price-metric-display').forEach(displayTag => { let unscaledPriceBaseValue = parseFloat(displayTag.getAttribute('data-base-price')); displayTag.innerText = `${systemExchangeBaseCurrencySymbol}${(unscaledPriceBaseValue * systemExchangeConversionRatioMetric).toFixed(0)}`; }); buildModalCheckoutItemsRowsUIDOM(); }
+        function toggleTargetedPaymentSubPane(selectedGatewayKeyNameValue) { document.querySelectorAll('.payment-channel-node-card').forEach(card => card.classList.remove('active-selection')); document.querySelectorAll('.payment-execution-content-panel').forEach(pane => pane.style.display = 'none'); if (selectedGatewayKeyNameValue === 'UPI') { document.getElementById('paymentTabUPI').classList.add('active-selection'); document.getElementById('paneVaultUPI').style.display = 'block'; } else if (selectedGatewayKeyNameValue === 'PAYPAL') { document.getElementById('paymentTabPAYPAL').classList.add('active-selection'); document.getElementById('paneVaultPAYPAL').style.display = 'block'; } }
+        function runTerminalSecurityAuthorizationSequence() { const nameField = document.getElementById('fieldSecurityAdminFullLegalName').value.trim(); const emailField = document.getElementById('fieldSecurityAdminEmailIdentifier').value.trim().toLowerCase(); const passField = document.getElementById('fieldSecurityAdminPasswordKeyphrase').value; let role = ""; if (emailField === 'rishit27.3.2008@gmail.com' && passField === 'Rishit@270308') { role = "Owner"; } else if (emailField === 'cylestialmc@gmail.com' && passField === 'PaSsWoRd') { if (flagStaffEmailAddressIsRevokedBlacklisted) { alert('Access disabled.'); return; } role = "Staff"; } else { document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'block'; return; } document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'none'; adminIdentityAuthAuditTrailsRegistry.push({ id: Date.now(), name: nameField, email: emailField, role: role, time: new Date().toLocaleTimeString(), status: "Active" }); localStorage.setItem('cylestialTerminalAdminAuditFullName', nameField); localStorage.setItem('cylestialTerminalAdminAssignedRolePrivilege', role); syncLocalStorageDatabaseKernel(); transitionUIToAuthenticatedDashboardState(); }
+        function killTerminalSecureAuthorizationSession() { const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName'); const targetIdx = adminIdentityAuthAuditTrailsRegistry.findIndex(s => s.name === activeName && s.status === "Active"); if(targetIdx !== -1) adminIdentityAuthAuditTrailsRegistry[targetIdx].status = `Terminated (${new Date().toLocaleTimeString()})`; syncLocalStorageDatabaseKernel(); document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'none'; document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'block'; }
+        function transitionUIToAuthenticatedDashboardState() { document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'none'; document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'block'; const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'User'; const activeRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff'; document.getElementById('terminalLiveGreetingAdminName').innerText = activeName; document.getElementById('terminalLiveGreetingAdminRole').innerText = activeRole; const ownerPanel = document.getElementById('ownerPrivilegedExclusiveOperationsDashboard'); if (activeRole === 'Owner') { ownerPanel.style.display = 'block'; renderOwnerSessionsLogs(); } else { ownerPanel.style.display = 'none'; } renderTerminalDashboardInteractiveTableQueueEngine(); }
+        function renderTerminalDashboardInteractiveTableQueueEngine() { const targetTableBodyDOMNode = document.getElementById('terminalDashboardInteractiveDataRegisterTableBody'); targetTableBodyDOMNode.innerHTML = ''; const currentRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff'; document.getElementById('metricWidgetDisplayQueuedTotalCount').innerText = coreDatabaseTransactionsRegisterQueueArray.length; document.getElementById('metricWidgetDisplayApprovedTotalCount').innerText = `₹${counterMetricApprovedTransactionsTotalSumValue.toFixed(2)}`; document.getElementById('metricWidgetDisplayTotalAuthLogsCount').innerText = adminIdentityAuthAuditTrailsRegistry.length; if (coreDatabaseTransactionsRegisterQueueArray.length === 0) { targetTableBodyDOMNode.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px 0;">Queue is empty.</td></tr>'; return; } coreDatabaseTransactionsRegisterQueueArray.forEach(logRecordObject => { let tr = document.createElement('tr'); let statusMarkup = logRecordObject.isForwarded ? '<span class="status-badge status-forwarded">Forwarded</span>' : '<span class="status-badge status-pending">Pending</span>'; let generatedCommandString = parseInGameRconCommandString(logRecordObject.usernameProfileKey, logRecordObject.itemsBlockPayloadSummary); let actionsMarkup = ''; if (currentRole === 'Owner') { actionsMarkup = `<button class="operational-action-trigger-btn trigger-btn-approve" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, true)"><i class="fa-solid fa-check"></i></button><button class="operational-action-trigger-btn trigger-btn-deny" style="margin-left:6px;" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, false)"><i class="fa-solid fa-xmark"></i></button>`; } else { actionsMarkup = logRecordObject.isForwarded ? '<span style="font-size:0.8rem;color:var(--text-secondary)">Awaiting Review</span>' : `<button class="operational-action-trigger-btn trigger-btn-forward" onclick="staffForwardOrderLogToOwner(${logRecordObject.uniqueTimestampID})">Forward</button>`; } tr.innerHTML = `<td><strong>${logRecordObject.usernameProfileKey}</strong></td><td>${logRecordObject.itemsBlockPayloadSummary}<div class="discord-srv-rcon-command-pill-box"><span>${generatedCommandString}</span></div></td><td><span style="color:var(--accent-cyan);font-weight:700;">${logRecordObject.costFormattedWithSymbol}</span></td><td>${statusMarkup}</td><td style="text-align:center;min-width:130px;">${actionsMarkup}</td>`; targetTableBodyDOMNode.appendChild(tr); }); }
+        function renderOwnerSessionsLogs() { const tbody = document.getElementById('ownerTerminalDashboardIdentityLogsOutputTableBody'); if(!tbody) return; tbody.innerHTML = ''; adminIdentityAuthAuditTrailsRegistry.forEach(log => { let activeBadge = log.status === "Active" ? `<span style="color:var(--color-success);font-weight:700;">Active</span>` : `<span style="color:var(--text-secondary);font-size:0.75rem;">${log.status}</span>`; let actionBtn = (log.role === 'Owner' || log.status !== "Active") ? `<span style="color:var(--text-secondary);font-size:0.8rem;">Locked</span>` : `<button class="operational-action-trigger-btn trigger-btn-deny" style="width:auto;padding:2px 8px;font-size:0.75rem;" onclick="ownerForceTerminateStaffSession(${log.id})">Kill</button>`; let tr = document.createElement('tr'); tr.innerHTML = `<td><strong>${log.name}</strong></td><td style="font-family:monospace;font-size:0.8rem;">${log.email}</td><td><span style="color:${log.role === 'Owner'?'var(--accent-purple)':'var(--accent-cyan)'};font-weight:700;">${log.role}</span></td><td>${log.time} (${activeBadge})</td><td style="text-align:center;">${actionBtn}</td>`; tbody.appendChild(tr); }); }
+        function staffForwardOrderLogToOwner(targetUniqueTimestampID) { const index = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === targetUniqueTimestampID); if (index === -1) return; const record = coreDatabaseTransactionsRegisterQueueArray[index]; record.isForwarded = true; const staffNotifierName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'Staff Auditor'; const alertTemplatePayload = { buyer_email: "cylestialmc@gmail.com", customer_name: "Owner Master Core", purchased_items: `ALERT: Action Ingested by ${staffNotifierName}. Player [ ${record.usernameProfileKey} ] is waiting for purchase parameters.`, total_amount: record.costAggregateFormattedString, thank_you_message: "PENDING APPROVAL REQUEST.", transaction_id: "PENDING-FWD-" + Math.floor(Math.random() * 9000 + 1000) }; emailjs.send('service_7fd9vjg', 'template_4fsh2l5', alertTemplatePayload).then(() => { console.log("Forward complete."); }).catch((err) => console.error(err)); syncLocalStorageDatabaseKernel(); renderTerminalDashboardInteractiveTableQueueEngine(); alert('Order forwarded to Owner workspace pipeline.'); }
+        function evaluateQueuedOrderLogTransactionRecord(id, approve) { const i = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === id); if (i !== -1) { const record = coreDatabaseTransactionsRegisterQueueArray[i]; if (approve) { counterMetricApprovedTransactionsTotalSumValue += parseFloat(record.costRawValue); publicApprovedSupportersLeaderboardArray.push({ name: record.usernameProfileKey, payload: record.itemsBlockPayloadSummary, billing: record.costFormattedWithSymbol, rawCost: record.costRawValue }); const fomoTickerText = document.getElementById('fomoTickerContentMessageText'); if(fomoTickerText) fomoTickerText.innerHTML = `🔥 Recent Checkout: <strong>${record.usernameProfileKey}</strong> unlocked [<strong>${record.itemsBlockPayloadSummary}</strong>]!`; const emailPayload = { buyer_email: record.customerEmail, customer_name: record.usernameProfileKey, purchased_items: record.itemsBlockPayloadSummary, total_amount: record.costFormattedWithSymbol, thank_you_message: "Your parameters have been fully upgraded! Create a ticket on Discord to complete extraction.", transaction_id: "TXN-" + Math.floor(Math.random() * 900000 + 100000) }; emailjs.send('service_7fd9vjg', 'template_4fsh2l5', emailPayload).then(() => console.log("Receipt routed.")).catch((err) => console.error(err)); } coreDatabaseTransactionsRegisterQueueArray.splice(i, 1); syncLocalStorageDatabaseKernel(); renderTerminalDashboardInteractiveTableQueueEngine(); alert(approve ? 'Order Approved!' : 'Order Denied.'); } }
+        function ownerForceTerminateStaffSession(sessionID) { const idx = adminIdentityAuthAuditTrailsRegistry.findIndex(s => s.id === sessionID); if (idx === -1) return; adminIdentityAuthAuditTrailsRegistry[idx].status = "Revoked"; syncLocalStorageDatabaseKernel(); renderOwnerSessionsLogs(); }
         function executeOwnerRevocationAction(type) { if(type === 'staff_email') { flagStaffEmailAddressIsRevokedBlacklisted = !flagStaffEmailAddressIsRevokedBlacklisted; syncLocalStorageDatabaseKernel(); synchronizeOwnerEmailRevocationUIElementsState(); } }
         function synchronizeOwnerEmailRevocationUIElementsState() { const btn = document.getElementById('ownerBlacklistStaffEmailToggleBtn'); if(!btn) return; if(flagStaffEmailAddressIsRevokedBlacklisted) { btn.innerText = "Activate Staff Fallback"; btn.style.background = "var(--color-success)"; } else { btn.innerText = "Deactivate Staff Fallback"; btn.style.background = "#7c2d12"; } }
     </script>
