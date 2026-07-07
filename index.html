@@ -448,21 +448,6 @@
         <button class="terminal-interaction-btn" style="padding: 10px 20px; font-size: 0.8rem; width:auto;" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')">Checkout</button>
     </div>
 
-    <div class="ai-chat-launcher-pill-trigger" onclick="toggleServerCompanionChatViewPane()"><i class="fa-solid fa-robot"></i> Server AI Helper</div>
-    <div class="ai-chat-window-viewport-block" id="serverCompanionChatWindowFrame">
-        <div class="ai-chat-header-bar">
-            <span style="font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-circle-nodes" style="color:var(--accent-cyan)"></i> Cylestial AI Guide</span>
-            <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="toggleServerCompanionChatViewPane()"></i>
-        </div>
-        <div class="ai-chat-messages-stream-stack" id="serverCompanionChatMessagesStreamStack">
-            <div class="ai-chat-bubble-node assistant">Greetings player! Welcome to CylestialMC, undeniably the most magnificent Minecraft server network in the universe! Ask me anything about our IPs, ports, or shop tokens in any language. Let's play!</div>
-        </div>
-        <div class="ai-chat-input-row-container">
-            <input type="text" id="serverCompanionChatInputTextField" placeholder="Ask about IP, connection ports, ranks...">
-            <button class="terminal-interaction-btn" style="width:auto; padding:0 14px;" onclick="executeServerCompanionChatResponseCycle()"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
-    </div>
-
     <div id="checkoutSystemProcessingModalWindow" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')"></i>
@@ -505,11 +490,11 @@
                 <div class="legal-policy-accordion-stack">
                     <div class="policy-accordion-node">
                         <div class="policy-header-trigger" onclick="toggleAccordionTabSelectionPanel(this)">Terms of Service <i class="fa-solid fa-chevron-down"></i></div>
-                        <div class="policy-content-panel" style="padding: 10px 15px; max-height: 100px;">All token purchases are credited to the CylestialMC database parameter grid. Nodes are non-transferable.</div>
+                        <div class="policy-content-panel" style="padding: 0 15px; max-height: 0px; overflow: hidden;">All token purchases are credited to the CylestialMC database parameter grid. Nodes are non-transferable.</div>
                     </div>
                     <div class="policy-accordion-node">
                         <div class="policy-header-trigger" onclick="toggleAccordionTabSelectionPanel(this)">Refund Disclosures <i class="fa-solid fa-chevron-down"></i></div>
-                        <div class="policy-content-panel" style="padding: 10px 15px; max-height: 100px;">All virtual assets deploy instantly. Absolute chargebacks are blacklisted. Open a ticket on Discord for checkout claims.</div>
+                        <div class="policy-content-panel" style="padding: 0 15px; max-height: 0px; overflow: hidden;">All virtual assets deploy instantly. Absolute chargebacks are blacklisted. Open a ticket on Discord for checkout claims.</div>
                     </div>
                 </div>
 
@@ -718,7 +703,7 @@
         let flagStaffEmailAddressIsRevokedBlacklisted = localStorage.getItem('db_kill_staff') === 'true';
         let publicApprovedSupportersLeaderboardArray = JSON.parse(localStorage.getItem('db_supporters')) || [];
 
-        // LOAD PERSISTED LIVE CONFIGURATION FROM LOCALSTORAGE PARSE NODES
+        // PERSISTED CONFIGURATION RESOLUTION LOOPS
         if(localStorage.getItem('live_cfg_brand')) document.getElementById('liveDOMTextServerBrandNameTitle').innerText = localStorage.getItem('live_cfg_brand');
         if(localStorage.getItem('live_cfg_sub')) document.getElementById('liveDOMTextServerBrandSubtitle').innerText = localStorage.getItem('live_cfg_sub');
         if(localStorage.getItem('live_cfg_motd')) document.getElementById('liveDOMTextServerMotdMessageDisplay').innerText = localStorage.getItem('live_cfg_motd');
@@ -731,7 +716,7 @@
             setTimeout(() => { const icon = document.getElementById('themeStatusWidgetIconElement'); if(icon) icon.className = "fa-solid fa-moon"; }, 100);
         }
 
-        // FIXED CRITICAL WINDOW INTERACTION HANDLERS BINDINGS
+        // GLOBAL MODAL COMPONENT CONTROLLERS
         function openSystemModalWindow(id) {
             document.getElementById(id).style.display = 'flex';
             if(id === 'checkoutSystemProcessingModalWindow') { buildModalCheckoutItemsRowsUIDOM(); }
@@ -1002,6 +987,7 @@
             evaluateFloatingCartWidgetUIStateFeedback();
         }
 
+        // CONTROL QUANTITY LOGIC PIPELINE
         function alterCartItemQuantityValue(targetIndexLocation, mathematicalModifierValue) {
             memoryAllocationCartStack[targetIndexLocation].quantity += mathematicalModifierValue;
             if (memoryAllocationCartStack[targetIndexLocation].quantity <= 0) { memoryAllocationCartStack.splice(targetIndexLocation, 1); }
