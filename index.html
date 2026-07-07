@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CylestialMC Network | Definitive Webstore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        :root {
+            --bg-deep: #02040a;
+            --bg-surface: rgba(10, 15, 30, 0.75);
+            --bg-surface-solid: #0b0f19;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #a855f7;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --color-gold: #fbbf24;
+            --color-success: #10b981;
+            --color-danger: #ef4444;
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --neon-glow: 0 0 25px rgba(6, 182, 212, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .cyber-grid-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -3;
+            background: radial-gradient(circle at 50% 0%, #131034 0%, var(--bg-deep) 75%);
+            pointer-events: none; /* FIXED: Stops background from blocking mobile clicks */
+        }
+
+        .ambient-aurora-orbs {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .aurora-blur {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.25;
+            animation: cosmicDrift 30s infinite alternate ease-in-out;
+        }
+        .aurora-1 { width: 500px; height: 500px; background: var(--accent-cyan); top: -50px; left: -50px; }
+        .aurora-2 { width: 600px; height: 600px; background: var(--accent-purple); bottom: -150px; right: -50px; }
+
+        @keyframes cosmicDrift {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 30px) scale(1.1); }
+        }
+
+        #main_landing_view_tier {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .home-brand-cluster { margin-bottom: 40px; }
+        .home-brand-cluster h1 {
+            font-size: 3.5rem; font-weight: 900; letter-spacing: 4px;
+            background: linear-gradient(to right, #ffffff, var(--accent-cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .home-brand-cluster h1 span { color: var(--accent-cyan); text-shadow: var(--neon-glow); -webkit-text-fill-color: initial; }
+        .home-brand-cluster p { color: var(--text-secondary); text-transform: uppercase; letter-spacing: 4px; font-size: 0.9rem; }
+
+        .navigation-portal-btn {
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+            border: none; color: #fff; font-weight: 800; padding: 18px 45px; border-radius: 12px;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; font-size: 1.1rem;
+            box-shadow: var(--neon-glow); margin-bottom: 50px;
+            z-index: 20; position: relative;
+        }
+        .navigation-portal-btn:hover { transform: scale(1.04); }
+
+        .app-layout-root {
+            display: none;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+            position: relative;
+            z-index: 5;
+        }
+
+        aside {
+            background: rgba(7, 10, 19, 0.6);
+            border-right: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            padding: 40px 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: sticky; top: 0; height: 100vh; z-index: 100;
+        }
+
+        .aside-brand-cluster h1 {
+            font-size: 1.7rem; font-weight: 800; letter-spacing: 2px;
+            background: linear-gradient(to right, #ffffff, var(--accent-cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer;
+        }
+        .aside-brand-cluster p { font-size: 0.72rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1.5px; margin-top: 4px; }
+
+        .navigation-menu-list { list-style: none; margin-top: 40px; flex-grow: 1; }
+        .nav-item-btn {
+            display: flex; align-items: center; gap: 15px; width: 100%;
+            padding: 14px 20px; background: transparent; border: 1px solid transparent;
+            color: var(--text-secondary); font-size: 0.95rem; font-weight: 600;
+            border-radius: 10px; cursor: pointer; margin-bottom: 8px;
+        }
+        .nav-item-btn.active { color: var(--accent-cyan); border-color: var(--accent-cyan); background: rgba(6, 182, 212, 0.04); }
+
+        .secure-gate-trigger-container { border-top: 1px solid var(--glass-border); padding-top: 25px; display: flex; flex-direction: column; gap: 10px; }
+        .admin-action-gate-btn {
+            width: 100%; padding: 12px; background: rgba(6, 182, 212, 0.03);
+            border: 1px solid rgba(6, 182, 212, 0.15); color: var(--accent-cyan);
+            font-weight: 700; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+
+        /* --- MOBILE HEADER/DOCK ELEMENTS --- */
+        .mobile-header-bar {
+            display: none; background: #070a13; border-bottom: 1px solid var(--glass-border);
+            padding: 15px 20px; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 200;
+        }
+        .mobile-header-bar h2 span { color: var(--accent-cyan); }
+
+        .mobile-navigation-dock-bar {
+            display: none; position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(7, 10, 19, 0.95); border-top: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px); z-index: 500; padding: 10px 10px calc(env(safe-area-inset-bottom) + 10px) 10px;
+            justify-content: space-around; align-items: center;
+        }
+        .mobile-dock-node-btn {
+            background: transparent; border: none; color: var(--text-secondary);
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            font-size: 0.72rem; font-weight: 600; cursor: pointer; flex: 1;
+        }
+        .mobile-dock-node-btn.active { color: var(--accent-cyan); }
+
+        .primary-viewport-pane { padding: 40px; overflow-y: auto; max-height: 100vh; }
+        .gateway-network-hub { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-bottom: 35px; width: 100%; max-width: 1100px; }
+        
+        .network-node-card {
+            background: var(--bg-surface); border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px); border-radius: 12px; padding: 22px; display: flex; align-items: center; gap: 18px;
+        }
+        .network-node-card .icon-shield { width: 48px; height: 48px; border-radius: 12px; background: rgba(6, 182, 212, 0.08); display: flex; align-items: center; justify-content: center; color: var(--accent-cyan); font-size: 1.3rem; }
+
+        .catalog-display-view-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; margin-bottom: 60px; }
+        .cyber-product-card {
+            background: var(--bg-surface); border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px); border-radius: 16px; padding: 25px;
+            display: flex; flex-direction: column; justify-content: space-between; position: relative;
+        }
+        .cyber-product-card h3 { font-size: 1.5rem; color: #fff; }
+        .cyber-product-card .price-metric-display { font-size: 2.2rem; font-weight: 800; color: #fff; margin: 15px 0; }
+        .cyber-product-card ul { list-style: none; margin-bottom: 25px; }
+        .cyber-product-card ul li { margin-bottom: 10px; color: var(--text-secondary); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+        .cyber-product-card ul li i { color: var(--color-success); }
+
+        .terminal-interaction-btn {
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+            border: none; color: #fff; font-weight: 700; padding: 14px; border-radius: 10px;
+            cursor: pointer; width: 100%; text-transform: uppercase; font-size: 0.85rem;
+        }
+
+        .floating-action-basket-pill {
+            position: fixed; bottom: 35px; right: 40px;
+            background: rgba(11, 15, 25, 0.95); border: 1px solid var(--accent-cyan);
+            box-shadow: var(--neon-glow); padding: 15px 30px; border-radius: 100px;
+            display: none; align-items: center; gap: 25px; z-index: 400; backdrop-filter: blur(20px);
+        }
+
+        .window-blur-overlay-mask {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 4, 10, 0.85); backdrop-filter: blur(12px);
+            z-index: 1000; display: none; justify-content: center; align-items: center; padding: 15px;
+        }
+        .glass-modal-container-block {
+            background: rgba(11, 15, 25, 0.98); border: 1px solid rgba(255,255,255,0.08);
+            width: 100%; max-width: 650px; border-radius: 20px; padding: 35px;
+            position: relative; max-height: 85vh; overflow-y: auto;
+        }
+        .window-close-trigger-node { position: absolute; top: 22px; right: 22px; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); }
+
+        .form-structural-group { margin-bottom: 20px; }
+        .form-structural-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.82rem; color: var(--accent-cyan); text-transform: uppercase; }
+        .form-structural-group input, .form-structural-group select {
+            width: 100%; padding: 14px; background: rgba(2, 4, 10, 0.6);
+            border: 1px solid rgba(255,255,255,0.08); color: #fff; font-size: 0.95rem; border-radius: 10px; outline: none;
+        }
+
+        .basket-item-list-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .payment-channel-selector-matrix { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+        .payment-channel-node-card { background: rgba(2, 4, 10, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 15px 10px; text-align: center; cursor: pointer; }
+        .payment-channel-node-card.active-selection { border-color: var(--accent-cyan); background: rgba(6, 182, 212, 0.06); box-shadow: var(--neon-glow); }
+        .payment-execution-content-panel { background: rgba(2, 4, 10, 0.5); border-radius: 10px; padding: 20px; margin-bottom: 20px; display: none; }
+
+        .admin-analytics-dashboard-matrix { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 25px; }
+        .analytics-widget-card { background: rgba(2, 4, 10, 0.5); padding: 15px; border-radius: 12px; border-bottom: 2px solid var(--accent-purple); }
+        .admin-data-table-element { width: 100%; border-collapse: collapse; text-align: left; margin-top: 15px; font-size: 0.88rem; }
+        .admin-data-table-element th, .admin-data-table-element td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+
+        .operational-action-trigger-btn { border: none; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; color: #fff; display: inline-flex; align-items: center; justify-content: center; margin: 2px; }
+        .trigger-btn-approve { background: var(--color-success); }
+        .trigger-btn-deny { background: var(--color-danger); }
+        .trigger-btn-forward { background: var(--accent-purple); width: auto; padding: 0 15px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; height: 32px; }
+        
+        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
+        .status-pending { background: rgba(251, 191, 36, 0.1); color: var(--color-gold); }
+        .status-forwarded { background: rgba(168, 85, 247, 0.1); color: var(--accent-purple); }
+
+        .owner-control-section-block { margin-top: 35px; border-top: 1px dashed rgba(168, 85, 247, 0.3); padding-top: 25px; }
+
+        @media (max-width: 1024px) {
+            .app-layout-root { grid-template-columns: 1fr; }
+            aside { display: none !important; }
+            .mobile-header-bar { display: none; }
+            .mobile-navigation-dock-bar { display: none; }
+            .primary-viewport-pane { padding: 25px 20px 100px 20px; }
+            .floating-action-basket-pill { bottom: 85px; right: 20px; left: 20px; border-radius: 14px; justify-content: space-between; padding: 12px 20px; }
+            .admin-analytics-dashboard-matrix { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .app-layout-root.shop-active ~ .mobile-header-bar { display: flex; }
+            .app-layout-root.shop-active ~ .mobile-navigation-dock-bar { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cyber-grid-canvas"></div>
+    <div class="ambient-aurora-orbs">
+        <div class="aurora-blur aurora-1"></div>
+        <div class="aurora-blur aurora-2"></div>
+    </div>
+
+    <!-- MAIN PLATFORM LANDING SPLASH -->
+    <div id="main_landing_view_tier">
+        <div class="home-brand-cluster">
+            <h1>CYLESTIAL<span>MC</span></h1>
+            <p>Official Server Network Hub</p>
+        </div>
+
+        <button class="navigation-portal-btn" onclick="navigateToViewTier('shop')">
+            <i class="fa-solid fa-shopping-bag" style="margin-right: 10px;"></i> Enter Network Webstore
+        </button>
+
+        <div class="gateway-network-hub">
+            <div class="network-node-card">
+                <div class="icon-shield"><i class="fa-solid fa-terminal"></i></div>
+                <div class="node-meta"><h6>Java Network Address</h6><p>play.cylestialmc.fun:19001</p></div>
+            </div>
+            <div class="network-node-card">
+                <div class="icon-shield"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                <div class="node-meta"><h6>Bedrock Connection IP</h6><p>play.cylestialmc.fun</p></div>
+            </div>
+            <div class="network-node-card">
+                <div class="icon-shield"><i class="fa-solid fa-circle-nodes"></i></div>
+                <div class="node-meta"><h6>Bedrock Gateway Port</h6><p>19012</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMMERCE NODE -->
+    <div class="mobile-header-bar" id="shopMobileHeaderBar">
+        <h2 onclick="navigateToViewTier('home')" style="cursor: pointer;">CYLESTIAL<span>MC</span></h2>
+        <button class="admin-action-gate-btn" style="padding: 8px 14px; font-size:0.78rem; width: auto;" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')">
+            <i class="fa-solid fa-shield-halved"></i> Terminal
+        </button>
+    </div>
+
+    <div class="mobile-navigation-dock-bar" id="shopMobileDockBar">
+        <button class="mobile-dock-node-btn active" id="m_nav_ranks" onclick="executeViewPaneTabSwitch('ranks_catalog_section')"><i class="fa-solid fa-crown"></i> Ranks</button>
+        <button class="mobile-dock-node-btn" id="m_nav_keys" onclick="executeViewPaneTabSwitch('keys_catalog_section')"><i class="fa-solid fa-key"></i> Keys</button>
+        <button class="mobile-dock-node-btn" id="m_nav_coins" onclick="executeViewPaneTabSwitch('coins_catalog_section')"><i class="fa-solid fa-coins"></i> Coins</button>
+        <button class="mobile-dock-node-btn" style="color: var(--color-danger)" onclick="navigateToViewTier('home')"><i class="fa-solid fa-arrow-left"></i> Hub</button>
+    </div>
+
+    <div class="app-layout-root" id="shop_layout_root_tier">
+        <aside>
+            <div>
+                <div class="aside-brand-cluster" onclick="navigateToViewTier('home')">
+                    <h1>CYLESTIAL<span>MC</span></h1>
+                    <p>Network Commerce Node</p>
+                </div>
+                
+                <ul class="navigation-menu-list">
+                    <li><button class="nav-item-btn active" id="d_nav_ranks" onclick="executeViewPaneTabSwitch('ranks_catalog_section')"><i class="fa-solid fa-crown"></i> Rank Upgrades</button></li>
+                    <li><button class="nav-item-btn" id="d_nav_keys" onclick="executeViewPaneTabSwitch('keys_catalog_section')"><i class="fa-solid fa-key"></i> Crate Keys</button></li>
+                    <li><button class="nav-item-btn" id="d_nav_coins" onclick="executeViewPaneTabSwitch('coins_catalog_section')"><i class="fa-solid fa-coins"></i> Coin Shop</button></li>
+                </ul>
+            </div>
+
+            <div class="secure-gate-trigger-container">
+                <button class="admin-action-gate-btn" style="background: rgba(239,68,68,0.02); color: var(--color-danger); border-color: rgba(239,68,68,0.15);" onclick="navigateToViewTier('home')"><i class="fa-solid fa-arrow-left"></i> Return to Hub</button>
+                <button class="admin-action-gate-btn" id="desktopConsoleTriggerBtn" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')"><i class="fa-solid fa-shield-halved"></i> Terminal Access</button>
+            </div>
+        </aside>
+
+        <main class="primary-viewport-pane">
+            <div class="ticker-broadcast-shoutout" id="clientPublicGlobalBroadcastBanner"></div>
+
+            <!-- RANKS -->
+            <div id="ranks_catalog_section" class="catalog-display-view-grid" style="display: grid;">
+                <div class="cyber-product-card">
+                    <div>
+                        <h3>KNIGHT</h3>
+                        <div class="price-metric-display" data-base-price="199">₹199</div>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> Entry Tier Kit Allocation</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Chat Prefix Modifiers</li>
+                        </ul>
+                    </div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('KNIGHT Rank Upgrade', 199)">Add Token</button>
+                </div>
+                <div class="cyber-product-card">
+                    <div>
+                        <h3>LORD</h3>
+                        <div class="price-metric-display" data-base-price="399">₹399</div>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> Lord Tier Kit Configuration</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Priority Server slots Queue</li>
+                        </ul>
+                    </div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('LORD Rank Upgrade', 399)">Add Token</button>
+                </div>
+                <div class="cyber-product-card">
+                    <div>
+                        <h3>PALADIN</h3>
+                        <div class="price-metric-display" data-base-price="599">₹599</div>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> Paladin Tier Kit Access</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Flight in Lobbies</li>
+                        </ul>
+                    </div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('PALADIN Rank Upgrade', 599)">Add Token</button>
+                </div>
+                <div class="cyber-product-card">
+                    <div>
+                        <h3>DUKE</h3>
+                        <div class="price-metric-display" data-base-price="799">₹799</div>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> Duke Visual Particle Trails</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Nickname System Permissions</li>
+                        </ul>
+                    </div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('DUKE Rank Upgrade', 799)">Add Token</button>
+                </div>
+                <div class="cyber-product-card">
+                    <div>
+                        <h3>KING</h3>
+                        <div class="price-metric-display" data-base-price="999">₹999</div>
+                        <ul>
+                            <li><i class="fa-solid fa-bolt" style="color:var(--color-gold)"></i> Max Perks Override</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Priority Support</li>
+                        </ul>
+                    </div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('KING Rank Upgrade', 999)">Add Token</button>
+                </div>
+            </div>
+
+            <!-- KEYS -->
+            <div id="keys_catalog_section" class="catalog-display-view-grid" style="display: none;">
+                <div class="cyber-product-card">
+                    <div>
+                        <h3>VOTE KEY</h3>
+                        <div class="price-metric-display" data-base-price="10">₹10</div>
+                        <ul><li><i class="fa-solid fa-box-open"></i> Server voting reward drop</li></ul>
+                    </div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Vote Crate Key Drop', 10)">Add Token</button>
+                </div>
+                <div class="cyber-product-card">
+                    <div>
+                        <h3>COMMON KEY</h3>
+                        <div class="price-metric-display" data-base-price="20">₹20</div>
+                        <ul><li><i class="fa-solid fa-box-open"></i> Resource bundle drops</li></ul>
+                    </div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Common Crate Key Drop', 20)">Add Token</button>
+                </div>
+                <div class="cyber-product-card">
+                    <div>
+                        <h3>RARE KEY</h3>
+                        <div class="price-metric-display" data-base-price="30">₹30</div>
+                        <ul><li><i class="fa-solid fa-box-open"></i> Enhanced tool asset drops</li></ul>
+                    </div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Rare Crate Key Drop', 30)">Add Token</button>
+                </div>
+            </div>
+
+            <!-- COINS -->
+            <div id="coins_catalog_section" class="catalog-display-view-grid" style="display: none;">
+                <div class="cyber-product-card">
+                    <div>
+                        <h3>STARTER PACK</h3>
+                        <div class="price-metric-display" data-base-price="100">₹100</div>
+                        <ul><li><i class="fa-solid fa-coins"></i> 75 In-game Coins</li></ul>
+                    </div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Starter)', 100)">Add Token</button>
+                </div>
+                <div class="cyber-product-card">
+                    <div>
+                        <h3>ADVANCED PACK</h3>
+                        <div class="price-metric-display" data-base-price="200">₹200</div>
+                        <ul><li><i class="fa-solid fa-coins"></i> 125 In-game Coins</li></ul>
+                    </div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Advanced)', 200)">Add Token</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="floating-action-basket-pill" id="globalPrimaryCartFloatingWidget">
+        <div><i class="fa-solid fa-cube" style="color:var(--accent-cyan);"></i> <span id="cartWidgetDisplayItemsUnitsCountText" style="font-weight:800; color:#fff; margin-left:6px;">0</span> Items</div>
+        <button class="terminal-interaction-btn" style="padding: 10px 20px; font-size: 0.8rem; width:auto;" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')">Checkout</button>
+    </div>
+
+    <!-- MODAL PIPELINE -->
+    <div id="checkoutSystemProcessingModalWindow" class="window-blur-overlay-mask">
+        <div class="glass-modal-container-block">
+            <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')"></i>
+            <h2 style="margin-bottom: 25px; border-bottom: 1px solid var(--glass-border); padding-bottom: 14px; font-weight:800;"><i class="fa-solid fa-microchip" style="color:var(--accent-cyan)"></i> Order Pipeline</h2>
+            
+            <div id="modalStageWrapperStep1">
+                <div id="modalCartItemsRowsOutputContainer"></div>
+                <div style="margin: 25px 0; text-align: right; font-size: 1.4rem; font-weight: 800; color: #ffffff;">
+                    Total: <span id="checkoutGrandTotalCostOutputText" style="color:var(--accent-cyan)">₹0</span>
+                </div>
+                <div class="form-structural-group">
+                    <label>Minecraft Username</label>
+                    <input type="text" id="formFieldMinecraftUsernameInput" placeholder="Exact player name" required>
+                </div>
+                <div class="form-structural-group">
+                    <label>Contact Email</label>
+                    <input type="email" id="formFieldCustomerEmailInput" placeholder="username@gmail.com" required>
+                </div>
+                <div class="form-structural-group">
+                    <label>Currency</label>
+                    <select id="formFieldGeographicCurrencySelector" onchange="recalculateStorefrontExchangePricesMatrix()">
+                        <option value="INR" data-symbol="₹" data-ratio="1">India (INR - ₹)</option>
+                        <option value="USD" data-symbol="$" data-ratio="0.012">United States (USD - $)</option>
+                    </select>
+                </div>
+                <button class="terminal-interaction-btn" onclick="advanceCheckoutModalToPaymentMatrix()">Establish Pipelines</button>
+            </div>
+
+            <div id="modalStageWrapperStep2" style="display: none;">
+                <label class="form-structural-group" style="color:var(--accent-cyan); font-weight:700;">Select Billing Option</label>
+                <div class="payment-channel-selector-matrix">
+                    <div class="payment-channel-node-card active-selection" id="paymentTabUPI" onclick="toggleTargetedPaymentSubPane('UPI')"><i class="fa-solid fa-qrcode"></i> UPI</div>
+                    <div class="payment-channel-node-card" id="paymentTabPAYPAL" onclick="toggleTargetedPaymentSubPane('PAYPAL')"><i class="fa-brands fa-paypal"></i> PayPal</div>
+                </div>
+
+                <div class="payment-execution-content-panel" id="paneVaultUPI" style="display: block;">
+                    <p style="margin-bottom: 10px; font-size: 0.85rem; color: var(--text-secondary);">UPI ID Routing Address:</p>
+                    <p style="font-family:monospace; font-size: 1.2rem; text-align: center; background: #02040a; padding: 12px; border-radius: 8px; color: #fff; font-weight:700;">9515411111@fam</p>
+                </div>
+
+                <div class="payment-execution-content-panel" id="paneVaultPAYPAL">
+                    <p style="font-weight: 700; color: #fff; font-size: 1.05rem; font-family:monospace;">cylestialmc.gmail.com</p>
+                </div>
+
+                <div class="form-structural-group" style="background: rgba(139, 92, 246, 0.04); padding: 20px; border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.15); margin-top: 20px;">
+                    <label style="color:var(--accent-purple);"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Receipt Screenshot</label>
+                    <input type="file" id="formFieldReceiptScreenshotUploadSelector">
+                </div>
+
+                <button class="terminal-interaction-btn" style="background: var(--color-success); color:#02040a; margin-top: 15px;" onclick="pushOrderRecordDataObjectsToQueue()">Submit Ledger</button>
+            </div>
+
+            <div id="modalStageWrapperStep3" style="display: none; text-align: center; padding: 30px 0;">
+                <i class="fa-solid fa-shield-heart" style="font-size: 3.5rem; color: var(--color-success); margin-bottom: 20px;"></i>
+                <h3>ORDER QUEUED SECURELY</h3>
+                <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">CLAIM STUFF BY CREATING A TICKET ON DISCORD</p>
+                <button class="terminal-interaction-btn" style="margin-top: 25px; width: auto; padding: 12px 40px;" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')">Return To Store</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TERMINAL CONTROL WORKSPACE -->
+    <div id="administrationWorkspaceSecureAccessModal" class="window-blur-overlay-mask">
+        <div class="glass-modal-container-block" style="max-width: 780px;">
+            <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('administrationWorkspaceSecureAccessModal')"></i>
+            
+            <div id="terminalInternalLockAuthorizationPane">
+                <h2 style="margin-bottom: 25px; color: var(--accent-cyan); font-weight:800;"><i class="fa-solid fa-key"></i> Decrypt Session Console</h2>
+                <div class="form-structural-group">
+                    <label>Identity Full Name</label>
+                    <input type="text" id="fieldSecurityAdminFullLegalName" placeholder="Auditor name" required>
+                </div>
+                <div class="form-structural-group">
+                    <label>Registered Email</label>
+                    <input type="email" id="fieldSecurityAdminEmailIdentifier" placeholder="name@domain.com" required>
+                </div>
+                <div class="form-structural-group">
+                    <label>Cryptographic Password Token</label>
+                    <input type="password" id="fieldSecurityAdminPasswordKeyphrase" placeholder="••••••••••••" required>
+                </div>
+                <button class="terminal-interaction-btn" onclick="runTerminalSecurityAuthorizationSequence()">Decrypt Operations Console</button>
+                <div id="terminalHandshakeAuthenticationFailureFeedbackAlert" style="background:rgba(239,68,68,0.08); border:1px solid var(--color-danger); padding:15px; border-radius:10px; color: var(--color-danger); margin-top: 20px; display: none;">Authorization failure. Contact server administration root.</div>
+            </div>
+
+            <div id="terminalInternalActiveDashboardWorkspacePane" style="display: none;">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); margin-bottom: 25px; padding-bottom:14px;">
+                    <h3>Console Identity: <span id="terminalLiveGreetingAdminName" style="color:var(--accent-cyan)">User</span></h3>
+                    <button class="terminal-interaction-btn" style="width:auto; padding: 8px 18px; background:var(--color-danger);" onclick="killTerminalSecureAuthorizationSession()">Logout</button>
+                </div>
+
+                <div class="admin-analytics-dashboard-matrix">
+                    <div class="analytics-widget-card" style="border-color:var(--accent-cyan)"><h6>Queued</h6><h2 id="metricWidgetDisplayQueuedTotalCount">0</h2></div>
+                    <div class="analytics-widget-card" style="border-color:var(--color-success)"><h6>Approved</h6><h2 id="metricWidgetDisplayApprovedTotalCount">0</h2></div>
+                    <div class="analytics-widget-card" style="border-color:var(--accent-purple)"><h6>Live Traffic</h6><h2 id="metricWidgetDisplayActiveSessionsCount">5</h2></div>
+                    <div class="analytics-widget-card" style="border-color:var(--color-gold)"><h6>Auth Logs</h6><h2 id="metricWidgetDisplayTotalAuthLogsCount">1</h2></div>
+                </div>
+
+                <h4 style="margin-bottom: 12px; font-weight:700; color: var(--text-secondary);">Processing Queue Ledger</h4>
+                <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px;"><table class="admin-data-table-element"><thead><tr><th>Player</th><th>Payload</th><th>Cost</th><th>Status</th><th style="text-align:center;">Actions</th></tr></thead><tbody id="terminalDashboardInteractiveDataRegisterTableBody"></tbody></table></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() { emailjs.init("NVnA_39yMMVx_TZyj"); })();
+        let memoryAllocationCartStack = []; let systemExchangeBaseCurrencySymbol = "₹"; let systemExchangeConversionRatioMetric = 1; let coreDatabaseTransactionsRegisterQueueArray = []; let counterMetricApprovedTransactionsTotalSumValue = 0;
+        let adminIdentityAuthAuditTrailsRegistry = [ { id: 101, name: "System Initialization Core", email: "kernel@cylestialmc.fun", role: "Owner", time: new Date().toLocaleTimeString() } ];
+
+        function navigateToViewTier(targetPageKeyID) {
+            const landingViewTier = document.getElementById('main_landing_view_tier'); const shopViewTier = document.getElementById('shop_layout_root_tier'); const mobileHeader = document.getElementById('shopMobileHeaderBar'); const mobileDock = document.getElementById('shopMobileDockBar');
+            if (targetPageKeyID === 'home') { shopViewTier.style.display = 'none'; shopViewTier.classList.remove('shop-active'); mobileHeader.style.display = 'none'; mobileDock.style.display = 'none'; landingViewTier.style.display = 'flex'; } 
+            else if (targetPageKeyID === 'shop') { landingViewTier.style.display = 'none'; shopViewTier.style.display = 'grid'; shopViewTier.classList.add('shop-active'); mobileHeader.style.display = 'flex'; mobileDock.style.display = 'flex'; executeViewPaneTabSwitch('ranks_catalog_section'); }
+        }
+
+        function executeViewPaneTabSwitch(targetDisplaySectionContainerElementID) {
+            document.querySelectorAll('.catalog-display-view-grid').forEach(section => section.style.display = 'none'); document.querySelectorAll('.nav-item-btn, .mobile-dock-node-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(targetDisplaySectionContainerElementID).style.display = 'grid'; const suffixKey = targetDisplaySectionContainerElementID.replace('_catalog_section', '');
+            const dBtn = document.getElementById(`d_nav_${suffixKey}`); const mBtn = document.getElementById(`m_nav_${suffixKey}`); if (dBtn) dBtn.classList.add('active'); if (mBtn) mBtn.classList.add('active');
+        }
+
+        function openSystemModalWindow(targetModalBoxElementID) { document.getElementById(targetModalBoxElementID).style.display = 'flex'; if (targetModalBoxElementID === 'checkoutSystemProcessingModalWindow') { document.getElementById('modalStageWrapperStep1').style.display = 'block'; document.getElementById('modalStageWrapperStep2').style.display = 'none'; document.getElementById('modalStageWrapperStep3').style.display = 'none'; buildModalCheckoutItemsRowsUIDOM(); } }
+        function closeSystemModalWindow(targetModalBoxElementID) { document.getElementById(targetModalBoxElementID).style.display = 'none'; }
+        
+        function injectProductRecordToCartStack(productLabelName, rawPriceIntegerMetric) { memoryAllocationCartStack.push({ name: productLabelName, basePrice: rawPriceIntegerMetric }); evaluateFloatingCartWidgetUIStateFeedback(); }
+        function removeProductRecordItemIndexFromCartStack(targetItemArrayIndexLocation) { memoryAllocationCartStack.splice(targetItemArrayIndexLocation, 1); evaluateFloatingCartWidgetUIStateFeedback(); buildModalCheckoutItemsRowsUIDOM(); }
+
+        function evaluateFloatingCartWidgetUIStateFeedback() {
+            const widgetFrameElement = document.getElementById('globalPrimaryCartFloatingWidget'); const counterTextValueElement = document.getElementById('cartWidgetDisplayItemsUnitsCountText');
+            if (memoryAllocationCartStack.length > 0) { widgetFrameElement.style.display = 'flex'; counterTextValueElement.innerText = memoryAllocationCartStack.length; } else { widgetFrameElement.style.display = 'none'; }
+        }
+
+        function buildModalCheckoutItemsRowsUIDOM() {
+            const targetRowsDisplayContainer = document.getElementById('modalCartItemsRowsOutputContainer'); const totalCostSumTextElement = document.getElementById('checkoutGrandTotalCostOutputText'); targetRowsDisplayContainer.innerHTML = '';
+            let computedFinancialValueAccumulatorSum = 0; memoryAllocationCartStack.forEach((item, index) => { let scaledDynamicCurrencyCost = (item.basePrice * systemExchangeConversionRatioMetric).toFixed(2); computedFinancialValueAccumulatorSum += parseFloat(scaledDynamicCurrencyCost); let dynamicItemRowNode = document.createElement('div'); dynamicItemRowNode.className = 'basket-item-list-row'; dynamicItemRowNode.innerHTML = `<span><strong>${item.name}</strong></span><span>${systemExchangeBaseCurrencySymbol}${scaledDynamicCurrencyCost} <i class="fa-solid fa-circle-minus" style="color:var(--color-danger);margin-left:14px;" onclick="removeProductRecordItemIndexFromCartStack(${index})"></i></span>`; targetRowsDisplayContainer.appendChild(dynamicItemRowNode); });
+            totalCostSumTextElement.innerText = `${systemExchangeBaseCurrencySymbol}${computedFinancialValueAccumulatorSum.toFixed(2)}`;
+        }
+
+        function recalculateStorefrontExchangePricesMatrix() { const exchangeSelectMenuNode = document.getElementById('formFieldGeographicCurrencySelector'); const activePickedOptionNode = exchangeSelectMenuNode.options[exchangeSelectMenuNode.selectedIndex]; systemExchangeConversionRatioMetric = parseFloat(activePickedOptionNode.getAttribute('data-ratio')); systemExchangeBaseCurrencySymbol = activePickedOptionNode.getAttribute('data-symbol'); buildModalCheckoutItemsRowsUIDOM(); }
+        function advanceCheckoutModalToPaymentMatrix() { const inputFieldUsernameTextContext = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); const inputFieldEmailTextContext = document.getElementById('formFieldCustomerEmailInput').value.trim(); if (!inputFieldUsernameTextContext || !inputFieldEmailTextContext) { alert('Fill all details.'); return; } document.getElementById('modalStageWrapperStep1').style.display = 'none'; document.getElementById('modalStageWrapperStep2').style.display = 'block'; }
+
+        function toggleTargetedPaymentSubPane(selectedGatewayKeyNameValue) {
+            document.querySelectorAll('.payment-channel-node-card').forEach(card => card.classList.remove('active-selection')); document.querySelectorAll('.payment-execution-content-panel').forEach(pane => pane.style.display = 'none');
+            if (selectedGatewayKeyNameValue === 'UPI') { document.getElementById('paymentTabUPI').classList.add('active-selection'); document.getElementById('paneVaultUPI').style.display = 'block'; } else if (selectedGatewayKeyNameValue === 'PAYPAL') { document.getElementById('paymentTabPAYPAL').classList.add('active-selection'); document.getElementById('paneVaultPAYPAL').style.display = 'block'; }
+        }
+
+        function pushOrderRecordDataObjectsToQueue() {
+            const contextUsernameTarget = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); const contextCustomerEmailTarget = document.getElementById('formFieldCustomerEmailInput').value.trim();
+            let accumulatedBaseCostAggregateValue = 0; let combinedProductDescriptionString = memoryAllocationCartStack.map(obj => obj.name).join(', '); memoryAllocationCartStack.forEach(product => { accumulatedBaseCostAggregateValue += product.basePrice; });
+            coreDatabaseTransactionsRegisterQueueArray.push({ uniqueTimestampID: Date.now(), usernameProfileKey: contextUsernameTarget, itemsBlockPayloadSummary: combinedProductDescriptionString, costAggregateFormattedString: `₹${accumulatedBaseCostAggregateValue}`, customerEmail: contextCustomerEmailTarget, isForwarded: false });
+            memoryAllocationCartStack = []; evaluateFloatingCartWidgetUIStateFeedback();
+            document.getElementById('modalStageWrapperStep2').style.display = 'none'; document.getElementById('modalStageWrapperStep3').style.display = 'block'; renderTerminalDashboardInteractiveTableQueueEngine();
+        }
+
+        function runTerminalSecurityAuthorizationSequence() {
+            const emailField = document.getElementById('fieldSecurityAdminEmailIdentifier').value.trim(); const passField = document.getElementById('fieldSecurityAdminPasswordKeyphrase').value;
+            if (emailField === 'rishit27.3.2008@gmail.com' && passField === 'Rishit@270308') { transitionUIToAuthenticatedDashboardState(); } else { document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'block'; }
+        }
+
+        function killTerminalSecureAuthorizationSession() { document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'none'; document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'block'; }
+        function transitionUIToAuthenticatedDashboardState() { document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'none'; document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'block'; renderTerminalDashboardInteractiveTableQueueEngine(); }
+        
+        function renderTerminalDashboardInteractiveTableQueueEngine() {
+            const targetTableBodyDOMNode = document.getElementById('terminalDashboardInteractiveDataRegisterTableBody'); targetTableBodyDOMNode.innerHTML = '';
+            document.getElementById('metricWidgetDisplayQueuedTotalCount').innerText = coreDatabaseTransactionsRegisterQueueArray.length;
+            if (coreDatabaseTransactionsRegisterQueueArray.length === 0) { targetTableBodyDOMNode.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px 0;">Queue is empty.</td></tr>'; return; }
+            coreDatabaseTransactionsRegisterQueueArray.forEach(logRecordObject => {
+                let tr = document.createElement('tr'); tr.innerHTML = `<td><strong>${logRecordObject.usernameProfileKey}</strong></td><td>${logRecordObject.itemsBlockPayloadSummary}</td><td><span style="color:var(--accent-cyan);font-weight:700;">${logRecordObject.costAggregateFormattedString}</span></td><td><span class="status-badge status-pending">Pending</span></td><td style="text-align:center;"><button class="operational-action-trigger-btn trigger-btn-approve" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID})"><i class="fa-solid fa-check"></i></button></td>`; targetTableBodyDOMNode.appendChild(tr);
+            });
+        }
+
+        function evaluateQueuedOrderLogTransactionRecord(id) { const i = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === id); if (i !== -1) { coreDatabaseTransactionsRegisterQueueArray.splice(i, 1); counterMetricApprovedTransactionsTotalSumValue++; renderTerminalDashboardInteractiveTableQueueEngine(); alert('Order Processed Successfully!'); } }
+    </script>
+</body>
+</html>
