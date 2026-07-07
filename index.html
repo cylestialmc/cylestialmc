@@ -5,6 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CylestialMC Network | Definitive Webstore</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --bg-deep: #02040a; --accent-cyan: #06b6d4; --accent-purple: #a855f7; --text-primary: #f3f4f6; }
+        body { background-color: var(--bg-deep); color: var(--text-primary); margin: 0; font-family: sans-serif; }
+        
+        .banner-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; background: linear-gradient(to bottom, rgba(2, 4, 10, 0.85), rgba(2, 4, 10, 0.95)), url('banner.png'); background-size: cover; background-position: center; }
+        .logo-centerpiece { width: 300px; margin-bottom: 20px; animation: float 3s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        
+        .main-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; text-align: center; }
+        
+        /* Updated Buttons */
+        .btn-container { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        .action-btn { background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); color: white; padding: 20px 50px; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; text-transform: uppercase; font-size: 1.2rem; transition: transform 0.2s; }
+        .discord-btn { background: #5865f2; color: white; padding: 20px 50px; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; text-transform: uppercase; font-size: 1.2rem; text-decoration: none; }
+        .action-btn:hover, .discord-btn:hover { transform: scale(1.05); }
+        
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; }
+        .modal-content { background: #0b0f19; padding: 30px; border-radius: 15px; width: 90%; max-width: 500px; color: white; }
+        input { width: 100%; padding: 12px; margin: 10px 0; background: #1a1f2b; border: 1px solid #333; color: white; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <div class="banner-background"></div>
+
+    <div class="main-container" id="home">
+        <img src="logo.png" class="logo-centerpiece" alt="CylestialMC Logo">
+        <h1>CYLESTIAL MC</h1>
+        <p>OFFICIAL NETWORK STORE</p>
+        
+        <div class="btn-container">
+            <button class="action-btn" onclick="showShop()">Enter Webstore</button>
+            <a href="https://discord.gg/Tg5duznkX" class="discord-btn" target="_blank">Join Discord</a>
+        </div>
+    </div>
+
+    <!-- [SHOP AND MODAL SECTIONS REMAIN THE SAME AS PREVIOUS] -->
+    <div class="main-container" id="shop" style="display:none;">
+        <h2>Store Catalog</h2>
+        <div style="background:#1a1f2b; padding:20px; border-radius:10px; margin-top:20px;">
+            <h3>KING RANK</h3>
+            <button class="action-btn" style="padding:10px 20px; font-size:1rem;" onclick="openCheckout()">Buy Now</button>
+        </div>
+        <br>
+        <button onclick="location.reload()" style="background:none; border:none; color:white; cursor:pointer;">Back to Home</button>
+    </div>
+
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <h3>Checkout</h3>
+            <input type="text" id="mcUser" placeholder="Minecraft Username">
+            <input type="text" id="txnId" placeholder="Transaction Reference ID">
+            <button class="action-btn" style="padding:10px 20px; font-size:1rem; width:100%;" onclick="submitOrder()">Submit Order</button>
+            <button onclick="closeCheckout()" style="background:none; border:none; color:red; cursor:pointer; margin-top:10px;">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        function showShop() { document.getElementById('home').style.display = 'none'; document.getElementById('shop').style.display = 'flex'; }
+        function openCheckout() { document.getElementById('checkoutModal').style.display = 'flex'; }
+        function closeCheckout() { document.getElementById('checkoutModal').style.display = 'none'; }
+        function submitOrder() { alert("Order Submitted! Please wait for staff verification."); closeCheckout(); }
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CylestialMC Network | Definitive Webstore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         :root {
