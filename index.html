@@ -233,9 +233,11 @@
         .operational-action-trigger-btn { border: none; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; color: #fff; display: inline-flex; align-items: center; justify-content: center; margin: 2px; }
         .trigger-btn-approve { background: var(--color-success); }
         .trigger-btn-deny { background: var(--color-danger); }
+        .trigger-btn-forward { background: var(--accent-purple); width: auto; padding: 0 15px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; height: 32px; }
         
         .status-badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
-        .status-pending { background: rgba(251, 191, 36, 0.1); color: var(--color-gold); }
+        .status-pending { background: rgba(251, 191, 36, 0.1); color: var(--color-gold); border: 1px solid rgba(251, 191, 36, 0.2); }
+        .status-forwarded { background: rgba(168, 85, 247, 0.1); color: var(--accent-purple); border: 1px solid rgba(168, 85, 247, 0.2); }
 
         .owner-control-section-block { margin-top: 35px; border-top: 1px dashed rgba(168, 85, 247, 0.3); padding-top: 25px; }
 
@@ -433,7 +435,7 @@
         </main>
     </div>
 
-    <!-- CART PIN -->
+    <!-- CART BAR PILL -->
     <div class="floating-action-basket-pill" id="globalPrimaryCartFloatingWidget">
         <div><i class="fa-solid fa-cube" style="color:var(--accent-cyan);"></i> <span id="cartWidgetDisplayItemsUnitsCountText" style="font-weight:800; color:#fff; margin-left:6px;">0</span> Items</div>
         <button class="terminal-interaction-btn" style="padding: 10px 20px; font-size: 0.8rem; width:auto;" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')">Checkout</button>
@@ -501,7 +503,7 @@
         </div>
     </div>
 
-    <!-- TERMINAL WORKSPACE -->
+    <!-- TERMINAL CONTROL STATION -->
     <div id="administrationWorkspaceSecureAccessModal" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block" style="max-width: 780px;">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('administrationWorkspaceSecureAccessModal')"></i>
@@ -526,8 +528,8 @@
 
             <!-- DASHBOARD WORKSPACE -->
             <div id="terminalInternalActiveDashboardWorkspacePane" style="display: none;">
-                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); margin-bottom: 25px; padding-bottom:14px;">
-                    <h3>Console Identity: <span id="terminalLiveGreetingAdminName" style="color:var(--accent-cyan)">User</span> (<span id="terminalLiveGreetingAdminRole" style="font-size:0.85rem; font-weight:700;">Role</span>)</h3>
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); margin-bottom: 25px; padding-bottom:14px; gap: 15px; flex-wrap: wrap;">
+                    <h3>Console Identity: <span id="terminalLiveGreetingAdminName" style="color:var(--accent-cyan)">User</span> (<span id="terminalLiveGreetingAdminRole" style="font-size:0.85rem; font-weight:700; text-transform:uppercase;">Role</span>)</h3>
                     <button class="terminal-interaction-btn" style="width:auto; padding: 8px 18px; background:var(--color-danger);" onclick="killTerminalSecureAuthorizationSession()">Logout</button>
                 </div>
 
@@ -614,7 +616,8 @@
                 itemsBlockPayloadSummary: combinedProductDescriptionString, 
                 costAggregateFormattedString: `₹${accumulatedBaseCostAggregateValue}`, 
                 costFormattedWithSymbol: finalDisplayPriceWithSymbol,
-                customerEmail: contextCustomerEmailTarget 
+                customerEmail: contextCustomerEmailTarget,
+                isForwarded: false
             });
             memoryAllocationCartStack = []; evaluateFloatingCartWidgetUIStateFeedback();
             document.getElementById('modalStageWrapperStep2').style.display = 'none'; document.getElementById('modalStageWrapperStep3').style.display = 'block'; renderTerminalDashboardInteractiveTableQueueEngine();
@@ -647,16 +650,60 @@
         
         function renderTerminalDashboardInteractiveTableQueueEngine() {
             const targetTableBodyDOMNode = document.getElementById('terminalDashboardInteractiveDataRegisterTableBody'); targetTableBodyDOMNode.innerHTML = '';
+            const currentRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff';
+            
             document.getElementById('metricWidgetDisplayQueuedTotalCount').innerText = coreDatabaseTransactionsRegisterQueueArray.length;
             document.getElementById('metricWidgetDisplayApprovedTotalCount').innerText = counterMetricApprovedTransactionsTotalSumValue;
             document.getElementById('metricWidgetDisplayTotalAuthLogsCount').innerText = adminIdentityAuthAuditTrailsRegistry.length;
+            
             if (coreDatabaseTransactionsRegisterQueueArray.length === 0) { targetTableBodyDOMNode.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px 0;">Queue is empty.</td></tr>'; return; }
+            
             coreDatabaseTransactionsRegisterQueueArray.forEach(logRecordObject => {
-                let tr = document.createElement('tr'); tr.innerHTML = `<td><strong>${logRecordObject.usernameProfileKey}</strong></td><td>${logRecordObject.itemsBlockPayloadSummary}</td><td><span style="color:var(--accent-cyan);font-weight:700;">${logRecordObject.costAggregateFormattedString}</span></td><td><span class="status-badge status-pending">Pending</span></td><td style="text-align:center;"><button class="operational-action-trigger-btn trigger-btn-approve" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, true)"><i class="fa-solid fa-check"></i></button><button class="operational-action-trigger-btn trigger-btn-deny" style="margin-left:6px;" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, false)"><i class="fa-solid fa-xmark"></i></button></td>`; targetTableBodyDOMNode.appendChild(tr);
+                let tr = document.createElement('tr');
+                let statusMarkup = logRecordObject.isForwarded ? '<span class="status-badge status-forwarded">Forwarded</span>' : '<span class="status-badge status-pending">Pending</span>';
+                
+                let actionsMarkup = '';
+                if (currentRole === 'Owner') {
+                    actionsMarkup = `<button class="operational-action-trigger-btn trigger-btn-approve" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, true)"><i class="fa-solid fa-check"></i></button><button class="operational-action-trigger-btn trigger-btn-deny" style="margin-left:6px;" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, false)"><i class="fa-solid fa-xmark"></i></button>`;
+                } else {
+                    actionsMarkup = logRecordObject.isForwarded ? 
+                        '<span style="font-size:0.8rem;color:var(--text-secondary)">Awaiting Owner Review</span>' : 
+                        `<button class="operational-action-trigger-btn trigger-btn-forward" onclick="staffForwardOrderLogToOwner(${logRecordObject.uniqueTimestampID})">Forward to Owner</button>`;
+                }
+                
+                tr.innerHTML = `<td><strong>${logRecordObject.usernameProfileKey}</strong></td><td>${logRecordObject.itemsBlockPayloadSummary}</td><td><span style="color:var(--accent-cyan);font-weight:700;">${logRecordObject.costAggregateFormattedString}</span></td><td>${statusMarkup}</td><td style="text-align:center;min-width:130px;">${actionsMarkup}</td>`;
+                targetTableBodyDOMNode.appendChild(tr);
             });
         }
 
-        // CONNECTED MAILING RECEPTACLE ROUTE
+        // STAFF FORWARD PIPELINE ENGINE WITH AUTOMATED GMAIL ALERTS
+        function staffForwardOrderLogToOwner(targetUniqueTimestampID) {
+            const index = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === targetUniqueTimestampID);
+            if (index === -1) return;
+            
+            const record = coreDatabaseTransactionsRegisterQueueArray[index];
+            record.isForwarded = true;
+            
+            // Dispatch a notification directly to the Master Registry Email
+            const staffNotifierName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'Staff Auditor';
+            const alertTemplatePayload = {
+                buyer_email: "cylestialmc@gmail.com", 
+                customer_name: "Owner Master Core",
+                purchased_items: `ALERT: Action Ingested by ${staffNotifierName}. Player [ ${record.usernameProfileKey} ] is waiting for purchase authorization validation ledger parameters.`,
+                total_amount: record.costAggregateFormattedString,
+                thank_you_message: "PENDING APPROVAL ADVISEMENT: Please decrypt your workstation shell terminal console layout immediately to authorize this request transaction.",
+                transaction_id: "PENDING-FWD-" + Math.floor(Math.random() * 9000 + 1000)
+            };
+            
+            emailjs.send('service_7fd9vjg', 'template_4fsh2l5', alertTemplatePayload)
+                .then(() => console.log("Admin registration dispatch matrix updated successfully."))
+                .catch((err) => console.error("Notification loop exception context: ", err));
+                
+            renderTerminalDashboardInteractiveTableQueueEngine();
+            alert('Order successfully locked and forwarded! Master notification email transmitted to cylestialmc@gmail.com.');
+        }
+
+        // OWNER FINAL DECISION HANDLER
         function evaluateQueuedOrderLogTransactionRecord(id, approve) { 
             const i = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === id); 
             if (i !== -1) { 
@@ -667,7 +714,6 @@
                     banner.innerHTML = `<i class="fa-solid fa-satellite-dish" style="color:var(--color-success)"></i> <span>Shoutout to <strong>${record.usernameProfileKey}</strong> for getting [<strong>${record.itemsBlockPayloadSummary}</strong>]!</span>`; 
                     banner.style.display = 'flex';
                     
-                    // FIXED: Executing EmailJS directly into payload runtime to stop structural freeze drops
                     const emailPayload = { 
                         buyer_email: record.customerEmail, 
                         customer_name: record.usernameProfileKey, 
@@ -677,12 +723,12 @@
                         transaction_id: "TXN-" + Math.floor(Math.random() * 900000 + 100000) 
                     };
                     emailjs.send('service_7fd9vjg', 'template_4fsh2l5', emailPayload)
-                        .then(() => console.log("Mailing pipeline resolved safely."))
-                        .catch((err) => console.error("Mailing failure metrics context: ", err));
+                        .then(() => console.log("Customer receipt loop cleared."))
+                        .catch((err) => console.error("Customer receipt exception context: ", err));
                 }
                 coreDatabaseTransactionsRegisterQueueArray.splice(i, 1); 
                 renderTerminalDashboardInteractiveTableQueueEngine(); 
-                alert(approve ? 'Order Approved & Email Notification Dispatched!' : 'Order Denied/Deleted cleanly.'); 
+                alert(approve ? 'Order Approved & Buyer Receipt Dispatched!' : 'Order Denied and removed from queue loop.'); 
             } 
         }
 
