@@ -383,7 +383,7 @@
                 </div>
             </div>
 
-            <!-- KEYS CATALOG (RESTORED ALL ASSETS) -->
+            <!-- KEYS CATALOG -->
             <div id="keys_catalog_section" class="catalog-display-view-grid" style="display: none;">
                 <div class="cyber-product-card">
                     <div><h3>VOTE KEY</h3><div class="price-metric-display" data-base-price="10">₹10</div><ul><li><i class="fa-solid fa-box-open"></i> Server voting reward drop</li></ul></div>
@@ -407,7 +407,7 @@
                 </div>
             </div>
 
-            <!-- COINS CATALOG (RESTORED ALL ASSETS) -->
+            <!-- COINS CATALOG -->
             <div id="coins_catalog_section" class="catalog-display-view-grid" style="display: none;">
                 <div class="cyber-product-card">
                     <div><h3>STARTER PACK</h3><div class="price-metric-display" data-base-price="100">₹100</div><ul><li><i class="fa-solid fa-coins"></i> 75 In-game Coins</li></ul></div>
@@ -433,13 +433,13 @@
         </main>
     </div>
 
-    <!-- CART FLIP PILL -->
+    <!-- CART PIN -->
     <div class="floating-action-basket-pill" id="globalPrimaryCartFloatingWidget">
         <div><i class="fa-solid fa-cube" style="color:var(--accent-cyan);"></i> <span id="cartWidgetDisplayItemsUnitsCountText" style="font-weight:800; color:#fff; margin-left:6px;">0</span> Items</div>
         <button class="terminal-interaction-btn" style="padding: 10px 20px; font-size: 0.8rem; width:auto;" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')">Checkout</button>
     </div>
 
-    <!-- ORDERS MODAL -->
+    <!-- PIPELINE MODAL -->
     <div id="checkoutSystemProcessingModalWindow" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')"></i>
@@ -501,7 +501,7 @@
         </div>
     </div>
 
-    <!-- TERMINAL CONTROL CONTROL CENTER -->
+    <!-- TERMINAL WORKSPACE -->
     <div id="administrationWorkspaceSecureAccessModal" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block" style="max-width: 780px;">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('administrationWorkspaceSecureAccessModal')"></i>
@@ -524,7 +524,7 @@
                 <div id="terminalHandshakeAuthenticationFailureFeedbackAlert" style="background:rgba(239,68,68,0.08); border:1px solid var(--color-danger); padding:15px; border-radius:10px; color: var(--color-danger); margin-top: 20px; display: none;">Authorization failure. Account unknown or blocked.</div>
             </div>
 
-            <!-- DASHBOARD WORKSPACE (RESTORED COMPLETE FUNCTIONS) -->
+            <!-- DASHBOARD WORKSPACE -->
             <div id="terminalInternalActiveDashboardWorkspacePane" style="display: none;">
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); margin-bottom: 25px; padding-bottom:14px;">
                     <h3>Console Identity: <span id="terminalLiveGreetingAdminName" style="color:var(--accent-cyan)">User</span> (<span id="terminalLiveGreetingAdminRole" style="font-size:0.85rem; font-weight:700;">Role</span>)</h3>
@@ -546,7 +546,7 @@
                     </table>
                 </div>
 
-                <!-- OWNER LEVEL CONSOLE PANEL (RESTORED TERMINATION LOGIC) -->
+                <!-- OWNER PANEL -->
                 <div class="owner-control-section-block" id="ownerPrivilegedExclusiveOperationsDashboard" style="display: none;">
                     <h3 style="color: var(--accent-purple); font-weight:800; margin-bottom: 15px;"><i class="fa-solid fa-crown"></i> Owner Control Console</h3>
                     <h4 style="margin-bottom: 10px; font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase;">Active Sessions Logs</h4>
@@ -606,7 +606,16 @@
         function pushOrderRecordDataObjectsToQueue() {
             const contextUsernameTarget = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); const contextCustomerEmailTarget = document.getElementById('formFieldCustomerEmailInput').value.trim();
             let accumulatedBaseCostAggregateValue = 0; let combinedProductDescriptionString = memoryAllocationCartStack.map(obj => obj.name).join(', '); memoryAllocationCartStack.forEach(product => { accumulatedBaseCostAggregateValue += product.basePrice; });
-            coreDatabaseTransactionsRegisterQueueArray.push({ uniqueTimestampID: Date.now(), usernameProfileKey: contextUsernameTarget, itemsBlockPayloadSummary: combinedProductDescriptionString, costAggregateFormattedString: `₹${accumulatedBaseCostAggregateValue}`, customerEmail: contextCustomerEmailTarget });
+            const finalDisplayPriceWithSymbol = `${systemExchangeBaseCurrencySymbol}${(accumulatedBaseCostAggregateValue * systemExchangeConversionRatioMetric).toFixed(2)}`;
+            
+            coreDatabaseTransactionsRegisterQueueArray.push({ 
+                uniqueTimestampID: Date.now(), 
+                usernameProfileKey: contextUsernameTarget, 
+                itemsBlockPayloadSummary: combinedProductDescriptionString, 
+                costAggregateFormattedString: `₹${accumulatedBaseCostAggregateValue}`, 
+                costFormattedWithSymbol: finalDisplayPriceWithSymbol,
+                customerEmail: contextCustomerEmailTarget 
+            });
             memoryAllocationCartStack = []; evaluateFloatingCartWidgetUIStateFeedback();
             document.getElementById('modalStageWrapperStep2').style.display = 'none'; document.getElementById('modalStageWrapperStep3').style.display = 'block'; renderTerminalDashboardInteractiveTableQueueEngine();
         }
@@ -647,13 +656,33 @@
             });
         }
 
+        // CONNECTED MAILING RECEPTACLE ROUTE
         function evaluateQueuedOrderLogTransactionRecord(id, approve) { 
             const i = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === id); 
             if (i !== -1) { 
+                const record = coreDatabaseTransactionsRegisterQueueArray[i];
+                if (approve) {
+                    counterMetricApprovedTransactionsTotalSumValue++; 
+                    const banner = document.getElementById('clientPublicGlobalBroadcastBanner'); 
+                    banner.innerHTML = `<i class="fa-solid fa-satellite-dish" style="color:var(--color-success)"></i> <span>Shoutout to <strong>${record.usernameProfileKey}</strong> for getting [<strong>${record.itemsBlockPayloadSummary}</strong>]!</span>`; 
+                    banner.style.display = 'flex';
+                    
+                    // FIXED: Executing EmailJS directly into payload runtime to stop structural freeze drops
+                    const emailPayload = { 
+                        buyer_email: record.customerEmail, 
+                        customer_name: record.usernameProfileKey, 
+                        purchased_items: record.itemsBlockPayloadSummary, 
+                        total_amount: record.costFormattedWithSymbol, 
+                        thank_you_message: "Your parameters have been fully upgraded! Create a ticket on Discord to complete extraction.", 
+                        transaction_id: "TXN-" + Math.floor(Math.random() * 900000 + 100000) 
+                    };
+                    emailjs.send('service_7fd9vjg', 'template_4fsh2l5', emailPayload)
+                        .then(() => console.log("Mailing pipeline resolved safely."))
+                        .catch((err) => console.error("Mailing failure metrics context: ", err));
+                }
                 coreDatabaseTransactionsRegisterQueueArray.splice(i, 1); 
-                if (approve) counterMetricApprovedTransactionsTotalSumValue++; 
                 renderTerminalDashboardInteractiveTableQueueEngine(); 
-                alert(approve ? 'Order Approved Successfully!' : 'Order Denied/Deleted Successfully!'); 
+                alert(approve ? 'Order Approved & Email Notification Dispatched!' : 'Order Denied/Deleted cleanly.'); 
             } 
         }
 
@@ -670,7 +699,8 @@
             if (i !== -1) {
                 adminIdentityAuthAuditTrailsRegistry.splice(i, 1);
                 renderOwnerSessionsLogs();
-                alert('Session Terminated Successfully!');
+                renderTerminalDashboardInteractiveTableQueueEngine();
+                alert('Session Terminated and Privileges Invalidated.');
             }
         }
     </script>
