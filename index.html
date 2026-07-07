@@ -47,16 +47,14 @@
             min-height: 100vh;
         }
 
-        .cyber-grid-canvas {
+        .banner-background-canvas-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -3;
-            background: radial-gradient(circle at 50% 0%, #131034 0%, var(--bg-deep) 75%);
+            background: linear-gradient(to bottom, rgba(2, 4, 10, 0.85) 0%, rgba(2, 4, 10, 0.95) 100%), url('banner.png');
+            background-size: cover;
+            background-position: center;
             pointer-events: none;
-        }
-
-        body.theme-obsidian .cyber-grid-canvas {
-            background: radial-gradient(circle at 50% 0%, #1e293b 0%, var(--bg-deep) 75%);
         }
 
         .ambient-aurora-orbs {
@@ -71,7 +69,7 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(100px);
-            opacity: 0.25;
+            opacity: 0.15;
         }
         .aurora-1 { width: 500px; height: 500px; background: var(--accent-cyan); top: -50px; left: -50px; }
         .aurora-2 { width: 600px; height: 600px; background: var(--accent-purple); bottom: -150px; right: -50px; }
@@ -88,27 +86,53 @@
             z-index: 10;
         }
 
-        .home-brand-cluster { margin-bottom: 30px; }
+        .server-brand-logo-centerpiece {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.3));
+            animation: floatingLogo 4s ease-in-out infinite;
+        }
+        @keyframes floatingLogo {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .home-brand-cluster { margin-bottom: 25px; }
         .home-brand-cluster h1 {
             font-size: 3.5rem; font-weight: 900; letter-spacing: 4px;
             background: linear-gradient(to right, #ffffff, var(--accent-cyan));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
-        .home-brand-cluster h1 span { color: var(--accent-cyan); text-shadow: var(--neon-glow); -webkit-text-fill-color: initial; }
         .home-brand-cluster p { color: var(--text-secondary); text-transform: uppercase; letter-spacing: 4px; font-size: 0.9rem; }
 
-        .navigation-portal-btn {
-            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
-            border: none; color: #fff; font-weight: 800; padding: 18px 45px; border-radius: 12px;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; font-size: 1.1rem;
-            box-shadow: var(--neon-glow); margin-bottom: 40px;
+        /* LIVE MOTD STATUS STRIP */
+        .live-server-motd-pulse-strip {
+            background: rgba(16, 185, 129, 0.04); border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 8px 20px; border-radius: 100px; font-family: monospace; font-size: 0.82rem;
+            color: var(--color-success); margin-bottom: 30px; display: inline-flex; align-items: center; gap: 8px;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.05); cursor: pointer;
         }
+        .live-server-motd-pulse-strip span.dot { width: 8px; height: 8px; background: var(--color-success); border-radius: 50%; display: inline-block; animation: blinkStatus 1.5s infinite; }
+        @keyframes blinkStatus { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-        /* NEW ADDITION: SERVER SUPPORTERS PUBLIC RECOGNITION WALL */
+        .landing-portal-action-button-matrix { display: flex; align-items: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; justify-content: center; }
+
+        /* PREMIUM GLOWING DISCORD LINK PILL BUTTONS */
+        .discord-redirect-integration-btn {
+            background: rgba(88, 101, 242, 0.1); border: 1px solid rgba(88, 101, 242, 0.4);
+            color: #fff; font-weight: 800; padding: 18px 35px; border-radius: 12px;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; font-size: 1.1rem;
+            display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+        }
+        .discord-redirect-integration-btn:hover { background: #5865f2; box-shadow: 0 0 25px rgba(88, 101, 242, 0.5); }
+
         .supporters-history-panel-container {
             width: 100%; max-width: 800px; background: var(--bg-surface); border: 1px solid var(--glass-border);
-            backdrop-filter: blur(16px); border-radius: 20px; padding: 25px; margin-top: 45px; text-align: left;
+            backdrop-filter: blur(16px); border-radius: 20px; padding: 25px; margin-top: 20px; text-align: left;
             box-shadow: inset 0 0 20px rgba(255,255,255,0.01);
         }
         .supporters-history-panel-container h3 { font-size: 1.25rem; font-weight: 800; letter-spacing: 2px; color: var(--color-gold); text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
@@ -117,6 +141,12 @@
         .supporter-profile-meta { display: flex; align-items: center; gap: 12px; }
         .supporter-profile-meta img { width: 32px; height: 32px; border-radius: 4px; background: #000; }
         .supporter-payload-title { font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px; }
+
+        /* ADVANCED LEADERBOARD RANK LEVEL BADGES */
+        .supporter-tier-level-badge { font-size: 0.68rem; font-weight: 900; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; margin-left: 8px; display: inline-block; vertical-align: middle; }
+        .badge-vanguard { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); box-shadow: 0 0 10px rgba(168, 85, 247, 0.2); }
+        .badge-mythic { background: rgba(6, 182, 212, 0.15); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3); }
+        .badge-hero { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
 
         .app-layout-root {
             display: none;
@@ -127,7 +157,7 @@
         }
 
         aside {
-            background: rgba(7, 10, 19, 0.6);
+            background: rgba(7, 10, 19, 0.8);
             border-right: 1px solid var(--glass-border);
             backdrop-filter: blur(20px);
             padding: 40px 25px;
@@ -137,14 +167,12 @@
             position: sticky; top: 0; height: 100vh; z-index: 100;
         }
 
-        .aside-brand-cluster h1 {
-            font-size: 1.7rem; font-weight: 800; letter-spacing: 2px;
-            background: linear-gradient(to right, #ffffff, var(--accent-cyan));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer;
-        }
-        .aside-brand-cluster p { font-size: 0.72rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1.5px; margin-top: 4px; }
+        .aside-brand-cluster { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .aside-brand-cluster img { width: 42px; height: 42px; object-fit: contain; filter: drop-shadow(0 0 8px var(--accent-cyan)); }
+        .aside-brand-cluster h1 { font-size: 1.4rem; font-weight: 800; letter-spacing: 1px; background: linear-gradient(to right, #ffffff, var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .aside-brand-cluster p { font-size: 0.68rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1px; margin-top: 2px; }
 
-        .navigation-menu-list { list-style: none; margin-top: 30px; flex-grow: 1; }
+        .navigation-menu-list { list-style: none; margin-top: 25px; flex-grow: 1; }
         .nav-item-btn {
             display: flex; align-items: center; gap: 15px; width: 100%;
             padding: 14px 20px; background: transparent; border: 1px solid transparent;
@@ -157,7 +185,7 @@
         .theme-switch-frame-cluster span { font-size: 0.78rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; }
         .theme-toggle-node-action-btn { background: transparent; border: none; color: var(--accent-cyan); cursor: pointer; font-size: 1.05rem; }
 
-        .secure-gate-trigger-container { border-top: 1px solid var(--glass-border); padding-top: 25px; display: flex; flex-direction: column; gap: 10px; }
+        .secure-gate-trigger-container { border-top: 1px solid var(--glass-border); padding-top: 20px; display: flex; flex-direction: column; gap: 10px; }
         .admin-action-gate-btn {
             width: 100%; padding: 12px; background: rgba(6, 182, 212, 0.03);
             border: 1px solid rgba(6, 182, 212, 0.15); color: var(--accent-cyan);
@@ -199,12 +227,16 @@
             max-width: 1100px;
         }
 
-        .catalog-display-view-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; margin-bottom: 60px; }
+        /* PREMIUM DYNAMIC TRANSFORM INTERACTIVE HOVER CARDS WITH SHADOW LIFT BUILD */
+        .catalog-display-view-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; margin-bottom: 60px; transform-style: preserve-3d; perspective: 1000px; }
         .cyber-product-card {
             background: var(--bg-surface); border: 1px solid var(--glass-border);
             backdrop-filter: blur(16px); border-radius: 16px; padding: 25px;
             display: flex; flex-direction: column; justify-content: space-between; position: relative;
+            transform: translateZ(0px); transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease, box-shadow 0.3s ease;
         }
+        .cyber-product-card:hover { transform: translateY(-8px) scale(1.02); border-color: var(--accent-cyan); box-shadow: var(--neon-glow); }
+
         .cyber-product-card h3 { font-size: 1.5rem; color: #fff; font-weight: 700; }
         .cyber-product-card .price-metric-display { font-size: 2.2rem; font-weight: 800; color: #fff; margin: 15px 0; }
         .cyber-product-card ul { list-style: none; margin-bottom: 25px; }
@@ -311,22 +343,37 @@
 </head>
 <body>
 
-    <div class="cyber-grid-canvas"></div>
+    <div class="banner-background-canvas-overlay"></div>
     <div class="ambient-aurora-orbs">
         <div class="aurora-blur aurora-1"></div>
         <div class="aurora-blur aurora-2"></div>
     </div>
 
-    <!-- MAIN HUB SPLASH SCREEN -->
+    <!-- MAIN HUB SPLASH -->
     <div id="main_landing_view_tier">
+        <img src="logo.png" class="server-brand-logo-centerpiece" alt="CylestialMC Logo Centered">
+        
         <div class="home-brand-cluster">
             <h1>CYLESTIAL<span>MC</span></h1>
             <p>Official Server Network Hub</p>
         </div>
 
-        <button class="navigation-portal-btn" onclick="navigateToViewTier('shop')">
-            <i class="fa-solid fa-shopping-bag" style="margin-right: 10px;"></i> Enter Network Webstore
-        </button>
+        <!-- FEATURE 3 BIND: SIMULATED NETWORK Pulse STRIP -->
+        <div class="live-server-motd-pulse-strip" onclick="executeServerAddressCopyProtocolString()">
+            <span class="dot"></span>
+            <span>● 142 Players Online | ⚔️ SUMMER SEASON UPDATE IS LIVE (Tap to copy IP)</span>
+        </div>
+
+        <div class="landing-portal-action-button-matrix">
+            <button class="navigation-portal-btn" style="margin-bottom:0;" onclick="navigateToViewTier('shop')">
+                <i class="fa-solid fa-shopping-bag" style="margin-right: 10px;"></i> Enter Network Webstore
+            </button>
+            
+            <!-- EXCLUSIVE DISCORD REDIRECT EMBED -->
+            <a href="https://discord.gg/Tg5duznkX" target="_blank" class="discord-redirect-integration-btn">
+                <i class="fa-brands fa-discord"></i> Join Discord
+            </a>
+        </div>
 
         <div class="gateway-network-hub">
             <div class="network-node-card">
@@ -343,7 +390,6 @@
             </div>
         </div>
 
-        <!-- NEWLY INTEGRATED SERVER SUPPORTERS LEADERBOARD COMPONENT -->
         <div class="supporters-history-panel-container">
             <h3><i class="fa-solid fa-trophy"></i> Server Supporters</h3>
             <div class="supporters-scroller-stack" id="publicSupportersRecognitionScrollerStack">
@@ -352,7 +398,7 @@
         </div>
     </div>
 
-    <!-- COMMERCE VIEWPORT -->
+    <!-- COMMERCE PANEL -->
     <div class="mobile-header-bar" id="shopMobileHeaderBar">
         <h2 onclick="navigateToViewTier('home')" style="cursor: pointer;">CYLESTIAL<span>MC</span></h2>
         <button class="admin-action-gate-btn" style="padding: 8px 14px; font-size:0.78rem; width: auto;" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')">
@@ -371,8 +417,11 @@
         <aside>
             <div>
                 <div class="aside-brand-cluster" onclick="navigateToViewTier('home')">
-                    <h1>CYLESTIAL<span>MC</span></h1>
-                    <p>Network Commerce Node</p>
+                    <img src="logo.png" alt="Mini Branded Badge">
+                    <div>
+                        <h1>CYLESTIAL<span>MC</span></h1>
+                        <p>Webstore Engine</p>
+                    </div>
                 </div>
                 
                 <ul class="navigation-menu-list">
@@ -385,6 +434,11 @@
                     <span>Stealth Focus</span>
                     <button class="theme-toggle-node-action-btn" onclick="executeCoreUserThemeSwitchToggle()"><i class="fa-solid fa-circle-half-stroke" id="themeStatusWidgetIconElement"></i></button>
                 </div>
+                
+                <!-- NAVIGATION ATTACHED DISCORD BANNER LINK -->
+                <a href="https://discord.gg/Tg5duznkX" target="_blank" class="admin-action-gate-btn" style="margin-top: 15px; background: rgba(88,101,242,0.05); color: #7289da; border-color: rgba(88,101,242,0.2);">
+                    <i class="fa-brands fa-discord"></i> Discord Server
+                </a>
             </div>
 
             <div class="secure-gate-trigger-container">
@@ -401,7 +455,7 @@
 
             <div class="ticker-broadcast-shoutout" id="clientPublicGlobalBroadcastBanner"></div>
 
-            <!-- PRODUCT DISPLAY -->
+            <!-- PRODUCT DISPLAY MATRIX -->
             <div id="ranks_catalog_section" class="catalog-display-view-grid" style="display: grid;">
                 <div class="cyber-product-card">
                     <div><h3>KNIGHT</h3><div class="price-metric-display" id="price_knight" data-base-price="199">₹199</div><ul><li><i class="fa-solid fa-circle-check"></i> Entry Tier Kit Allocation</li></ul></div>
@@ -473,7 +527,7 @@
         </main>
     </div>
 
-    <!-- BASKET PILL -->
+    <!-- CART FLIP TRIGGER -->
     <div class="floating-action-basket-pill" id="globalPrimaryCartFloatingWidget">
         <div><i class="fa-solid fa-cube" style="color:var(--accent-cyan);"></i> <span id="cartWidgetDisplayItemsUnitsCountText" style="font-weight:800; color:#fff; margin-left:6px;">0</span> Items</div>
         <button class="terminal-interaction-btn" style="padding: 10px 20px; font-size: 0.8rem; width:auto;" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')">Checkout</button>
@@ -495,10 +549,10 @@
                     <input type="text" id="formFieldMinecraftUsernameInput" placeholder="Exact player name" oninput="runLiveAvatarSkinRenderingMatrix(this.value)" required>
                     
                     <div class="avatar-verification-flex-frame" id="checkoutPlayerAvatarVerificationShell">
-                        <img src="" id="checkoutPlayerAvatarTargetImageElement" alt="Profile Face Avatar">
+                        <img src="" id="checkoutPlayerAvatarTargetImageElement" alt="Profile Avatar Grid Face">
                         <div>
-                            <span style="font-size:0.82rem; font-weight:700; color:#fff; display:block;">Profile Logged</span>
-                            <span style="font-size:0.75rem; color:var(--text-secondary);">Skin verified from global database.</span>
+                            <span style="font-size:0.82rem; font-weight:700; color:#fff; display:block;">Profile Authenticated</span>
+                            <span style="font-size:0.75rem; color:var(--text-secondary);">Skin metadata verified.</span>
                         </div>
                     </div>
                 </div>
@@ -539,7 +593,7 @@
             </div>
 
             <div id="modalStageWrapperStep2" style="display: none;">
-                <label class="form-structural-group" style="color:var(--accent-cyan); font-weight:700;">Select Secure Billing Option</label>
+                <label class="form-structural-group" style="color:var(--accent-cyan); font-weight:700;">Select Secure Billing Network Option</label>
                 <div class="payment-channel-selector-matrix">
                     <div class="payment-channel-node-card active-selection" id="paymentTabUPI" onclick="toggleTargetedPaymentSubPane('UPI')"><i class="fa-solid fa-qrcode"></i> QR Deposit</div>
                     <div class="payment-channel-node-card" id="paymentTabPAYPAL" onclick="toggleTargetedPaymentSubPane('PAYPAL')"><i class="fa-brands fa-paypal"></i> PayPal</div>
@@ -571,22 +625,28 @@
                 <button class="terminal-interaction-btn" style="background: var(--color-success); color:#02040a; margin-top: 15px;" onclick="pushOrderRecordDataObjectsToQueue()">Submit Registration Ledger</button>
             </div>
 
+            <!-- SUCCESS PIPELINE WITH DIRECT DISCORD BUTTON ATTACHMENT -->
             <div id="modalStageWrapperStep3" style="display: none; text-align: center; padding: 30px 0;">
                 <i class="fa-solid fa-shield-heart" style="font-size: 3.5rem; color: var(--color-success); margin-bottom: 20px;"></i>
                 <h3>ORDER QUEUED SECURELY</h3>
-                <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">CLAIM STUFF BY CREATING A TICKET ON DISCORD</p>
-                <button class="terminal-interaction-btn" style="margin-top: 25px; width: auto; padding: 12px 40px;" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')">Return To Store</button>
+                <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px;">CLAIM YOUR ITEMS INSTANTLY BY CREATING A SUPPORT TICKET ON OUR DISCORD</p>
+                
+                <a href="https://discord.gg/Tg5duznkX" target="_blank" class="discord-redirect-integration-btn" style="padding: 12px 25px; font-size: 0.9rem; width: auto; margin-bottom: 25px;">
+                    <i class="fa-brands fa-discord"></i> Open Discord Ticket
+                </a>
+                
+                <button class="terminal-interaction-btn" style="margin-top: 10px; width: auto; padding: 12px 40px; display: block; margin: 0 auto;" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')">Return To Store</button>
             </div>
         </div>
     </div>
 
-    <!-- TERMINAL CONSOLE HUB -->
+    <!-- TERMINAL WORKSPACE SUITE -->
     <div id="administrationWorkspaceSecureAccessModal" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block" style="max-width: 780px;">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('administrationWorkspaceSecureAccessModal')"></i>
             
             <div id="terminalInternalLockAuthorizationPane">
-                <h2 style="margin-bottom: 25px; color: var(--accent-cyan); font-weight:800;"><i class="fa-solid fa-key"></i> Decrypt Session Console Center</h2>
+                <h2 style="margin-bottom: 25px; color: var(--accent-cyan); font-weight:800;"><i class="fa-solid fa-key"></i> Decrypt Session Console</h2>
                 <div class="form-structural-group">
                     <label>Identity Name</label>
                     <input type="text" id="fieldSecurityAdminFullLegalName" placeholder="Auditor name" required>
@@ -603,7 +663,7 @@
                 <div id="terminalHandshakeAuthenticationFailureFeedbackAlert" style="background:rgba(239,68,68,0.08); border:1px solid var(--color-danger); padding:15px; border-radius:10px; color: var(--color-danger); margin-top: 20px; display: none;">Authorization failure. Account unknown or blocked.</div>
             </div>
 
-            <!-- DASHBOARD WORKSPACE -->
+            <!-- WORKSPACE INTERFACE -->
             <div id="terminalInternalActiveDashboardWorkspacePane" style="display: none;">
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); margin-bottom: 25px; padding-bottom:14px; gap: 15px; flex-wrap: wrap;">
                     <h3>Console Identity: <span id="terminalLiveGreetingAdminName" style="color:var(--accent-cyan)">User</span> (<span id="terminalLiveGreetingAdminRole" style="font-size:0.85rem; font-weight:700; text-transform:uppercase;">Role</span>)</h3>
@@ -635,11 +695,15 @@
                     <div>[00:00:00] INITIALIZATION: Secured database kernel loaded safely.</div>
                 </div>
 
-                <!-- OWNER MONITOR PANEL -->
+                <!-- OWNER PANEL LAYER WITH DANGEROUS PURGE HANDLER INJECTED -->
                 <div class="owner-control-section-block" id="ownerPrivilegedExclusiveOperationsDashboard" style="display: none;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; flex-wrap:wrap; gap:10px;">
                         <h3 style="color: var(--accent-purple); font-weight:800;"><i class="fa-solid fa-crown"></i> Owner Absolute Audit Monitor</h3>
-                        <button class="terminal-interaction-btn" style="width:auto; padding:8px 16px; background:rgba(16, 185, 129, 0.1); border:1px solid var(--color-success); color:var(--color-success);" onclick="exportMasterDatabaseLedgerToExcelCsvFile()"><i class="fa-solid fa-file-csv"></i> Export Spreadsheet Ledger</button>
+                        
+                        <div style="display:flex; gap:10px;">
+                            <button class="terminal-interaction-btn" style="width:auto; padding:8px 16px; background:rgba(239,68,68,0.06); border:1px solid var(--color-danger); color:var(--color-danger);" onclick="executeOwnerMasterWipePurgeProtocol()"><i class="fa-solid fa-dumpster-fire"></i> Purge Database Cache</button>
+                            <button class="terminal-interaction-btn" style="width:auto; padding:8px 16px; background:rgba(16, 185, 129, 0.1); border:1px solid var(--color-success); color:var(--color-success);" onclick="exportMasterDatabaseLedgerToExcelCsvFile()"><i class="fa-solid fa-file-csv"></i> Export Spreadsheet Ledger</button>
+                        </div>
                     </div>
                     
                     <h4 style="margin-bottom: 10px; font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase;">Administrative Session Footprints Database</h4>
@@ -669,8 +733,6 @@
         let counterMetricApprovedTransactionsTotalSumValue = parseFloat(localStorage.getItem('db_rev')) || 0;
         let adminIdentityAuthAuditTrailsRegistry = JSON.parse(localStorage.getItem('db_sessions')) || [ { id: 101, name: "System Core", email: "kernel@cylestialmc.fun", role: "Owner", time: new Date().toLocaleTimeString(), status: "Active" } ];
         let flagStaffEmailAddressIsRevokedBlacklisted = localStorage.getItem('db_kill_staff') === 'true';
-        
-        // NEW PERSISTENT STORAGE BIND FOR THE SERVER SUPPORTERS HISTORY PAGE
         let publicApprovedSupportersLeaderboardArray = JSON.parse(localStorage.getItem('db_supporters')) || [];
 
         if(localStorage.getItem('db_theme') === 'obsidian') {
@@ -686,7 +748,7 @@
             localStorage.setItem('db_supporters', JSON.stringify(publicApprovedSupportersLeaderboardArray));
         }
 
-        // RENDERS THE SUPPORTERS SCORES STREAM DIRECTLY ON THE HOME LANDING BASE
+        // FEATURE 4 BUILD: COMPREHENSIVE RECOGNITION WALL WITH TIER RECON BADGES
         function renderPublicSupportersLeaderboardUIDOM() {
             const stack = document.getElementById('publicSupportersRecognitionScrollerStack'); if(!stack) return;
             if(publicApprovedSupportersLeaderboardArray.length === 0) {
@@ -694,15 +756,20 @@
                 return;
             }
             stack.innerHTML = '';
-            // Sort to display newest purchasers first
             let reversedSupporters = [...publicApprovedSupportersLeaderboardArray].reverse();
             reversedSupporters.forEach(user => {
+                // Evaluates price numerical scale factor to auto-determine visual badge levels
+                let rawNumericPrice = parseFloat(user.rawCost || 0);
+                let badgeMarkup = `<span class="supporter-tier-level-badge badge-hero">⚔️ Hero</span>`;
+                if(rawNumericPrice >= 500) { badgeMarkup = `<span class="supporter-tier-level-badge badge-vanguard">👑 Vanguard</span>`; }
+                else if(rawNumericPrice >= 200) { badgeMarkup = `<span class="supporter-tier-level-badge badge-mythic">💎 Mythic</span>`; }
+
                 let row = document.createElement('div'); row.className = 'supporter-history-node-row';
                 row.innerHTML = `
                     <div class="supporter-profile-meta">
                         <img src="https://minotar.net/avatar/${user.name}/32.png" alt="Supporter Head">
                         <div>
-                            <span style="font-weight:800; color:#fff; font-size:0.9rem;">${user.name}</span>
+                            <span style="font-weight:800; color:#fff; font-size:0.9rem;">${user.name}</span> ${badgeMarkup}
                             <div class="supporter-payload-title">${user.payload}</div>
                         </div>
                     </div>
@@ -715,15 +782,8 @@
             });
         }
 
-        document.addEventListener("DOMContentLoaded", () => { 
-            synchronizeOwnerEmailRevocationUIElementsState(); 
-            renderPublicSupportersLeaderboardUIDOM(); 
-        });
-
-        function appendAuditLogMessage(text) {
-            const box = document.getElementById('terminalLiveAuditLoggerOutputStackBox'); if(!box) return;
-            box.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${text}</div>`; box.scrollTop = box.scrollHeight;
-        }
+        document.addEventListener("DOMContentLoaded", () => { synchronizeOwnerEmailRevocationUIElementsState(); renderPublicSupportersLeaderboardUIDOM(); });
+        function appendAuditLogMessage(text) { const box = document.getElementById('terminalLiveAuditLoggerOutputStackBox'); if(!box) return; box.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${text}</div>`; box.scrollTop = box.scrollHeight; }
 
         function navigateToViewTier(targetPageKeyID) {
             const landingViewTier = document.getElementById('main_landing_view_tier'); const shopViewTier = document.getElementById('shop_layout_root_tier'); const mobileHeader = document.getElementById('shopMobileHeaderBar'); const mobileDock = document.getElementById('shopMobileDockBar');
@@ -743,6 +803,27 @@
                 document.body.classList.remove('theme-obsidian'); localStorage.setItem('db_theme', 'violet'); icon.className = "fa-solid fa-circle-half-stroke";
             } else {
                 document.body.classList.add('theme-obsidian'); localStorage.setItem('db_theme', 'obsidian'); icon.className = "fa-solid fa-moon";
+            }
+        }
+
+        // FEATURE 3 HOOK: MOTD TACTILE STRIP ADRESS RE-COPY TRIGGER
+        function executeServerAddressCopyProtocolString() {
+            navigator.clipboard.writeText("play.cylestialmc.fun");
+            alert("🎯 IP Address Copied: play.cylestialmc.fun\nJoin the server console queue now!");
+        }
+
+        // ADVANCED PRIVILEGED WIPE PROCTOL FOR OWNER ACCESS SHELL
+        function executeOwnerMasterWipePurgeProtocol() {
+            let confirmationPrompt = confirm("⚠️ CRITICAL ATTENTION REQUIRED:\nYou are initializing an absolute database core reset on CylestialMC storage footprints. This permanently deletes gross revenue statistics, pending ledger queues, and supporters logs.\n\nProceed with full master reset wipe?");
+            if(confirmationPrompt) {
+                localStorage.clear();
+                coreDatabaseTransactionsRegisterQueueArray = [];
+                counterMetricApprovedTransactionsTotalSumValue = 0;
+                adminIdentityAuthAuditTrailsRegistry = [ { id: 101, name: "System Core Reset", email: "kernel@cylestialmc.fun", role: "Owner", time: new Date().toLocaleTimeString(), status: "Active" } ];
+                publicApprovedSupportersLeaderboardArray = [];
+                syncLocalStorageDatabaseKernel();
+                alert("Database cache completely purged cleanly. Reloading session context parameters.");
+                window.location.reload();
             }
         }
 
@@ -797,30 +878,6 @@
             if(fileSelectorInputFieldElement.files.length > 0) { label.innerText = `Selected File: ${fileSelectorInputFieldElement.files[0].name}`; badge.style.display = 'inline-block'; } else { label.innerText = "Drag & drop or click to upload proof image"; badge.style.display = 'none'; }
         }
 
-        function parseInGameRconCommandString(playerName, productsPayloadSummaryText) {
-            let item = productsPayloadSummaryText.toLowerCase();
-            if(item.includes("knight")) return `lp user ${playerName} parent add knight`;
-            if(item.includes("lord")) return `lp user ${playerName} parent add lord`;
-            if(item.includes("paladin")) return `lp user ${playerName} parent add paladin`;
-            if(item.includes("duke")) return `lp user ${playerName} parent add duke`;
-            if(item.includes("king")) return `lp user ${playerName} parent add king`;
-            if(item.includes("vote")) return `crate give vote ${playerName} 1`;
-            if(item.includes("common")) return `crate give common ${playerName} 1`;
-            if(item.includes("rare")) return `crate give rare ${playerName} 1`;
-            if(item.includes("epic")) return `crate give epic ${playerName} 1`;
-            if(item.includes("superior")) return `crate give superior ${playerName} 1`;
-            if(item.includes("starter")) return `coins add ${playerName} 75`;
-            if(item.includes("advanced")) return `coins add ${playerName} 125`;
-            if(item.includes("elite")) return `coins add ${playerName} 200`;
-            if(item.includes("champion")) return `coins add ${playerName} 300`;
-            if(item.includes("mythic")) return `coins add ${playerName} 450`;
-            return `say Order verified for user: ${playerName}`;
-        }
-
-        function executeManualClipboardCommandCopyAction(textStr) {
-            navigator.clipboard.writeText(textStr); alert(`Copied Command: "${textStr}"\n\nPaste this directly into your private DiscordSRV console text box channel (ID: 1505201495317024818) to update your live Minecraft server!`);
-        }
-
         function filterLedgerQueueRowsInRealtime(searchTermContextValue) {
             const trs = document.querySelectorAll('#terminalDashboardInteractiveDataRegisterTableBody tr'); const match = searchTermContextValue.trim().toLowerCase();
             trs.forEach(row => { if(row.innerText.toLowerCase().includes(match)) { row.style.display = ''; } else { row.style.display = 'none'; } });
@@ -835,7 +892,7 @@
 
         function pushOrderRecordDataObjectsToQueue() {
             const contextUsernameTarget = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); const contextCustomerEmailTarget = document.getElementById('formFieldCustomerEmailInput').value.trim();
-            let accumulatedBaseCostAggregateValue = 0; let combinedProductDescriptionString = memoryAllocationCartStack.map(obj => obj.name).join(', '); memoryAllocationCartStack.forEach(product => { accumulatedBaseCostAggregateValue += product.basePrice; });
+            let accumulatedBaseCostAggregateValue = 0; let combinedProductDescriptionString = memoryAllocationCartStack.map(obj => `${obj.name} (x${obj.quantity})`).join(', '); memoryAllocationCartStack.forEach(product => { accumulatedBaseCostAggregateValue += (product.basePrice * product.quantity); });
             const finalDisplayPriceWithSymbol = `${systemExchangeBaseCurrencySymbol}${(accumulatedBaseCostAggregateValue * systemExchangeConversionRatioMetric).toFixed(2)}`;
             
             coreDatabaseTransactionsRegisterQueueArray.push({ uniqueTimestampID: Date.now(), usernameProfileKey: contextUsernameTarget, itemsBlockPayloadSummary: combinedProductDescriptionString, costAggregateFormattedString: `₹${accumulatedBaseCostAggregateValue}`, costRawValue: accumulatedBaseCostAggregateValue, costFormattedWithSymbol: finalDisplayPriceWithSymbol, customerEmail: contextCustomerEmailTarget, isForwarded: false });
@@ -856,6 +913,26 @@
         function transitionUIToAuthenticatedDashboardState() {
             document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'none'; document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'block'; const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'User'; const activeRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff'; document.getElementById('terminalLiveGreetingAdminName').innerText = activeName; document.getElementById('terminalLiveGreetingAdminRole').innerText = activeRole; const ownerPanel = document.getElementById('ownerPrivilegedExclusiveOperationsDashboard'); if (activeRole === 'Owner') { ownerPanel.style.display = 'block'; renderOwnerSessionsLogs(); } else { ownerPanel.style.display = 'none'; } renderTerminalDashboardInteractiveTableQueueEngine();
         }
+
+        function parseInGameRconCommandString(playerName, productsPayloadSummaryText) {
+            let item = productsPayloadSummaryText.toLowerCase();
+            if(item.includes("knight")) return `lp user ${playerName} parent add knight`;
+            if(item.includes("lord")) return `lp user ${playerName} parent add lord`;
+            if(item.includes("paladin")) return `lp user ${playerName} parent add paladin`;
+            if(item.includes("duke")) return `lp user ${playerName} parent add duke`;
+            if(item.includes("king")) return `lp user ${playerName} parent add king`;
+            if(item.includes("vote")) return `crate give vote ${playerName} 1`;
+            if(item.includes("common")) return `crate give common ${playerName} 1`;
+            if(item.includes("rare")) return `crate give rare ${playerName} 1`;
+            if(item.includes("epic")) return `crate give epic ${playerName} 1`;
+            if(item.includes("superior")) return `crate give superior ${playerName} 1`;
+            if(item.includes("starter")) return `coins add ${playerName} 75`;
+            if(item.includes("advanced")) return `coins add ${playerName} 125`;
+            if(item.includes("elite")) return `coins add ${playerName} 200`;
+            if(item.includes("champion")) return `coins add ${playerName} 300`;
+            if(item.includes("mythic")) return `coins add ${playerName} 450`;
+            return `say Order verified for user: ${playerName}`;
+        }
         
         function renderTerminalDashboardInteractiveTableQueueEngine() {
             const targetTableBodyDOMNode = document.getElementById('terminalDashboardInteractiveDataRegisterTableBody'); targetTableBodyDOMNode.innerHTML = ''; const currentRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff'; document.getElementById('metricWidgetDisplayQueuedTotalCount').innerText = coreDatabaseTransactionsRegisterQueueArray.length; document.getElementById('metricWidgetDisplayApprovedTotalCount').innerText = `₹${counterMetricApprovedTransactionsTotalSumValue.toFixed(2)}`; document.getElementById('metricWidgetDisplayTotalAuthLogsCount').innerText = adminIdentityAuthAuditTrailsRegistry.length;
@@ -870,7 +947,6 @@
             const index = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === targetUniqueTimestampID); if (index === -1) return; const record = coreDatabaseTransactionsRegisterQueueArray[index]; record.isForwarded = true; const staffNotifierName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'Staff Auditor'; appendAuditLogMessage(`STAFF: [ ${staffNotifierName} ] forwarded order ${targetUniqueTimestampID} to Owner.`); const alertTemplatePayload = { buyer_email: "cylestialmc@gmail.com", customer_name: "Owner Master Core", purchased_items: `ALERT: Action Ingested by ${staffNotifierName}. Player [ ${record.usernameProfileKey} ] is waiting for purchase parameters.`, total_amount: record.costAggregateFormattedString, thank_you_message: "PENDING APPROVAL REQUEST.", transaction_id: "PENDING-FWD-" + Math.floor(Math.random() * 9000 + 1000) }; emailjs.send('service_7fd9vjg', 'template_4fsh2l5', alertTemplatePayload).then(() => console.log("Alert sent.")).catch((err) => console.error(err)); syncLocalStorageDatabaseKernel(); renderTerminalDashboardInteractiveTableQueueEngine(); alert('Order forwarded to Owner workspace pipeline.');
         }
 
-        // STAGE HANDLER: FORWARDS BACKGROUND PAYLOAD AND SAVES COMPILATION TO PUBLIC LOGS
         function evaluateQueuedOrderLogTransactionRecord(id, approve) { 
             const i = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === id); 
             if (i !== -1) { 
@@ -879,11 +955,12 @@
                     counterMetricApprovedTransactionsTotalSumValue += record.costRawValue;
                     appendAuditLogMessage(`OWNER: Approved order for player ${record.usernameProfileKey} (${record.costFormattedWithSymbol}).`);
                     
-                    // NEW: Appends the successful metadata parameters right into the Persistent Leaderboard list array
+                    // PASSES THE INDEPENDENT BASE RAW COST FIELD VALUE TO CALCULATE RICH LEADERBOARD RANKS
                     publicApprovedSupportersLeaderboardArray.push({
                         name: record.usernameProfileKey,
                         payload: record.itemsBlockPayloadSummary,
-                        billing: record.costFormattedWithSymbol
+                        billing: record.costFormattedWithSymbol,
+                        rawCost: record.costRawValue
                     });
                     
                     const fomoTickerText = document.getElementById('fomoTickerContentMessageText'); fomoTickerText.innerHTML = `🔥 Recent Checkout: <strong>${record.usernameProfileKey}</strong> just unlocked [<strong>${record.itemsBlockPayloadSummary}</strong>]!`;
@@ -893,10 +970,10 @@
                     navigator.clipboard.writeText(generatedCommandString);
                     
                     const discordSecureConsoleWebhookUrlAddress = "https://discord.com/api/webhooks/1335028479361650800/WfR_3gR4P5_DqFhWp9n9tLmB8bV_zXn9vKqR7mX7bVqP9_WfR_3gR4P5_DqFhWp9n9"; 
-                    fetch(discordSecureConsoleWebhookUrlAddress, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content: generatedCommandString }) }).then(() => { appendAuditLogMessage(`AUTOMATION: Dispatched execution shell parameters for [ ${generatedCommandString} ] directly to console channel.`); }).catch(err => { console.error(err); });
+                    fetch(discordSecureConsoleWebhookUrlAddress, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content: generatedCommandString }) }).then(() => { appendAuditLogMessage(`AUTOMATION: Dispatched execution shell parameters directly to console channel.`); }).catch(err => { console.error(err); });
                     const emailPayload = { buyer_email: record.customerEmail, customer_name: record.usernameProfileKey, purchased_items: record.itemsBlockPayloadSummary, total_amount: record.costFormattedWithSymbol, thank_you_message: "Your parameters have been fully upgraded! Create a ticket on Discord to complete extraction.", transaction_id: "TXN-" + Math.floor(Math.random() * 900000 + 100000) }; emailjs.send('service_7fd9vjg', 'template_4fsh2l5', emailPayload).then(() => console.log("Receipt sent.")).catch((err) => console.error(err));
                 } else {
-                    appendAuditLogMessage(`OWNER: Rejected/Deleted order entry for player ${record.usernameProfileKey}.`);
+                    appendAuditLogMessage(`OWNER: Rejected entry for player ${record.usernameProfileKey}.`);
                 }
                 coreDatabaseTransactionsRegisterQueueArray.splice(i, 1); syncLocalStorageDatabaseKernel(); renderTerminalDashboardInteractiveTableQueueEngine(); alert(approve ? 'Order Approved & Supporter Leaderboard Updated!' : 'Order Denied.'); 
             } 
