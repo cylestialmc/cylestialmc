@@ -253,7 +253,6 @@
         .owner-control-section-block { margin-top: 35px; border-top: 1px dashed rgba(168, 85, 247, 0.3); padding-top: 25px; }
         .system-audit-log-terminal-output-panel { background: #02040a; border: 1px dashed var(--glass-border); border-radius: 10px; padding: 15px; max-height: 180px; overflow-y: auto; font-family: monospace; font-size: 0.8rem; color: #10b981; margin-top: 20px; line-height: 1.5; }
 
-        /* RE-OPTIMIZED CLIPBOARD GRAPHICS */
         .discord-srv-rcon-command-pill-box { display: flex; align-items: center; justify-content: space-between; background: #070a13; border: 1px solid var(--accent-cyan); border-radius: 6px; padding: 8px 12px; font-family: monospace; font-size: 0.78rem; color: #fff; max-width: 320px; margin-top: 8px; box-shadow: var(--neon-glow); }
         .discord-srv-copy-btn-trigger { background: transparent; border: none; color: var(--accent-cyan); cursor: pointer; margin-left: 12px; font-size: 0.95rem; }
 
@@ -278,7 +277,7 @@
         <div class="aurora-blur aurora-2"></div>
     </div>
 
-    <!-- MAIN PLATFORM HUB -->
+    <!-- MAIN HUB SPLASH -->
     <div id="main_landing_view_tier">
         <div class="home-brand-cluster">
             <h1>CYLESTIAL<span>MC</span></h1>
@@ -305,7 +304,7 @@
         </div>
     </div>
 
-    <!-- COMMERCE VIEWPORT -->
+    <!-- SHOPPING INTERFACE -->
     <div class="mobile-header-bar" id="shopMobileHeaderBar">
         <h2 onclick="navigateToViewTier('home')" style="cursor: pointer;">CYLESTIAL<span>MC</span></h2>
         <button class="admin-action-gate-btn" style="padding: 8px 14px; font-size:0.78rem; width: auto;" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')">
@@ -349,85 +348,85 @@
 
             <div class="ticker-broadcast-shoutout" id="clientPublicGlobalBroadcastBanner"></div>
 
-            <!-- RANKS CATALOG -->
+            <!-- CARD ITEMS GRID -->
             <div id="ranks_catalog_section" class="catalog-display-view-grid" style="display: grid;">
                 <div class="cyber-product-card">
-                    <div><h3>KNIGHT</h3><div class="price-metric-display" data-base-price="199">₹199</div><ul><li><i class="fa-solid fa-circle-check"></i> Entry Tier Kit Allocation</li></ul></div>
+                    <div><h3>KNIGHT</h3><div class="price-metric-display" id="price_knight" data-base-price="199">₹199</div><ul><li><i class="fa-solid fa-circle-check"></i> Entry Tier Kit Allocation</li></ul></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('KNIGHT Rank Upgrade', 199)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>LORD</h3><div class="price-metric-display" data-base-price="399">₹399</div><ul><li><i class="fa-solid fa-circle-check"></i> Lord Tier Kit Configuration</li></ul></div>
+                    <div><h3>LORD</h3><div class="price-metric-display" id="price_lord" data-base-price="399">₹399</div><ul><li><i class="fa-solid fa-circle-check"></i> Lord Tier Kit Configuration</li></ul></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('LORD Rank Upgrade', 399)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>PALADIN</h3><div class="price-metric-display" data-base-price="599">₹599</div><ul><li><i class="fa-solid fa-circle-check"></i> Paladin Tier Kit Access</li></ul></div>
+                    <div><h3>PALADIN</h3><div class="price-metric-display" id="price_paladin" data-base-price="599">₹599</div><ul><li><i class="fa-solid fa-circle-check"></i> Paladin Tier Kit Access</li></ul></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('PALADIN Rank Upgrade', 599)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>DUKE</h3><div class="price-metric-display" data-base-price="799">₹799</div><ul><li><i class="fa-solid fa-circle-check"></i> Duke Visual Particle Trails</li></ul></div>
+                    <div><h3>DUKE</h3><div class="price-metric-display" id="price_duke" data-base-price="799">₹799</div><ul><li><i class="fa-solid fa-circle-check"></i> Duke Visual Particle Trails</li></ul></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('DUKE Rank Upgrade', 799)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>KING</h3><div class="price-metric-display" data-base-price="999">₹999</div><ul><li><i class="fa-solid fa-bolt" style="color:var(--color-gold)"></i> Max Perks Override</li></ul></div>
+                    <div><h3>KING</h3><div class="price-metric-display" id="price_king" data-base-price="999">₹999</div><ul><li><i class="fa-solid fa-bolt" style="color:var(--color-gold)"></i> Max Perks Override</li></ul></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('KING Rank Upgrade', 999)">Add Token</button>
                 </div>
             </div>
 
             <div id="keys_catalog_section" class="catalog-display-view-grid" style="display: none;">
                 <div class="cyber-product-card">
-                    <div><h3>VOTE KEY</h3><div class="price-metric-display" data-base-price="10">₹10</div></div>
+                    <div><h3>VOTE KEY</h3><div class="price-metric-display" id="price_vote" data-base-price="10">₹10</div></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Vote Crate Key Drop', 10)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>COMMON KEY</h3><div class="price-metric-display" data-base-price="20">₹20</div></div>
+                    <div><h3>COMMON KEY</h3><div class="price-metric-display" id="price_common" data-base-price="20">₹20</div></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Common Crate Key Drop', 20)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>RARE KEY</h3><div class="price-metric-display" data-base-price="30">₹30</div></div>
+                    <div><h3>RARE KEY</h3><div class="price-metric-display" id="price_rare" data-base-price="30">₹30</div></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Rare Crate Key Drop', 30)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>EPIC KEY</h3><div class="price-metric-display" data-base-price="40">₹40</div></div>
+                    <div><h3>EPIC KEY</h3><div class="price-metric-display" id="price_epic" data-base-price="40">₹40</div></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Epic Crate Key Drop', 40)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>SUPERIOR KEY</h3><div class="price-metric-display" data-base-price="80">₹80</div></div>
+                    <div><h3>SUPERIOR KEY</h3><div class="price-metric-display" id="price_superior" data-base-price="80">₹80</div></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Superior Crate Key Drop', 80)">Add Token</button>
                 </div>
             </div>
 
             <div id="coins_catalog_section" class="catalog-display-view-grid" style="display: none;">
                 <div class="cyber-product-card">
-                    <div><h3>STARTER PACK</h3><div class="price-metric-display" data-base-price="100">₹100</div></div>
+                    <div><h3>STARTER PACK</h3><div class="price-metric-display" id="price_starter" data-base-price="100">₹100</div></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Starter)', 100)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>ADVANCED PACK</h3><div class="price-metric-display" data-base-price="200">₹200</div></div>
+                    <div><h3>ADVANCED PACK</h3><div class="price-metric-display" id="price_advanced" data-base-price="200">₹200</div></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Advanced)', 200)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>ELITE PACK</h3><div class="price-metric-display" data-base-price="300">₹300</div></div>
+                    <div><h3>ELITE PACK</h3><div class="price-metric-display" id="price_elite" data-base-price="300">₹300</div></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Elite)', 300)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>CHAMPION PACK</h3><div class="price-metric-display" data-base-price="400">₹400</div></div>
+                    <div><h3>CHAMPION PACK</h3><div class="price-metric-display" id="price_champion" data-base-price="400">₹400</div></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Champion)', 400)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>MYTHIC PACK</h3><div class="price-metric-display" data-base-price="500">₹500</div></div>
+                    <div><h3>MYTHIC PACK</h3><div class="price-metric-display" id="price_mythic" data-base-price="500">₹500</div></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Mythic)', 500)">Add Token</button>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- CART FLIP PILL -->
+    <!-- CART TRIGGER PILL -->
     <div class="floating-action-basket-pill" id="globalPrimaryCartFloatingWidget">
         <div><i class="fa-solid fa-cube" style="color:var(--accent-cyan);"></i> <span id="cartWidgetDisplayItemsUnitsCountText" style="font-weight:800; color:#fff; margin-left:6px;">0</span> Items</div>
         <button class="terminal-interaction-btn" style="padding: 10px 20px; font-size: 0.8rem; width:auto;" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')">Checkout</button>
     </div>
 
-    <!-- CHECKOUT MODAL WINDOW PIPELINE -->
+    <!-- PIPELINE CHECKOUT PIPELINE MODAL -->
     <div id="checkoutSystemProcessingModalWindow" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')"></i>
@@ -443,10 +442,10 @@
                     <input type="text" id="formFieldMinecraftUsernameInput" placeholder="Exact player name" oninput="runLiveAvatarSkinRenderingMatrix(this.value)" required>
                     
                     <div class="avatar-verification-flex-frame" id="checkoutPlayerAvatarVerificationShell">
-                        <img src="" id="checkoutPlayerAvatarTargetImageElement" alt="Profile Shield Face">
+                        <img src="" id="checkoutPlayerAvatarTargetImageElement" alt="Profile Face Avatar">
                         <div>
                             <span style="font-size:0.82rem; font-weight:700; color:#fff; display:block;">Profile Authenticated</span>
-                            <span style="font-size:0.75rem; color:var(--text-secondary);">Skin data indexed from player files.</span>
+                            <span style="font-size:0.75rem; color:var(--text-secondary);">Skin metadata verified.</span>
                         </div>
                     </div>
                 </div>
@@ -454,11 +453,17 @@
                     <label>Contact Email</label>
                     <input type="email" id="formFieldCustomerEmailInput" placeholder="username@gmail.com" required>
                 </div>
+                
+                <!-- DYNAMICALLY CONFIGURABLE CURRENCY GEOLOCATION MATRIX BOX -->
                 <div class="form-structural-group">
-                    <label>Currency</label>
+                    <label>Select Target Region & Local Currency</label>
                     <select id="formFieldGeographicCurrencySelector" onchange="recalculateStorefrontExchangePricesMatrix()">
                         <option value="INR" data-symbol="₹" data-ratio="1">India (INR - ₹)</option>
+                        <option value="PKR" data-symbol="₨" data-ratio="3.34">Pakistan (PKR - ₨)</option>
                         <option value="USD" data-symbol="$" data-ratio="0.012">United States (USD - $)</option>
+                        <option value="GBP" data-symbol="£" data-ratio="0.0094">United Kingdom (GBP - £)</option>
+                        <option value="EUR" data-symbol="€" data-ratio="0.011">Germany & Europe (EUR - €)</option>
+                        <option value="BRL" data-symbol="R$" data-ratio="0.065">Brazil (BRL - R$)</option>
                     </select>
                 </div>
 
@@ -514,7 +519,7 @@
         </div>
     </div>
 
-    <!-- TERMINAL WORKSPACE STATION -->
+    <!-- TERMINAL WORKSPACE STATION CONSOLE -->
     <div id="administrationWorkspaceSecureAccessModal" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block" style="max-width: 780px;">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('administrationWorkspaceSecureAccessModal')"></i>
@@ -537,7 +542,7 @@
                 <div id="terminalHandshakeAuthenticationFailureFeedbackAlert" style="background:rgba(239,68,68,0.08); border:1px solid var(--color-danger); padding:15px; border-radius:10px; color: var(--color-danger); margin-top: 20px; display: none;">Authorization failure. Account unknown or blocked.</div>
             </div>
 
-            <!-- ACTIVE DASHBOARD PANELS -->
+            <!-- DASHBOARD VIEW WORKSPACE -->
             <div id="terminalInternalActiveDashboardWorkspacePane" style="display: none;">
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); margin-bottom: 25px; padding-bottom:14px; gap: 15px; flex-wrap: wrap;">
                     <h3>Console Identity: <span id="terminalLiveGreetingAdminName" style="color:var(--accent-cyan)">User</span> (<span id="terminalLiveGreetingAdminRole" style="font-size:0.85rem; font-weight:700; text-transform:uppercase;">Role</span>)</h3>
@@ -546,15 +551,16 @@
 
                 <div class="admin-analytics-dashboard-matrix">
                     <div class="analytics-widget-card" style="border-color:var(--accent-cyan)"><h6>Queued Requests</h6><h2 id="metricWidgetDisplayQueuedTotalCount">0</h2></div>
-                    <div class="analytics-widget-card" style="border-color:var(--color-success)"><h6>Gross Revenue</h6><h2 id="metricWidgetDisplayApprovedTotalCount">₹0.00</h2></div>
+                    <div class="analytics-widget-card" style="border-color:var(--color-success)"><h6>Gross Revenue (INR)</h6><h2 id="metricWidgetDisplayApprovedTotalCount">₹0.00</h2></div>
                     <div class="analytics-widget-card" style="border-color:var(--accent-purple)"><h6>Active Traffic</h6><h2 id="metricWidgetDisplayActiveSessionsCount">12</h2></div>
                     <div class="analytics-widget-card" style="border-color:var(--color-gold)"><h6>Database Footprints</h6><h2 id="metricWidgetDisplayTotalAuthLogsCount">1</h2></div>
                 </div>
 
+                <!-- QUEUED LEDGER WITH DYNAMIC LOCAL CURRENCY FIELDS -->
                 <h4 style="margin-bottom: 12px; font-weight:700; color: var(--text-secondary);">Processing Queue Ledger</h4>
                 <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px; margin-bottom:25px;">
                     <table class="admin-data-table-element">
-                        <thead><tr><th>Player</th><th>Payload Command Output Bundle</th><th>Cost</th><th>Status</th><th style="text-align:center;">Actions Matrix</th></tr></thead>
+                        <thead><tr><th>Player</th><th>Payload Data String</th><th>Billing Value</th><th>Status</th><th style="text-align:center;">Actions Matrix</th></tr></thead>
                         <tbody id="terminalDashboardInteractiveDataRegisterTableBody"></tbody>
                     </table>
                 </div>
@@ -564,7 +570,7 @@
                     <div>[00:00:00] INITIALIZATION: Secured database kernel loaded safely.</div>
                 </div>
 
-                <!-- PRIVILEGED OWNER ACCESS OVERLAY MONITOR -->
+                <!-- PRIVILEGED EXCLUSIVE OWNER MONITOR ARCHITECTURE -->
                 <div class="owner-control-section-block" id="ownerPrivilegedExclusiveOperationsDashboard" style="display: none;">
                     <h3 style="color: var(--accent-purple); font-weight:800; margin-bottom: 15px;"><i class="fa-solid fa-crown"></i> Owner Absolute Audit Monitor</h3>
                     
@@ -589,7 +595,9 @@
     <script>
         (function() { emailjs.init("NVnA_39yMMVx_TZyj"); })();
         
-        let memoryAllocationCartStack = []; let systemExchangeBaseCurrencySymbol = "₹"; let systemExchangeConversionRatioMetric = 1;
+        let memoryAllocationCartStack = []; 
+        let systemExchangeBaseCurrencySymbol = "₹"; 
+        let systemExchangeConversionRatioMetric = 1;
         
         let coreDatabaseTransactionsRegisterQueueArray = JSON.parse(localStorage.getItem('db_queue')) || []; 
         let counterMetricApprovedTransactionsTotalSumValue = parseFloat(localStorage.getItem('db_rev')) || 0;
@@ -656,7 +664,20 @@
             totalCostSumTextElement.innerText = `${systemExchangeBaseCurrencySymbol}${computedFinancialValueAccumulatorSum.toFixed(2)}`;
         }
 
-        function recalculateStorefrontExchangePricesMatrix() { const exchangeSelectMenuNode = document.getElementById('formFieldGeographicCurrencySelector'); const activePickedOptionNode = exchangeSelectMenuNode.options[exchangeSelectMenuNode.selectedIndex]; systemExchangeConversionRatioMetric = parseFloat(activePickedOptionNode.getAttribute('data-ratio')); systemExchangeBaseCurrencySymbol = activePickedOptionNode.getAttribute('data-symbol'); buildModalCheckoutItemsRowsUIDOM(); }
+        function recalculateStorefrontExchangePricesMatrix() { 
+            const exchangeSelectMenuNode = document.getElementById('formFieldGeographicCurrencySelector'); 
+            const activePickedOptionNode = exchangeSelectMenuNode.options[exchangeSelectMenuNode.selectedIndex]; 
+            systemExchangeConversionRatioMetric = parseFloat(activePickedOptionNode.getAttribute('data-ratio')); 
+            systemExchangeBaseCurrencySymbol = activePickedOptionNode.getAttribute('data-symbol'); 
+            
+            // Updates price tags right inside card elements dynamically
+            document.querySelectorAll('.price-metric-display').forEach(displayTag => {
+                let unscaledPriceBaseValue = parseFloat(displayTag.getAttribute('data-base-price'));
+                displayTag.innerText = `${systemExchangeBaseCurrencySymbol}${(unscaledPriceBaseValue * systemExchangeConversionRatioMetric).toFixed(0)}`;
+            });
+            buildModalCheckoutItemsRowsUIDOM(); 
+        }
+
         function advanceCheckoutModalToPaymentMatrix() { const inputFieldUsernameTextContext = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); const inputFieldEmailTextContext = document.getElementById('formFieldCustomerEmailInput').value.trim(); const legalChecked = document.getElementById('legalMandatoryCheckboxTokenField').checked; if (!inputFieldUsernameTextContext || !inputFieldEmailTextContext) { alert('Fill all details.'); return; } if(!legalChecked) { alert('You must agree to the Terms of Service.'); return; } document.getElementById('modalStageWrapperStep1').style.display = 'none'; document.getElementById('modalStageWrapperStep2').style.display = 'block'; }
 
         function toggleTargetedPaymentSubPane(selectedGatewayKeyNameValue) {
@@ -677,7 +698,6 @@
             else { panel.style.maxHeight = '120px'; panel.style.padding = '10px 15px 15px 15px'; icon.className = 'fa-solid fa-chevron-up'; }
         }
 
-        // COMPILES ACCURATE SYNTAX RCON MATRIX MATCHING DISCORDSRV INPUT LIMITS
         function parseInGameRconCommandString(playerName, productsPayloadSummaryText) {
             let item = productsPayloadSummaryText.toLowerCase();
             if(item.includes("knight")) return `lp user ${playerName} parent add knight`;
@@ -685,19 +705,16 @@
             if(item.includes("paladin")) return `lp user ${playerName} parent add paladin`;
             if(item.includes("duke")) return `lp user ${playerName} parent add duke`;
             if(item.includes("king")) return `lp user ${playerName} parent add king`;
-            
             if(item.includes("vote")) return `crate give vote ${playerName} 1`;
             if(item.includes("common")) return `crate give common ${playerName} 1`;
             if(item.includes("rare")) return `crate give rare ${playerName} 1`;
             if(item.includes("epic")) return `crate give epic ${playerName} 1`;
             if(item.includes("superior")) return `crate give superior ${playerName} 1`;
-            
             if(item.includes("starter")) return `coins add ${playerName} 75`;
             if(item.includes("advanced")) return `coins add ${playerName} 125`;
             if(item.includes("elite")) return `coins add ${playerName} 200`;
             if(item.includes("champion")) return `coins add ${playerName} 300`;
             if(item.includes("mythic")) return `coins add ${playerName} 450`;
-            
             return `say Order verified for user: ${playerName}`;
         }
 
@@ -709,9 +726,13 @@
         function pushOrderRecordDataObjectsToQueue() {
             const contextUsernameTarget = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); const contextCustomerEmailTarget = document.getElementById('formFieldCustomerEmailInput').value.trim();
             let accumulatedBaseCostAggregateValue = 0; let combinedProductDescriptionString = memoryAllocationCartStack.map(obj => obj.name).join(', '); memoryAllocationCartStack.forEach(product => { accumulatedBaseCostAggregateValue += product.basePrice; });
+            
+            // LOCKS CHOSEN BILLING METRICS INSIDE CONTEXT TRANSACTION DICTIONARY OBJECT
             const finalDisplayPriceWithSymbol = `${systemExchangeBaseCurrencySymbol}${(accumulatedBaseCostAggregateValue * systemExchangeConversionRatioMetric).toFixed(2)}`;
             
-            coreDatabaseTransactionsRegisterQueueArray.push({ uniqueTimestampID: Date.now(), usernameProfileKey: contextUsernameTarget, itemsBlockPayloadSummary: combinedProductDescriptionString, costAggregateFormattedString: `₹${accumulatedBaseCostAggregateValue}`, costRawValue: accumulatedBaseCostAggregateValue, costFormattedWithSymbol: finalDisplayPriceWithSymbol, customerEmail: contextCustomerEmailTarget, isForwarded: false });
+            coreDatabaseTransactionsRegisterQueueArray.push({ 
+                uniqueTimestampID: Date.now(), usernameProfileKey: contextUsernameTarget, itemsBlockPayloadSummary: combinedProductDescriptionString, costAggregateFormattedString: `₹${accumulatedBaseCostAggregateValue}`, costRawValue: accumulatedBaseCostAggregateValue, costFormattedWithSymbol: finalDisplayPriceWithSymbol, customerEmail: contextCustomerEmailTarget, isForwarded: false 
+            });
             memoryAllocationCartStack = []; evaluateFloatingCartWidgetUIStateFeedback();
             document.getElementById('modalStageWrapperStep2').style.display = 'none'; document.getElementById('modalStageWrapperStep3').style.display = 'block'; syncLocalStorageDatabaseKernel(); renderTerminalDashboardInteractiveTableQueueEngine();
         }
@@ -753,10 +774,10 @@
             coreDatabaseTransactionsRegisterQueueArray.forEach(logRecordObject => {
                 let tr = document.createElement('tr'); let statusMarkup = logRecordObject.isForwarded ? '<span class="status-badge status-forwarded">Forwarded</span>' : '<span class="status-badge status-pending">Pending</span>';
                 let generatedCommandString = parseInGameRconCommandString(logRecordObject.usernameProfileKey, logRecordObject.itemsBlockPayloadSummary);
-                
                 let actionsMarkup = ''; if (currentRole === 'Owner') { actionsMarkup = `<button class="operational-action-trigger-btn trigger-btn-approve" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, true)"><i class="fa-solid fa-check"></i></button><button class="operational-action-trigger-btn trigger-btn-deny" style="margin-left:6px;" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, false)"><i class="fa-solid fa-xmark"></i></button>`; } 
                 else { actionsMarkup = logRecordObject.isForwarded ? '<span style="font-size:0.8rem;color:var(--text-secondary)">Awaiting Owner Review</span>' : `<button class="operational-action-trigger-btn trigger-btn-forward" onclick="staffForwardOrderLogToOwner(${logRecordObject.uniqueTimestampID})">Forward to Owner</button>`; }
                 
+                // FIXED AND RESTORED: Displays precise selected currency string directly in row cells for staff audits
                 tr.innerHTML = `<td><strong>${logRecordObject.usernameProfileKey}</strong></td><td>${logRecordObject.itemsBlockPayloadSummary}<div class="discord-srv-rcon-command-pill-box"><span>${generatedCommandString}</span><button class="discord-srv-copy-btn-trigger" onclick="executeManualClipboardCommandCopyAction('${generatedCommandString}')"><i class="fa-regular fa-copy"></i></button></div></td><td><span style="color:var(--accent-cyan);font-weight:700;">${logRecordObject.costFormattedWithSymbol}</span></td><td>${statusMarkup}</td><td style="text-align:center;min-width:130px;">${actionsMarkup}</td>`; targetTableBodyDOMNode.appendChild(tr);
             });
         }
@@ -780,7 +801,6 @@
                     const fomoTickerText = document.getElementById('fomoTickerContentMessageText'); fomoTickerText.innerHTML = `🔥 Recent Checkout: <strong>${record.usernameProfileKey}</strong> just unlocked [<strong>${record.itemsBlockPayloadSummary}</strong>]!`;
                     const banner = document.getElementById('clientPublicGlobalBroadcastBanner'); banner.innerHTML = `<i class="fa-solid fa-satellite-dish" style="color:var(--color-success)"></i> <span>Shoutout to <strong>${record.usernameProfileKey}</strong> for getting [<strong>${record.itemsBlockPayloadSummary}</strong>]!</span>`; banner.style.display = 'flex';
                     
-                    // COPIES IN-GAME RCON STRINGS IMMEDIATELY ON PERMISSIONS TICK
                     let generatedCommandString = parseInGameRconCommandString(record.usernameProfileKey, record.itemsBlockPayloadSummary);
                     navigator.clipboard.writeText(generatedCommandString);
                     
