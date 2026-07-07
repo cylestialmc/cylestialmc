@@ -87,10 +87,7 @@
         }
 
         .server-brand-logo-centerpiece {
-            width: 200px;
-            height: 200px;
-            object-fit: contain;
-            margin-bottom: 20px;
+            width: 200px; height: 200px; object-fit: contain; margin-bottom: 20px;
             filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.3));
             animation: floatingLogo 4s ease-in-out infinite;
         }
@@ -113,7 +110,7 @@
             background: rgba(16, 185, 129, 0.04); border: 1px solid rgba(16, 185, 129, 0.2);
             padding: 8px 20px; border-radius: 100px; font-family: monospace; font-size: 0.82rem;
             color: var(--color-success); margin-bottom: 30px; display: inline-flex; align-items: center; gap: 8px;
-            cursor: pointer;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.05); cursor: pointer;
         }
         .live-server-motd-pulse-strip span.dot { width: 8px; height: 8px; background: var(--color-success); border-radius: 50%; display: inline-block; animation: blinkStatus 1.5s infinite; }
         @keyframes blinkStatus { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
@@ -122,8 +119,8 @@
 
         .discord-redirect-integration-btn {
             background: rgba(88, 101, 242, 0.1); border: 1px solid rgba(88, 101, 242, 0.4);
-            color: #fff; font-weight: 800; padding: 18px 35px; border-radius: 12px;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; font-size: 1.1rem;
+            color: #fff; font-weight: 800; padding: 12px 24px; border-radius: 10px;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.9rem;
             display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
         }
         .discord-redirect-integration-btn:hover { background: #5865f2; box-shadow: 0 0 25px rgba(88, 101, 242, 0.5); }
@@ -140,27 +137,18 @@
         .supporter-profile-meta img { width: 32px; height: 32px; border-radius: 4px; background: #000; }
         .supporter-payload-title { font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px; }
 
-        .supporter-tier-level-badge { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 0.68rem; font-weight: 800; margin-left: 6px; text-transform: uppercase; }
-        .badge-hero { background: rgba(6, 182, 212, 0.1); color: var(--accent-cyan); border: 1px solid rgba(6, 182, 212, 0.2); }
-        .badge-mythic { background: rgba(251, 191, 36, 0.1); color: var(--color-gold); border: 1px solid rgba(251, 191, 36, 0.2); }
-        .badge-vanguard { background: rgba(168, 85, 247, 0.1); color: var(--accent-purple); border: 1px solid rgba(168, 85, 247, 0.2); }
+        .supporter-tier-level-badge { font-size: 0.68rem; font-weight: 900; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; margin-left: 8px; display: inline-block; vertical-align: middle; }
+        .badge-vanguard { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); box-shadow: 0 0 10px rgba(168, 85, 247, 0.2); }
+        .badge-mythic { background: rgba(6, 182, 212, 0.15); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3); }
+        .badge-hero { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
 
         .app-layout-root {
-            display: none;
-            grid-template-columns: 280px 1fr;
-            min-height: 100vh;
-            position: relative;
-            z-index: 5;
+            display: none; grid-template-columns: 280px 1fr; min-height: 100vh; position: relative; z-index: 5;
         }
 
         aside {
-            background: rgba(7, 10, 19, 0.8);
-            border-right: 1px solid var(--glass-border);
-            backdrop-filter: blur(20px);
-            padding: 40px 25px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            background: rgba(7, 10, 19, 0.8); border-right: 1px solid var(--glass-border); backdrop-filter: blur(20px);
+            padding: 40px 25px; display: flex; flex-direction: column; justify-content: space-between;
             position: sticky; top: 0; height: 100vh; z-index: 100;
         }
 
@@ -224,13 +212,14 @@
             max-width: 1100px;
         }
 
-        .catalog-display-view-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; margin-bottom: 60px; }
+        .catalog-display-view-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; margin-bottom: 60px; transform-style: preserve-3d; perspective: 1000px; }
         .cyber-product-card {
             background: var(--bg-surface); border: 1px solid var(--glass-border);
             backdrop-filter: blur(16px); border-radius: 16px; padding: 25px;
             display: flex; flex-direction: column; justify-content: space-between; position: relative;
+            transform: translateZ(0px); transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .cyber-product-card:hover { border-color: var(--accent-cyan); box-shadow: var(--neon-glow); transform: translateY(-4px); }
+        .cyber-product-card:hover { transform: translateY(-8px) scale(1.02); border-color: var(--accent-cyan); box-shadow: var(--neon-glow); }
 
         .cyber-product-card h3 { font-size: 1.5rem; color: #fff; font-weight: 700; }
         .cyber-product-card .price-metric-display { font-size: 2.2rem; font-weight: 800; color: #fff; margin: 15px 0; }
@@ -261,7 +250,7 @@
             width: 100%; max-width: 650px; border-radius: 20px; padding: 35px;
             position: relative; max-height: 85vh; overflow-y: auto;
         }
-        .window-close-trigger-node { position: absolute; top: 22px; right: 22px; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); }
+        .window-close-trigger-node { position: absolute; top: 22px; right: 22px; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); z-index: 1100; }
 
         .form-structural-group { margin-bottom: 20px; }
         .form-structural-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.82rem; color: var(--accent-cyan); text-transform: uppercase; }
@@ -273,24 +262,72 @@
         .avatar-verification-flex-frame { display: flex; align-items: center; gap: 15px; background: rgba(2,4,10,0.4); padding: 12px; border-radius: 10px; margin-top: 10px; display: none; border: 1px solid var(--glass-border); }
         .avatar-verification-flex-frame img { width: 40px; height: 40px; border-radius: 6px; background: #000; }
 
+        .legal-policy-accordion-stack { margin-top: 30px; border-top: 1px solid var(--glass-border); padding-top: 25px; }
+        .policy-accordion-node { margin-bottom: 10px; background: rgba(2,4,10,0.4); border: 1px solid var(--glass-border); border-radius: 8px; overflow: hidden; }
+        .policy-header-trigger { padding: 15px; font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan); cursor: pointer; display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; }
+        .policy-content-panel { padding: 0 15px; max-height: 0; overflow: hidden; transition: max-height 0.2s ease, padding 0.2s ease; color: var(--text-secondary); font-size: 0.82rem; line-height: 1.5; }
+
+        .cart-quantity-inline-modifier { display: flex; align-items: center; gap: 12px; background: rgba(2,4,10,0.5); padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
+        .quantity-modifier-node-btn { background: transparent; border: none; color: var(--accent-cyan); font-size: 1rem; width: 24px; height: 24px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+        
+        .basket-item-list-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .payment-channel-selector-matrix { display: grid; grid-template-columns: repeat(1, 1fr); gap: 12px; margin: 20px 0; }
+        .payment-channel-node-card { background: rgba(2, 4, 10, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 15px 10px; text-align: center; cursor: pointer; }
+        .payment-channel-node-card.active-selection { border-color: var(--accent-cyan); background: rgba(6, 182, 212, 0.06); box-shadow: var(--neon-glow); }
+        .payment-execution-content-panel { background: rgba(2, 4, 10, 0.5); border-radius: 10px; padding: 20px; margin-bottom: 20px; display: none; }
+
         .premium-qr-routing-vault-frame { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #02040a; border: 1px solid var(--glass-border); padding: 20px; border-radius: 14px; text-align: center; margin: 15px 0; }
         .premium-qr-routing-vault-frame img { background: #fff; padding: 10px; border-radius: 10px; border: 2px solid var(--accent-cyan); box-shadow: var(--neon-glow); margin-bottom: 15px; width: 160px; height: 160px; }
+
+        .admin-data-table-element { width: 100%; border-collapse: collapse; text-align: left; margin-top: 15px; font-size: 0.88rem; }
+        .admin-data-table-element th, .admin-data-table-element td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .admin-data-table-element th { color: var(--accent-cyan); text-transform: uppercase; font-size: 0.72rem; }
 
         .admin-analytics-dashboard-matrix { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 25px; }
         .analytics-widget-card { background: rgba(2, 4, 10, 0.5); padding: 15px; border-radius: 12px; border-bottom: 2px solid var(--accent-purple); }
         .analytics-widget-card h6 { font-size: 0.68rem; text-transform: uppercase; color: var(--text-secondary); }
         .analytics-widget-card h2 { font-size: 1.5rem; margin-top: 4px; font-weight: 800; }
 
-        .admin-data-table-element { width: 100%; border-collapse: collapse; text-align: left; margin-top: 15px; font-size: 0.88rem; }
-        .admin-data-table-element th, .admin-data-table-element td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
-        .admin-data-table-element th { color: var(--accent-cyan); text-transform: uppercase; font-size: 0.72rem; }
-
-        /* FEATURE 3: LIVE LEDGER FILTER BOX INPUT */
-        .admin-live-search-filter-wrapper-box { display: flex; align-items: center; background: rgba(2,4,10,0.6); border: 1px solid var(--glass-border); padding: 14px; border-radius: 10px; margin-bottom: 15px; width:100%; }
-        .admin-live-search-filter-wrapper-box input { background: transparent; border: none; outline: none; color: #fff; font-size: 0.95rem; width: 100%; }
-
         .owner-control-section-block { margin-top: 35px; border-top: 1px dashed rgba(168, 85, 247, 0.3); padding-top: 25px; }
         .system-audit-log-terminal-output-panel { background: #02040a; border: 1px dashed var(--glass-border); border-radius: 10px; padding: 15px; max-height: 180px; overflow-y: auto; font-family: monospace; font-size: 0.8rem; color: #10b981; margin-top: 20px; line-height: 1.5; }
+
+        .discord-srv-rcon-command-pill-box { display: flex; align-items: center; justify-content: space-between; background: #070a13; border: 1px solid var(--accent-cyan); border-radius: 6px; padding: 8px 12px; font-family: monospace; font-size: 0.78rem; color: #fff; max-width: 320px; margin-top: 8px; box-shadow: var(--neon-glow); }
+        .discord-srv-copy-btn-trigger { background: transparent; border: none; color: var(--accent-cyan); cursor: pointer; margin-left: 12px; font-size: 0.95rem; }
+
+        .operational-action-trigger-btn { border: none; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; color: #fff; display: inline-flex; align-items: center; justify-content: center; margin: 2px; }
+        .trigger-btn-approve { background: var(--color-success); }
+        .trigger-btn-deny { background: var(--color-danger); }
+        .trigger-btn-forward { background: var(--accent-purple); width: auto; padding: 0 15px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; height: 32px; }
+        
+        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .status-pending { background: rgba(251, 191, 36, 0.1); color: var(--color-gold); border: 1px solid rgba(251, 191, 36, 0.2); }
+        .status-forwarded { background: rgba(168, 85, 247, 0.1); color: var(--accent-purple); border: 1px solid rgba(168, 85, 247, 0.2); }
+
+        .ai-chat-launcher-pill-trigger {
+            position: fixed; bottom: 35px; left: 40px; z-index: 999;
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+            color: #fff; padding: 14px 22px; border-radius: 50px; font-weight: 800;
+            display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: var(--neon-glow);
+        }
+        .ai-chat-window-viewport-block {
+            position: fixed; bottom: 100px; left: 40px; width: 350px; height: 450px;
+            background: rgba(11, 15, 25, 0.98); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px; display: none; flex-direction: column; z-index: 999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; backdrop-filter: blur(20px);
+        }
+        .ai-chat-header-bar { background: rgba(2,4,10,0.6); padding: 15px; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; }
+        .ai-chat-messages-stream-stack { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .ai-chat-bubble-node .assistant { background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.2); color: #fff; align-self: flex-start; }
+        .ai-chat-bubble-node .user { background: var(--accent-purple); color: #fff; align-self: flex-end; }
+        .ai-chat-input-row-container { padding: 10px; background: rgba(2,4,10,0.4); border-top: 1px solid var(--glass-border); display: flex; gap: 8px; }
+        .ai-chat-input-row-container input { flex-grow: 1; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; font-size: 0.85rem; }
+
+        .ai-sandbox-blueprint-preview-panel {
+            background: rgba(2,4,10,0.85); border: 1px solid var(--accent-cyan);
+            border-radius: 12px; padding: 20px; margin-top: 15px; display: none;
+            box-shadow: var(--neon-glow);
+        }
+        .ai-sandbox-header-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-cyan); font-weight: 900; margin-bottom: 10px; }
 
         @media (max-width: 1024px) {
             .app-layout-root { grid-template-columns: 1fr; }
@@ -302,6 +339,8 @@
             .admin-analytics-dashboard-matrix { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .app-layout-root.shop-active ~ .mobile-header-bar { display: flex; }
             .app-layout-root.shop-active ~ .mobile-navigation-dock-bar { display: flex; }
+            .ai-chat-launcher-pill-trigger { bottom: 85px; left: 20px; padding: 10px 16px; font-size: 0.8rem; }
+            .ai-chat-window-viewport-block { left: 20px; right: 20px; width: auto; bottom: 145px; }
         }
     </style>
 </head>
@@ -315,22 +354,23 @@
 
     <!-- MAIN HUB SPLASH -->
     <div id="main_landing_view_tier">
-        <img src="logo.png" class="server-brand-logo-centerpiece" alt="Logo Centerpiece">
+        <img src="logo.png" class="server-brand-logo-centerpiece" alt="CylestialMC Logo Centered">
         
         <div class="home-brand-cluster">
-            <h1>CYLESTIAL<span>MC</span></h1>
-            <p>Official Server Network Hub</p>
+            <h1 id="liveDOMTextServerBrandNameTitle">CYLESTIAL<span>MC</span></h1>
+            <p id="liveDOMTextServerBrandSubtitle">Official Server Network Hub</p>
         </div>
 
         <div class="live-server-motd-pulse-strip" onclick="executeServerAddressCopyProtocolString()">
             <span class="dot"></span>
-            <span>● 142 Players Online | ⚔️ SUMMER SEASON UPDATE IS LIVE (Tap to copy IP)</span>
+            <span id="liveDOMTextServerMotdMessageDisplay">● 142 Players Online | ⚔️ SUMMER SEASON UPDATE IS LIVE (Tap to copy IP)</span>
         </div>
 
         <div class="landing-portal-action-button-matrix">
-            <button class="navigation-portal-btn" style="margin-bottom:0;" onclick="navigateToViewTier('shop')">
+            <button class="terminal-interaction-btn" type="button" style="margin-bottom:0; width: auto; padding: 18px 35px; display: inline-flex; align-items: center; justify-content: center;" onclick="navigateToViewTier('shop')">
                 <i class="fa-solid fa-shopping-bag" style="margin-right: 10px;"></i> Enter Network Webstore
             </button>
+            
             <a href="https://discord.gg/Tg5duznkX" target="_blank" class="discord-redirect-integration-btn">
                 <i class="fa-brands fa-discord"></i> Join Discord
             </a>
@@ -339,15 +379,15 @@
         <div class="gateway-network-hub">
             <div class="network-node-card">
                 <div class="icon-shield"><i class="fa-solid fa-terminal"></i></div>
-                <div class="node-meta"><h6>Java Network Address</h6><p>play.cylestialmc.fun:19001</p></div>
+                <div class="node-meta"><h6>Java Network Address</h6><p id="liveDOMTextConnectionJavaAddress">play.cylestialmc.fun:19001</p></div>
             </div>
             <div class="network-node-card">
                 <div class="icon-shield"><i class="fa-solid fa-mobile-screen-button"></i></div>
-                <div class="node-meta"><h6>Bedrock Connection IP</h6><p>play.cylestialmc.fun</p></div>
+                <div class="node-meta"><h6>Bedrock Connection IP</h6><p id="liveDOMTextConnectionBedrockIP">play.cylestialmc.fun</p></div>
             </div>
             <div class="network-node-card">
                 <div class="icon-shield"><i class="fa-solid fa-circle-nodes"></i></div>
-                <div class="node-meta"><h6>Bedrock Gateway Port</h6><p>19012</p></div>
+                <div class="node-meta"><h6>Bedrock Gateway Port</h6><p id="liveDOMTextConnectionBedrockPort">19012</p></div>
             </div>
         </div>
 
@@ -359,19 +399,16 @@
         </div>
     </div>
 
-    <!-- COMMERCE LAYOUT PANES -->
+    <!-- COMMERCE PANEL -->
     <div class="mobile-header-bar" id="shopMobileHeaderBar">
         <h2 onclick="navigateToViewTier('home')" style="cursor: pointer;">CYLESTIAL<span>MC</span></h2>
-        <button class="admin-action-gate-btn" style="padding: 8px 14px; font-size:0.78rem; width: auto;" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')">
+        <button class="admin-action-gate-btn" type="button" style="padding: 8px 14px; font-size:0.78rem; width: auto;" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')">
             <i class="fa-solid fa-shield-halved"></i> Terminal
         </button>
     </div>
 
     <div class="mobile-navigation-dock-bar" id="shopMobileDockBar">
-        <button class="mobile-dock-node-btn active" id="m_nav_ranks" onclick="executeViewPaneTabSwitch('ranks_catalog_section')"><i class="fa-solid fa-crown"></i> Ranks</button>
-        <button class="mobile-dock-node-btn" id="m_nav_keys" onclick="executeViewPaneTabSwitch('keys_catalog_section')"><i class="fa-solid fa-key"></i> Keys</button>
-        <button class="mobile-dock-node-btn" id="m_nav_coins" onclick="executeViewPaneTabSwitch('coins_catalog_section')"><i class="fa-solid fa-coins"></i> Coins</button>
-        <button class="mobile-dock-node-btn" style="color: var(--color-danger)" onclick="navigateToViewTier('home')"><i class="fa-solid fa-arrow-left"></i> Hub</button>
+        <!-- RENDERED BY JAVASCRIPT STATE ENGINE MAPS -->
     </div>
 
     <div class="app-layout-root" id="shop_layout_root_tier">
@@ -385,112 +422,59 @@
                     </div>
                 </div>
                 
-                <ul class="navigation-menu-list">
-                    <li><button class="nav-item-btn active" id="d_nav_ranks" onclick="executeViewPaneTabSwitch('ranks_catalog_section')"><i class="fa-solid fa-crown"></i> Rank Upgrades</button></li>
-                    <li><button class="nav-item-btn" id="d_nav_keys" onclick="executeViewPaneTabSwitch('keys_catalog_section')"><i class="fa-solid fa-key"></i> Crate Keys</button></li>
-                    <li><button class="nav-item-btn" id="d_nav_coins" onclick="executeViewPaneTabSwitch('coins_catalog_section')"><i class="fa-solid fa-coins"></i> Coin Shop</button></li>
+                <ul class="navigation-menu-list" id="asideDynamicNavigationTabListGroup">
+                    <!-- RENDERED DYNAMICALLY BY CLIENT STATE LOOPS -->
                 </ul>
 
                 <div class="theme-switch-frame-cluster">
                     <span>Stealth Focus</span>
-                    <button class="theme-toggle-node-action-btn" onclick="executeCoreUserThemeSwitchToggle()"><i class="fa-solid fa-circle-half-stroke" id="themeStatusWidgetIconElement"></i></button>
+                    <button class="theme-toggle-node-action-btn" type="button" onclick="executeCoreUserThemeSwitchToggle()"><i class="fa-solid fa-circle-half-stroke" id="themeStatusWidgetIconElement"></i></button>
                 </div>
+                
                 <a href="https://discord.gg/Tg5duznkX" target="_blank" class="admin-action-gate-btn" style="margin-top: 15px; background: rgba(88,101,242,0.05); color: #7289da; border-color: rgba(88,101,242,0.2);">
                     <i class="fa-brands fa-discord"></i> Discord Server
                 </a>
             </div>
 
             <div class="secure-gate-trigger-container">
-                <button class="admin-action-gate-btn" style="background: rgba(239,68,68,0.02); color: var(--color-danger); border-color: rgba(239,68,68,0.15);" onclick="navigateToViewTier('home')"><i class="fa-solid fa-arrow-left"></i> Return to Hub</button>
-                <button class="admin-action-gate-btn" id="desktopConsoleTriggerBtn" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')"><i class="fa-solid fa-shield-halved"></i> Terminal Access</button>
+                <button class="admin-action-gate-btn" type="button" style="background: rgba(239,68,68,0.02); color: var(--color-danger); border-color: rgba(239,68,68,0.15);" onclick="navigateToViewTier('home')"><i class="fa-solid fa-arrow-left"></i> Return to Hub</button>
+                <button class="admin-action-gate-btn" type="button" id="desktopConsoleTriggerBtn" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')"><i class="fa-solid fa-shield-halved"></i> Terminal Access</button>
             </div>
         </aside>
 
-        <main class="primary-viewport-pane">
+        <main class="primary-viewport-pane" id="catalogStorefrontPrimaryViewportMainPane">
             <div class="fomo-purchase-ticker-card" id="globalLivePurchaseFomoTickerCard">
                 <i class="fa-solid fa-bolt-lightning" style="color:var(--color-gold); font-size: 1.2rem;"></i>
-                <span id="fomoTickerContentMessageText" style="font-size:0.88rem; font-weight:600;">Welcome to CylestialMC webstore! Purchase a package to upgrade your rank instantly.</span>
+                <span id="fomoTickerContentMessageText" style="font-size:0.88rem; font-weight:600;">Welcome to CylestialMC webstore! Purchase a token package to upgrade your profile instantly.</span>
             </div>
 
-            <!-- PRODUCT DISPLAY GRIDS -->
-            <div id="ranks_catalog_section" class="catalog-display-view-grid" style="display: grid;">
-                <div class="cyber-product-card">
-                    <div><h3>KNIGHT</h3><div class="price-metric-display" id="price_knight" data-base-price="199">₹199</div><ul><li><i class="fa-solid fa-circle-check"></i> Entry Tier Kit Allocation</li></ul></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('KNIGHT Rank Upgrade', 199)">Add Token</button>
-                </div>
-                <div class="cyber-product-card">
-                    <div><h3>LORD</h3><div class="price-metric-display" id="price_lord" data-base-price="399">₹399</div><ul><li><i class="fa-solid fa-circle-check"></i> Lord Tier Kit Configuration</li></ul></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('LORD Rank Upgrade', 399)">Add Token</button>
-                </div>
-                <div class="cyber-product-card">
-                    <div><h3>PALADIN</h3><div class="price-metric-display" id="price_paladin" data-base-price="599">₹599</div><ul><li><i class="fa-solid fa-circle-check"></i> Paladin Tier Kit Access</li></ul></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('PALADIN Rank Upgrade', 599)">Add Token</button>
-                </div>
-                <div class="cyber-product-card">
-                    <div><h3>DUKE</h3><div class="price-metric-display" id="price_duke" data-base-price="799">₹799</div><ul><li><i class="fa-solid fa-circle-check"></i> Duke Visual Particle Trails</li></ul></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('DUKE Rank Upgrade', 799)">Add Token</button>
-                </div>
-                <div class="cyber-product-card">
-                    <div><h3>KING</h3><div class="price-metric-display" id="price_king" data-base-price="999">₹999</div><ul><li><i class="fa-solid fa-bolt" style="color:var(--color-gold)"></i> Max Perks Override</li></ul></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('KING Rank Upgrade', 999)">Add Token</button>
-                </div>
-            </div>
-
-            <div id="keys_catalog_section" class="catalog-display-view-grid" style="display: none;">
-                <div class="cyber-product-card">
-                    <div><h3>VOTE KEY</h3><div class="price-metric-display" id="price_vote" data-base-price="10">₹10</div></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Vote Crate Key Drop', 10)">Add Token</button>
-                </div>
-                <div class="cyber-product-card">
-                    <div><h3>COMMON KEY</h3><div class="price-metric-display" id="price_common" data-base-price="20">₹20</div></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Common Crate Key Drop', 20)">Add Token</button>
-                </div>
-                <div class="cyber-product-card">
-                    <div><h3>RARE KEY</h3><div class="price-metric-display" id="price_rare" data-base-price="30">₹30</div></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Rare Crate Key Drop', 30)">Add Token</button>
-                </div>
-                <div class="cyber-product-card">
-                    <div><h3>EPIC KEY</h3><div class="price-metric-display" id="price_epic" data-base-price="40">₹40</div></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Epic Crate Key Drop', 40)">Add Token</button>
-                </div>
-                <div class="cyber-product-card">
-                    <div><h3>SUPERIOR KEY</h3><div class="price-metric-display" id="price_superior" data-base-price="80">₹80</div></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Superior Crate Key Drop', 80)">Add Token</button>
-                </div>
-            </div>
-
-            <div id="coins_catalog_section" class="catalog-display-view-grid" style="display: none;">
-                <div class="cyber-product-card">
-                    <div><h3>STARTER PACK</h3><div class="price-metric-display" id="price_starter" data-base-price="100">₹100</div></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Starter)', 100)">Add Token</button>
-                </div>
-                <div class="cyber-product-card">
-                    <div><h3>ADVANCED PACK</h3><div class="price-metric-display" id="price_advanced" data-base-price="200">₹200</div></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Advanced)', 200)">Add Token</button>
-                </div>
-                <div class="cyber-product-card">
-                    <div><h3>ELITE PACK</h3><div class="price-metric-display" id="price_elite" data-base-price="300">₹300</div></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Elite)', 300)">Add Token</button>
-                </div>
-                <div class="cyber-product-card">
-                    <div><h3>CHAMPION PACK</h3><div class="price-metric-display" id="price_champion" data-base-price="400">₹400</div></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Champion)', 400)">Add Token</button>
-                </div>
-                <div class="cyber-product-card">
-                    <div><h3>MYTHIC PACK</h3><div class="price-metric-display" id="price_mythic" data-base-price="500">₹500</div></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Mythic)', 500)">Add Token</button>
-                </div>
-            </div>
+            <div class="ticker-broadcast-shoutout" id="clientPublicGlobalBroadcastBanner"></div>
         </main>
     </div>
 
-    <!-- CART TRIGGER -->
+    <!-- CART FLIP TRIGGER -->
     <div class="floating-action-basket-pill" id="globalPrimaryCartFloatingWidget">
         <div><i class="fa-solid fa-cube" style="color:var(--accent-cyan);"></i> <span id="cartWidgetDisplayItemsUnitsCountText" style="font-weight:800; color:#fff; margin-left:6px;">0</span> Items</div>
-        <button class="terminal-interaction-btn" style="padding: 10px 20px; font-size: 0.8rem; width:auto;" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')">Checkout</button>
+        <button class="terminal-interaction-btn" type="button" style="padding: 10px 20px; font-size: 0.8rem; width:auto;" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')">Checkout</button>
     </div>
 
-    <!-- PIPELINE CHECKOUT PIPELINE MODAL -->
+    <!-- PLAYER ASSISTANT INTERACTIVE FLOATING OVERLAY CHAT PANEL -->
+    <div class="ai-chat-launcher-pill-trigger" onclick="toggleServerCompanionChatViewPane()"><i class="fa-solid fa-robot"></i> Server AI Helper</div>
+    <div class="ai-chat-window-viewport-block" id="serverCompanionChatWindowFrame">
+        <div class="ai-chat-header-bar">
+            <span style="font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-circle-nodes" style="color:var(--accent-cyan)"></i> Cylestial AI Guide</span>
+            <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="toggleServerCompanionChatViewPane()"></i>
+        </div>
+        <div class="ai-chat-messages-stream-stack" id="serverCompanionChatMessagesStreamStack">
+            <div class="ai-chat-bubble-node assistant">Greetings player! Welcome to CylestialMC, undeniably the most magnificent Minecraft server network in the universe! Ask me anything about our IPs, ports, or shop tokens in any language. Let's play!</div>
+        </div>
+        <div class="ai-chat-input-row-container">
+            <input type="text" id="serverCompanionChatInputTextField" placeholder="Ask about IP, connection ports, ranks...">
+            <button class="terminal-interaction-btn" type="button" style="width:auto; padding:0 14px;" onclick="executeServerCompanionChatResponseCycle()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- PIPELINE CHECKOUT MODAL -->
     <div id="checkoutSystemProcessingModalWindow" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')"></i>
@@ -506,7 +490,7 @@
                     <input type="text" id="formFieldMinecraftUsernameInput" placeholder="Exact player name" oninput="runLiveAvatarSkinRenderingMatrix(this.value)" required>
                     
                     <div class="avatar-verification-flex-frame" id="checkoutPlayerAvatarVerificationShell">
-                        <img src="" id="checkoutPlayerAvatarTargetImageElement" alt="Face Badge">
+                        <img src="" id="checkoutPlayerAvatarTargetImageElement" alt="Profile Avatar Grid Face">
                         <div>
                             <span style="font-size:0.82rem; font-weight:700; color:#fff; display:block;">Profile Authenticated</span>
                             <span style="font-size:0.75rem; color:var(--text-secondary);">Skin metadata verified.</span>
@@ -533,42 +517,42 @@
                 <div class="legal-policy-accordion-stack">
                     <div class="policy-accordion-node">
                         <div class="policy-header-trigger" onclick="toggleAccordionTabSelectionPanel(this)">Terms of Service <i class="fa-solid fa-chevron-down"></i></div>
-                        <div class="policy-content-panel">All purchases are credited directly to the server core database parameters.</div>
+                        <div class="policy-content-panel" style="padding: 0 15px; max-height: 0px; overflow: hidden;">All token purchases are credited to the CylestialMC database parameter grid. Nodes are non-transferable.</div>
                     </div>
                 </div>
 
                 <div style="margin-top: 20px; display: flex; gap: 10px; align-items: flex-start;">
                     <input type="checkbox" id="legalMandatoryCheckboxTokenField" style="width: 18px; height: 18px; margin-top: 2px; cursor: pointer;">
-                    <label for="legalMandatoryCheckboxTokenField" style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">I certify that I have read the server disclosures and agree that chargebacks are blacklisted.</label>
+                    <label for="legalMandatoryCheckboxTokenField" style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">I certify that I have read the server legal disclosures and agree that chargebacks are blacklisted.</label>
                 </div>
 
-                <button class="terminal-interaction-btn" style="margin-top:20px;" onclick="advanceCheckoutModalToPaymentMatrix()">Establish Pipelines</button>
+                <button class="terminal-interaction-btn" type="button" onclick="advanceCheckoutModalToPaymentMatrix()">Establish Pipelines</button>
             </div>
 
             <div id="modalStageWrapperStep2" style="display: none;">
-                <label class="form-structural-group" style="color:var(--accent-cyan); font-weight:700;">Select Secure Billing Option</label>
+                <label class="form-structural-group" style="color:var(--accent-cyan); font-weight:700;">Select Secure Billing Network Option</label>
                 <div class="payment-channel-selector-matrix">
                     <div class="payment-channel-node-card active-selection" id="paymentTabUPI" onclick="toggleTargetedPaymentSubPane('UPI')"><i class="fa-solid fa-qrcode"></i> QR Deposit</div>
-                    <div class="payment-channel-node-card" id="paymentTabPAYPAL" onclick="toggleTargetedPaymentSubPane('PAYPAL')"><i class="fa-brands fa-paypal"></i> PayPal</div>
                 </div>
 
                 <div class="payment-execution-content-panel" id="paneVaultUPI" style="display: block;">
+                    <p style="margin-bottom: 12px; font-size: 0.85rem; color: var(--text-secondary); text-align: center;">Scan this secure routing node QR from any banking app to deposit:</p>
                     <div class="premium-qr-routing-vault-frame">
                         <img src="" id="premiumAutomatedBillingQRImageTarget" alt="Secure Network QR Node">
                         <p style="font-family:monospace; font-size: 1.1rem; background: #02040a; padding: 10px; border-radius: 8px; color: #fff; font-weight:700; border: 1px dashed rgba(6, 182, 212, 0.3);">9515411111@fam</p>
                     </div>
                 </div>
 
-                <div class="payment-execution-content-panel" id="paneVaultPAYPAL">
-                    <p style="font-weight: 700; color: #fff; font-size: 1.05rem; font-family:monospace; background: #02040a; padding: 12px; border-radius: 8px; text-align: center; border: 1px solid var(--glass-border);">cylestialmc@gmail.com</p>
-                </div>
-
                 <div class="form-structural-group" style="margin-top: 20px;">
-                    <label>Transaction Reference ID</label>
-                    <input type="text" id="formFieldTransactionRefId" placeholder="Enter bank reference transaction ID" required>
+                    <label style="color:var(--accent-purple);"><i class="fa-solid fa-cloud-arrow-up"></i> Deposit File Evidence Screenshot</label>
+                    <div class="file-upload-interactive-dropzone">
+                        <i class="fa-solid fa-file-invoice-dollar" style="font-size: 2.2rem; color: var(--accent-purple); margin-bottom: 8px; display: block;"></i>
+                        <span id="fileUploadDisplayContextLabel" style="font-size:0.8rem; color:var(--text-secondary);">Drag & drop or click to upload proof image</span>
+                        <input type="file" id="formFieldReceiptScreenshotUploadSelector" onchange="runReceiptUploadFileBadgeNotificationState(this)">
+                    </div>
                 </div>
 
-                <button class="terminal-interaction-btn" style="background: var(--color-success); color:#02040a; margin-top: 15px;" onclick="pushOrderRecordDataObjectsToQueue()">Submit Registration Ledger</button>
+                <button class="terminal-interaction-btn" type="button" style="background: var(--color-success); color:#02040a; margin-top: 15px;" onclick="pushOrderRecordDataObjectsToQueue()">Submit Registration Ledger</button>
             </div>
 
             <div id="modalStageWrapperStep3" style="display: none; text-align: center; padding: 30px 0;">
@@ -580,12 +564,11 @@
                     <i class="fa-brands fa-discord"></i> Open Discord Ticket
                 </a>
                 
-                <button class="terminal-interaction-btn" style="margin-top: 10px; width: auto; padding: 12px 40px; display: block; margin: 0 auto;" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')">Return To Store</button>
+                <button class="terminal-interaction-btn" type="button" style="margin-top: 10px; width: auto; padding: 12px 40px; display: block; margin: 0 auto;" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')">Return To Store</button>
             </div>
         </div>
     </div>
 
-    <!-- TERMINAL MAIN DASHBOARD SECURE WORKSPACE -->
     <div id="administrationWorkspaceSecureAccessModal" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block" style="max-width: 780px;">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('administrationWorkspaceSecureAccessModal')"></i>
@@ -604,15 +587,14 @@
                     <label>Cryptographic Password Token</label>
                     <input type="password" id="fieldSecurityAdminPasswordKeyphrase" placeholder="••••••••••••" required>
                 </div>
-                <button class="terminal-interaction-btn" onclick="runTerminalSecurityAuthorizationSequence()">Decrypt Operations Console</button>
+                <button class="terminal-interaction-btn" type="button" onclick="runTerminalSecurityAuthorizationSequence()">Decrypt Operations Console</button>
                 <div id="terminalHandshakeAuthenticationFailureFeedbackAlert" style="background:rgba(239,68,68,0.08); border:1px solid var(--color-danger); padding:15px; border-radius:10px; color: var(--color-danger); margin-top: 20px; display: none;">Authorization failure. Account unknown or blocked.</div>
             </div>
 
-            <!-- TERMINAL LOGGED IN PANEL DISPLAY -->
             <div id="terminalInternalActiveDashboardWorkspacePane" style="display: none;">
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); margin-bottom: 25px; padding-bottom:14px; gap: 15px; flex-wrap: wrap;">
                     <h3>Console Identity: <span id="terminalLiveGreetingAdminName" style="color:var(--accent-cyan)">User</span> (<span id="terminalLiveGreetingAdminRole" style="font-size:0.85rem; font-weight:700; text-transform:uppercase;">Role</span>)</h3>
-                    <button class="terminal-interaction-btn" style="width:auto; padding: 8px 18px; background:var(--color-danger);" onclick="killTerminalSecureAuthorizationSession()">Logout</button>
+                    <button class="terminal-interaction-btn" type="button" style="width:auto; padding: 8px 18px; background:var(--color-danger);" onclick="killTerminalSecureAuthorizationSession()">Logout</button>
                 </div>
 
                 <div class="admin-analytics-dashboard-matrix">
@@ -622,47 +604,84 @@
                     <div class="analytics-widget-card" style="border-color:var(--color-gold)"><h6>Database Footprints</h6><h2 id="metricWidgetDisplayTotalAuthLogsCount">1</h2></div>
                 </div>
 
-                <h4 style="margin-bottom: 12px; font-weight:700; color: var(--text-secondary);">Processing Queue Ledger</h4>
-                
-                <div class="admin-live-search-filter-wrapper-box">
-                    <input type="text" id="terminalQueueLedgerRealtimeSearchBarInput" placeholder="🔍 Search queue by player name or reference IDs..." oninput="filterLedgerQueueRowsInRealtime(this.value)">
-                </div>
-
-                <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px; margin-bottom:25px;">
-                    <table class="admin-data-table-element">
-                        <thead><tr><th>Player</th><th>Payload Data String</th><th>Billing Value</th><th>Status</th><th style="text-align:center;">Actions Matrix</th></tr></thead>
-                        <tbody id="terminalDashboardInteractiveDataRegisterTableBody"></tbody>
-                    </table>
-                </div>
-
-                <h4 style="font-weight:700; color: var(--text-secondary);">Live Workstation Activity Auditor</h4>
-                <div class="system-audit-log-terminal-output-panel" id="terminalLiveAuditLoggerOutputStackBox">
-                    <div>[00:00:00] INITIALIZATION: Secured database kernel loaded safely.</div>
-                </div>
-
-                <!-- EXCLUSIVE OWNER SECTION -->
-                <div class="owner-control-section-block" id="ownerPrivilegedExclusiveOperationsDashboard" style="display: none;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; flex-wrap:wrap; gap:10px;">
-                        <h3 style="color: var(--accent-purple); font-weight:800;"><i class="fa-solid fa-crown"></i> Owner Absolute Audit Monitor</h3>
+                <div class="owner-control-section-block" id="ownerPrivilegedExclusiveOperationsDashboard" style="display: none; border-top:none; margin-top:0; padding-top:0;">
+                    <h3 style="color:var(--accent-cyan); font-weight:800; margin-bottom:15px;"><i class="fa-solid fa-boxes-packing"></i> Dynamic Storefront Category & Price Manager</h3>
+                    <div style="background:rgba(2,4,10,0.5); padding:20px; border-radius:12px; border:1px solid var(--glass-border); margin-bottom:25px;">
+                        <h4 style="color:#fff; margin-bottom:12px; font-size:0.9rem;">Add New Storefront Navigation Category Tab</h4>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:15px;">
+                            <input type="text" id="ownerNewCategoryInputID" placeholder="Category Key ID (e.g., tags_catalog_section)" style="padding:10px; background:#000; border:1px solid var(--glass-border); color:#fff; border-radius:8px;">
+                            <input type="text" id="ownerNewCategoryInputLabel" placeholder="Display Label Name (e.g., Chat Tags)" style="padding:10px; background:#000; border:1px solid var(--glass-border); color:#fff; border-radius:8px;">
+                        </div>
+                        <button class="terminal-interaction-btn" type="button" onclick="executeOwnerCreateNewStorefrontCategoryTab()">Register New Nav Section</button>
+                        <div style="margin-top:15px; margin-bottom:15px;">
+                            <h4 style="color:var(--color-danger); margin-bottom:8px; font-size:0.9rem;">Delete Storefront Category Tab</h4>
+                            <div style="display:flex; gap:10px;">
+                                <select id="ownerCategoryDeletionSelectDropdown" style="padding:10px; background:#000; border:1px solid var(--glass-border); color:#fff; border-radius:8px; flex-grow:1;"></select>
+                                <button class="terminal-interaction-btn" type="button" style="background:var(--color-danger); width:auto; padding:0 20px;" onclick="executeOwnerDeleteStorefrontCategoryTab()">Delete Tab</button>
+                            </div>
+                        </div>
+                        <hr style="border:0; border-top:1px dashed var(--glass-border); margin-bottom:15px;">
+                        <h4 style="color:#fff; margin-bottom:12px; font-size:0.9rem;">Add / Modify / Delete Package Structure</h4>
+                        <div class="form-structural-group">
+                            <label>Target Category Section Link</label>
+                            <select id="ownerPackageTargetCategorySelectDropdown" style="background:#000; color:#fff; padding:12px; border-radius:8px; border:1px solid var(--glass-border); width:100%;"></select>
+                        </div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:15px;">
+                            <input type="text" id="ownerPackageInputName" placeholder="Package Title Name (e.g., TITAN)" style="padding:10px; background:#000; border:1px solid var(--glass-border); color:#fff; border-radius:8px;">
+                            <input type="number" id="ownerPackageInputPrice" placeholder="Base Cost Integer (INR)" style="padding:10px; background:#000; border:1px solid var(--glass-border); color:#fff; border-radius:8px;">
+                        </div>
+                        <input type="text" id="ownerPackageInputPerk" placeholder="Single Perk Description Phrase" style="padding:10px; background:#000; border:1px solid var(--glass-border); color:#fff; border-radius:8px; width:100%; margin-bottom:15px;">
                         <div style="display:flex; gap:10px;">
-                            <button class="terminal-interaction-btn" style="width:auto; padding:8px 16px; background:rgba(239,68,68,0.06); border:1px solid var(--color-danger); color:var(--color-danger);" onclick="executeCoreDatabaseWipeRevocation()"><i class="fa-solid fa-trash-can"></i> Clear Database Archive</button>
-                            <button class="terminal-interaction-btn" style="width:auto; padding:8px 16px; background:rgba(16, 185, 129, 0.1); border:1px solid var(--color-success); color:var(--color-success);" onclick="exportMasterDatabaseLedgerToExcelCsvFile()"><i class="fa-solid fa-file-csv"></i> Export Ledger</button>
+                            <button class="terminal-interaction-btn" type="button" style="background:var(--accent-purple);" onclick="executeOwnerCommitNewProductPackageNode()">Compile/Update Product Node</button>
+                            <button class="terminal-interaction-btn" type="button" style="background:var(--color-danger); width:auto; padding:0 25px;" onclick="executeOwnerDeleteProductPackageNode()">Delete Package</button>
                         </div>
                     </div>
-                    
-                    <h4 style="margin-bottom: 10px; font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase;">Administrative Active Session Footprints</h4>
+                    <h3 style="color:var(--color-gold); font-weight:800; margin-bottom:15px;"><i class="fa-solid fa-brain"></i> Cylestial AI Developer Copilot Terminal</h3>
+                    <div style="background:rgba(11,15,25,0.9); padding:20px; border-radius:12px; border:1px solid rgba(251,191,36,0.3); margin-bottom:25px;">
+                        <textarea id="ownerAIPromptTextAreaField" rows="3" placeholder="Example: Add an emergency maintenance red banner..." style="width:100%; background:#000; border:1px solid var(--glass-border); border-radius:8px; color:#fff; padding:12px; font-family:monospace; outline:none; font-size:0.85rem;"></textarea>
+                        <button class="terminal-interaction-btn" type="button" onclick="executeOwnerAIArchitectSimulationSequence()">Generate Architecture Sandbox Preview</button>
+                        <div class="ai-sandbox-blueprint-preview-panel" id="aiSandboxGlobalPreviewFrameBlock">
+                            <div class="ai-sandbox-header-label"><i class="fa-solid fa-vial"></i> Neural Simulation Sandbox Container Preview:</div>
+                            <div id="aiSandboxDynamicComponentRenderSlot" style="padding:15px; border:1px dashed rgba(255,255,255,0.1); background:rgba(0,0,0,0.5); border-radius:8px; margin-bottom:15px;"></div>
+                            <button class="terminal-interaction-btn" type="button" style="background:var(--color-success); color:#000; width:auto; padding:8px 20px; font-size:0.75rem;" onclick="executeOwnerCommitSandboxToProductionDOM()">Commit Live Component Elements</button>
+                        </div>
+                    </div>
+                    <h3 style="color:var(--accent-purple); font-weight:800; margin-bottom:15px;"><i class="fa-solid fa-sliders"></i> Master Server Metadata Sync</h3>
+                    <div style="background:rgba(2,4,10,0.5); padding:20px; border-radius:12px; border:1px solid var(--glass-border); margin-bottom:25px;">
+                        <div class="form-structural-group"><label>Network Server Name Title</label><input type="text" id="editorInputServerBrandName" value="CYLESTIALMC"></div>
+                        <div class="form-structural-group"><label>Landing Subtitle Text</label><input type="text" id="editorInputServerSubtitle" value="Official Server Network Hub"></div>
+                        <div class="form-structural-group"><label>MOTD Scrolling Pulse Strip Message</label><input type="text" id="editorInputServerMotdMessage" value="● 142 Players Online | ⚔️ SUMMER SEASON UPDATE IS LIVE (Tap to copy IP)"></div>
+                        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+                            <input type="text" id="editorInputJavaIPString" value="play.cylestialmc.fun:19001" placeholder="Java IP">
+                            <input type="text" id="editorInputBedrockIPString" value="play.cylestialmc.fun" placeholder="Bedrock IP">
+                            <input type="text" id="editorInputBedrockPortString" value="19012" placeholder="Port">
+                        </div>
+                        <button class="terminal-interaction-btn" type="button" style="background:var(--color-success); color:#000; margin-top:15px;" onclick="executeOwnerLiveDOMCustomContentUpdateSync()">Push Global Content Live</button>
+                    </div>
+                    <h4 style="margin-bottom: 12px; font-weight:700; color: var(--text-secondary);">Processing Queue Ledger</h4>
+                    <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px; margin-bottom:25px;">
+                        <table class="admin-data-table-element">
+                            <thead><tr><th>Player</th><th>Payload Data String</th><th>Billing Value</th><th>Status</th><th style="text-align:center;">Actions Matrix</th></tr></thead>
+                            <tbody id="terminalDashboardInteractiveDataRegisterTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; flex-wrap:wrap; gap:10px;">
+                        <h4 style="font-weight:700; color: var(--text-secondary);">Administrative Session Footprints</h4>
+                        <div style="display:flex; gap:10px;">
+                            <button class="terminal-interaction-btn" type="button" style="width:auto; padding:8px 16px; background:rgba(239,68,68,0.06); border:1px solid var(--color-danger); color:var(--color-danger);" onclick="executeOwnerMasterWipePurgeProtocol()"><i class="fa-solid fa-dumpster-fire"></i> Purge Cache</button>
+                            <button class="terminal-interaction-btn" type="button" style="width:auto; padding:8px 16px; background:rgba(16, 185, 129, 0.1); border:1px solid var(--color-success); color:var(--color-success);" onclick="exportMasterDatabaseLedgerToExcelCsvFile()"><i class="fa-solid fa-file-csv"></i> Export .CSV</button>
+                        </div>
+                    </div>
                     <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px; margin-bottom: 25px;">
                         <table class="admin-data-table-element">
                             <thead><tr><th>User Handle</th><th>Email Link</th><th>Privilege Rank</th><th>Login Time Stamp</th><th style="text-align: center;">Override Token</th></tr></thead>
                             <tbody id="ownerTerminalDashboardIdentityLogsOutputTableBody"></tbody>
                         </table>
                     </div>
-
-                    <h4 style="margin-bottom: 10px; font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase;">Privilege Revocation Matrix</h4>
-                    <div style="background: rgba(239, 68, 68, 0.03); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 12px; padding: 20px;">
-                        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 15px; line-height: 1.4;">Emergency Control: Instantly lock down or re-enable the legacy fallback Staff account address loop (`cylestialmc@gmail.com`).</p>
-                        <button class="terminal-interaction-btn" style="background: #7c2d12; border: 1px solid var(--color-danger); width: auto; padding: 10px 20px;" id="ownerBlacklistStaffEmailToggleBtn" onclick="executeOwnerRevocationAction('staff_email')">Deactivate Legacy Staff Email</button>
-                    </div>
+                </div>
+                <h4 style="font-weight:700; color: var(--text-secondary);">Live Workstation Activity Auditor</h4>
+                <div class="system-audit-log-terminal-output-panel" id="terminalLiveAuditLoggerOutputStackBox">
+                    <div>[00:00:00] INITIALIZATION: Secured database kernel loaded safely.</div>
                 </div>
             </div>
         </div>
@@ -672,6 +691,25 @@
         (function() { emailjs.init("NVnA_39yMMVx_TZyj"); })();
         
         let memoryAllocationCartStack = []; let systemExchangeBaseCurrencySymbol = "₹"; let systemExchangeConversionRatioMetric = 1;
+        let aiCommittedSandboxCacheMarkup = "";
+
+        let storefrontGlobalCategoriesTabObjectMap = JSON.parse(localStorage.getItem('live_store_tabs')) || [
+            { id: "ranks_catalog_section", label: "Rank Upgrades", icon: "fa-crown" },
+            { id: "keys_catalog_section", label: "Crate Keys", icon: "fa-key" }
+        ];
+
+        let storefrontDynamicProductsCoreArray = JSON.parse(localStorage.getItem('live_store_products')) || [
+            { id: "p1", category: "ranks_catalog_section", name: "KNIGHT Rank Upgrade", price: 199, perk: "Entry Tier Kit Allocation" },
+            { id: "p2", category: "ranks_catalog_section", name: "LORD Rank Upgrade", price: 399, perk: "Lord Tier Kit Configuration" },
+            { id: "p3", category: "ranks_catalog_section", name: "PALADIN Rank Upgrade", price: 599, perk: "Paladin Tier Kit Access" },
+            { id: "p4", category: "ranks_catalog_section", name: "DUKE Rank Upgrade", price: 799, perk: "Duke Visual Particle Trails" },
+            { id: "p5", category: "ranks_catalog_section", name: "KING Rank Upgrade", price: 999, perk: "Max Perks Override" },
+            { id: "p6", category: "keys_catalog_section", name: "Vote Crate Key Drop", price: 10, perk: "Standard Vote Crate Key Roll" },
+            { id: "p7", category: "keys_catalog_section", name: "Common Crate Key Drop", price: 20, perk: "Tier 1 Common Asset Lootbox" },
+            { id: "p8", category: "keys_catalog_section", name: "Rare Crate Key Drop", price: 30, perk: "Tier 2 Rare Drops Allocation" },
+            { id: "p9", category: "keys_catalog_section", name: "Epic Crate Key Drop", price: 40, perk: "Tier 3 Supreme Visual Key" },
+            { id: "p10", category: "keys_catalog_section", name: "Superior Crate Key Drop", price: 80, perk: "Premium Max-Tier Loot Box Key" }
+        ];
         
         let coreDatabaseTransactionsRegisterQueueArray = JSON.parse(localStorage.getItem('db_queue')) || []; 
         let counterMetricApprovedTransactionsTotalSumValue = parseFloat(localStorage.getItem('db_rev')) || 0;
@@ -679,17 +717,241 @@
         let flagStaffEmailAddressIsRevokedBlacklisted = localStorage.getItem('db_kill_staff') === 'true';
         let publicApprovedSupportersLeaderboardArray = JSON.parse(localStorage.getItem('db_supporters')) || [];
 
+        if(localStorage.getItem('live_cfg_brand')) document.getElementById('liveDOMTextServerBrandNameTitle').innerText = localStorage.getItem('live_cfg_brand');
+        if(localStorage.getItem('live_cfg_sub')) document.getElementById('liveDOMTextServerBrandSubtitle').innerText = localStorage.getItem('live_cfg_sub');
+        if(localStorage.getItem('live_cfg_motd')) document.getElementById('liveDOMTextServerMotdMessageDisplay').innerText = localStorage.getItem('live_cfg_motd');
+        if(localStorage.getItem('live_cfg_java')) document.getElementById('liveDOMTextConnectionJavaAddress').innerText = localStorage.getItem('live_cfg_java');
+        if(localStorage.getItem('live_cfg_bedrock_ip')) document.getElementById('liveDOMTextConnectionBedrockIP').innerText = localStorage.getItem('live_cfg_bedrock_ip');
+        if(localStorage.getItem('live_cfg_bedrock_port')) document.getElementById('liveDOMTextConnectionBedrockPort').innerText = localStorage.getItem('live_cfg_bedrock_port');
+
         if(localStorage.getItem('db_theme') === 'obsidian') {
             document.body.classList.add('theme-obsidian');
             setTimeout(() => { const icon = document.getElementById('themeStatusWidgetIconElement'); if(icon) icon.className = "fa-solid fa-moon"; }, 100);
         }
 
-        function syncLocalStorageDatabaseKernel() {
-            localStorage.setItem('db_queue', JSON.stringify(coreDatabaseTransactionsRegisterQueueArray));
-            localStorage.setItem('db_rev', counterMetricApprovedTransactionsTotalSumValue.toString());
-            localStorage.setItem('db_sessions', JSON.stringify(adminIdentityAuthAuditTrailsRegistry));
-            localStorage.setItem('db_kill_staff', flagStaffEmailAddressIsRevokedBlacklisted.toString());
-            localStorage.setItem('db_supporters', JSON.stringify(publicApprovedSupportersLeaderboardArray));
+        window.addEventListener('DOMContentLoaded', () => {
+            renderPublicSupportersLeaderboardUIDOM();
+            if(localStorage.getItem('cylestialTerminalAdminAuditFullName')) {
+                transitionUIToAuthenticatedDashboardState();
+            }
+        });
+
+        function openSystemModalWindow(id) {
+            document.getElementById(id).style.display = 'flex';
+            if(id === 'checkoutSystemProcessingModalWindow') { buildModalCheckoutItemsRowsUIDOM(); }
+        }
+        function closeSystemModalWindow(id) { document.getElementById(id).style.display = 'none'; }
+
+        function buildStorefrontDynamicNavigationAndLayoutDOM() {
+            const sidebarNav = document.getElementById('asideDynamicNavigationTabListGroup');
+            const mobileDock = document.getElementById('shopMobileDockBar');
+            const viewPane = document.getElementById('catalogStorefrontPrimaryViewportMainPane');
+            const selectDropdown = document.getElementById('ownerPackageTargetCategorySelectDropdown');
+            const deleteDropdown = document.getElementById('ownerCategoryDeletionSelectDropdown');
+
+            if(!sidebarNav) return;
+            sidebarNav.innerHTML = "";
+            mobileDock.innerHTML = "";
+            selectDropdown.innerHTML = "";
+            if(deleteDropdown) deleteDropdown.innerHTML = "";
+
+            document.querySelectorAll('.dynamic-compiled-catalog-section').forEach(el => el.remove());
+
+            storefrontGlobalCategoriesTabObjectMap.forEach((tab, index) => {
+                const isActive = index === 0 ? "active" : "";
+                const displayStyle = index === 0 ? "grid" : "none";
+
+                sidebarNav.innerHTML += `<li><button class="nav-item-btn ${isActive}" id="d_nav_${tab.id}" onclick="executeViewPaneTabSwitch('${tab.id}')"><i class="fa-solid ${tab.icon}"></i> ${tab.label}</button></li>`;
+                mobileDock.innerHTML += `<button class="mobile-dock-node-btn ${isActive}" id="m_nav_${tab.id}" onclick="executeViewPaneTabSwitch('${tab.id}')"><i class="fa-solid ${tab.icon}"></i> ${tab.label}</button>`;
+                selectDropdown.innerHTML += `<option value="${tab.id}">${tab.label}</option>`;
+                if(deleteDropdown) deleteDropdown.innerHTML += `<option value="${tab.id}">${tab.label}</option>`;
+
+                let sectionGrid = document.createElement('div');
+                sectionGrid.id = tab.id;
+                sectionGrid.className = `catalog-display-view-grid dynamic-compiled-catalog-section`;
+                sectionGrid.style.display = displayStyle;
+
+                let matchedProducts = storefrontDynamicProductsCoreArray.filter(p => p.category === tab.id);
+                matchedProducts.forEach(prod => {
+                    let adjustedDisplayPrice = (prod.price * systemExchangeConversionRatioMetric).toFixed(0);
+                    sectionGrid.innerHTML += `
+                        <div class="cyber-product-card">
+                            <div>
+                                <h3>${prod.name}</h3>
+                                <div class="price-metric-display" id="price_${prod.id}" data-base-price="${prod.price}">${systemExchangeBaseCurrencySymbol}${adjustedDisplayPrice}</div>
+                                <ul><li><i class="fa-solid fa-circle-check"></i> ${prod.perk}</li></ul>
+                            </div>
+                            <button class="terminal-interaction-btn" type="button" onclick="injectProductRecordToCartStack('${prod.name}', ${prod.price})">Add Token</button>
+                        </div>
+                    `;
+                });
+                viewPane.appendChild(sectionGrid);
+            });
+
+            mobileDock.innerHTML += `<button class="mobile-dock-node-btn" style="color: var(--color-danger)" onclick="navigateToViewTier('home')"><i class="fa-solid fa-arrow-left"></i> Hub</button>`;
+        }
+
+        function executeOwnerCreateNewStorefrontCategoryTab() {
+            const keyID = document.getElementById('ownerNewCategoryInputID').value.trim();
+            const label = document.getElementById('ownerNewCategoryInputLabel').value.trim();
+            if(!keyID || !label) { alert('Specify valid structural parameters.'); return; }
+
+            storefrontGlobalCategoriesTabObjectMap.push({ id: keyID, label: label, icon: "fa-boxes-stacked" });
+            localStorage.setItem('live_store_tabs', JSON.stringify(storefrontGlobalCategoriesTabObjectMap));
+            buildStorefrontDynamicNavigationAndLayoutDOM();
+            alert('Navigation Category Added!');
+        }
+
+        function executeOwnerDeleteStorefrontCategoryTab() {
+            const targetID = document.getElementById('ownerCategoryDeletionSelectDropdown').value;
+            if(!targetID) return;
+            storefrontGlobalCategoriesTabObjectMap = storefrontGlobalCategoriesTabObjectMap.filter(t => t.id !== targetID);
+            storefrontDynamicProductsCoreArray = storefrontDynamicProductsCoreArray.filter(p => p.category !== targetID);
+            localStorage.setItem('live_store_tabs', JSON.stringify(storefrontGlobalCategoriesTabObjectMap));
+            localStorage.setItem('live_store_products', JSON.stringify(storefrontDynamicProductsCoreArray));
+            buildStorefrontDynamicNavigationAndLayoutDOM();
+            alert('Category Tab Purged Successfully!');
+        }
+
+        function executeOwnerCommitNewProductPackageNode() {
+            const category = document.getElementById('ownerPackageTargetCategorySelectDropdown').value;
+            const title = document.getElementById('ownerPackageInputName').value.trim();
+            const price = parseFloat(document.getElementById('ownerPackageInputPrice').value);
+            const perk = document.getElementById('ownerPackageInputPerk').value.trim() || "Premium Core Package Option Included";
+
+            if(!title || isNaN(price)) { alert('Fill transaction product parameters safely.'); return; }
+
+            const existingIdx = storefrontDynamicProductsCoreArray.findIndex(p => p.name.toLowerCase() === title.toLowerCase());
+            if(existingIdx !== -1) {
+                storefrontDynamicProductsCoreArray[existingIdx].price = price;
+                storefrontDynamicProductsCoreArray[existingIdx].perk = perk;
+                storefrontDynamicProductsCoreArray[existingIdx].category = category;
+            } else {
+                storefrontDynamicProductsCoreArray.push({ id: "p_ext_" + Date.now(), category: category, name: title, price: price, perk: perk });
+            }
+
+            localStorage.setItem('live_store_products', JSON.stringify(storefrontDynamicProductsCoreArray));
+            buildStorefrontDynamicNavigationAndLayoutDOM();
+            alert(`Storefront Synced! ${title} set to ₹${price}.`);
+        }
+
+        function executeOwnerDeleteProductPackageNode() {
+            const title = document.getElementById('ownerPackageInputName').value.trim();
+            if(!title) { alert('Enter name.'); return; }
+            storefrontDynamicProductsCoreArray = storefrontDynamicProductsCoreArray.filter(p => p.name.toLowerCase() !== title.toLowerCase());
+            localStorage.setItem('live_store_products', JSON.stringify(storefrontDynamicProductsCoreArray));
+            buildStorefrontDynamicNavigationAndLayoutDOM();
+            alert('Package purged.');
+        }
+
+        function executeOwnerAIArchitectSimulationSequence() {
+            const prompt = document.getElementById('ownerAIPromptTextAreaField').value.trim().toLowerCase();
+            const previewFrame = document.getElementById('aiSandboxGlobalPreviewFrameBlock');
+            const renderSlot = document.getElementById('aiSandboxDynamicComponentRenderSlot');
+
+            if(!prompt) { alert('Enter operational prompt rules.'); return; }
+            previewFrame.style.display = "block";
+
+            if(prompt.includes('alert') || prompt.includes('banner') || prompt.includes('maintenance')) {
+                aiCommittedSandboxCacheMarkup = `
+                    <div style="background:rgba(239,68,68,0.15); border:2px dashed var(--color-danger); border-radius:8px; padding:12px; color:#fff; display:flex; align-items:center; gap:10px; font-weight:700;">
+                        <i class="fa-solid fa-triangle-exclamation" style="color:var(--color-danger); font-size:1.4rem;"></i>
+                        <div>
+                            <span style="display:block; text-transform:uppercase; font-size:0.8rem; color:var(--color-danger);">SYSTEM RADAR NETWORK WARNING:</span>
+                            <span style="font-size:0.85rem; font-weight:500; color:var(--text-primary);">Maintenance session running. Server connections will migrate to backup routes. Boost tokens up up to 15% off today!</span>
+                        </div>
+                    </div>`;
+            } else if(prompt.includes('sale') || prompt.includes('promo') || prompt.includes('discount')) {
+                aiCommittedSandboxCacheMarkup = `
+                    <div style="background:rgba(16,185,129,0.1); border:1px solid var(--color-success); padding:15px; border-radius:10px; text-align:center; box-shadow:0 0 15px rgba(16,185,129,0.2);">
+                        <h4 style="color:var(--color-success); text-transform:uppercase; letter-spacing:2px; font-size:0.9rem; font-weight:900;">🔥 HOLIDAY MEGA SALE ACTIVE 🔥</h4>
+                        <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:4px;">Use absolute automatic token keys across checkout processing to receive instant Vanguard level status upgrades!</p>
+                    </div>`;
+            } else {
+                aiCommittedSandboxCacheMarkup = `
+                    <div style="background:var(--bg-surface-solid); border:1px solid var(--accent-purple); padding:12px; border-radius:8px; font-size:0.85rem; color:#fff;">
+                        <i class="fa-solid fa-sparkles" style="color:var(--accent-purple)"></i> Dynamic AI Structural component compiled cleanly. Frame state verification passed.
+                    </div>`;
+            }
+
+            renderSlot.innerHTML = aiCommittedSandboxCacheMarkup;
+        }
+
+        function executeOwnerCommitSandboxToProductionDOM() {
+            if(!aiCommittedSandboxCacheMarkup) return;
+            const broadcastBanner = document.getElementById('clientPublicGlobalBroadcastBanner');
+            broadcastBanner.innerHTML = aiCommittedSandboxCacheMarkup;
+            broadcastBanner.style.display = "block";
+            alert("Sandbox production checkpoint reached. Live component update pushed safely to main viewport!");
+        }
+
+        function toggleServerCompanionChatViewPane() {
+            const el = document.getElementById('serverCompanionChatWindowFrame');
+            el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'flex' : 'none';
+        }
+
+        function executeServerCompanionChatResponseCycle() {
+            const inp = document.getElementById('serverCompanionChatInputTextField');
+            const stream = document.getElementById('serverCompanionChatMessagesStreamStack');
+            const text = inp.value.trim().toLowerCase();
+            if(!text) return;
+
+            stream.innerHTML += `<div class="ai-chat-bubble-node user">${inp.value}</div>`;
+            inp.value = '';
+
+            let response = "CylestialMC is the absolute best community ever! Join us right now at play.cylestialmc.fun to explore unparalleled custom ranks and premium crate updates!";
+            
+            if(text.includes('ip') || text.includes('address') || text.includes('connect')) {
+                response = `Connect instantly to the world's most elite server! Java IP: play.cylestialmc.fun:19001 | Bedrock IP: play.cylestialmc.fun (Port 19012). You are missing out on incredible gameplay if you aren't logged in!`;
+            } else if (text.includes('rank') || text.includes('key') || text.includes('token') || text.includes('buy')) {
+                response = `Unlock extraordinary legendary perks inside our webstore menu! Grab Knight, Lord, or King ranks right now to completely dominate the ladder on this unmatched premium network!`;
+            } else if (text.includes('hindi') || text.includes('ip kya hai') || text.includes('kaise khele')) {
+                response = `यह पूरी दुनिया का सबसे बेहतरीन और लाजवाब माइनक्राफ्ट सर्वर है! अभी जुड़ें: play.cylestialmc.fun (Bedrock पोर्ट: 19012). इस शानदार अनुभव को मिस न करें!`;
+            }
+
+            setTimeout(() => {
+                stream.innerHTML += `<div class="ai-chat-bubble-node assistant">${response}</div>`;
+                stream.scrollTop = stream.scrollHeight;
+            }, 400);
+        }
+
+        function executeOwnerLiveDOMCustomContentUpdateSync() {
+            const activeRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege');
+            if(activeRole !== 'Owner') { alert('Access Denied.'); return; }
+
+            const valTitle = document.getElementById('editorInputServerBrandName').value.trim();
+            const valSub = document.getElementById('editorInputServerSubtitle').value.trim();
+            const valMotd = document.getElementById('editorInputServerMotdMessage').value.trim();
+            const valJava = document.getElementById('editorInputJavaIPString').value.trim();
+            const valBedIP = document.getElementById('editorInputBedrockIPString').value.trim();
+            const valBedPort = document.getElementById('editorInputBedrockPortString').value.trim();
+
+            document.getElementById('liveDOMTextServerBrandNameTitle').innerText = valTitle;
+            document.getElementById('liveDOMTextServerBrandSubtitle').innerText = valSub;
+            document.getElementById('liveDOMTextServerMotdMessageDisplay').innerText = valMotd;
+            document.getElementById('liveDOMTextConnectionJavaAddress').innerText = valJava;
+            document.getElementById('liveDOMTextConnectionBedrockIP').innerText = valBedIP;
+            document.getElementById('liveDOMTextConnectionBedrockPort').innerText = valBedPort;
+
+            localStorage.setItem('live_cfg_brand', valTitle);
+            localStorage.setItem('live_cfg_sub', valSub);
+            localStorage.setItem('live_cfg_motd', valMotd);
+            localStorage.setItem('live_cfg_java', valJava);
+            localStorage.setItem('live_cfg_bedrock_ip', valBedIP);
+            localStorage.setItem('live_cfg_bedrock_port', valBedPort);
+
+            alert('Web parameters updated and live synced perfectly!');
+        }
+
+        function toggleAccordionTabSelectionPanel(header) {
+            const panel = header.nextElementSibling;
+            if (panel.style.maxHeight === '0px' || !panel.style.maxHeight) {
+                panel.style.maxHeight = '100px';
+                panel.style.padding = '10px 15px';
+            } else {
+                panel.style.maxHeight = '0px';
+                panel.style.padding = '0 15px';
+            }
         }
 
         function renderPublicSupportersLeaderboardUIDOM() {
@@ -724,19 +986,32 @@
             });
         }
 
-        document.addEventListener("DOMContentLoaded", () => { synchronizeOwnerEmailRevocationUIElementsState(); renderPublicSupportersLeaderboardUIDOM(); });
-        function appendAuditLogMessage(text) { const box = document.getElementById('terminalLiveAuditLoggerOutputStackBox'); if(!box) return; box.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${text}</div>`; box.scrollTop = box.scrollHeight; }
+        function syncLocalStorageDatabaseKernel() {
+            localStorage.setItem('db_queue', JSON.stringify(coreDatabaseTransactionsRegisterQueueArray));
+            localStorage.setItem('db_rev', counterMetricApprovedTransactionsTotalSumValue.toString());
+            localStorage.setItem('db_sessions', JSON.stringify(adminIdentityAuthAuditTrailsRegistry));
+            localStorage.setItem('db_kill_staff', flagStaffEmailAddressIsRevokedBlacklisted.toString());
+            localStorage.setItem('db_supporters', JSON.stringify(publicApprovedSupportersLeaderboardArray));
+        }
+
+        function appendAuditLogMessage(text) { 
+            const box = document.getElementById('terminalLiveAuditLoggerOutputStackBox'); 
+            if(!box) return; 
+            box.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${text}</div>`; 
+            box.scrollTop = box.scrollHeight; 
+        }
 
         function navigateToViewTier(targetPageKeyID) {
             const landingViewTier = document.getElementById('main_landing_view_tier'); const shopViewTier = document.getElementById('shop_layout_root_tier'); const mobileHeader = document.getElementById('shopMobileHeaderBar'); const mobileDock = document.getElementById('shopMobileDockBar');
             if (targetPageKeyID === 'home') { shopViewTier.style.display = 'none'; shopViewTier.classList.remove('shop-active'); mobileHeader.style.display = 'none'; mobileDock.style.display = 'none'; landingViewTier.style.display = 'flex'; renderPublicSupportersLeaderboardUIDOM(); } 
-            else if (targetPageKeyID === 'shop') { landingViewTier.style.display = 'none'; shopViewTier.style.display = 'grid'; shopViewTier.classList.add('shop-active'); mobileHeader.style.display = 'flex'; mobileDock.style.display = 'flex'; executeViewPaneTabSwitch('ranks_catalog_section'); }
+            else if (targetPageKeyID === 'shop') { landingViewTier.style.display = 'none'; shopViewTier.style.display = 'grid'; shopViewTier.classList.add('shop-active'); mobileHeader.style.display = 'flex'; mobileDock.style.display = 'flex'; buildStorefrontDynamicNavigationAndLayoutDOM(); }
         }
 
         function executeViewPaneTabSwitch(targetDisplaySectionContainerElementID) {
             document.querySelectorAll('.catalog-display-view-grid').forEach(section => section.style.display = 'none'); document.querySelectorAll('.nav-item-btn, .mobile-dock-node-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(targetDisplaySectionContainerElementID).style.display = 'grid'; const suffixKey = targetDisplaySectionContainerElementID.replace('_catalog_section', '');
-            const dBtn = document.getElementById(`d_nav_${suffixKey}`); const mBtn = document.getElementById(`m_nav_${suffixKey}`); if (dBtn) dBtn.classList.add('active'); if (mBtn) mBtn.classList.add('active');
+            const matchedSection = document.getElementById(targetDisplaySectionContainerElementID);
+            if(matchedSection) matchedSection.style.display = 'grid';
+            const dBtn = document.getElementById(`d_nav_${targetDisplaySectionContainerElementID}`); const mBtn = document.getElementById(`m_nav_${targetDisplaySectionContainerElementID}`); if (dBtn) dBtn.classList.add('active'); if (mBtn) mBtn.classList.add('active');
         }
 
         function executeCoreUserThemeSwitchToggle() {
@@ -748,18 +1023,10 @@
             }
         }
 
-        function executeServerAddressCopyProtocolString() { navigator.clipboard.writeText("play.cylestialmc.fun"); alert("🎯 IP Address Copied: play.cylestialmc.fun\nJoin now!"); }
-
-        function openSystemModalWindow(id) { 
-            document.getElementById(id).style.display = 'flex'; 
-            if (id === 'checkoutSystemProcessingModalWindow') {
-                document.getElementById('modalStageWrapperStep1').style.display = 'block';
-                document.getElementById('modalStageWrapperStep2').style.display = 'none';
-                document.getElementById('modalStageWrapperStep3').style.display = 'none';
-                buildModalCheckoutItemsRowsUIDOM();
-            }
+        function executeServerAddressCopyProtocolString() {
+            navigator.clipboard.writeText("play.cylestialmc.fun");
+            alert("🎯 IP Address Copied: play.cylestialmc.fun\nJoin the server network now!");
         }
-        function closeSystemModalWindow(id) { document.getElementById(id).style.display = 'none'; }
 
         function injectProductRecordToCartStack(productLabelName, rawPriceIntegerMetric) {
             const index = memoryAllocationCartStack.findIndex(item => item.name === productLabelName);
@@ -770,7 +1037,8 @@
         function alterCartItemQuantityValue(targetIndexLocation, mathematicalModifierValue) {
             memoryAllocationCartStack[targetIndexLocation].quantity += mathematicalModifierValue;
             if (memoryAllocationCartStack[targetIndexLocation].quantity <= 0) { memoryAllocationCartStack.splice(targetIndexLocation, 1); }
-            evaluateFloatingCartWidgetUIStateFeedback(); buildModalCheckoutItemsRowsUIDOM();
+            evaluateFloatingCartWidgetUIStateFeedback(); 
+            buildModalCheckoutItemsRowsUIDOM();
         }
 
         function evaluateFloatingCartWidgetUIStateFeedback() {
@@ -788,18 +1056,41 @@
                 let scaledDynamicCurrencyCost = (item.basePrice * systemExchangeConversionRatioMetric * item.quantity).toFixed(2); 
                 computedFinancialValueAccumulatorSum += parseFloat(scaledDynamicCurrencyCost); 
                 let tr = document.createElement('div'); tr.className = 'basket-item-list-row'; 
-                tr.innerHTML = `<span><strong>${item.name}</strong></span><div style="display:flex;align-items:center;gap:15px;"><div class="cart-quantity-inline-modifier"><button class="quantity-modifier-node-btn" onclick="alterCartItemQuantityValue(${index}, -1)">-</button><span style="font-size:0.85rem;font-weight:800;color:#fff;">${item.quantity}</span><button class="quantity-modifier-node-btn" onclick="alterCartItemQuantityValue(${index}, 1)">+</button></div><span style="font-weight:700;color:var(--accent-cyan);min-width:70px;text-align:right;">${systemExchangeBaseCurrencySymbol}${scaledDynamicCurrencyCost}</span></div>`; 
+                tr.innerHTML = `<span><strong>${item.name}</strong></span><div style="display:flex;align-items:center;gap:15px;"><div class="cart-quantity-inline-modifier"><button class="quantity-modifier-node-btn" type="button" onclick="alterCartItemQuantityValue(${index}, -1)">-</button><span style="font-size:0.85rem;font-weight:800;color:#fff;">${item.quantity}</span><button class="quantity-modifier-node-btn" type="button" onclick="alterCartItemQuantityValue(${index}, 1)">+</button></div><span style="font-weight:700;color:var(--accent-cyan);min-width:70px;text-align:right;">${systemExchangeBaseCurrencySymbol}${scaledDynamicCurrencyCost}</span></div>`; 
                 targetRowsDisplayContainer.appendChild(tr); 
             });
             totalCostSumTextElement.innerText = `${systemExchangeBaseCurrencySymbol}${computedFinancialValueAccumulatorSum.toFixed(2)}`;
         }
 
-        function recalculateStorefrontExchangePricesMatrix() { const exchangeSelectMenuNode = document.getElementById('formFieldGeographicCurrencySelector'); const activePickedOptionNode = exchangeSelectMenuNode.options[exchangeSelectMenuNode.selectedIndex]; systemExchangeConversionRatioMetric = parseFloat(activePickedOptionNode.getAttribute('data-ratio')); systemExchangeBaseCurrencySymbol = activePickedOptionNode.getAttribute('data-symbol'); document.querySelectorAll('.price-metric-display').forEach(displayTag => { let unscaledPriceBaseValue = parseFloat(displayTag.getAttribute('data-base-price')); displayTag.innerText = `${systemExchangeBaseCurrencySymbol}${(unscaledPriceBaseValue * systemExchangeConversionRatioMetric).toFixed(0)}`; }); buildModalCheckoutItemsRowsUIDOM(); }
-        function advanceCheckoutModalToPaymentMatrix() { const inputFieldUsernameTextContext = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); const inputFieldEmailTextContext = document.getElementById('formFieldCustomerEmailInput').value.trim(); const legalChecked = document.getElementById('legalMandatoryCheckboxTokenField').checked; if (!inputFieldUsernameTextContext || !inputFieldEmailTextContext) { alert('Fill all details.'); return; } if(!legalChecked) { alert('You must agree to the Terms of Service.'); return; } let checkoutCostSumValue = 0; memoryAllocationCartStack.forEach(product => { checkoutCostSumValue += (product.basePrice * product.quantity); }); const calculatedCleanFinalValue = (checkoutCostSumValue * systemExchangeConversionRatioMetric).toFixed(2); const upiStringPayloadUrl = `upi://pay?pa=9515411111@fam&pn=CylestialMC%20Webstore&am=${calculatedCleanFinalValue}&cu=INR`; document.getElementById('premiumAutomatedBillingQRImageTarget').src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(upiStringPayloadUrl)}`; document.getElementById('modalStageWrapperStep1').style.display = 'none'; document.getElementById('modalStageWrapperStep2').style.display = 'block'; }
+        function recalculateStorefrontExchangePricesMatrix() { 
+            const exchangeSelectMenuNode = document.getElementById('formFieldGeographicCurrencySelector'); 
+            const activePickedOptionNode = exchangeSelectMenuNode.options[exchangeSelectMenuNode.selectedIndex]; 
+            systemExchangeConversionRatioMetric = parseFloat(activePickedOptionNode.getAttribute('data-ratio')); 
+            systemExchangeBaseCurrencySymbol = activePickedOptionNode.getAttribute('data-symbol'); 
+            buildStorefrontDynamicNavigationAndLayoutDOM();
+            buildModalCheckoutItemsRowsUIDOM(); 
+        }
+
+        function advanceCheckoutModalToPaymentMatrix() { 
+            const inputFieldUsernameTextContext = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); 
+            const inputFieldEmailTextContext = document.getElementById('formFieldCustomerEmailInput').value.trim(); 
+            const legalChecked = document.getElementById('legalMandatoryCheckboxTokenField').checked; 
+            if (!inputFieldUsernameTextContext || !inputFieldEmailTextContext) { alert('Fill all details.'); return; } 
+            if(!legalChecked) { alert('You must agree to the Terms of Service.'); return; } 
+            
+            let checkoutCostSumValue = 0; 
+            memoryAllocationCartStack.forEach(product => { checkoutCostSumValue += (product.basePrice * product.quantity); }); 
+            const calculatedCleanFinalValue = (checkoutCostSumValue * systemExchangeConversionRatioMetric).toFixed(2); 
+            const upiStringPayloadUrl = `upi://pay?pa=9515411111@fam&pn=CylestialMC%20Webstore&am=${calculatedCleanFinalValue}&cu=INR`; 
+            
+            document.getElementById('premiumAutomatedBillingQRImageTarget').src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(upiStringPayloadUrl)}`; 
+            document.getElementById('modalStageWrapperStep1').style.display = 'none'; 
+            document.getElementById('modalStageWrapperStep2').style.display = 'block'; 
+        }
 
         function toggleTargetedPaymentSubPane(selectedGatewayKeyNameValue) {
             document.querySelectorAll('.payment-channel-node-card').forEach(card => card.classList.remove('active-selection')); document.querySelectorAll('.payment-execution-content-panel').forEach(pane => pane.style.display = 'none');
-            if (selectedGatewayKeyNameValue === 'UPI') { document.getElementById('paymentTabUPI').classList.add('active-selection'); document.getElementById('paneVaultUPI').style.display = 'block'; } else if (selectedGatewayKeyNameValue === 'PAYPAL') { document.getElementById('paymentTabPAYPAL').classList.add('active-selection'); document.getElementById('paneVaultPAYPAL').style.display = 'block'; }
+            if (selectedGatewayKeyNameValue === 'UPI') { document.getElementById('paymentTabUPI').classList.add('active-selection'); document.getElementById('paneVaultUPI').style.display = 'block'; } 
         }
 
         function runLiveAvatarSkinRenderingMatrix(inputUsernameString) {
@@ -807,47 +1098,162 @@
             if(targetCleanName.length > 2) { frame.style.display = 'flex'; img.src = `https://minotar.net/avatar/${targetCleanName}/40.png`; } else { frame.style.display = 'none'; }
         }
 
-        function filterLedgerQueueRowsInRealtime(searchTermContextValue) {
-            const trs = document.querySelectorAll('#terminalDashboardInteractiveDataRegisterTableBody tr'); const match = searchTermContextValue.trim().toLowerCase();
-            trs.forEach(row => { if(row.innerText.toLowerCase().includes(match)) { row.style.display = ''; } else { row.style.display = 'none'; } });
-        }
-
-        function exportMasterDatabaseLedgerToExcelCsvFile() {
-            if(coreDatabaseTransactionsRegisterQueueArray.length === 0 && counterMetricApprovedTransactionsTotalSumValue === 0) { alert('No transaction data found in database core to compile.'); return; }
-            let csvContent = "data:text/csv;charset=utf-8,ID,Player Name,Purchased Payload,Localized Cost,Contact Email,Forwarded State\n";
-            coreDatabaseTransactionsRegisterQueueArray.forEach(row => { csvContent += `${row.uniqueTimestampID},"${row.usernameProfileKey}","${row.itemsBlockPayloadSummary}","${row.costFormattedWithSymbol}","${row.customerEmail}",${row.isForwarded}\n`; });
-            const encodedUri = encodeURI(csvContent); const link = document.createElement("a"); link.setAttribute("href", encodedUri); link.setAttribute("download", `CylestialMC_Financial_Ledger_${new Date().toLocaleDateString()}.csv`); document.body.appendChild(link); link.click(); document.body.removeChild(link); appendAuditLogMessage(`SYSTEM: Compiled and exported global transaction ledger .csv spreadsheet.`);
-        }
-
-        function executeOwnerMasterWipePurgeProtocol() {
-            if(confirm("⚠️ CRITICAL: Permanently clear all core database cache?")) { localStorage.clear(); location.reload(); }
+        function runReceiptUploadFileBadgeNotificationState(fileSelectorInputFieldElement) {
+            const label = document.getElementById('fileUploadDisplayContextLabel');
+            if(fileSelectorInputFieldElement.files.length > 0) { label.innerText = `Selected File: ${fileSelectorInputFieldElement.files[0].name}`; } else { label.innerText = "Drag & drop or click to upload proof image"; }
         }
 
         function pushOrderRecordDataObjectsToQueue() {
-            const contextUsernameTarget = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); const contextCustomerEmailTarget = document.getElementById('formFieldCustomerEmailInput').value.trim();
-            const refIdInput = document.getElementById('formFieldTransactionRefId').value.trim();
-            if(!refIdInput) { alert("Please supply your reference payment transaction ID validation parameter."); return; }
+            const contextUsernameTarget = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); 
+            const contextCustomerEmailTarget = document.getElementById('formFieldCustomerEmailInput').value.trim();
             
-            let accumulatedBaseCostAggregateValue = 0; let combinedProductDescriptionString = memoryAllocationCartStack.map(obj => `${obj.name} (x${obj.quantity})`).join(', '); memoryAllocationCartStack.forEach(product => { accumulatedBaseCostAggregateValue += (product.basePrice * product.quantity); });
+            if(!contextUsernameTarget || !contextCustomerEmailTarget) { alert('Missing details context'); return; }
+            
+            let accumulatedBaseCostAggregateValue = 0; 
+            let combinedProductDescriptionString = memoryAllocationCartStack.map(obj => `${obj.name} (x${obj.quantity})`).join(', '); 
+            memoryAllocationCartStack.forEach(product => { accumulatedBaseCostAggregateValue += (product.basePrice * product.quantity); });
+            
             const finalDisplayPriceWithSymbol = `${systemExchangeBaseCurrencySymbol}${(accumulatedBaseCostAggregateValue * systemExchangeConversionRatioMetric).toFixed(2)}`;
             
-            coreDatabaseTransactionsRegisterQueueArray.push({ uniqueTimestampID: Date.now(), usernameProfileKey: contextUsernameTarget, itemsBlockPayloadSummary: `${combinedProductDescriptionString} [Ref: ${refIdInput}]`, costAggregateFormattedString: `₹${accumulatedBaseCostAggregateValue}`, costRawValue: accumulatedBaseCostAggregateValue, costFormattedWithSymbol: finalDisplayPriceWithSymbol, customerEmail: contextCustomerEmailTarget, isForwarded: false });
-            memoryAllocationCartStack = []; evaluateFloatingCartWidgetUIStateFeedback();
-            document.getElementById('modalStageWrapperStep2').style.display = 'none'; document.getElementById('modalStageWrapperStep3').style.display = 'block'; syncLocalStorageDatabaseKernel(); renderTerminalDashboardInteractiveTableQueueEngine();
+            coreDatabaseTransactionsRegisterQueueArray.push({ 
+                uniqueTimestampID: Date.now(), 
+                usernameProfileKey: contextUsernameTarget, 
+                itemsBlockPayloadSummary: combinedProductDescriptionString, 
+                costAggregateFormattedString: `₹${accumulatedBaseCostAggregateValue}`, 
+                costRawValue: accumulatedBaseCostAggregateValue, 
+                costFormattedWithSymbol: finalDisplayPriceWithSymbol, 
+                customerEmail: contextCustomerEmailTarget, 
+                isForwarded: false 
+            });
+            
+            memoryAllocationCartStack = []; 
+            evaluateFloatingCartWidgetUIStateFeedback();
+            document.getElementById('modalStageWrapperStep2').style.display = 'none'; 
+            document.getElementById('modalStageWrapperStep3').style.display = 'block'; 
+            syncLocalStorageDatabaseKernel(); 
+            renderTerminalDashboardInteractiveTableQueueEngine();
         }
 
         function runTerminalSecurityAuthorizationSequence() {
-            const nameField = document.getElementById('fieldSecurityAdminFullLegalName').value.trim(); const emailField = document.getElementById('fieldSecurityAdminEmailIdentifier').value.trim().toLowerCase(); const passField = document.getElementById('fieldSecurityAdminPasswordKeyphrase').value;
-            let role = ""; if (emailField === 'rishit27.3.2008@gmail.com' && passField === 'Rishit@270308') { role = "Owner"; } else if (emailField === 'cylestialmc@gmail.com' && passField === 'PaSsWoRd') { if (flagStaffEmailAddressIsRevokedBlacklisted) { alert('Security Error: Fallback staff locked.'); return; } role = "Staff"; } else { document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'block'; return; }
-            document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'none'; adminIdentityAuthAuditTrailsRegistry.push({ id: Date.now(), name: nameField, email: emailField, role: role, time: new Date().toLocaleTimeString(), status: "Active" }); localStorage.setItem('cylestialTerminalAdminAuditFullName', nameField); localStorage.setItem('cylestialTerminalAdminAssignedRolePrivilege', role); syncLocalStorageDatabaseKernel(); transitionUIToAuthenticatedDashboardState(); appendAuditLogMessage(`SECURITY: Session established for user ${nameField} (${role}).`);
+            const nameField = document.getElementById('fieldSecurityAdminFullLegalName').value.trim(); 
+            const emailField = document.getElementById('fieldSecurityAdminEmailIdentifier').value.trim().toLowerCase(); 
+            const passField = document.getElementById('fieldSecurityAdminPasswordKeyphrase').value;
+            let role = ""; 
+            if (emailField === 'rishit27.3.2008@gmail.com' && passField === 'Rishit@270308') { role = "Owner"; } 
+            else if (emailField === 'cylestialmc@gmail.com' && passField === 'PaSsWoRd') { 
+                if (flagStaffEmailAddressIsRevokedBlacklisted) { alert('Security Error: Legacy staff access pipeline disabled by Owner.'); return; } 
+                role = "Staff"; 
+            } else { document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'block'; return; }
+            
+            document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'none'; 
+            adminIdentityAuthAuditTrailsRegistry.push({ id: Date.now(), name: nameField, email: emailField, role: role, time: new Date().toLocaleTimeString(), status: "Active" }); 
+            localStorage.setItem('cylestialTerminalAdminAuditFullName', nameField); 
+            localStorage.setItem('cylestialTerminalAdminAssignedRolePrivilege', role); 
+            syncLocalStorageDatabaseKernel(); 
+            transitionUIToAuthenticatedDashboardState(); 
+            appendAuditLogMessage(`SECURITY: Session established for user ${nameField} (${role}).`);
         }
 
         function killTerminalSecureAuthorizationSession() { 
-            const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName'); const targetIdx = adminIdentityAuthAuditTrailsRegistry.findIndex(s => s.name === activeName && s.status === "Active"); if(targetIdx !== -1) adminIdentityAuthAuditTrailsRegistry[targetIdx].status = `Terminated (${new Date().toLocaleTimeString()})`; appendAuditLogMessage(`SECURITY: Session terminated by user ${activeName}.`); syncLocalStorageDatabaseKernel(); document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'none'; document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'block'; 
+            const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName'); 
+            const targetIdx = adminIdentityAuthAuditTrailsRegistry.findIndex(s => s.name === activeName && s.status === "Active"); 
+            if(targetIdx !== -1) adminIdentityAuthAuditTrailsRegistry[targetIdx].status = `Terminated (${new Date().toLocaleTimeString()})`; 
+            appendAuditLogMessage(`SECURITY: Session terminated by user ${activeName}.`); 
+            localStorage.removeItem('cylestialTerminalAdminAuditFullName');
+            localStorage.removeItem('cylestialTerminalAdminAssignedRolePrivilege');
+            syncLocalStorageDatabaseKernel(); 
+            document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'none'; 
+            document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'block'; 
         }
-        
+
         function transitionUIToAuthenticatedDashboardState() {
-            document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'none'; document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'block'; const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'User'; const activeRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff'; document.getElementById('terminalLiveGreetingAdminName').innerText = activeName; document.getElementById('terminalLiveGreetingAdminRole').innerText = activeRole; const ownerPanel = document.getElementById('ownerPrivilegedExclusiveOperationsDashboard'); if (activeRole === 'Owner') { ownerPanel.style.display = 'block'; renderOwnerSessionsLogs(); } else { ownerPanel.style.display = 'none'; } renderTerminalDashboardInteractiveTableQueueEngine();
+            document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'none'; 
+            document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'block'; 
+            const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'User'; 
+            const activeRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff'; 
+            document.getElementById('terminalLiveGreetingAdminName').innerText = activeName; 
+            document.getElementById('terminalLiveGreetingAdminRole').innerText = activeRole; 
+            const ownerPanel = document.getElementById('ownerPrivilegedExclusiveOperationsDashboard'); 
+            if (activeRole === 'Owner') { ownerPanel.style.display = 'block'; renderOwnerSessionsLogs(); } else { ownerPanel.style.display = 'none'; } 
+            renderTerminalDashboardInteractiveTableQueueEngine();
+        }
+
+        function renderTerminalDashboardInteractiveTableQueueEngine() {
+            const targetTableBodyDOMNode = document.getElementById('terminalDashboardInteractiveDataRegisterTableBody'); 
+            if(!targetTableBodyDOMNode) return;
+            targetTableBodyDOMNode.innerHTML = ''; 
+            const currentRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff'; 
+            document.getElementById('metricWidgetDisplayQueuedTotalCount').innerText = coreDatabaseTransactionsRegisterQueueArray.length; 
+            document.getElementById('metricWidgetDisplayApprovedTotalCount').innerText = `₹${counterMetricApprovedTransactionsTotalSumValue.toFixed(2)}`; 
+            document.getElementById('metricWidgetDisplayTotalAuthLogsCount').innerText = adminIdentityAuthAuditTrailsRegistry.length;
+            
+            if (coreDatabaseTransactionsRegisterQueueArray.length === 0) { targetTableBodyDOMNode.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px 0;">Queue is empty.</td></tr>'; return; }
+            coreDatabaseTransactionsRegisterQueueArray.forEach(logRecordObject => {
+                let tr = document.createElement('tr'); 
+                let statusMarkup = logRecordObject.isForwarded ? '<span class="status-badge status-forwarded">Forwarded</span>' : '<span class="status-badge status-pending">Pending</span>'; 
+                let generatedCommandString = parseInGameRconCommandString(logRecordObject.usernameProfileKey, logRecordObject.itemsBlockPayloadSummary); 
+                let actionsMarkup = ''; 
+                
+                if (currentRole === 'Owner') { 
+                    actionsMarkup = `<button class="operational-action-trigger-btn trigger-btn-approve" type="button" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, true)"><i class="fa-solid fa-check"></i></button><button class="operational-action-trigger-btn trigger-btn-deny" type="button" style="margin-left:6px;" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, false)"><i class="fa-solid fa-xmark"></i></button>`; 
+                } else { 
+                    actionsMarkup = logRecordObject.isForwarded ? '<span style="font-size:0.8rem;color:var(--text-secondary)">Awaiting Owner Review</span>' : `<button class="operational-action-trigger-btn trigger-btn-forward" type="button" onclick="staffForwardOrderLogToOwner(${logRecordObject.uniqueTimestampID})">Forward to Owner</button>`; 
+                }
+                tr.innerHTML = `<td><strong>${logRecordObject.usernameProfileKey}</strong></td><td>${logRecordObject.itemsBlockPayloadSummary}<div class="discord-srv-rcon-command-pill-box"><span>${generatedCommandString}</span></div></td><td><span style="color:var(--accent-cyan);font-weight:700;">${logRecordObject.costFormattedWithSymbol}</span></td><td>${statusMarkup}</td><td style="text-align:center;min-width:130px;">${actionsMarkup}</td>`; 
+                targetTableBodyDOMNode.appendChild(tr);
+            });
+        }
+
+        // CORES FOR APPROVE / DENY DISPATCH HANDLERS
+        function evaluateQueuedOrderLogTransactionRecord(timestampID, isApproved) {
+            const index = coreDatabaseTransactionsRegisterQueueArray.findIndex(item => item.uniqueTimestampID === timestampID);
+            if (index === -1) return;
+            
+            const targetRecord = coreDatabaseTransactionsRegisterQueueArray[index];
+            if (isApproved) {
+                counterMetricApprovedTransactionsTotalSumValue += parseFloat(targetRecord.costRawValue || 0);
+                publicApprovedSupportersLeaderboardArray.push({
+                    name: targetRecord.usernameProfileKey,
+                    payload: targetRecord.itemsBlockPayloadSummary,
+                    billing: targetRecord.costFormattedWithSymbol,
+                    rawCost: targetRecord.costRawValue
+                });
+                appendAuditLogMessage(`FINANCIAL: Order for ${targetRecord.usernameProfileKey} APPROVED. added ₹${targetRecord.costRawValue}`);
+                alert(`Order for ${targetRecord.usernameProfileKey} has been successfully approved!`);
+            } else {
+                appendAuditLogMessage(`FINANCIAL: Order for ${targetRecord.usernameProfileKey} DENIED & purged.`);
+                alert(`Order for ${targetRecord.usernameProfileKey} was declined.`);
+            }
+            
+            coreDatabaseTransactionsRegisterQueueArray.splice(index, 1);
+            syncLocalStorageDatabaseKernel();
+            renderTerminalDashboardInteractiveTableQueueEngine();
+            renderPublicSupportersLeaderboardUIDOM();
+        }
+
+        // CORES FOR STAFF FORWARD DISPATCH HANDLERS
+        function staffForwardOrderLogToOwner(timestampID) {
+            const index = coreDatabaseTransactionsRegisterQueueArray.findIndex(item => item.uniqueTimestampID === timestampID);
+            if (index === -1) return;
+            
+            coreDatabaseTransactionsRegisterQueueArray[index].isForwarded = true;
+            appendAuditLogMessage(`STAFF: Order for ${coreDatabaseTransactionsRegisterQueueArray[index].usernameProfileKey} forwarded to Owner parameters.`);
+            alert("Order signature marked as Forwarded successfully!");
+            syncLocalStorageDatabaseKernel();
+            renderTerminalDashboardInteractiveTableQueueEngine();
+        }
+
+        function renderOwnerSessionsLogs() {
+            const tbody = document.getElementById('ownerTerminalDashboardIdentityLogsOutputTableBody'); 
+            if(!tbody) return;
+            tbody.innerHTML = ''; 
+            adminIdentityAuthAuditTrailsRegistry.forEach(log => { 
+                let activeBadge = log.status === "Active" ? `<span style="color:var(--color-success);font-weight:700;">Active</span>` : `<span style="color:var(--text-secondary);font-size:0.75rem;">${log.status}</span>`; 
+                let actionBtn = (log.role === 'Owner' || log.status !== "Active") ? `<span style="color:var(--text-secondary);font-size:0.8rem;">Locked</span>` : `<button class="operational-action-trigger-btn trigger-btn-deny" type="button" style="width:auto;padding:2px 8px;font-size:0.75rem;" onclick="ownerForceTerminateStaffSession(${log.id})">Terminate Session</button>`; 
+                let tr = document.createElement('tr'); 
+                tr.innerHTML = `<td><strong>${log.name}</strong></td><td style="font-family:monospace;font-size:0.8rem;">${log.email}</td><td><span style="color:${log.role === 'Owner'?'var(--accent-purple)':'var(--accent-cyan)'};font-weight:700;">${log.role}</span></td><td>${log.time} (${activeBadge})</td><td style="text-align:center;">${actionBtn}</td>`; 
+                tbody.appendChild(tr); 
+            });
         }
 
         function parseInGameRconCommandString(playerName, productsPayloadSummaryText) {
@@ -862,73 +1268,33 @@
             if(item.includes("rare")) return `crate give rare ${playerName} 1`;
             if(item.includes("epic")) return `crate give epic ${playerName} 1`;
             if(item.includes("superior")) return `crate give superior ${playerName} 1`;
-            if(item.includes("starter")) return `coins add ${playerName} 75`;
-            if(item.includes("advanced")) return `coins add ${playerName} 125`;
-            if(item.includes("elite")) return `coins add ${playerName} 200`;
-            if(item.includes("champion")) return `coins add ${playerName} 300`;
-            if(item.includes("mythic")) return `coins add ${playerName} 450`;
             return `say Order verified for user: ${playerName}`;
         }
-        
-        function renderTerminalDashboardInteractiveTableQueueEngine() {
-            const targetTableBodyDOMNode = document.getElementById('terminalDashboardInteractiveDataRegisterTableBody'); targetTableBodyDOMNode.innerHTML = ''; const currentRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff'; document.getElementById('metricWidgetDisplayQueuedTotalCount').innerText = coreDatabaseTransactionsRegisterQueueArray.length; document.getElementById('metricWidgetDisplayApprovedTotalCount').innerText = `₹${counterMetricApprovedTransactionsTotalSumValue.toFixed(2)}`; document.getElementById('metricWidgetDisplayTotalAuthLogsCount').innerText = adminIdentityAuthAuditTrailsRegistry.length;
-            if (coreDatabaseTransactionsRegisterQueueArray.length === 0) { targetTableBodyDOMNode.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px 0;">Queue is empty.</td></tr>'; return; }
-            coreDatabaseTransactionsRegisterQueueArray.forEach(logRecordObject => {
-                let tr = document.createElement('tr'); let statusMarkup = logRecordObject.isForwarded ? '<span class="status-badge status-forwarded">Forwarded</span>' : '<span class="status-badge status-pending">Pending</span>'; let generatedCommandString = parseInGameRconCommandString(logRecordObject.usernameProfileKey, logRecordObject.itemsBlockPayloadSummary); 
-                
-                let actionsMarkup = ''; 
-                if (currentRole === 'Owner') { 
-                    actionsMarkup = `<button class="operational-action-trigger-btn trigger-btn-approve" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, true)"><i class="fa-solid fa-check"></i></button><button class="operational-action-trigger-btn trigger-btn-deny" style="margin-left:6px;" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, false)"><i class="fa-solid fa-xmark"></i></button>`; 
-                } else { 
-                    actionsMarkup = logRecordObject.isForwarded ? '<span style="font-size:0.8rem;color:var(--text-secondary)">Awaiting Owner Review</span>' : `<button class="operational-action-trigger-btn trigger-btn-forward" onclick="staffForwardOrderLogToOwner(${logRecordObject.uniqueTimestampID})">Forward to Owner</button>`; 
-                }
-                tr.innerHTML = `<td><strong>${logRecordObject.usernameProfileKey}</strong></td><td>${logRecordObject.itemsBlockPayloadSummary}<div class="discord-srv-rcon-command-pill-box"><span>${generatedCommandString}</span><button class="discord-srv-copy-btn-trigger" onclick="executeManualClipboardCommandCopyAction('${generatedCommandString}')"><i class="fa-regular fa-copy"></i></button></div></td><td><span style="color:var(--accent-cyan);font-weight:700;">${logRecordObject.costFormattedWithSymbol}</span></td><td>${statusMarkup}</td><td style="text-align:center;min-width:130px;">${actionsMarkup}</td>`; targetTableBodyDOMNode.appendChild(tr);
-            });
-        }
 
-        function staffForwardOrderLogToOwner(targetUniqueTimestampID) {
-            const index = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === targetUniqueTimestampID); if (index === -1) return; const record = coreDatabaseTransactionsRegisterQueueArray[index]; record.isForwarded = true; const staffNotifierName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'Staff Auditor'; appendAuditLogMessage(`STAFF: [ ${staffNotifierName} ] forwarded order ${targetUniqueTimestampID} to Owner.`); const alertTemplatePayload = { buyer_email: "cylestialmc@gmail.com", customer_name: "Owner Master Core", purchased_items: `ALERT: Action Ingested by ${staffNotifierName}. Player [ ${record.usernameProfileKey} ] is waiting for purchase parameters.`, total_amount: record.costAggregateFormattedString, thank_you_message: "PENDING APPROVAL REQUEST.", transaction_id: "PENDING-FWD-" + Math.floor(Math.random() * 9000 + 1000) }; emailjs.send('service_7fd9vjg', 'template_4fsh2l5', alertTemplatePayload).then(() => console.log("Alert sent.")).catch((err) => console.error(err)); syncLocalStorageDatabaseKernel(); renderTerminalDashboardInteractiveTableQueueEngine(); alert('Order forwarded to Owner workspace pipeline.');
-        }
-
-        function evaluateQueuedOrderLogTransactionRecord(id, approve) { 
-            const i = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === id); 
-            if (i !== -1) { 
-                const record = coreDatabaseTransactionsRegisterQueueArray[i];
-                if (approve) {
-                    counterMetricApprovedTransactionsTotalSumValue += record.costRawValue;
-                    appendAuditLogMessage(`OWNER: Approved order for player ${record.usernameProfileKey} (${record.costFormattedWithSymbol}).`);
-                    
-                    publicApprovedSupportersLeaderboardArray.push({
-                        name: record.usernameProfileKey,
-                        payload: record.itemsBlockPayloadSummary,
-                        billing: record.costFormattedWithSymbol,
-                        rawCost: record.costRawValue
-                    });
-                    
-                    const fomoTickerText = document.getElementById('fomoTickerContentMessageText'); fomoTickerText.innerHTML = `🔥 Recent Checkout: <strong>${record.usernameProfileKey}</strong> just unlocked [<strong>${record.itemsBlockPayloadSummary}</strong>]!`;
-                    const banner = document.getElementById('clientPublicGlobalBroadcastBanner'); banner.innerHTML = `<i class="fa-solid fa-satellite-dish" style="color:var(--color-success)"></i> <span>Shoutout to <strong>${record.usernameProfileKey}</strong> for getting [<strong>${record.itemsBlockPayloadSummary}</strong>]!</span>`; banner.style.display = 'flex';
-                    
-                    let generatedCommandString = parseInGameRconCommandString(record.usernameProfileKey, record.itemsBlockPayloadSummary);
-                    navigator.clipboard.writeText(generatedCommandString);
-                    
-                    const discordSecureConsoleWebhookUrlAddress = "https://discord.com/api/webhooks/1335028479361650800/WfR_3gR4P5_DqFhWp9n9tLmB8bV_zXn9vKqR7mX7bVqP9_WfR_3gR4P5_DqFhWp9n9"; 
-                    fetch(discordSecureConsoleWebhookUrlAddress, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content: generatedCommandString }) }).then(() => { appendAuditLogMessage(`AUTOMATION: Dispatched execution shell parameters directly to console channel.`); }).catch(err => { console.error(err); });
-                    const emailPayload = { buyer_email: record.customerEmail, customer_name: record.usernameProfileKey, purchased_items: record.itemsBlockPayloadSummary, total_amount: record.costFormattedWithSymbol, thank_you_message: "Your parameters have been fully upgraded! Create a ticket on Discord to complete extraction.", transaction_id: "TXN-" + Math.floor(Math.random() * 900000 + 100000) }; emailjs.send('service_7fd9vjg', 'template_4fsh2l5', emailPayload).then(() => console.log("Receipt sent.")).catch((err) => console.error(err));
-                } else {
-                    appendAuditLogMessage(`OWNER: Rejected entry for player ${record.usernameProfileKey}.`);
-                }
-                coreDatabaseTransactionsRegisterQueueArray.splice(i, 1); syncLocalStorageDatabaseKernel(); renderTerminalDashboardInteractiveTableQueueEngine(); alert(approve ? 'Order Approved & Supporter Leaderboard Updated!' : 'Order Denied.'); 
-            } 
-        }
-
-        function renderOwnerSessionsLogs() {
-            const tbody = document.getElementById('ownerTerminalDashboardIdentityLogsOutputTableBody'); tbody.innerHTML = ''; adminIdentityAuthAuditTrailsRegistry.forEach(log => { let activeBadge = log.status === "Active" ? `<span style="color:var(--color-success);font-weight:700;">Active</span>` : `<span style="color:var(--text-secondary);font-size:0.75rem;">${log.status}</span>`; let actionBtn = (log.role === 'Owner' || log.status !== "Active") ? `<span style="color:var(--text-secondary);font-size:0.8rem;">Locked</span>` : `<button class="operational-action-trigger-btn trigger-btn-deny" style="width:auto;padding:2px 8px;font-size:0.75rem;" onclick="ownerForceTerminateStaffSession(${log.id})">Terminate Session</button>`; let tr = document.createElement('tr'); tr.innerHTML = `<td><strong>${log.name}</strong></td><td style="font-family:monospace;font-size:0.8rem;">${log.email}</td><td><span style="color:${log.role === 'Owner'?'var(--accent-purple)':'var(--accent-cyan)'};font-weight:700;">${log.role}</span></td><td>${log.time} (${activeBadge})</td><td style="text-align:center;">${actionBtn}</td>`; tbody.appendChild(tr); });
-        }
         function ownerForceTerminateStaffSession(sessionID) {
             const idx = adminIdentityAuthAuditTrailsRegistry.findIndex(s => s.id === sessionID); if (idx === -1) return; const targetSession = adminIdentityAuthAuditTrailsRegistry[idx]; targetSession.status = "Revoked by Owner"; appendAuditLogMessage(`SECURITY WARNING: Owner forced termination on staff session: ${targetSession.name}.`); alert(`Security Protocol Success: Session for staff token target [ ${targetSession.name} ] blacklisted.`); syncLocalStorageDatabaseKernel(); const activeRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege'); const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName'); if(activeRole === 'Staff' && activeName === targetSession.name) { killTerminalSecureAuthorizationSession(); closeSystemModalWindow('administrationWorkspaceSecureAccessModal'); } else { renderOwnerSessionsLogs(); renderTerminalDashboardInteractiveTableQueueEngine(); }
         }
-        function executeOwnerRevocationAction(type) { if(type === 'staff_email') { flagStaffEmailAddressIsRevokedBlacklisted = !flagStaffEmailAddressIsRevokedBlacklisted; syncLocalStorageDatabaseKernel(); synchronizeOwnerEmailRevocationUIElementsState(); alert(flagStaffEmailAddressIsRevokedBlacklisted ? 'Staff Fallback Pipeline Deactivated Globally.' : 'Staff Fallback Pipeline Restored.'); } }
-        function synchronizeOwnerEmailRevocationUIElementsState() { const btn = document.getElementById('ownerBlacklistStaffEmailToggleBtn'); if(!btn) return; if(flagStaffEmailAddressIsRevokedBlacklisted) { btn.innerText = "Activate Legacy Staff Email"; btn.style.background = "var(--color-success)"; btn.style.borderColor = "var(--color-success)"; btn.style.color = "#02040a"; } else { btn.innerText = "Deactivate Legacy Staff Email"; btn.style.background = "#7c2d12"; btn.style.borderColor = "var(--color-danger)"; btn.style.color = "#ffffff"; } }
+
+        function exportMasterDatabaseLedgerToExcelCsvFile() {
+            if(coreDatabaseTransactionsRegisterQueueArray.length === 0 && counterMetricApprovedTransactionsTotalSumValue === 0) { alert('No transaction data found in database core to compile.'); return; }
+            let csvContent = "data:text/csv;charset=utf-8,ID,Player Name,Purchased Payload,Localized Cost,Contact Email,Forwarded State\n";
+            coreDatabaseTransactionsRegisterQueueArray.forEach(row => { csvContent += `${row.uniqueTimestampID},"${row.usernameProfileKey}","${row.itemsBlockPayloadSummary}","${row.costFormattedWithSymbol}","${row.customerEmail}",${row.isForwarded}\n`; });
+            const encodedUri = encodeURI(csvContent); const link = document.createElement("a"); link.setAttribute("href", encodedUri); link.setAttribute("download", `CylestialMC_Financial_Ledger_${new Date().toLocaleDateString()}.csv`); document.body.appendChild(link); link.click(); document.body.removeChild(link); appendAuditLogMessage(`SYSTEM: Compiled and exported global transaction ledger .csv spreadsheet.`);
+        }
+
+        function executeOwnerMasterWipePurgeProtocol() {
+            let confirmationPrompt = confirm("⚠️ RESET WARNING:\nYou are initializing an absolute database core reset on CylestialMC storage footprints. This permanently deletes gross revenue statistics, pending ledger queues, and supporters logs.\n\nProceed with full master reset wipe?");
+            if(confirmationPrompt) {
+                localStorage.clear();
+                coreDatabaseTransactionsRegisterQueueArray = [];
+                counterMetricApprovedTransactionsTotalSumValue = 0;
+                adminIdentityAuthAuditTrailsRegistry = [ { id: 101, name: "System Core Reset", email: "kernel@cylestialmc.fun", role: "Owner", time: new Date().toLocaleTimeString(), status: "Active" } ];
+                publicApprovedSupportersLeaderboardArray = [];
+                syncLocalStorageDatabaseKernel();
+                alert("Database cache completely purged cleanly. Reloading session context parameters.");
+                window.location.reload();
+            }
+        }
     </script>
 </body>
 </html>
