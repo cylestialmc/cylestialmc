@@ -43,7 +43,7 @@
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -3;
             background: radial-gradient(circle at 50% 0%, #131034 0%, var(--bg-deep) 75%);
-            pointer-events: none; /* FIXED: Stops background from blocking mobile clicks */
+            pointer-events: none;
         }
 
         .ambient-aurora-orbs {
@@ -59,15 +59,9 @@
             border-radius: 50%;
             filter: blur(100px);
             opacity: 0.25;
-            animation: cosmicDrift 30s infinite alternate ease-in-out;
         }
         .aurora-1 { width: 500px; height: 500px; background: var(--accent-cyan); top: -50px; left: -50px; }
         .aurora-2 { width: 600px; height: 600px; background: var(--accent-purple); bottom: -150px; right: -50px; }
-
-        @keyframes cosmicDrift {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 30px) scale(1.1); }
-        }
 
         #main_landing_view_tier {
             display: flex;
@@ -77,8 +71,8 @@
             min-height: 100vh;
             padding: 40px 20px;
             text-align: center;
-            z-index: 10;
             position: relative;
+            z-index: 10;
         }
 
         .home-brand-cluster { margin-bottom: 40px; }
@@ -96,9 +90,7 @@
             border: none; color: #fff; font-weight: 800; padding: 18px 45px; border-radius: 12px;
             cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; font-size: 1.1rem;
             box-shadow: var(--neon-glow); margin-bottom: 50px;
-            z-index: 20; position: relative;
         }
-        .navigation-portal-btn:hover { transform: scale(1.04); }
 
         .app-layout-root {
             display: none;
@@ -142,7 +134,6 @@
             font-weight: 700; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
         }
 
-        /* --- MOBILE HEADER/DOCK ELEMENTS --- */
         .mobile-header-bar {
             display: none; background: #070a13; border-bottom: 1px solid var(--glass-border);
             padding: 15px 20px; justify-content: space-between; align-items: center;
@@ -171,6 +162,14 @@
             backdrop-filter: blur(12px); border-radius: 12px; padding: 22px; display: flex; align-items: center; gap: 18px;
         }
         .network-node-card .icon-shield { width: 48px; height: 48px; border-radius: 12px; background: rgba(6, 182, 212, 0.08); display: flex; align-items: center; justify-content: center; color: var(--accent-cyan); font-size: 1.3rem; }
+        .node-meta h6 { font-size: 0.75rem; text-transform: uppercase; color: var(--text-secondary); }
+        .node-meta p { font-family: monospace; font-size: 1rem; font-weight: 700; margin-top: 2px; }
+
+        .ticker-broadcast-shoutout {
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
+            border: 1px solid var(--color-success); border-radius: 10px; padding: 15px 20px;
+            margin-bottom: 35px; display: none; align-items: center; gap: 15px; width: 100%; max-width: 1100px;
+        }
 
         .catalog-display-view-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; margin-bottom: 60px; }
         .cyber-product-card {
@@ -178,7 +177,7 @@
             backdrop-filter: blur(16px); border-radius: 16px; padding: 25px;
             display: flex; flex-direction: column; justify-content: space-between; position: relative;
         }
-        .cyber-product-card h3 { font-size: 1.5rem; color: #fff; }
+        .cyber-product-card h3 { font-size: 1.5rem; color: #fff; font-weight: 700; }
         .cyber-product-card .price-metric-display { font-size: 2.2rem; font-weight: 800; color: #fff; margin: 15px 0; }
         .cyber-product-card ul { list-style: none; margin-bottom: 25px; }
         .cyber-product-card ul li { margin-bottom: 10px; color: var(--text-secondary); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
@@ -224,17 +223,19 @@
 
         .admin-analytics-dashboard-matrix { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 25px; }
         .analytics-widget-card { background: rgba(2, 4, 10, 0.5); padding: 15px; border-radius: 12px; border-bottom: 2px solid var(--accent-purple); }
+        .analytics-widget-card h6 { font-size: 0.68rem; text-transform: uppercase; color: var(--text-secondary); }
+        .analytics-widget-card h2 { font-size: 1.5rem; margin-top: 4px; font-weight: 800; }
+
         .admin-data-table-element { width: 100%; border-collapse: collapse; text-align: left; margin-top: 15px; font-size: 0.88rem; }
         .admin-data-table-element th, .admin-data-table-element td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .admin-data-table-element th { color: var(--accent-cyan); text-transform: uppercase; font-size: 0.72rem; }
 
         .operational-action-trigger-btn { border: none; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; color: #fff; display: inline-flex; align-items: center; justify-content: center; margin: 2px; }
         .trigger-btn-approve { background: var(--color-success); }
         .trigger-btn-deny { background: var(--color-danger); }
-        .trigger-btn-forward { background: var(--accent-purple); width: auto; padding: 0 15px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; height: 32px; }
         
-        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
+        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
         .status-pending { background: rgba(251, 191, 36, 0.1); color: var(--color-gold); }
-        .status-forwarded { background: rgba(168, 85, 247, 0.1); color: var(--accent-purple); }
 
         .owner-control-section-block { margin-top: 35px; border-top: 1px dashed rgba(168, 85, 247, 0.3); padding-top: 25px; }
 
@@ -325,7 +326,7 @@
         <main class="primary-viewport-pane">
             <div class="ticker-broadcast-shoutout" id="clientPublicGlobalBroadcastBanner"></div>
 
-            <!-- RANKS -->
+            <!-- RANKS CATALOG -->
             <div id="ranks_catalog_section" class="catalog-display-view-grid" style="display: grid;">
                 <div class="cyber-product-card">
                     <div>
@@ -366,7 +367,6 @@
                         <div class="price-metric-display" data-base-price="799">₹799</div>
                         <ul>
                             <li><i class="fa-solid fa-circle-check"></i> Duke Visual Particle Trails</li>
-                            <li><i class="fa-solid fa-circle-check"></i> Nickname System Permissions</li>
                         </ul>
                     </div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('DUKE Rank Upgrade', 799)">Add Token</button>
@@ -377,69 +377,69 @@
                         <div class="price-metric-display" data-base-price="999">₹999</div>
                         <ul>
                             <li><i class="fa-solid fa-bolt" style="color:var(--color-gold)"></i> Max Perks Override</li>
-                            <li><i class="fa-solid fa-circle-check"></i> Priority Support</li>
                         </ul>
                     </div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('KING Rank Upgrade', 999)">Add Token</button>
                 </div>
             </div>
 
-            <!-- KEYS -->
+            <!-- KEYS CATALOG (RESTORED ALL ASSETS) -->
             <div id="keys_catalog_section" class="catalog-display-view-grid" style="display: none;">
                 <div class="cyber-product-card">
-                    <div>
-                        <h3>VOTE KEY</h3>
-                        <div class="price-metric-display" data-base-price="10">₹10</div>
-                        <ul><li><i class="fa-solid fa-box-open"></i> Server voting reward drop</li></ul>
-                    </div>
+                    <div><h3>VOTE KEY</h3><div class="price-metric-display" data-base-price="10">₹10</div><ul><li><i class="fa-solid fa-box-open"></i> Server voting reward drop</li></ul></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Vote Crate Key Drop', 10)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div>
-                        <h3>COMMON KEY</h3>
-                        <div class="price-metric-display" data-base-price="20">₹20</div>
-                        <ul><li><i class="fa-solid fa-box-open"></i> Resource bundle drops</li></ul>
-                    </div>
+                    <div><h3>COMMON KEY</h3><div class="price-metric-display" data-base-price="20">₹20</div><ul><li><i class="fa-solid fa-box-open"></i> Resource bundle drops</li></ul></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Common Crate Key Drop', 20)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div>
-                        <h3>RARE KEY</h3>
-                        <div class="price-metric-display" data-base-price="30">₹30</div>
-                        <ul><li><i class="fa-solid fa-box-open"></i> Enhanced tool asset drops</li></ul>
-                    </div>
+                    <div><h3>RARE KEY</h3><div class="price-metric-display" data-base-price="30">₹30</div><ul><li><i class="fa-solid fa-box-open"></i> Enhanced tool asset drops</li></ul></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Rare Crate Key Drop', 30)">Add Token</button>
+                </div>
+                <div class="cyber-product-card">
+                    <div><h3>EPIC KEY</h3><div class="price-metric-display" data-base-price="40">₹40</div><ul><li><i class="fa-solid fa-box-open"></i> Visual custom cosmetics</li></ul></div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Epic Crate Key Drop', 40)">Add Token</button>
+                </div>
+                <div class="cyber-product-card">
+                    <div><h3>SUPERIOR KEY</h3><div class="price-metric-display" data-base-price="80">₹80</div><ul><li><i class="fa-solid fa-box-open"></i> Premium rolling drops</li></ul></div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Superior Crate Key Drop', 80)">Add Token</button>
                 </div>
             </div>
 
-            <!-- COINS -->
+            <!-- COINS CATALOG (RESTORED ALL ASSETS) -->
             <div id="coins_catalog_section" class="catalog-display-view-grid" style="display: none;">
                 <div class="cyber-product-card">
-                    <div>
-                        <h3>STARTER PACK</h3>
-                        <div class="price-metric-display" data-base-price="100">₹100</div>
-                        <ul><li><i class="fa-solid fa-coins"></i> 75 In-game Coins</li></ul>
-                    </div>
+                    <div><h3>STARTER PACK</h3><div class="price-metric-display" data-base-price="100">₹100</div><ul><li><i class="fa-solid fa-coins"></i> 75 In-game Coins</li></ul></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Starter)', 100)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div>
-                        <h3>ADVANCED PACK</h3>
-                        <div class="price-metric-display" data-base-price="200">₹200</div>
-                        <ul><li><i class="fa-solid fa-coins"></i> 125 In-game Coins</li></ul>
-                    </div>
+                    <div><h3>ADVANCED PACK</h3><div class="price-metric-display" data-base-price="200">₹200</div><ul><li><i class="fa-solid fa-coins"></i> 125 In-game Coins</li></ul></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Advanced)', 200)">Add Token</button>
+                </div>
+                <div class="cyber-product-card">
+                    <div><h3>ELITE PACK</h3><div class="price-metric-display" data-base-price="300">₹300</div><ul><li><i class="fa-solid fa-coins"></i> 200 In-game Coins</li></ul></div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Elite)', 300)">Add Token</button>
+                </div>
+                <div class="cyber-product-card">
+                    <div><h3>CHAMPION PACK</h3><div class="price-metric-display" data-base-price="400">₹400</div><ul><li><i class="fa-solid fa-coins"></i> 300 In-game Coins</li></ul></div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Champion)', 400)">Add Token</button>
+                </div>
+                <div class="cyber-product-card">
+                    <div><h3>MYTHIC PACK</h3><div class="price-metric-display" data-base-price="500">₹500</div><ul><li><i class="fa-solid fa-coins"></i> 450 In-game Coins</li></ul></div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Mythic)', 500)">Add Token</button>
                 </div>
             </div>
         </main>
     </div>
 
+    <!-- CART FLIP PILL -->
     <div class="floating-action-basket-pill" id="globalPrimaryCartFloatingWidget">
         <div><i class="fa-solid fa-cube" style="color:var(--accent-cyan);"></i> <span id="cartWidgetDisplayItemsUnitsCountText" style="font-weight:800; color:#fff; margin-left:6px;">0</span> Items</div>
         <button class="terminal-interaction-btn" style="padding: 10px 20px; font-size: 0.8rem; width:auto;" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')">Checkout</button>
     </div>
 
-    <!-- MODAL PIPELINE -->
+    <!-- ORDERS MODAL -->
     <div id="checkoutSystemProcessingModalWindow" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')"></i>
@@ -481,7 +481,7 @@
                 </div>
 
                 <div class="payment-execution-content-panel" id="paneVaultPAYPAL">
-                    <p style="font-weight: 700; color: #fff; font-size: 1.05rem; font-family:monospace;">cylestialmc.gmail.com</p>
+                    <p style="font-weight: 700; color: #fff; font-size: 1.05rem; font-family:monospace;">cylestialmc@gmail.com</p>
                 </div>
 
                 <div class="form-structural-group" style="background: rgba(139, 92, 246, 0.04); padding: 20px; border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.15); margin-top: 20px;">
@@ -501,7 +501,7 @@
         </div>
     </div>
 
-    <!-- TERMINAL CONTROL WORKSPACE -->
+    <!-- TERMINAL CONTROL CONTROL CENTER -->
     <div id="administrationWorkspaceSecureAccessModal" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block" style="max-width: 780px;">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('administrationWorkspaceSecureAccessModal')"></i>
@@ -509,7 +509,7 @@
             <div id="terminalInternalLockAuthorizationPane">
                 <h2 style="margin-bottom: 25px; color: var(--accent-cyan); font-weight:800;"><i class="fa-solid fa-key"></i> Decrypt Session Console</h2>
                 <div class="form-structural-group">
-                    <label>Identity Full Name</label>
+                    <label>Identity Name</label>
                     <input type="text" id="fieldSecurityAdminFullLegalName" placeholder="Auditor name" required>
                 </div>
                 <div class="form-structural-group">
@@ -521,24 +521,42 @@
                     <input type="password" id="fieldSecurityAdminPasswordKeyphrase" placeholder="••••••••••••" required>
                 </div>
                 <button class="terminal-interaction-btn" onclick="runTerminalSecurityAuthorizationSequence()">Decrypt Operations Console</button>
-                <div id="terminalHandshakeAuthenticationFailureFeedbackAlert" style="background:rgba(239,68,68,0.08); border:1px solid var(--color-danger); padding:15px; border-radius:10px; color: var(--color-danger); margin-top: 20px; display: none;">Authorization failure. Contact server administration root.</div>
+                <div id="terminalHandshakeAuthenticationFailureFeedbackAlert" style="background:rgba(239,68,68,0.08); border:1px solid var(--color-danger); padding:15px; border-radius:10px; color: var(--color-danger); margin-top: 20px; display: none;">Authorization failure. Account unknown or blocked.</div>
             </div>
 
+            <!-- DASHBOARD WORKSPACE (RESTORED COMPLETE FUNCTIONS) -->
             <div id="terminalInternalActiveDashboardWorkspacePane" style="display: none;">
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); margin-bottom: 25px; padding-bottom:14px;">
-                    <h3>Console Identity: <span id="terminalLiveGreetingAdminName" style="color:var(--accent-cyan)">User</span></h3>
+                    <h3>Console Identity: <span id="terminalLiveGreetingAdminName" style="color:var(--accent-cyan)">User</span> (<span id="terminalLiveGreetingAdminRole" style="font-size:0.85rem; font-weight:700;">Role</span>)</h3>
                     <button class="terminal-interaction-btn" style="width:auto; padding: 8px 18px; background:var(--color-danger);" onclick="killTerminalSecureAuthorizationSession()">Logout</button>
                 </div>
 
                 <div class="admin-analytics-dashboard-matrix">
                     <div class="analytics-widget-card" style="border-color:var(--accent-cyan)"><h6>Queued</h6><h2 id="metricWidgetDisplayQueuedTotalCount">0</h2></div>
                     <div class="analytics-widget-card" style="border-color:var(--color-success)"><h6>Approved</h6><h2 id="metricWidgetDisplayApprovedTotalCount">0</h2></div>
-                    <div class="analytics-widget-card" style="border-color:var(--accent-purple)"><h6>Live Traffic</h6><h2 id="metricWidgetDisplayActiveSessionsCount">5</h2></div>
-                    <div class="analytics-widget-card" style="border-color:var(--color-gold)"><h6>Auth Logs</h6><h2 id="metricWidgetDisplayTotalAuthLogsCount">1</h2></div>
+                    <div class="analytics-widget-card" style="border-color:var(--accent-purple)"><h6>Traffic</h6><h2 id="metricWidgetDisplayActiveSessionsCount">4</h2></div>
+                    <div class="analytics-widget-card" style="border-color:var(--color-gold)"><h6>Sessions</h6><h2 id="metricWidgetDisplayTotalAuthLogsCount">1</h2></div>
                 </div>
 
                 <h4 style="margin-bottom: 12px; font-weight:700; color: var(--text-secondary);">Processing Queue Ledger</h4>
-                <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px;"><table class="admin-data-table-element"><thead><tr><th>Player</th><th>Payload</th><th>Cost</th><th>Status</th><th style="text-align:center;">Actions</th></tr></thead><tbody id="terminalDashboardInteractiveDataRegisterTableBody"></tbody></table></div>
+                <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px; margin-bottom:25px;">
+                    <table class="admin-data-table-element">
+                        <thead><tr><th>Player</th><th>Payload</th><th>Cost</th><th>Status</th><th style="text-align:center;">Actions</th></tr></thead>
+                        <tbody id="terminalDashboardInteractiveDataRegisterTableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- OWNER LEVEL CONSOLE PANEL (RESTORED TERMINATION LOGIC) -->
+                <div class="owner-control-section-block" id="ownerPrivilegedExclusiveOperationsDashboard" style="display: none;">
+                    <h3 style="color: var(--accent-purple); font-weight:800; margin-bottom: 15px;"><i class="fa-solid fa-crown"></i> Owner Control Console</h3>
+                    <h4 style="margin-bottom: 10px; font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase;">Active Sessions Logs</h4>
+                    <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px;">
+                        <table class="admin-data-table-element">
+                            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Login Time</th><th style="text-align: center;">Override</th></tr></thead>
+                            <tbody id="ownerTerminalDashboardIdentityLogsOutputTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -573,7 +591,7 @@
 
         function buildModalCheckoutItemsRowsUIDOM() {
             const targetRowsDisplayContainer = document.getElementById('modalCartItemsRowsOutputContainer'); const totalCostSumTextElement = document.getElementById('checkoutGrandTotalCostOutputText'); targetRowsDisplayContainer.innerHTML = '';
-            let computedFinancialValueAccumulatorSum = 0; memoryAllocationCartStack.forEach((item, index) => { let scaledDynamicCurrencyCost = (item.basePrice * systemExchangeConversionRatioMetric).toFixed(2); computedFinancialValueAccumulatorSum += parseFloat(scaledDynamicCurrencyCost); let dynamicItemRowNode = document.createElement('div'); dynamicItemRowNode.className = 'basket-item-list-row'; dynamicItemRowNode.innerHTML = `<span><strong>${item.name}</strong></span><span>${systemExchangeBaseCurrencySymbol}${scaledDynamicCurrencyCost} <i class="fa-solid fa-circle-minus" style="color:var(--color-danger);margin-left:14px;" onclick="removeProductRecordItemIndexFromCartStack(${index})"></i></span>`; targetRowsDisplayContainer.appendChild(dynamicItemRowNode); });
+            let computedFinancialValueAccumulatorSum = 0; memoryAllocationCartStack.forEach((item, index) => { let scaledDynamicCurrencyCost = (item.basePrice * systemExchangeConversionRatioMetric).toFixed(2); computedFinancialValueAccumulatorSum += parseFloat(scaledDynamicCurrencyCost); let dynamicItemRowNode = document.createElement('div'); dynamicItemRowNode.className = 'basket-item-list-row'; dynamicItemRowNode.innerHTML = `<span><strong>${item.name}</strong></span><span>${systemExchangeBaseCurrencySymbol}${scaledDynamicCurrencyCost} <i class="fa-solid fa-circle-minus" style="color:var(--color-danger);margin-left:14px;cursor:pointer;" onclick="removeProductRecordItemIndexFromCartStack(${index})"></i></span>`; targetRowsDisplayContainer.appendChild(dynamicItemRowNode); });
             totalCostSumTextElement.innerText = `${systemExchangeBaseCurrencySymbol}${computedFinancialValueAccumulatorSum.toFixed(2)}`;
         }
 
@@ -588,29 +606,73 @@
         function pushOrderRecordDataObjectsToQueue() {
             const contextUsernameTarget = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); const contextCustomerEmailTarget = document.getElementById('formFieldCustomerEmailInput').value.trim();
             let accumulatedBaseCostAggregateValue = 0; let combinedProductDescriptionString = memoryAllocationCartStack.map(obj => obj.name).join(', '); memoryAllocationCartStack.forEach(product => { accumulatedBaseCostAggregateValue += product.basePrice; });
-            coreDatabaseTransactionsRegisterQueueArray.push({ uniqueTimestampID: Date.now(), usernameProfileKey: contextUsernameTarget, itemsBlockPayloadSummary: combinedProductDescriptionString, costAggregateFormattedString: `₹${accumulatedBaseCostAggregateValue}`, customerEmail: contextCustomerEmailTarget, isForwarded: false });
+            coreDatabaseTransactionsRegisterQueueArray.push({ uniqueTimestampID: Date.now(), usernameProfileKey: contextUsernameTarget, itemsBlockPayloadSummary: combinedProductDescriptionString, costAggregateFormattedString: `₹${accumulatedBaseCostAggregateValue}`, customerEmail: contextCustomerEmailTarget });
             memoryAllocationCartStack = []; evaluateFloatingCartWidgetUIStateFeedback();
             document.getElementById('modalStageWrapperStep2').style.display = 'none'; document.getElementById('modalStageWrapperStep3').style.display = 'block'; renderTerminalDashboardInteractiveTableQueueEngine();
         }
 
         function runTerminalSecurityAuthorizationSequence() {
-            const emailField = document.getElementById('fieldSecurityAdminEmailIdentifier').value.trim(); const passField = document.getElementById('fieldSecurityAdminPasswordKeyphrase').value;
-            if (emailField === 'rishit27.3.2008@gmail.com' && passField === 'Rishit@270308') { transitionUIToAuthenticatedDashboardState(); } else { document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'block'; }
+            const nameField = document.getElementById('fieldSecurityAdminFullLegalName').value.trim(); const emailField = document.getElementById('fieldSecurityAdminEmailIdentifier').value.trim().toLowerCase(); const passField = document.getElementById('fieldSecurityAdminPasswordKeyphrase').value;
+            let role = "";
+            if (emailField === 'rishit27.3.2008@gmail.com' && passField === 'Rishit@270308') { role = "Owner"; } 
+            else if (emailField === 'cylestialmc@gmail.com' && passField === 'PaSsWoRd') { role = "Staff"; } 
+            else { document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'block'; return; }
+            
+            document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'none';
+            adminIdentityAuthAuditTrailsRegistry.push({ id: Date.now(), name: nameField, email: emailField, role: role, time: new Date().toLocaleTimeString() });
+            localStorage.setItem('cylestialTerminalAdminAuditFullName', nameField);
+            localStorage.setItem('cylestialTerminalAdminAssignedRolePrivilege', role);
+            transitionUIToAuthenticatedDashboardState();
         }
 
         function killTerminalSecureAuthorizationSession() { document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'none'; document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'block'; }
-        function transitionUIToAuthenticatedDashboardState() { document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'none'; document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'block'; renderTerminalDashboardInteractiveTableQueueEngine(); }
+        
+        function transitionUIToAuthenticatedDashboardState() {
+            document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'none'; document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'block';
+            const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'User'; const activeRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff';
+            document.getElementById('terminalLiveGreetingAdminName').innerText = activeName; document.getElementById('terminalLiveGreetingAdminRole').innerText = activeRole;
+            const ownerPanel = document.getElementById('ownerPrivilegedExclusiveOperationsDashboard');
+            if (activeRole === 'Owner') { ownerPanel.style.display = 'block'; renderOwnerSessionsLogs(); } else { ownerPanel.style.display = 'none'; }
+            renderTerminalDashboardInteractiveTableQueueEngine();
+        }
         
         function renderTerminalDashboardInteractiveTableQueueEngine() {
             const targetTableBodyDOMNode = document.getElementById('terminalDashboardInteractiveDataRegisterTableBody'); targetTableBodyDOMNode.innerHTML = '';
             document.getElementById('metricWidgetDisplayQueuedTotalCount').innerText = coreDatabaseTransactionsRegisterQueueArray.length;
+            document.getElementById('metricWidgetDisplayApprovedTotalCount').innerText = counterMetricApprovedTransactionsTotalSumValue;
+            document.getElementById('metricWidgetDisplayTotalAuthLogsCount').innerText = adminIdentityAuthAuditTrailsRegistry.length;
             if (coreDatabaseTransactionsRegisterQueueArray.length === 0) { targetTableBodyDOMNode.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px 0;">Queue is empty.</td></tr>'; return; }
             coreDatabaseTransactionsRegisterQueueArray.forEach(logRecordObject => {
-                let tr = document.createElement('tr'); tr.innerHTML = `<td><strong>${logRecordObject.usernameProfileKey}</strong></td><td>${logRecordObject.itemsBlockPayloadSummary}</td><td><span style="color:var(--accent-cyan);font-weight:700;">${logRecordObject.costAggregateFormattedString}</span></td><td><span class="status-badge status-pending">Pending</span></td><td style="text-align:center;"><button class="operational-action-trigger-btn trigger-btn-approve" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID})"><i class="fa-solid fa-check"></i></button></td>`; targetTableBodyDOMNode.appendChild(tr);
+                let tr = document.createElement('tr'); tr.innerHTML = `<td><strong>${logRecordObject.usernameProfileKey}</strong></td><td>${logRecordObject.itemsBlockPayloadSummary}</td><td><span style="color:var(--accent-cyan);font-weight:700;">${logRecordObject.costAggregateFormattedString}</span></td><td><span class="status-badge status-pending">Pending</span></td><td style="text-align:center;"><button class="operational-action-trigger-btn trigger-btn-approve" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, true)"><i class="fa-solid fa-check"></i></button><button class="operational-action-trigger-btn trigger-btn-deny" style="margin-left:6px;" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, false)"><i class="fa-solid fa-xmark"></i></button></td>`; targetTableBodyDOMNode.appendChild(tr);
             });
         }
 
-        function evaluateQueuedOrderLogTransactionRecord(id) { const i = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === id); if (i !== -1) { coreDatabaseTransactionsRegisterQueueArray.splice(i, 1); counterMetricApprovedTransactionsTotalSumValue++; renderTerminalDashboardInteractiveTableQueueEngine(); alert('Order Processed Successfully!'); } }
+        function evaluateQueuedOrderLogTransactionRecord(id, approve) { 
+            const i = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === id); 
+            if (i !== -1) { 
+                coreDatabaseTransactionsRegisterQueueArray.splice(i, 1); 
+                if (approve) counterMetricApprovedTransactionsTotalSumValue++; 
+                renderTerminalDashboardInteractiveTableQueueEngine(); 
+                alert(approve ? 'Order Approved Successfully!' : 'Order Denied/Deleted Successfully!'); 
+            } 
+        }
+
+        function renderOwnerSessionsLogs() {
+            const tbody = document.getElementById('ownerTerminalDashboardIdentityLogsOutputTableBody'); tbody.innerHTML = '';
+            adminIdentityAuthAuditTrailsRegistry.forEach(log => {
+                let actionBtn = log.role === 'Owner' ? '<span style="color:var(--accent-purple);font-weight:700;">Root</span>' : `<button class="operational-action-trigger-btn trigger-btn-deny" style="width:auto;padding:2px 8px;font-size:0.75rem;" onclick="terminateSessionID(${log.id})">Terminate</button>`;
+                let tr = document.createElement('tr'); tr.innerHTML = `<td>${log.name}</td><td>${log.email}</td><td>${log.role}</td><td>${log.time}</td><td style="text-align:center;">${actionBtn}</td>`; tbody.appendChild(tr);
+            });
+        }
+
+        function terminateSessionID(id) {
+            const i = adminIdentityAuthAuditTrailsRegistry.findIndex(s => s.id === id);
+            if (i !== -1) {
+                adminIdentityAuthAuditTrailsRegistry.splice(i, 1);
+                renderOwnerSessionsLogs();
+                alert('Session Terminated Successfully!');
+            }
+        }
     </script>
 </body>
 </html>
