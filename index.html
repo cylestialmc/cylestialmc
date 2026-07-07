@@ -165,10 +165,10 @@
         .node-meta h6 { font-size: 0.75rem; text-transform: uppercase; color: var(--text-secondary); }
         .node-meta p { font-family: monospace; font-size: 1rem; font-weight: 700; margin-top: 2px; }
 
-        .ticker-broadcast-shoutout {
-            background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
-            border: 1px solid var(--color-success); border-radius: 10px; padding: 15px 20px;
-            margin-bottom: 35px; display: none; align-items: center; gap: 15px; width: 100%; max-width: 1100px;
+        .fomo-purchase-ticker-card {
+            background: rgba(168, 85, 247, 0.04); border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 12px; padding: 15px; margin-bottom: 30px; display: flex; align-items: center; gap: 12px;
+            max-width: 1100px;
         }
 
         .catalog-display-view-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; margin-bottom: 60px; }
@@ -215,6 +215,17 @@
             border: 1px solid rgba(255,255,255,0.08); color: #fff; font-size: 0.95rem; border-radius: 10px; outline: none;
         }
 
+        .avatar-verification-flex-frame { display: flex; align-items: center; gap: 15px; background: rgba(2,4,10,0.4); padding: 12px; border-radius: 10px; margin-top: 10px; display: none; border: 1px solid var(--glass-border); }
+        .avatar-verification-flex-frame img { width: 40px; height: 40px; border-radius: 6px; background: #000; }
+
+        .legal-policy-accordion-stack { margin-top: 30px; border-top: 1px solid var(--glass-border); padding-top: 25px; }
+        .policy-accordion-node { margin-bottom: 10px; background: rgba(2,4,10,0.4); border: 1px solid var(--glass-border); border-radius: 8px; overflow: hidden; }
+        .policy-header-trigger { padding: 15px; font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan); cursor: pointer; display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; }
+        .policy-content-panel { padding: 0 15px; max-height: 0; overflow: hidden; transition: max-height 0.2s ease, padding 0.2s ease; color: var(--text-secondary); font-size: 0.82rem; line-height: 1.5; }
+
+        .cart-quantity-inline-modifier { display: flex; align-items: center; gap: 12px; background: rgba(2,4,10,0.5); padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
+        .quantity-modifier-node-btn { background: transparent; border: none; color: var(--accent-cyan); font-size: 1rem; width: 24px; height: 24px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+        
         .basket-item-list-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
         .payment-channel-selector-matrix { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
         .payment-channel-node-card { background: rgba(2, 4, 10, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 15px 10px; text-align: center; cursor: pointer; }
@@ -241,6 +252,9 @@
 
         .owner-control-section-block { margin-top: 35px; border-top: 1px dashed rgba(168, 85, 247, 0.3); padding-top: 25px; }
 
+        /* REALTIME REAL CONSOLE NOTIFICATION FEED */
+        .system-audit-log-terminal-output-panel { background: #02040a; border: 1px dashed var(--glass-border); border-radius: 10px; padding: 15px; max-height: 180px; overflow-y: auto; font-family: monospace; font-size: 0.8rem; color: #10b981; margin-top: 20px; line-height: 1.5; }
+
         @media (max-width: 1024px) {
             .app-layout-root { grid-template-columns: 1fr; }
             aside { display: none !important; }
@@ -262,7 +276,7 @@
         <div class="aurora-blur aurora-2"></div>
     </div>
 
-    <!-- MAIN PLATFORM LANDING SPLASH -->
+    <!-- MAIN PLATFORM SPLASH -->
     <div id="main_landing_view_tier">
         <div class="home-brand-cluster">
             <h1>CYLESTIAL<span>MC</span></h1>
@@ -289,7 +303,7 @@
         </div>
     </div>
 
-    <!-- COMMERCE NODE -->
+    <!-- COMMERCE VIEWPORT -->
     <div class="mobile-header-bar" id="shopMobileHeaderBar">
         <h2 onclick="navigateToViewTier('home')" style="cursor: pointer;">CYLESTIAL<span>MC</span></h2>
         <button class="admin-action-gate-btn" style="padding: 8px 14px; font-size:0.78rem; width: auto;" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')">
@@ -326,122 +340,92 @@
         </aside>
 
         <main class="primary-viewport-pane">
+            <div class="fomo-purchase-ticker-card" id="globalLivePurchaseFomoTickerCard">
+                <i class="fa-solid fa-bolt-lightning" style="color:var(--color-gold); font-size: 1.2rem;"></i>
+                <span id="fomoTickerContentMessageText" style="font-size:0.88rem; font-weight:600;">Welcome to CylestialMC webstore! Purchase a token package to upgrade your profile instantly.</span>
+            </div>
+
             <div class="ticker-broadcast-shoutout" id="clientPublicGlobalBroadcastBanner"></div>
 
-            <!-- RANKS CATALOG -->
+            <!-- PRODUCT DISPLAY MATRIX -->
             <div id="ranks_catalog_section" class="catalog-display-view-grid" style="display: grid;">
                 <div class="cyber-product-card">
-                    <div>
-                        <h3>KNIGHT</h3>
-                        <div class="price-metric-display" data-base-price="199">₹199</div>
-                        <ul>
-                            <li><i class="fa-solid fa-circle-check"></i> Entry Tier Kit Allocation</li>
-                            <li><i class="fa-solid fa-circle-check"></i> Chat Prefix Modifiers</li>
-                        </ul>
-                    </div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('KNIGHT Rank Upgrade', 199)">Add Token</button>
+                    <div><h3>KNIGHT</h3><div class="price-metric-display" data-base-price="199">₹199</div><ul><li><i class="fa-solid fa-circle-check"></i> Entry Tier Kit Allocation</li></ul></div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('KNIGHT Rank', 199)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div>
-                        <h3>LORD</h3>
-                        <div class="price-metric-display" data-base-price="399">₹399</div>
-                        <ul>
-                            <li><i class="fa-solid fa-circle-check"></i> Lord Tier Kit Configuration</li>
-                            <li><i class="fa-solid fa-circle-check"></i> Priority Server slots Queue</li>
-                        </ul>
-                    </div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('LORD Rank Upgrade', 399)">Add Token</button>
+                    <div><h3>LORD</h3><div class="price-metric-display" data-base-price="399">₹399</div><ul><li><i class="fa-solid fa-circle-check"></i> Lord Tier Kit Configuration</li></ul></div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('LORD Rank', 399)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div>
-                        <h3>PALADIN</h3>
-                        <div class="price-metric-display" data-base-price="599">₹599</div>
-                        <ul>
-                            <li><i class="fa-solid fa-circle-check"></i> Paladin Tier Kit Access</li>
-                            <li><i class="fa-solid fa-circle-check"></i> Flight in Lobbies</li>
-                        </ul>
-                    </div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('PALADIN Rank Upgrade', 599)">Add Token</button>
+                    <div><h3>PALADIN</h3><div class="price-metric-display" data-base-price="599">₹599</div><ul><li><i class="fa-solid fa-circle-check"></i> Paladin Tier Kit Access</li></ul></div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('PALADIN Rank', 599)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div>
-                        <h3>DUKE</h3>
-                        <div class="price-metric-display" data-base-price="799">₹799</div>
-                        <ul>
-                            <li><i class="fa-solid fa-circle-check"></i> Duke Visual Particle Trails</li>
-                        </ul>
-                    </div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('DUKE Rank Upgrade', 799)">Add Token</button>
+                    <div><h3>DUKE</h3><div class="price-metric-display" data-base-price="799">₹799</div><ul><li><i class="fa-solid fa-circle-check"></i> Duke Visual Particle Trails</li></ul></div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('DUKE Rank', 799)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div>
-                        <h3>KING</h3>
-                        <div class="price-metric-display" data-base-price="999">₹999</div>
-                        <ul>
-                            <li><i class="fa-solid fa-bolt" style="color:var(--color-gold)"></i> Max Perks Override</li>
-                        </ul>
-                    </div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('KING Rank Upgrade', 999)">Add Token</button>
+                    <div><h3>KING</h3><div class="price-metric-display" data-base-price="999">₹999</div><ul><li><i class="fa-solid fa-bolt" style="color:var(--color-gold)"></i> Max Perks Override</li></ul></div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('KING Rank', 999)">Add Token</button>
                 </div>
             </div>
 
-            <!-- KEYS CATALOG -->
             <div id="keys_catalog_section" class="catalog-display-view-grid" style="display: none;">
                 <div class="cyber-product-card">
-                    <div><h3>VOTE KEY</h3><div class="price-metric-display" data-base-price="10">₹10</div><ul><li><i class="fa-solid fa-box-open"></i> Server voting reward drop</li></ul></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Vote Crate Key Drop', 10)">Add Token</button>
+                    <div><h3>VOTE KEY</h3><div class="price-metric-display" data-base-price="10">₹10</div></div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Vote Crate Key', 10)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>COMMON KEY</h3><div class="price-metric-display" data-base-price="20">₹20</div><ul><li><i class="fa-solid fa-box-open"></i> Resource bundle drops</li></ul></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Common Crate Key Drop', 20)">Add Token</button>
+                    <div><h3>COMMON KEY</h3><div class="price-metric-display" data-base-price="20">₹20</div></div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Common Crate Key', 20)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>RARE KEY</h3><div class="price-metric-display" data-base-price="30">₹30</div><ul><li><i class="fa-solid fa-box-open"></i> Enhanced tool asset drops</li></ul></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Rare Crate Key Drop', 30)">Add Token</button>
+                    <div><h3>RARE KEY</h3><div class="price-metric-display" data-base-price="30">₹30</div></div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Rare Crate Key', 30)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>EPIC KEY</h3><div class="price-metric-display" data-base-price="40">₹40</div><ul><li><i class="fa-solid fa-box-open"></i> Visual custom cosmetics</li></ul></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Epic Crate Key Drop', 40)">Add Token</button>
+                    <div><h3>EPIC KEY</h3><div class="price-metric-display" data-base-price="40">₹40</div></div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Epic Crate Key', 40)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>SUPERIOR KEY</h3><div class="price-metric-display" data-base-price="80">₹80</div><ul><li><i class="fa-solid fa-box-open"></i> Premium rolling drops</li></ul></div>
-                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Superior Crate Key Drop', 80)">Add Token</button>
+                    <div><h3>SUPERIOR KEY</h3><div class="price-metric-display" data-base-price="80">₹80</div></div>
+                    <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Superior Crate Key', 80)">Add Token</button>
                 </div>
             </div>
 
-            <!-- COINS CATALOG -->
             <div id="coins_catalog_section" class="catalog-display-view-grid" style="display: none;">
                 <div class="cyber-product-card">
-                    <div><h3>STARTER PACK</h3><div class="price-metric-display" data-base-price="100">₹100</div><ul><li><i class="fa-solid fa-coins"></i> 75 In-game Coins</li></ul></div>
+                    <div><h3>STARTER PACK</h3><div class="price-metric-display" data-base-price="100">₹100</div></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Starter)', 100)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>ADVANCED PACK</h3><div class="price-metric-display" data-base-price="200">₹200</div><ul><li><i class="fa-solid fa-coins"></i> 125 In-game Coins</li></ul></div>
+                    <div><h3>ADVANCED PACK</h3><div class="price-metric-display" data-base-price="200">₹200</div></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Advanced)', 200)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>ELITE PACK</h3><div class="price-metric-display" data-base-price="300">₹300</div><ul><li><i class="fa-solid fa-coins"></i> 200 In-game Coins</li></ul></div>
+                    <div><h3>ELITE PACK</h3><div class="price-metric-display" data-base-price="300">₹300</div></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Elite)', 300)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>CHAMPION PACK</h3><div class="price-metric-display" data-base-price="400">₹400</div><ul><li><i class="fa-solid fa-coins"></i> 300 In-game Coins</li></ul></div>
+                    <div><h3>CHAMPION PACK</h3><div class="price-metric-display" data-base-price="400">₹400</div></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Champion)', 400)">Add Token</button>
                 </div>
                 <div class="cyber-product-card">
-                    <div><h3>MYTHIC PACK</h3><div class="price-metric-display" data-base-price="500">₹500</div><ul><li><i class="fa-solid fa-coins"></i> 450 In-game Coins</li></ul></div>
+                    <div><h3>MYTHIC PACK</h3><div class="price-metric-display" data-base-price="500">₹500</div></div>
                     <button class="terminal-interaction-btn" onclick="injectProductRecordToCartStack('Coin Pack (Mythic)', 500)">Add Token</button>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- CART BAR PILL -->
+    <!-- BASKET PILL -->
     <div class="floating-action-basket-pill" id="globalPrimaryCartFloatingWidget">
         <div><i class="fa-solid fa-cube" style="color:var(--accent-cyan);"></i> <span id="cartWidgetDisplayItemsUnitsCountText" style="font-weight:800; color:#fff; margin-left:6px;">0</span> Items</div>
         <button class="terminal-interaction-btn" style="padding: 10px 20px; font-size: 0.8rem; width:auto;" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')">Checkout</button>
     </div>
 
-    <!-- PIPELINE MODAL -->
+    <!-- PIPELINE CHECKOUT MODAL -->
     <div id="checkoutSystemProcessingModalWindow" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')"></i>
@@ -454,7 +438,15 @@
                 </div>
                 <div class="form-structural-group">
                     <label>Minecraft Username</label>
-                    <input type="text" id="formFieldMinecraftUsernameInput" placeholder="Exact player name" required>
+                    <input type="text" id="formFieldMinecraftUsernameInput" placeholder="Exact player name" oninput="runLiveAvatarSkinRenderingMatrix(this.value)" required>
+                    
+                    <div class="avatar-verification-flex-frame" id="checkoutPlayerAvatarVerificationShell">
+                        <img src="" id="checkoutPlayerAvatarTargetImageElement" alt="Profile Shield Face">
+                        <div>
+                            <span style="font-size:0.82rem; font-weight:700; color:#fff; display:block;">Profile Authenticated</span>
+                            <span style="font-size:0.75rem; color:var(--text-secondary);">Skin data indexed from player files.</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-structural-group">
                     <label>Contact Email</label>
@@ -467,7 +459,24 @@
                         <option value="USD" data-symbol="$" data-ratio="0.012">United States (USD - $)</option>
                     </select>
                 </div>
-                <button class="terminal-interaction-btn" onclick="advanceCheckoutModalToPaymentMatrix()">Establish Pipelines</button>
+
+                <div class="legal-policy-accordion-stack">
+                    <div class="policy-accordion-node">
+                        <div class="policy-header-trigger" onclick="toggleAccordionTabSelectionPanel(this)">Terms of Service <i class="fa-solid fa-chevron-down"></i></div>
+                        <div class="policy-content-panel">All token purchases are credited to the CylestialMC database parameter grid. Nodes are non-transferable.</div>
+                    </div>
+                    <div class="policy-accordion-node">
+                        <div class="policy-header-trigger" onclick="toggleAccordionTabSelectionPanel(this)">Refund Disclosures <i class="fa-solid fa-chevron-down"></i></div>
+                        <div class="policy-content-panel">All virtual assets deploy instantly. Absolute chargebacks are blacklisted. Open a ticket on Discord for checkout claims.</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px; display: flex; gap: 10px; align-items: flex-start;">
+                    <input type="checkbox" id="legalMandatoryCheckboxTokenField" style="width: 18px; height: 18px; margin-top: 2px; cursor: pointer;">
+                    <label for="legalMandatoryCheckboxTokenField" style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">I certify that I have read the server legal disclosures and agree that chargebacks are blacklisted.</label>
+                </div>
+
+                <button class="terminal-interaction-btn" style="margin-top:20px;" onclick="advanceCheckoutModalToPaymentMatrix()">Establish Pipelines</button>
             </div>
 
             <div id="modalStageWrapperStep2" style="display: none;">
@@ -503,7 +512,7 @@
         </div>
     </div>
 
-    <!-- TERMINAL CONTROL STATION -->
+    <!-- PERSISTENT REVOLUTIONIZED TERMINAL STATION -->
     <div id="administrationWorkspaceSecureAccessModal" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block" style="max-width: 780px;">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('administrationWorkspaceSecureAccessModal')"></i>
@@ -534,29 +543,42 @@
                 </div>
 
                 <div class="admin-analytics-dashboard-matrix">
-                    <div class="analytics-widget-card" style="border-color:var(--accent-cyan)"><h6>Queued</h6><h2 id="metricWidgetDisplayQueuedTotalCount">0</h2></div>
-                    <div class="analytics-widget-card" style="border-color:var(--color-success)"><h6>Approved</h6><h2 id="metricWidgetDisplayApprovedTotalCount">0</h2></div>
-                    <div class="analytics-widget-card" style="border-color:var(--accent-purple)"><h6>Traffic</h6><h2 id="metricWidgetDisplayActiveSessionsCount">4</h2></div>
-                    <div class="analytics-widget-card" style="border-color:var(--color-gold)"><h6>Sessions</h6><h2 id="metricWidgetDisplayTotalAuthLogsCount">1</h2></div>
+                    <div class="analytics-widget-card" style="border-color:var(--accent-cyan)"><h6>Queued Requests</h6><h2 id="metricWidgetDisplayQueuedTotalCount">0</h2></div>
+                    <div class="analytics-widget-card" style="border-color:var(--color-success)"><h6>Gross Revenue</h6><h2 id="metricWidgetDisplayApprovedTotalCount">₹0.00</h2></div>
+                    <div class="analytics-widget-card" style="border-color:var(--accent-purple)"><h6>Active Traffic</h6><h2 id="metricWidgetDisplayActiveSessionsCount">12</h2></div>
+                    <div class="analytics-widget-card" style="border-color:var(--color-gold)"><h6>Database Footprints</h6><h2 id="metricWidgetDisplayTotalAuthLogsCount">1</h2></div>
                 </div>
 
                 <h4 style="margin-bottom: 12px; font-weight:700; color: var(--text-secondary);">Processing Queue Ledger</h4>
                 <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px; margin-bottom:25px;">
                     <table class="admin-data-table-element">
-                        <thead><tr><th>Player</th><th>Payload</th><th>Cost</th><th>Status</th><th style="text-align:center;">Actions</th></tr></thead>
+                        <thead><tr><th>Player</th><th>Payload Data String</th><th>Cost</th><th>Status</th><th style="text-align:center;">Actions Matrix</th></tr></thead>
                         <tbody id="terminalDashboardInteractiveDataRegisterTableBody"></tbody>
                     </table>
                 </div>
 
+                <!-- REALTIME FEED TICKER PANEL -->
+                <h4 style="font-weight:700; color: var(--text-secondary);">Live Workstation Activity Auditor</h4>
+                <div class="system-audit-log-terminal-output-panel" id="terminalLiveAuditLoggerOutputStackBox">
+                    <div>[00:00:00] INITIALIZATION: Secured database kernel loaded safely.</div>
+                </div>
+
                 <!-- OWNER PANEL -->
                 <div class="owner-control-section-block" id="ownerPrivilegedExclusiveOperationsDashboard" style="display: none;">
-                    <h3 style="color: var(--accent-purple); font-weight:800; margin-bottom: 15px;"><i class="fa-solid fa-crown"></i> Owner Control Console</h3>
-                    <h4 style="margin-bottom: 10px; font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase;">Active Sessions Logs</h4>
-                    <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px;">
+                    <h3 style="color: var(--accent-purple); font-weight:800; margin-bottom: 15px;"><i class="fa-solid fa-crown"></i> Owner Absolute Audit Monitor</h3>
+                    
+                    <h4 style="margin-bottom: 10px; font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase;">Administrative Session Footprints Database</h4>
+                    <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px; margin-bottom: 25px;">
                         <table class="admin-data-table-element">
-                            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Login Time</th><th style="text-align: center;">Override</th></tr></thead>
+                            <thead><tr><th>User Handle</th><th>Email Link</th><th>Privilege Rank</th><th>Login Time Stamp</th><th style="text-align: center;">Override Token</th></tr></thead>
                             <tbody id="ownerTerminalDashboardIdentityLogsOutputTableBody"></tbody>
                         </table>
+                    </div>
+
+                    <h4 style="margin-bottom: 10px; font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase;">Privilege Revocation Matrix</h4>
+                    <div style="background: rgba(239, 68, 68, 0.03); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 12px; padding: 20px;">
+                        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 15px; line-height: 1.4;">Emergency Control: Instantly lock down or re-enable the legacy fallback Staff account address loop (`cylestialmc@gmail.com`).</p>
+                        <button class="terminal-interaction-btn" style="background: #7c2d12; border: 1px solid var(--color-danger); width: auto; padding: 10px 20px;" id="ownerBlacklistStaffEmailToggleBtn" onclick="executeOwnerRevocationAction('staff_email')">Deactivate Legacy Staff Email</button>
                     </div>
                 </div>
             </div>
@@ -565,8 +587,30 @@
 
     <script>
         (function() { emailjs.init("NVnA_39yMMVx_TZyj"); })();
-        let memoryAllocationCartStack = []; let systemExchangeBaseCurrencySymbol = "₹"; let systemExchangeConversionRatioMetric = 1; let coreDatabaseTransactionsRegisterQueueArray = []; let counterMetricApprovedTransactionsTotalSumValue = 0;
-        let adminIdentityAuthAuditTrailsRegistry = [ { id: 101, name: "System Initialization Core", email: "kernel@cylestialmc.fun", role: "Owner", time: new Date().toLocaleTimeString() } ];
+        
+        // SECURE PERSISTENT PERSISTENCE DATA STORAGE DESCRIPTOR HANDLERS
+        let memoryAllocationCartStack = []; 
+        let systemExchangeBaseCurrencySymbol = "₹"; 
+        let systemExchangeConversionRatioMetric = 1;
+        
+        let coreDatabaseTransactionsRegisterQueueArray = JSON.parse(localStorage.getItem('db_queue')) || []; 
+        let counterMetricApprovedTransactionsTotalSumValue = parseFloat(localStorage.getItem('db_rev')) || 0;
+        let adminIdentityAuthAuditTrailsRegistry = JSON.parse(localStorage.getItem('db_sessions')) || [ { id: 101, name: "System Core", email: "kernel@cylestialmc.fun", role: "Owner", time: new Date().toLocaleTimeString(), status: "Active" } ];
+        let flagStaffEmailAddressIsRevokedBlacklisted = localStorage.getItem('db_kill_staff') === 'true';
+
+        function syncLocalStorageDatabaseKernel() {
+            localStorage.setItem('db_queue', JSON.stringify(coreDatabaseTransactionsRegisterQueueArray));
+            localStorage.setItem('db_rev', counterMetricApprovedTransactionsTotalSumValue.toString());
+            localStorage.setItem('db_sessions', JSON.stringify(adminIdentityAuthAuditTrailsRegistry));
+            localStorage.setItem('db_kill_staff', flagStaffEmailAddressIsRevokedBlacklisted.toString());
+        }
+
+        function appendAuditLogMessage(text) {
+            const box = document.getElementById('terminalLiveAuditLoggerOutputStackBox');
+            const stamp = new Date().toLocaleTimeString();
+            box.innerHTML += `<div>[${stamp}] ${text}</div>`;
+            box.scrollTop = box.scrollHeight;
+        }
 
         function navigateToViewTier(targetPageKeyID) {
             const landingViewTier = document.getElementById('main_landing_view_tier'); const shopViewTier = document.getElementById('shop_layout_root_tier'); const mobileHeader = document.getElementById('shopMobileHeaderBar'); const mobileDock = document.getElementById('shopMobileDockBar');
@@ -580,15 +624,25 @@
             const dBtn = document.getElementById(`d_nav_${suffixKey}`); const mBtn = document.getElementById(`m_nav_${suffixKey}`); if (dBtn) dBtn.classList.add('active'); if (mBtn) mBtn.classList.add('active');
         }
 
-        function openSystemModalWindow(targetModalBoxElementID) { document.getElementById(targetModalBoxElementID).style.display = 'flex'; if (targetModalBoxElementID === 'checkoutSystemProcessingModalWindow') { document.getElementById('modalStageWrapperStep1').style.display = 'block'; document.getElementById('modalStageWrapperStep2').style.display = 'none'; document.getElementById('modalStageWrapperStep3').style.display = 'none'; buildModalCheckoutItemsRowsUIDOM(); } }
+        function openSystemModalWindow(targetModalBoxElementID) { document.getElementById(targetModalBoxElementID).style.display = 'flex'; if (targetModalBoxElementID === 'checkoutSystemProcessingModalWindow') { document.getElementById('modalStageWrapperStep1').style.display = 'block'; document.getElementById('modalStageWrapperStep2').style.display = 'none'; document.getElementById('modalStageWrapperStep3').style.display = 'none'; document.getElementById('checkoutPlayerAvatarVerificationShell').style.display = 'none'; document.getElementById('legalMandatoryCheckboxTokenField').checked = false; document.getElementById('formFieldMinecraftUsernameInput').value = ''; buildModalCheckoutItemsRowsUIDOM(); } }
         function closeSystemModalWindow(targetModalBoxElementID) { document.getElementById(targetModalBoxElementID).style.display = 'none'; }
         
-        function injectProductRecordToCartStack(productLabelName, rawPriceIntegerMetric) { memoryAllocationCartStack.push({ name: productLabelName, basePrice: rawPriceIntegerMetric }); evaluateFloatingCartWidgetUIStateFeedback(); }
-        function removeProductRecordItemIndexFromCartStack(targetItemArrayIndexLocation) { memoryAllocationCartStack.splice(targetItemArrayIndexLocation, 1); evaluateFloatingCartWidgetUIStateFeedback(); buildModalCheckoutItemsRowsUIDOM(); }
+        function injectProductRecordToCartStack(productLabelName, rawPriceIntegerMetric) {
+            const index = memoryAllocationCartStack.findIndex(item => item.name === productLabelName);
+            if (index !== -1) { memoryAllocationCartStack[index].quantity += 1; } else { memoryAllocationCartStack.push({ name: productLabelName, basePrice: rawPriceIntegerMetric, quantity: 1 }); }
+            evaluateFloatingCartWidgetUIStateFeedback();
+        }
+
+        function alterCartItemQuantityValue(targetIndexLocation, mathematicalModifierValue) {
+            memoryAllocationCartStack[targetIndexLocation].quantity += mathematicalModifierValue;
+            if (memoryAllocationCartStack[targetIndexLocation].quantity <= 0) { memoryAllocationCartStack.splice(targetIndexLocation, 1); }
+            evaluateFloatingCartWidgetUIStateFeedback(); buildModalCheckoutItemsRowsUIDOM();
+        }
 
         function evaluateFloatingCartWidgetUIStateFeedback() {
             const widgetFrameElement = document.getElementById('globalPrimaryCartFloatingWidget'); const counterTextValueElement = document.getElementById('cartWidgetDisplayItemsUnitsCountText');
-            if (memoryAllocationCartStack.length > 0) { widgetFrameElement.style.display = 'flex'; counterTextValueElement.innerText = memoryAllocationCartStack.length; } else { widgetFrameElement.style.display = 'none'; }
+            let totalUnits = 0; memoryAllocationCartStack.forEach(item => totalUnits += item.quantity);
+            if (totalUnits > 0) { widgetFrameElement.style.display = 'flex'; counterTextValueElement.innerText = totalUnits; } else { widgetFrameElement.style.display = 'none'; }
         }
 
         function buildModalCheckoutItemsRowsUIDOM() {
@@ -598,11 +652,24 @@
         }
 
         function recalculateStorefrontExchangePricesMatrix() { const exchangeSelectMenuNode = document.getElementById('formFieldGeographicCurrencySelector'); const activePickedOptionNode = exchangeSelectMenuNode.options[exchangeSelectMenuNode.selectedIndex]; systemExchangeConversionRatioMetric = parseFloat(activePickedOptionNode.getAttribute('data-ratio')); systemExchangeBaseCurrencySymbol = activePickedOptionNode.getAttribute('data-symbol'); buildModalCheckoutItemsRowsUIDOM(); }
-        function advanceCheckoutModalToPaymentMatrix() { const inputFieldUsernameTextContext = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); const inputFieldEmailTextContext = document.getElementById('formFieldCustomerEmailInput').value.trim(); if (!inputFieldUsernameTextContext || !inputFieldEmailTextContext) { alert('Fill all details.'); return; } document.getElementById('modalStageWrapperStep1').style.display = 'none'; document.getElementById('modalStageWrapperStep2').style.display = 'block'; }
+        function advanceCheckoutModalToPaymentMatrix() { const inputFieldUsernameTextContext = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); const inputFieldEmailTextContext = document.getElementById('formFieldCustomerEmailInput').value.trim(); const legalChecked = document.getElementById('legalMandatoryCheckboxTokenField').checked; if (!inputFieldUsernameTextContext || !inputFieldEmailTextContext) { alert('Fill all details.'); return; } if(!legalMandatoryCheckboxTokenField.checked) { alert('You must check and agree to the Terms of Service to check out.'); return; } document.getElementById('modalStageWrapperStep1').style.display = 'none'; document.getElementById('modalStageWrapperStep2').style.display = 'block'; }
 
         function toggleTargetedPaymentSubPane(selectedGatewayKeyNameValue) {
             document.querySelectorAll('.payment-channel-node-card').forEach(card => card.classList.remove('active-selection')); document.querySelectorAll('.payment-execution-content-panel').forEach(pane => pane.style.display = 'none');
             if (selectedGatewayKeyNameValue === 'UPI') { document.getElementById('paymentTabUPI').classList.add('active-selection'); document.getElementById('paneVaultUPI').style.display = 'block'; } else if (selectedGatewayKeyNameValue === 'PAYPAL') { document.getElementById('paymentTabPAYPAL').classList.add('active-selection'); document.getElementById('paneVaultPAYPAL').style.display = 'block'; }
+        }
+
+        function runLiveAvatarSkinRenderingMatrix(inputUsernameString) {
+            const frame = document.getElementById('checkoutPlayerAvatarVerificationShell'); const img = document.getElementById('checkoutPlayerAvatarTargetImageElement'); const targetCleanName = inputUsernameString.trim();
+            if(targetCleanName.length > 2) { frame.style.display = 'flex'; img.src = `https://minotar.net/avatar/${targetCleanName}/40.png`; } else { frame.style.display = 'none'; }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => { synchronizeOwnerEmailRevocationUIElementsState(); });
+
+        function toggleAccordionTabSelectionPanel(clickedHeaderNode) {
+            const panel = clickedHeaderNode.nextElementSibling; const icon = clickedHeaderNode.querySelector('i');
+            if (panel.style.maxHeight && panel.style.maxHeight !== '0px') { panel.style.maxHeight = '0px'; panel.style.padding = '0px 15px'; icon.className = 'fa-solid fa-chevron-down'; } 
+            else { panel.style.maxHeight = '100px'; panel.style.padding = '10px 15px 15px 15px'; icon.className = 'fa-solid fa-chevron-up'; }
         }
 
         function pushOrderRecordDataObjectsToQueue() {
@@ -611,33 +678,32 @@
             const finalDisplayPriceWithSymbol = `${systemExchangeBaseCurrencySymbol}${(accumulatedBaseCostAggregateValue * systemExchangeConversionRatioMetric).toFixed(2)}`;
             
             coreDatabaseTransactionsRegisterQueueArray.push({ 
-                uniqueTimestampID: Date.now(), 
-                usernameProfileKey: contextUsernameTarget, 
-                itemsBlockPayloadSummary: combinedProductDescriptionString, 
-                costAggregateFormattedString: `₹${accumulatedBaseCostAggregateValue}`, 
-                costFormattedWithSymbol: finalDisplayPriceWithSymbol,
-                customerEmail: contextCustomerEmailTarget,
-                isForwarded: false
+                uniqueTimestampID: Date.now(), usernameProfileKey: contextUsernameTarget, itemsBlockPayloadSummary: combinedProductDescriptionString, costAggregateFormattedString: `₹${accumulatedBaseCostAggregateValue}`, costRawValue: accumulatedBaseCostAggregateValue, costFormattedWithSymbol: finalDisplayPriceWithSymbol, customerEmail: contextCustomerEmailTarget, isForwarded: false 
             });
             memoryAllocationCartStack = []; evaluateFloatingCartWidgetUIStateFeedback();
-            document.getElementById('modalStageWrapperStep2').style.display = 'none'; document.getElementById('modalStageWrapperStep3').style.display = 'block'; renderTerminalDashboardInteractiveTableQueueEngine();
+            document.getElementById('modalStageWrapperStep2').style.display = 'none'; document.getElementById('modalStageWrapperStep3').style.display = 'block'; syncLocalStorageDatabaseKernel(); renderTerminalDashboardInteractiveTableQueueEngine();
         }
 
         function runTerminalSecurityAuthorizationSequence() {
             const nameField = document.getElementById('fieldSecurityAdminFullLegalName').value.trim(); const emailField = document.getElementById('fieldSecurityAdminEmailIdentifier').value.trim().toLowerCase(); const passField = document.getElementById('fieldSecurityAdminPasswordKeyphrase').value;
             let role = "";
             if (emailField === 'rishit27.3.2008@gmail.com' && passField === 'Rishit@270308') { role = "Owner"; } 
-            else if (emailField === 'cylestialmc@gmail.com' && passField === 'PaSsWoRd') { role = "Staff"; } 
+            else if (emailField === 'cylestialmc@gmail.com' && passField === 'PaSsWoRd') { if (flagStaffEmailAddressIsRevokedBlacklisted) { alert('Security Error: Legcay staff access pipeline disabled by Owner.'); return; } role = "Staff"; } 
             else { document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'block'; return; }
             
             document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'none';
-            adminIdentityAuthAuditTrailsRegistry.push({ id: Date.now(), name: nameField, email: emailField, role: role, time: new Date().toLocaleTimeString() });
-            localStorage.setItem('cylestialTerminalAdminAuditFullName', nameField);
-            localStorage.setItem('cylestialTerminalAdminAssignedRolePrivilege', role);
-            transitionUIToAuthenticatedDashboardState();
+            adminIdentityAuthAuditTrailsRegistry.push({ id: Date.now(), name: nameField, email: emailField, role: role, time: new Date().toLocaleTimeString(), status: "Active" });
+            localStorage.setItem('cylestialTerminalAdminAuditFullName', nameField); localStorage.setItem('cylestialTerminalAdminAssignedRolePrivilege', role);
+            syncLocalStorageDatabaseKernel(); transitionUIToAuthenticatedDashboardState(); appendAuditLogMessage(`SECURITY: Session established for user ${nameField} (${role}).`);
         }
 
-        function killTerminalSecureAuthorizationSession() { document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'none'; document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'block'; }
+        function killTerminalSecureAuthorizationSession() { 
+            const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName');
+            const targetIdx = adminIdentityAuthAuditTrailsRegistry.findIndex(s => s.name === activeName && s.status === "Active");
+            if(targetIdx !== -1) adminIdentityAuthAuditTrailsRegistry[targetIdx].status = `Terminated (${new Date().toLocaleTimeString()})`;
+            appendAuditLogMessage(`SECURITY: Session terminated by user ${activeName}.`); syncLocalStorageDatabaseKernel();
+            document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'none'; document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'block'; 
+        }
         
         function transitionUIToAuthenticatedDashboardState() {
             document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'none'; document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'block';
@@ -649,106 +715,65 @@
         }
         
         function renderTerminalDashboardInteractiveTableQueueEngine() {
-            const targetTableBodyDOMNode = document.getElementById('terminalDashboardInteractiveDataRegisterTableBody'); targetTableBodyDOMNode.innerHTML = '';
-            const currentRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff';
-            
-            document.getElementById('metricWidgetDisplayQueuedTotalCount').innerText = coreDatabaseTransactionsRegisterQueueArray.length;
-            document.getElementById('metricWidgetDisplayApprovedTotalCount').innerText = counterMetricApprovedTransactionsTotalSumValue;
-            document.getElementById('metricWidgetDisplayTotalAuthLogsCount').innerText = adminIdentityAuthAuditTrailsRegistry.length;
-            
+            const targetTableBodyDOMNode = document.getElementById('terminalDashboardInteractiveDataRegisterTableBody'); targetTableBodyDOMNode.innerHTML = ''; const currentRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff';
+            document.getElementById('metricWidgetDisplayQueuedTotalCount').innerText = coreDatabaseTransactionsRegisterQueueArray.length; document.getElementById('metricWidgetDisplayApprovedTotalCount').innerText = `₹${counterMetricApprovedTransactionsTotalSumValue.toFixed(2)}`; document.getElementById('metricWidgetDisplayTotalAuthLogsCount').innerText = adminIdentityAuthAuditTrailsRegistry.length;
             if (coreDatabaseTransactionsRegisterQueueArray.length === 0) { targetTableBodyDOMNode.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px 0;">Queue is empty.</td></tr>'; return; }
-            
             coreDatabaseTransactionsRegisterQueueArray.forEach(logRecordObject => {
-                let tr = document.createElement('tr');
-                let statusMarkup = logRecordObject.isForwarded ? '<span class="status-badge status-forwarded">Forwarded</span>' : '<span class="status-badge status-pending">Pending</span>';
-                
-                let actionsMarkup = '';
-                if (currentRole === 'Owner') {
-                    actionsMarkup = `<button class="operational-action-trigger-btn trigger-btn-approve" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, true)"><i class="fa-solid fa-check"></i></button><button class="operational-action-trigger-btn trigger-btn-deny" style="margin-left:6px;" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, false)"><i class="fa-solid fa-xmark"></i></button>`;
-                } else {
-                    actionsMarkup = logRecordObject.isForwarded ? 
-                        '<span style="font-size:0.8rem;color:var(--text-secondary)">Awaiting Owner Review</span>' : 
-                        `<button class="operational-action-trigger-btn trigger-btn-forward" onclick="staffForwardOrderLogToOwner(${logRecordObject.uniqueTimestampID})">Forward to Owner</button>`;
-                }
-                
-                tr.innerHTML = `<td><strong>${logRecordObject.usernameProfileKey}</strong></td><td>${logRecordObject.itemsBlockPayloadSummary}</td><td><span style="color:var(--accent-cyan);font-weight:700;">${logRecordObject.costAggregateFormattedString}</span></td><td>${statusMarkup}</td><td style="text-align:center;min-width:130px;">${actionsMarkup}</td>`;
-                targetTableBodyDOMNode.appendChild(tr);
+                let tr = document.createElement('tr'); let statusMarkup = logRecordObject.isForwarded ? '<span class="status-badge status-forwarded">Forwarded</span>' : '<span class="status-badge status-pending">Pending</span>';
+                let actionsMarkup = ''; if (currentRole === 'Owner') { actionsMarkup = `<button class="operational-action-trigger-btn trigger-btn-approve" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, true)"><i class="fa-solid fa-check"></i></button><button class="operational-action-trigger-btn trigger-btn-deny" style="margin-left:6px;" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, false)"><i class="fa-solid fa-xmark"></i></button>`; } 
+                else { actionsMarkup = logRecordObject.isForwarded ? '<span style="font-size:0.8rem;color:var(--text-secondary)">Awaiting Owner Review</span>' : `<button class="operational-action-trigger-btn trigger-btn-forward" onclick="staffForwardOrderLogToOwner(${logRecordObject.uniqueTimestampID})">Forward to Owner</button>`; }
+                tr.innerHTML = `<td><strong>${logRecordObject.usernameProfileKey}</strong></td><td>${logRecordObject.itemsBlockPayloadSummary}</td><td><span style="color:var(--accent-cyan);font-weight:700;">${logRecordObject.costFormattedWithSymbol}</span></td><td>${statusMarkup}</td><td style="text-align:center;min-width:130px;">${actionsMarkup}</td>`; targetTableBodyDOMNode.appendChild(tr);
             });
         }
 
-        // STAFF FORWARD PIPELINE ENGINE WITH AUTOMATED GMAIL ALERTS
         function staffForwardOrderLogToOwner(targetUniqueTimestampID) {
-            const index = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === targetUniqueTimestampID);
-            if (index === -1) return;
-            
-            const record = coreDatabaseTransactionsRegisterQueueArray[index];
-            record.isForwarded = true;
-            
-            // Dispatch a notification directly to the Master Registry Email
-            const staffNotifierName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'Staff Auditor';
-            const alertTemplatePayload = {
-                buyer_email: "cylestialmc@gmail.com", 
-                customer_name: "Owner Master Core",
-                purchased_items: `ALERT: Action Ingested by ${staffNotifierName}. Player [ ${record.usernameProfileKey} ] is waiting for purchase authorization validation ledger parameters.`,
-                total_amount: record.costAggregateFormattedString,
-                thank_you_message: "PENDING APPROVAL ADVISEMENT: Please decrypt your workstation shell terminal console layout immediately to authorize this request transaction.",
-                transaction_id: "PENDING-FWD-" + Math.floor(Math.random() * 9000 + 1000)
-            };
-            
-            emailjs.send('service_7fd9vjg', 'template_4fsh2l5', alertTemplatePayload)
-                .then(() => console.log("Admin registration dispatch matrix updated successfully."))
-                .catch((err) => console.error("Notification loop exception context: ", err));
-                
-            renderTerminalDashboardInteractiveTableQueueEngine();
-            alert('Order successfully locked and forwarded! Master notification email transmitted to cylestialmc@gmail.com.');
+            const index = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === targetUniqueTimestampID); if (index === -1) return;
+            const record = coreDatabaseTransactionsRegisterQueueArray[index]; record.isForwarded = true;
+            const staffNotifierName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'Staff Auditor'; appendAuditLogMessage(`STAFF: [ ${staffNotifierName} ] forwarded order ${targetUniqueTimestampID} to Owner.`);
+            const alertTemplatePayload = { buyer_email: "cylestialmc@gmail.com", customer_name: "Owner Master Core", purchased_items: `ALERT: Action Ingested by ${staffNotifierName}. Player [ ${record.usernameProfileKey} ] is waiting for purchase authorization parameters.`, total_amount: record.costAggregateFormattedString, thank_you_message: "PENDING APPROVAL REQUEST.", transaction_id: "PENDING-FWD-" + Math.floor(Math.random() * 9000 + 1000) };
+            emailjs.send('service_7fd9vjg', 'template_4fsh2l5', alertTemplatePayload).then(() => console.log("Alert sent.")).catch((err) => console.error(err));
+            syncLocalStorageDatabaseKernel(); renderTerminalDashboardInteractiveTableQueueEngine(); alert('Order forwarded to Owner workspace pipeline.');
         }
 
-        // OWNER FINAL DECISION HANDLER
         function evaluateQueuedOrderLogTransactionRecord(id, approve) { 
             const i = coreDatabaseTransactionsRegisterQueueArray.findIndex(r => r.uniqueTimestampID === id); 
             if (i !== -1) { 
                 const record = coreDatabaseTransactionsRegisterQueueArray[i];
                 if (approve) {
-                    counterMetricApprovedTransactionsTotalSumValue++; 
-                    const banner = document.getElementById('clientPublicGlobalBroadcastBanner'); 
-                    banner.innerHTML = `<i class="fa-solid fa-satellite-dish" style="color:var(--color-success)"></i> <span>Shoutout to <strong>${record.usernameProfileKey}</strong> for getting [<strong>${record.itemsBlockPayloadSummary}</strong>]!</span>`; 
-                    banner.style.display = 'flex';
-                    
-                    const emailPayload = { 
-                        buyer_email: record.customerEmail, 
-                        customer_name: record.usernameProfileKey, 
-                        purchased_items: record.itemsBlockPayloadSummary, 
-                        total_amount: record.costFormattedWithSymbol, 
-                        thank_you_message: "Your parameters have been fully upgraded! Create a ticket on Discord to complete extraction.", 
-                        transaction_id: "TXN-" + Math.floor(Math.random() * 900000 + 100000) 
-                    };
-                    emailjs.send('service_7fd9vjg', 'template_4fsh2l5', emailPayload)
-                        .then(() => console.log("Customer receipt loop cleared."))
-                        .catch((err) => console.error("Customer receipt exception context: ", err));
+                    counterMetricApprovedTransactionsTotalSumValue += record.costRawValue;
+                    appendAuditLogMessage(`OWNER: Approved order for player ${record.usernameProfileKey} (${record.costFormattedWithSymbol}).`);
+                    const fomoTickerText = document.getElementById('fomoTickerContentMessageText'); fomoTickerText.innerHTML = `🔥 Recent Checkout: <strong>${record.usernameProfileKey}</strong> just unlocked [<strong>${record.itemsBlockPayloadSummary}</strong>]!`;
+                    const banner = document.getElementById('clientPublicGlobalBroadcastBanner'); banner.innerHTML = `<i class="fa-solid fa-satellite-dish" style="color:var(--color-success)"></i> <span>Shoutout to <strong>${record.usernameProfileKey}</strong> for getting [<strong>${record.itemsBlockPayloadSummary}</strong>]!</span>`; banner.style.display = 'flex';
+                    const emailPayload = { buyer_email: record.customerEmail, customer_name: record.usernameProfileKey, purchased_items: record.itemsBlockPayloadSummary, total_amount: record.costFormattedWithSymbol, thank_you_message: "Your parameters have been fully upgraded! Create a ticket on Discord to complete extraction.", transaction_id: "TXN-" + Math.floor(Math.random() * 900000 + 100000) };
+                    emailjs.send('service_7fd9vjg', 'template_4fsh2l5', emailPayload).then(() => console.log("Receipt sent.")).catch((err) => console.error(err));
+                } else {
+                    appendAuditLogMessage(`OWNER: Rejected/Deleted order entry for player ${record.usernameProfileKey}.`);
                 }
-                coreDatabaseTransactionsRegisterQueueArray.splice(i, 1); 
-                renderTerminalDashboardInteractiveTableQueueEngine(); 
-                alert(approve ? 'Order Approved & Buyer Receipt Dispatched!' : 'Order Denied and removed from queue loop.'); 
+                coreDatabaseTransactionsRegisterQueueArray.splice(i, 1); syncLocalStorageDatabaseKernel(); renderTerminalDashboardInteractiveTableQueueEngine(); alert(approve ? 'Order Approved!' : 'Order Denied.'); 
             } 
         }
 
         function renderOwnerSessionsLogs() {
             const tbody = document.getElementById('ownerTerminalDashboardIdentityLogsOutputTableBody'); tbody.innerHTML = '';
             adminIdentityAuthAuditTrailsRegistry.forEach(log => {
-                let actionBtn = log.role === 'Owner' ? '<span style="color:var(--accent-purple);font-weight:700;">Root</span>' : `<button class="operational-action-trigger-btn trigger-btn-deny" style="width:auto;padding:2px 8px;font-size:0.75rem;" onclick="terminateSessionID(${log.id})">Terminate</button>`;
-                let tr = document.createElement('tr'); tr.innerHTML = `<td>${log.name}</td><td>${log.email}</td><td>${log.role}</td><td>${log.time}</td><td style="text-align:center;">${actionBtn}</td>`; tbody.appendChild(tr);
+                let activeBadge = log.status === "Active" ? `<span style="color:var(--color-success);font-weight:700;">Active</span>` : `<span style="color:var(--text-secondary);font-size:0.75rem;">${log.status}</span>`;
+                let actionBtn = (log.role === 'Owner' || log.status !== "Active") ? `<span style="color:var(--text-secondary);font-size:0.8rem;">Locked</span>` : `<button class="operational-action-trigger-btn trigger-btn-deny" style="width:auto;padding:2px 8px;font-size:0.75rem;" onclick="ownerForceTerminateStaffSession(${log.id})">Terminate Session</button>`;
+                let tr = document.createElement('tr'); tr.innerHTML = `<td><strong>${log.name}</strong></td><td style="font-family:monospace;font-size:0.8rem;">${log.email}</td><td><span style="color:${log.role === 'Owner'?'var(--accent-purple)':'var(--accent-cyan)'};font-weight:700;">${log.role}</span></td><td>${log.time} (${activeBadge})</td><td style="text-align:center;">${actionBtn}</td>`; tbody.appendChild(tr);
             });
         }
 
-        function terminateSessionID(id) {
-            const i = adminIdentityAuthAuditTrailsRegistry.findIndex(s => s.id === id);
-            if (i !== -1) {
-                adminIdentityAuthAuditTrailsRegistry.splice(i, 1);
-                renderOwnerSessionsLogs();
-                renderTerminalDashboardInteractiveTableQueueEngine();
-                alert('Session Terminated and Privileges Invalidated.');
-            }
+        function ownerForceTerminateStaffSession(sessionID) {
+            const idx = adminIdentityAuthAuditTrailsRegistry.findIndex(s => s.id === sessionID); if (idx === -1) return;
+            const targetSession = adminIdentityAuthAuditTrailsRegistry[idx]; targetSession.status = "Revoked by Owner";
+            appendAuditLogMessage(`SECURITY WARNING: Owner forced termination on staff session: ${targetSession.name}.`);
+            alert(`Security Protocol Success: Session for staff token target [ ${targetSession.name} ] blacklisted.`); syncLocalStorageDatabaseKernel();
+            const activeRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege'); const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName');
+            if(activeRole === 'Staff' && activeName === targetSession.name) { killTerminalSecureAuthorizationSession(); closeSystemModalWindow('administrationWorkspaceSecureAccessModal'); } 
+            else { renderOwnerSessionsLogs(); renderTerminalDashboardInteractiveTableQueueEngine(); }
         }
+
+        function executeOwnerRevocationAction(type) { if(type === 'staff_email') { flagStaffEmailAddressIsRevokedBlacklisted = !flagStaffEmailAddressIsRevokedBlacklisted; syncLocalStorageDatabaseKernel(); synchronizeOwnerEmailRevocationUIElementsState(); alert(flagStaffEmailAddressIsRevokedBlacklisted ? 'Staff Fallback Pipeline Deactivated Globally.' : 'Staff Fallback Pipeline Restored.'); } }
+        function synchronizeOwnerEmailRevocationUIElementsState() { const btn = document.getElementById('ownerBlacklistStaffEmailToggleBtn'); if(!btn) return; if(flagStaffEmailAddressIsRevokedBlacklisted) { btn.innerText = "Activate Legacy Staff Email"; btn.style.background = "var(--color-success)"; btn.style.borderColor = "var(--color-success)"; btn.style.color = "#02040a"; } else { btn.innerText = "Deactivate Legacy Staff Email"; btn.style.background = "#7c2d12"; btn.style.borderColor = "var(--color-danger)"; btn.style.color = "#ffffff"; } }
     </script>
 </body>
 </html>
