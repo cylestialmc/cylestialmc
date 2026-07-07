@@ -87,7 +87,10 @@
         }
 
         .server-brand-logo-centerpiece {
-            width: 200px; height: 200px; object-fit: contain; margin-bottom: 20px;
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 20px;
             filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.3));
             animation: floatingLogo 4s ease-in-out infinite;
         }
@@ -498,7 +501,7 @@
                     <label for="legalMandatoryCheckboxTokenField" style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">I certify that I have read the server legal disclosures and agree that chargebacks are blacklisted.</label>
                 </div>
 
-                <button class="terminal-interaction-btn" style="margin-top:20px;" onclick="advanceCheckoutModalToPaymentMatrix()">Establish Pipelines</button>
+                <button class="terminal-interaction-btn" type="button" onclick="advanceCheckoutModalToPaymentMatrix()">Establish Pipelines</button>
             </div>
 
             <div id="modalStageWrapperStep2" style="display: none;">
@@ -709,7 +712,7 @@
         let flagStaffEmailAddressIsRevokedBlacklisted = localStorage.getItem('db_kill_staff') === 'true';
         let publicApprovedSupportersLeaderboardArray = JSON.parse(localStorage.getItem('db_supporters')) || [];
 
-        // CONFIG LOOPS RESTORATION
+        // LOAD CACHED PARAMETERS
         if(localStorage.getItem('live_cfg_brand')) document.getElementById('liveDOMTextServerBrandNameTitle').innerText = localStorage.getItem('live_cfg_brand');
         if(localStorage.getItem('live_cfg_sub')) document.getElementById('liveDOMTextServerBrandSubtitle').innerText = localStorage.getItem('live_cfg_sub');
         if(localStorage.getItem('live_cfg_motd')) document.getElementById('liveDOMTextServerMotdMessageDisplay').innerText = localStorage.getItem('live_cfg_motd');
@@ -1001,13 +1004,17 @@
             }
         }
 
+        function executeServerAddressCopyProtocolString() {
+            navigator.clipboard.writeText("play.cylestialmc.fun");
+            alert("🎯 IP Address Copied: play.cylestialmc.fun\nJoin the server network now!");
+        }
+
         function injectProductRecordToCartStack(productLabelName, rawPriceIntegerMetric) {
             const index = memoryAllocationCartStack.findIndex(item => item.name === productLabelName);
             if (index !== -1) { memoryAllocationCartStack[index].quantity += 1; } else { memoryAllocationCartStack.push({ name: productLabelName, basePrice: rawPriceIntegerMetric, quantity: 1 }); }
             evaluateFloatingCartWidgetUIStateFeedback();
         }
 
-        // FIXED LIVE USERNAME SKIN LOOKUP MODULES HOOKED DIRECTLY INTO GENERATION
         function runLiveAvatarSkinRenderingMatrix(inputUsernameString) {
             const frame = document.getElementById('checkoutPlayerAvatarVerificationShell'); 
             const img = document.getElementById('checkoutPlayerAvatarTargetImageElement'); 
@@ -1031,6 +1038,9 @@
             let totalUnits = 0; memoryAllocationCartStack.forEach(item => totalUnits += item.quantity);
             if (totalUnits > 0) { widgetFrameElement.style.display = 'flex'; counterTextValueElement.innerText = totalUnits; } else { widgetFrameElement.style.display = 'none'; }
         }
+
+        document.addEventListener("DOMContentLoaded", () => { buildStorefrontDynamicNavigationAndLayoutDOM(); synchronizeOwnerEmailRevocationUIElementsState(); renderPublicSupportersLeaderboardUIDOM(); });
+        function appendAuditLogMessage(text) { const box = document.getElementById('terminalLiveAuditLoggerOutputStackBox'); if(!box) return; box.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${text}</div>`; box.scrollTop = box.scrollHeight; }
 
         function buildModalCheckoutItemsRowsUIDOM() {
             const targetRowsDisplayContainer = document.getElementById('modalCartItemsRowsOutputContainer'); const totalCostSumTextElement = document.getElementById('checkoutGrandTotalCostOutputText'); targetRowsDisplayContainer.innerHTML = '';
