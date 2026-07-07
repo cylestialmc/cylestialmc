@@ -1096,3 +1096,206 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CylestialMC Network | Definitive Webstore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        :root {
+            --bg-deep: #02040a;
+            --bg-surface: rgba(10, 15, 30, 0.75);
+            --bg-surface-solid: #0b0f19;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #a855f7;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --color-gold: #fbbf24;
+            --color-success: #10b981;
+            --color-danger: #ef4444;
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --neon-glow: 0 0 25px rgba(6, 182, 212, 0.35);
+        }
+
+        body.theme-obsidian {
+            --bg-deep: #0f1115;
+            --bg-surface: rgba(25, 28, 36, 0.75);
+            --bg-surface-solid: #1e222b;
+            --accent-cyan: #94a3b8;
+            --accent-purple: #64748b;
+            --neon-glow: 0 0 20px rgba(148, 163, 184, 0.2);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; transition: background-color 0.2s ease; }
+        body { background-color: var(--bg-deep); color: var(--text-primary); overflow-x: hidden; min-height: 100vh; }
+
+        .banner-background-canvas-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; background: linear-gradient(to bottom, rgba(2, 4, 10, 0.85) 0%, rgba(2, 4, 10, 0.95) 100%), url('banner.png'); background-size: cover; background-position: center; pointer-events: none; }
+        
+        #main_landing_view_tier { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 60px 20px; text-align: center; z-index: 10; }
+
+        .app-layout-root { display: none; grid-template-columns: 280px 1fr; min-height: 100vh; }
+        
+        .terminal-interaction-btn { background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%); border: none; color: #fff; font-weight: 700; padding: 14px; border-radius: 10px; cursor: pointer; width: 100%; text-transform: uppercase; }
+
+        .window-blur-overlay-mask { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 4, 10, 0.9); backdrop-filter: blur(12px); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 20px; }
+        .glass-modal-container-block { background: rgba(11, 15, 25, 0.98); width: 100%; max-width: 650px; border-radius: 20px; padding: 35px; position: relative; max-height: 90vh; overflow-y: auto; border: 1px solid rgba(255,255,255,0.1); }
+        .window-close-trigger-node { position: absolute; top: 20px; right: 20px; font-size: 1.5rem; cursor: pointer; }
+
+        .admin-action-gate-btn { width: 100%; padding: 12px; background: rgba(6, 182, 212, 0.1); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); font-weight: 700; border-radius: 8px; cursor: pointer; }
+
+        .catalog-display-view-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; padding: 20px; }
+        .cyber-product-card { background: var(--bg-surface); padding: 20px; border-radius: 16px; border: 1px solid var(--glass-border); }
+
+        .basket-item-list-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--glass-border); }
+
+        @media (max-width: 1024px) {
+            .app-layout-root { grid-template-columns: 1fr; }
+            aside { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="banner-background-canvas-overlay"></div>
+    <div id="main_landing_view_tier">
+        <img src="logo.png" style="width: 150px; margin-bottom: 20px;">
+        <h1>CYLESTIAL<span>MC</span></h1>
+        <div class="landing-portal-action-button-matrix">
+            <button class="terminal-interaction-btn" style="width: auto; padding: 15px 30px;" onclick="navigateToViewTier('shop')">Enter Store</button>
+        </div>
+    </div>
+
+    <div class="app-layout-root" id="shop_layout_root_tier">
+        <aside>
+            <ul class="navigation-menu-list" id="asideDynamicNavigationTabListGroup"></ul>
+            <button class="admin-action-gate-btn" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')">Admin Terminal</button>
+        </aside>
+        <main class="primary-viewport-pane" id="catalogStorefrontPrimaryViewportMainPane"></main>
+    </div>
+
+    <div id="checkoutSystemProcessingModalWindow" class="window-blur-overlay-mask">
+        <div class="glass-modal-container-block">
+            <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')"></i>
+            <h2>Checkout</h2>
+            <div id="modalStageWrapperStep1">
+                <div id="modalCartItemsRowsOutputContainer"></div>
+                <div style="margin:20px 0;">
+                    <label>Username</label>
+                    <input type="text" id="formFieldMinecraftUsernameInput" class="form-structural-group" style="width:100%; padding:10px;" oninput="runLiveAvatarSkinRenderingMatrix(this.value)">
+                </div>
+                <div style="margin:20px 0;">
+                    <label>Email</label>
+                    <input type="email" id="formFieldCustomerEmailInput" style="width:100%; padding:10px;">
+                </div>
+                <label><input type="checkbox" id="legalMandatoryCheckboxTokenField"> Agree to Terms</label>
+                <button class="terminal-interaction-btn" style="margin-top:20px;" onclick="advanceCheckoutModalToPaymentMatrix()">Establish Pipelines</button>
+            </div>
+            <div id="modalStageWrapperStep2" style="display:none;">
+                <h3>QR Payment</h3>
+                <img id="premiumAutomatedBillingQRImageTarget" style="width:150px; margin:20px 0;">
+                <input type="file" id="formFieldReceiptScreenshotUploadSelector">
+                <button class="terminal-interaction-btn" style="margin-top:20px;" onclick="pushOrderRecordDataObjectsToQueue()">Submit Registration Ledger</button>
+            </div>
+            <div id="modalStageWrapperStep3" style="display:none;"><h3>Order Queued!</h3></div>
+        </div>
+    </div>
+
+    <div id="administrationWorkspaceSecureAccessModal" class="window-blur-overlay-mask">
+        <div class="glass-modal-container-block">
+            <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('administrationWorkspaceSecureAccessModal')"></i>
+            <div id="terminalInternalLockAuthorizationPane">
+                <input type="text" id="fieldSecurityAdminFullLegalName" placeholder="Name">
+                <input type="email" id="fieldSecurityAdminEmailIdentifier" placeholder="Email">
+                <input type="password" id="fieldSecurityAdminPasswordKeyphrase" placeholder="Password">
+                <button class="terminal-interaction-btn" onclick="runTerminalSecurityAuthorizationSequence()">Login</button>
+            </div>
+            <div id="terminalInternalActiveDashboardWorkspacePane" style="display:none;">
+                <h3 id="terminalLiveGreetingAdminName"></h3>
+                <button class="terminal-interaction-btn" onclick="killTerminalSecureAuthorizationSession()">Logout</button>
+                <div id="ownerPrivilegedExclusiveOperationsDashboard" style="display:none;">
+                    <table class="admin-data-table-element">
+                        <tbody id="terminalDashboardInteractiveDataRegisterTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() { emailjs.init("NVnA_39yMMVx_TZyj"); })();
+        let memoryAllocationCartStack = [];
+        let coreDatabaseTransactionsRegisterQueueArray = JSON.parse(localStorage.getItem('db_queue')) || [];
+        let counterMetricApprovedTransactionsTotalSumValue = parseFloat(localStorage.getItem('db_rev')) || 0;
+
+        function openSystemModalWindow(id) { document.getElementById(id).style.display = 'flex'; if(id === 'checkoutSystemProcessingModalWindow') buildModalCheckoutItemsRowsUIDOM(); }
+        function closeSystemModalWindow(id) { document.getElementById(id).style.display = 'none'; }
+        
+        function navigateToViewTier(type) {
+            document.getElementById('main_landing_view_tier').style.display = (type === 'home') ? 'flex' : 'none';
+            document.getElementById('shop_layout_root_tier').style.display = (type === 'shop') ? 'grid' : 'none';
+            if(type === 'shop') buildStorefrontDynamicNavigationAndLayoutDOM();
+        }
+
+        function injectProductRecordToCartStack(name, price) {
+            const i = memoryAllocationCartStack.findIndex(x => x.name === name);
+            if(i !== -1) memoryAllocationCartStack[i].quantity++;
+            else memoryAllocationCartStack.push({name, basePrice: price, quantity: 1});
+            document.getElementById('globalPrimaryCartFloatingWidget').style.display = 'flex';
+            document.getElementById('cartWidgetDisplayItemsUnitsCountText').innerText = memoryAllocationCartStack.length;
+        }
+
+        function buildModalCheckoutItemsRowsUIDOM() {
+            const container = document.getElementById('modalCartItemsRowsOutputContainer');
+            container.innerHTML = memoryAllocationCartStack.map(i => `<div class="basket-item-list-row"><span>${i.name}</span><span>₹${i.basePrice * i.quantity}</span></div>`).join('');
+        }
+
+        function advanceCheckoutModalToPaymentMatrix() {
+            if(!document.getElementById('legalMandatoryCheckboxTokenField').checked) return alert('Accept Terms');
+            document.getElementById('modalStageWrapperStep1').style.display = 'none';
+            document.getElementById('modalStageWrapperStep2').style.display = 'block';
+            document.getElementById('premiumAutomatedBillingQRImageTarget').src = "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=upi://pay?pa=9515411111@fam";
+        }
+
+        function pushOrderRecordDataObjectsToQueue() {
+            const username = document.getElementById('formFieldMinecraftUsernameInput').value;
+            const email = document.getElementById('formFieldCustomerEmailInput').value;
+            coreDatabaseTransactionsRegisterQueueArray.push({ id: Date.now(), usernameProfileKey: username, itemsBlockPayloadSummary: "Products", costRawValue: 100, isForwarded: false });
+            localStorage.setItem('db_queue', JSON.stringify(coreDatabaseTransactionsRegisterQueueArray));
+            document.getElementById('modalStageWrapperStep2').style.display = 'none';
+            document.getElementById('modalStageWrapperStep3').style.display = 'block';
+            renderTerminalDashboardInteractiveTableQueueEngine();
+        }
+
+        function runTerminalSecurityAuthorizationSequence() {
+            const email = document.getElementById('fieldSecurityAdminEmailIdentifier').value;
+            const pass = document.getElementById('fieldSecurityAdminPasswordKeyphrase').value;
+            if((email === 'rishit27.3.2008@gmail.com' && pass === 'Rishit@270308') || (email === 'cylestialmc@gmail.com' && pass === 'PaSsWoRd')) {
+                document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'none';
+                document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'block';
+                localStorage.setItem('cylestialTerminalAdminAssignedRolePrivilege', (email === 'rishit27.3.2008@gmail.com' ? 'Owner' : 'Staff'));
+                renderTerminalDashboardInteractiveTableQueueEngine();
+            }
+        }
+
+        function renderTerminalDashboardInteractiveTableQueueEngine() {
+            const body = document.getElementById('terminalDashboardInteractiveDataRegisterTableBody');
+            body.innerHTML = coreDatabaseTransactionsRegisterQueueArray.map(item => `<tr><td>${item.usernameProfileKey}</td><td><button onclick="evaluateQueuedOrderLogTransactionRecord(${item.id}, true)">Approve</button></td></tr>`).join('');
+            if(localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') === 'Owner') document.getElementById('ownerPrivilegedExclusiveOperationsDashboard').style.display = 'block';
+        }
+
+        function evaluateQueuedOrderLogTransactionRecord(id, approve) {
+            const idx = coreDatabaseTransactionsRegisterQueueArray.findIndex(x => x.id === id);
+            if(approve) counterMetricApprovedTransactionsTotalSumValue += 100;
+            coreDatabaseTransactionsRegisterQueueArray.splice(idx, 1);
+            localStorage.setItem('db_queue', JSON.stringify(coreDatabaseTransactionsRegisterQueueArray));
+            localStorage.setItem('db_rev', counterMetricApprovedTransactionsTotalSumValue);
+            renderTerminalDashboardInteractiveTableQueueEngine();
+        }
+        
+        function killTerminalSecureAuthorizationSession() { window.location.reload(); }
+    </script>
+</body>
+</html>
