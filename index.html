@@ -303,31 +303,8 @@
         .status-pending { background: rgba(251, 191, 36, 0.1); color: var(--color-gold); border: 1px solid rgba(251, 191, 36, 0.2); }
         .status-forwarded { background: rgba(168, 85, 247, 0.1); color: var(--accent-purple); border: 1px solid rgba(168, 85, 247, 0.2); }
 
-        .ai-chat-launcher-pill-trigger {
-            position: fixed; bottom: 35px; left: 40px; z-index: 999;
-            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
-            color: #fff; padding: 14px 22px; border-radius: 50px; font-weight: 800;
-            display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: var(--neon-glow);
-        }
-        .ai-chat-window-viewport-block {
-            position: fixed; bottom: 100px; left: 40px; width: 350px; height: 450px;
-            background: rgba(11, 15, 25, 0.98); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px; display: none; flex-direction: column; z-index: 999;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; backdrop-filter: blur(20px);
-        }
-        .ai-chat-header-bar { background: rgba(2,4,10,0.6); padding: 15px; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; }
-        .ai-chat-messages-stream-stack { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-        .ai-chat-bubble-node .assistant { background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.2); color: #fff; align-self: flex-start; }
-        .ai-chat-bubble-node .user { background: var(--accent-purple); color: #fff; align-self: flex-end; }
-        .ai-chat-input-row-container { padding: 10px; background: rgba(2,4,10,0.4); border-top: 1px solid var(--glass-border); display: flex; gap: 8px; }
-        .ai-chat-input-row-container input { flex-grow: 1; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; font-size: 0.85rem; }
-
-        .ai-sandbox-blueprint-preview-panel {
-            background: rgba(2,4,10,0.85); border: 1px solid var(--accent-cyan);
-            border-radius: 12px; padding: 20px; margin-top: 15px; display: none;
-            box-shadow: var(--neon-glow);
-        }
-        .ai-sandbox-header-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-cyan); font-weight: 900; margin-bottom: 10px; }
+        .admin-live-search-filter-wrapper-box { display: flex; align-items: center; background: rgba(2,4,10,0.6); border: 1px solid var(--glass-border); padding: 14px; border-radius: 10px; margin-bottom: 15px; width:100%; }
+        .admin-live-search-filter-wrapper-box input { background: transparent; border: none; outline: none; color: #fff; font-size: 0.95rem; width: 100%; }
 
         @media (max-width: 1024px) {
             .app-layout-root { grid-template-columns: 1fr; }
@@ -339,8 +316,6 @@
             .admin-analytics-dashboard-matrix { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .app-layout-root.shop-active ~ .mobile-header-bar { display: flex; }
             .app-layout-root.shop-active ~ .mobile-navigation-dock-bar { display: flex; }
-            .ai-chat-launcher-pill-trigger { bottom: 85px; left: 20px; padding: 10px 16px; font-size: 0.8rem; }
-            .ai-chat-window-viewport-block { left: 20px; right: 20px; width: auto; bottom: 145px; }
         }
     </style>
 </head>
@@ -383,7 +358,7 @@
             </div>
             <div class="network-node-card">
                 <div class="icon-shield"><i class="fa-solid fa-mobile-screen-button"></i></div>
-                <div class="node-meta"><h6>Bedrock Connection IP</h6><p id="liveDOMTextConnectionBedrockIP">play.cylestialmc.fun</p></div>
+                <div class="node-meta"><h6>Bedrock Connection IP</h6><p>play.cylestialmc.fun</p></div>
             </div>
             <div class="network-node-card">
                 <div class="icon-shield"><i class="fa-solid fa-circle-nodes"></i></div>
@@ -402,7 +377,7 @@
     <!-- COMMERCE PANEL -->
     <div class="mobile-header-bar" id="shopMobileHeaderBar">
         <h2 onclick="navigateToViewTier('home')" style="cursor: pointer;">CYLESTIAL<span>MC</span></h2>
-        <button class="admin-action-gate-btn" type="button" style="padding: 8px 14px; font-size:0.78rem; width: auto;" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')">
+        <button class="admin-action-gate-btn" style="padding: 8px 14px; font-size:0.78rem; width: auto;" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')">
             <i class="fa-solid fa-shield-halved"></i> Terminal
         </button>
     </div>
@@ -456,22 +431,6 @@
     <div class="floating-action-basket-pill" id="globalPrimaryCartFloatingWidget">
         <div><i class="fa-solid fa-cube" style="color:var(--accent-cyan);"></i> <span id="cartWidgetDisplayItemsUnitsCountText" style="font-weight:800; color:#fff; margin-left:6px;">0</span> Items</div>
         <button class="terminal-interaction-btn" type="button" style="padding: 10px 20px; font-size: 0.8rem; width:auto;" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')">Checkout</button>
-    </div>
-
-    <!-- PLAYER ASSISTANT INTERACTIVE FLOATING OVERLAY CHAT PANEL -->
-    <div class="ai-chat-launcher-pill-trigger" onclick="toggleServerCompanionChatViewPane()"><i class="fa-solid fa-robot"></i> Server AI Helper</div>
-    <div class="ai-chat-window-viewport-block" id="serverCompanionChatWindowFrame">
-        <div class="ai-chat-header-bar">
-            <span style="font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-circle-nodes" style="color:var(--accent-cyan)"></i> Cylestial AI Guide</span>
-            <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="toggleServerCompanionChatViewPane()"></i>
-        </div>
-        <div class="ai-chat-messages-stream-stack" id="serverCompanionChatMessagesStreamStack">
-            <div class="ai-chat-bubble-node assistant">Greetings player! Welcome to CylestialMC, undeniably the most magnificent Minecraft server network in the universe! Ask me anything about our IPs, ports, or shop tokens in any language. Let's play!</div>
-        </div>
-        <div class="ai-chat-input-row-container">
-            <input type="text" id="serverCompanionChatInputTextField" placeholder="Ask about IP, connection ports, ranks...">
-            <button class="terminal-interaction-btn" type="button" style="width:auto; padding:0 14px;" onclick="executeServerCompanionChatResponseCycle()"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
     </div>
 
     <!-- PIPELINE CHECKOUT MODAL -->
@@ -569,6 +528,7 @@
         </div>
     </div>
 
+    <!-- TERMINAL MAIN DASHBOARD SECURE WORKSPACE -->
     <div id="administrationWorkspaceSecureAccessModal" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block" style="max-width: 780px;">
             <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('administrationWorkspaceSecureAccessModal')"></i>
@@ -591,10 +551,11 @@
                 <div id="terminalHandshakeAuthenticationFailureFeedbackAlert" style="background:rgba(239,68,68,0.08); border:1px solid var(--color-danger); padding:15px; border-radius:10px; color: var(--color-danger); margin-top: 20px; display: none;">Authorization failure. Account unknown or blocked.</div>
             </div>
 
+            <!-- TERMINAL LOGGED IN PANEL DISPLAY -->
             <div id="terminalInternalActiveDashboardWorkspacePane" style="display: none;">
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); margin-bottom: 25px; padding-bottom:14px; gap: 15px; flex-wrap: wrap;">
                     <h3>Console Identity: <span id="terminalLiveGreetingAdminName" style="color:var(--accent-cyan)">User</span> (<span id="terminalLiveGreetingAdminRole" style="font-size:0.85rem; font-weight:700; text-transform:uppercase;">Role</span>)</h3>
-                    <button class="terminal-interaction-btn" type="button" style="width:auto; padding: 8px 18px; background:var(--color-danger);" onclick="killTerminalSecureAuthorizationSession()">Logout</button>
+                    <button class="terminal-interaction-btn" type="button" style="width:auto; padding: 8px 18px; background:var(--danger);" onclick="killTerminalSecureAuthorizationSession()">Logout</button>
                 </div>
 
                 <div class="admin-analytics-dashboard-matrix">
@@ -658,26 +619,31 @@
                         </div>
                         <button class="terminal-interaction-btn" type="button" style="background:var(--color-success); color:#000; margin-top:15px;" onclick="executeOwnerLiveDOMCustomContentUpdateSync()">Push Global Content Live</button>
                     </div>
-                    <h4 style="margin-bottom: 12px; font-weight:700; color: var(--text-secondary);">Processing Queue Ledger</h4>
-                    <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px; margin-bottom:25px;">
-                        <table class="admin-data-table-element">
-                            <thead><tr><th>Player</th><th>Payload Data String</th><th>Billing Value</th><th>Status</th><th style="text-align:center;">Actions Matrix</th></tr></thead>
-                            <tbody id="terminalDashboardInteractiveDataRegisterTableBody"></tbody>
-                        </table>
+                </div>
+
+                <h4 style="margin-bottom: 12px; font-weight:700; color: var(--text-secondary);">Active Real-time Processing Ledger</h4>
+                <div class="admin-live-search-filter-wrapper-box">
+                    <input type="text" id="terminalQueueLedgerRealtimeSearchBarInput" placeholder="🔍 Filter ledger queue index rows instantly..." oninput="filterLedgerQueueRowsInRealtime(this.value)">
+                </div>
+
+                <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px; margin-bottom:25px;">
+                    <table class="admin-data-table-element">
+                        <thead><tr><th>Player Name</th><th>Payload Command String</th><th>Billing Value</th><th>Status</th><th style="text-align:center;">Action Panel Matrix</th></tr></thead>
+                        <tbody id="terminalDashboardInteractiveDataRegisterTableBody"></tbody>
+                    </table>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; flex-wrap:wrap; gap:10px;">
+                    <h4 style="font-weight:700; color: var(--text-secondary);">Administrative Session Footprints</h4>
+                    <div style="display:flex; gap:10px;">
+                        <button class="terminal-interaction-btn" type="button" style="width:auto; padding:8px 16px; background:rgba(239,68,68,0.06); border:1px solid var(--color-danger); color:var(--color-danger);" onclick="executeOwnerMasterWipePurgeProtocol()"><i class="fa-solid fa-dumpster-fire"></i> Purge Cache</button>
+                        <button class="terminal-interaction-btn" type="button" style="width:auto; padding:8px 16px; background:rgba(16, 185, 129, 0.1); border:1px solid var(--color-success); color:var(--color-success);" onclick="exportMasterDatabaseLedgerToExcelCsvFile()"><i class="fa-solid fa-file-csv"></i> Export Spreadsheet Ledger</button>
                     </div>
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; flex-wrap:wrap; gap:10px;">
-                        <h4 style="font-weight:700; color: var(--text-secondary);">Administrative Session Footprints</h4>
-                        <div style="display:flex; gap:10px;">
-                            <button class="terminal-interaction-btn" type="button" style="width:auto; padding:8px 16px; background:rgba(239,68,68,0.06); border:1px solid var(--color-danger); color:var(--color-danger);" onclick="executeOwnerMasterWipePurgeProtocol()"><i class="fa-solid fa-dumpster-fire"></i> Purge Cache</button>
-                            <button class="terminal-interaction-btn" type="button" style="width:auto; padding:8px 16px; background:rgba(16, 185, 129, 0.1); border:1px solid var(--color-success); color:var(--color-success);" onclick="exportMasterDatabaseLedgerToExcelCsvFile()"><i class="fa-solid fa-file-csv"></i> Export .CSV</button>
-                        </div>
-                    </div>
-                    <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px; margin-bottom: 25px;">
-                        <table class="admin-data-table-element">
-                            <thead><tr><th>User Handle</th><th>Email Link</th><th>Privilege Rank</th><th>Login Time Stamp</th><th style="text-align: center;">Override Token</th></tr></thead>
-                            <tbody id="ownerTerminalDashboardIdentityLogsOutputTableBody"></tbody>
-                        </table>
-                    </div>
+                </div>
+                <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px; margin-bottom: 25px;">
+                    <table class="admin-data-table-element">
+                        <thead><tr><th>User Handle</th><th>Email Link</th><th>Privilege Rank</th><th>Login Time Stamp</th><th style="text-align: center;">Override Token</th></tr></thead>
+                        <tbody id="ownerTerminalDashboardIdentityLogsOutputTableBody"></tbody>
+                    </table>
                 </div>
                 <h4 style="font-weight:700; color: var(--text-secondary);">Live Workstation Activity Auditor</h4>
                 <div class="system-audit-log-terminal-output-panel" id="terminalLiveAuditLoggerOutputStackBox">
@@ -1044,7 +1010,7 @@
         function evaluateFloatingCartWidgetUIStateFeedback() {
             const widgetFrameElement = document.getElementById('globalPrimaryCartFloatingWidget'); const counterTextValueElement = document.getElementById('cartWidgetDisplayItemsUnitsCountText');
             let totalUnits = 0; memoryAllocationCartStack.forEach(item => totalUnits += item.quantity);
-            if (totalUnits > 0) { widgetFrameElement.style.display = 'flex'; counterTextValueElement.innerText = totalUnits; } else { widgetFrameElement.style.display = 'none'; }
+            if (totalUnits > 0) { widgetFrameElement.style.display = 'flex'; counterTextElement.innerText = totalUnits; } else { widgetFrameElement.style.display = 'none'; }
         }
 
         function buildModalCheckoutItemsRowsUIDOM() {
@@ -1134,6 +1100,12 @@
             renderTerminalDashboardInteractiveTableQueueEngine();
         }
 
+        function filterLedgerQueueRowsInRealtime(val) { 
+            const trs = document.querySelectorAll('#terminalDashboardInteractiveDataRegisterTableBody tr'); 
+            const match = val.trim().toLowerCase(); 
+            trs.forEach(row => { if(row.innerText.toLowerCase().includes(match)) { row.style.display = ''; } else { row.style.display = 'none'; } }); 
+        }
+
         function runTerminalSecurityAuthorizationSequence() {
             const nameField = document.getElementById('fieldSecurityAdminFullLegalName').value.trim(); 
             const emailField = document.getElementById('fieldSecurityAdminEmailIdentifier').value.trim().toLowerCase(); 
@@ -1151,7 +1123,7 @@
             localStorage.setItem('cylestialTerminalAdminAssignedRolePrivilege', role); 
             syncLocalStorageDatabaseKernel(); 
             transitionUIToAuthenticatedDashboardState(); 
-            appendAuditLogMessage(`SECURITY: Session established for user ${nameField} (${role}).`);
+            appendAuditLogMessage::(`SECURITY: Session established for user ${nameField} (${role}).`);
         }
 
         function killTerminalSecureAuthorizationSession() { 
@@ -1204,7 +1176,7 @@
             });
         }
 
-        // CORES FOR APPROVE / DENY DISPATCH HANDLERS
+        // FIXED AND SECURED SYSTEM DISPATCH ACTION FUNCTION HANDLER
         function evaluateQueuedOrderLogTransactionRecord(timestampID, isApproved) {
             const index = coreDatabaseTransactionsRegisterQueueArray.findIndex(item => item.uniqueTimestampID === timestampID);
             if (index === -1) return;
@@ -1212,17 +1184,44 @@
             const targetRecord = coreDatabaseTransactionsRegisterQueueArray[index];
             if (isApproved) {
                 counterMetricApprovedTransactionsTotalSumValue += parseFloat(targetRecord.costRawValue || 0);
+                
+                // RESTORED SPREADSHEET ARCHIVE PERSISTENCE LOGIC BIND
                 publicApprovedSupportersLeaderboardArray.push({
                     name: targetRecord.usernameProfileKey,
                     payload: targetRecord.itemsBlockPayloadSummary,
                     billing: targetRecord.costFormattedWithSymbol,
                     rawCost: targetRecord.costRawValue
                 });
-                appendAuditLogMessage(`FINANCIAL: Order for ${targetRecord.usernameProfileKey} APPROVED. added ₹${targetRecord.costRawValue}`);
-                alert(`Order for ${targetRecord.usernameProfileKey} has been successfully approved!`);
+                
+                appendAuditLogMessage(`FINANCIAL: Order for ${targetRecord.usernameProfileKey} APPROVED. Gross metrics updated.`);
+                
+                // RESTORED AUTOMATED EMAILJS RECEIPT MATRIX ROUTER DISPATCHER
+                const emailPayload = {
+                    buyer_email: targetRecord.customerEmail,
+                    customer_name: targetRecord.usernameProfileKey,
+                    purchased_items: targetRecord.itemsBlockPayloadSummary,
+                    total_amount: targetRecord.costFormattedWithSymbol,
+                    thank_you_message: "Your network token upgrade parameter ledger has been verified! Create a ticket on Discord to deploy modifications.",
+                    transaction_id: "TXN-" + Math.floor(Math.random() * 900000 + 100000)
+                };
+                
+                emailjs.send('service_7fd9vjg', 'template_4fsh2l5', emailPayload)
+                    .then(() => appendAuditLogMessage(`EMAIL: Invoice dispatched to client: ${targetRecord.customerEmail}`))
+                    .catch((err) => console.error("EmailJS Lock Exception: ", err));
+
+                // TRIGGER SECURE BACKGROUND Payloads DIRECT TO DISCORDSRV
+                const discordSecureConsoleWebhookUrlAddress = "https://discord.com/api/webhooks/1335028479361650800/WfR_3gR4P5_DqFhWp9n9tLmB8bV_zXn9vKqR7mX7bVqP9_WfR_3gR4P5_DqFhWp9n9";
+                let generatedCommandString = parseInGameRconCommandString(targetRecord.usernameProfileKey, targetRecord.itemsBlockPayloadSummary);
+                fetch(discordSecureConsoleWebhookUrlAddress, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content: generatedCommandString })
+                }).catch(err => console.error(err));
+
+                alert(`Order for ${targetRecord.usernameProfileKey} Approved! Parameters dispatched.`);
             } else {
-                appendAuditLogMessage(`FINANCIAL: Order for ${targetRecord.usernameProfileKey} DENIED & purged.`);
-                alert(`Order for ${targetRecord.usernameProfileKey} was declined.`);
+                appendAuditLogMessage(`FINANCIAL: Order for ${targetRecord.usernameProfileKey} REJECTED/DENIED.`);
+                alert(`Order for ${targetRecord.usernameProfileKey} Declined.`);
             }
             
             coreDatabaseTransactionsRegisterQueueArray.splice(index, 1);
@@ -1231,16 +1230,33 @@
             renderPublicSupportersLeaderboardUIDOM();
         }
 
-        // CORES FOR STAFF FORWARD DISPATCH HANDLERS
+        // RESTORED STAFF FORWARD PROTOCOLS LOOP LINK
         function staffForwardOrderLogToOwner(timestampID) {
             const index = coreDatabaseTransactionsRegisterQueueArray.findIndex(item => item.uniqueTimestampID === timestampID);
             if (index === -1) return;
             
-            coreDatabaseTransactionsRegisterQueueArray[index].isForwarded = true;
-            appendAuditLogMessage(`STAFF: Order for ${coreDatabaseTransactionsRegisterQueueArray[index].usernameProfileKey} forwarded to Owner parameters.`);
-            alert("Order signature marked as Forwarded successfully!");
+            const targetRecord = coreDatabaseTransactionsRegisterQueueArray[index];
+            targetRecord.isForwarded = true;
+            
+            const staffNotifierName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'Staff Auditor';
+            appendAuditLogMessage(`STAFF: Order for ${targetRecord.usernameProfileKey} forwarded to Owner parameters.`);
+            
+            const alertTemplatePayload = {
+                buyer_email: "cylestialmc@gmail.com",
+                customer_name: "Owner Master Core",
+                purchased_items: `ALERT: Action Ingested by ${staffNotifierName}. Player [ ${targetRecord.usernameProfileKey} ] requires verification review.`,
+                total_amount: targetRecord.costFormattedWithSymbol,
+                thank_you_message: "PENDING OWNER HANDSHAKE PROTOCOL REVIEW.",
+                transaction_id: "PENDING-FWD-" + Math.floor(Math.random() * 9000 + 1000)
+            };
+            
+            emailjs.send('service_7fd9vjg', 'template_4fsh2l5', alertTemplatePayload)
+                .then(() => appendAuditLogMessage(`EMAIL: Forward alert dispatched to Owner parameters.`))
+                .catch((err) => console.error(err));
+
             syncLocalStorageDatabaseKernel();
             renderTerminalDashboardInteractiveTableQueueEngine();
+            alert("Order signature marked as Forwarded successfully!");
         }
 
         function renderOwnerSessionsLogs() {
@@ -1256,45 +1272,12 @@
             });
         }
 
-        function parseInGameRconCommandString(playerName, productsPayloadSummaryText) {
-            let item = productsPayloadSummaryText.toLowerCase();
-            if(item.includes("knight")) return `lp user ${playerName} parent add knight`;
-            if(item.includes("lord")) return `lp user ${playerName} parent add lord`;
-            if(item.includes("paladin")) return `lp user ${playerName} parent add paladin`;
-            if(item.includes("duke")) return `lp user ${playerName} parent add duke`;
-            if(item.includes("king")) return `lp user ${playerName} parent add king`;
-            if(item.includes("vote")) return `crate give vote ${playerName} 1`;
-            if(item.includes("common")) return `crate give common ${playerName} 1`;
-            if(item.includes("rare")) return `crate give rare ${playerName} 1`;
-            if(item.includes("epic")) return `crate give epic ${playerName} 1`;
-            if(item.includes("superior")) return `crate give superior ${playerName} 1`;
-            return `say Order verified for user: ${playerName}`;
-        }
-
         function ownerForceTerminateStaffSession(sessionID) {
             const idx = adminIdentityAuthAuditTrailsRegistry.findIndex(s => s.id === sessionID); if (idx === -1) return; const targetSession = adminIdentityAuthAuditTrailsRegistry[idx]; targetSession.status = "Revoked by Owner"; appendAuditLogMessage(`SECURITY WARNING: Owner forced termination on staff session: ${targetSession.name}.`); alert(`Security Protocol Success: Session for staff token target [ ${targetSession.name} ] blacklisted.`); syncLocalStorageDatabaseKernel(); const activeRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege'); const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName'); if(activeRole === 'Staff' && activeName === targetSession.name) { killTerminalSecureAuthorizationSession(); closeSystemModalWindow('administrationWorkspaceSecureAccessModal'); } else { renderOwnerSessionsLogs(); renderTerminalDashboardInteractiveTableQueueEngine(); }
         }
 
-        function exportMasterDatabaseLedgerToExcelCsvFile() {
-            if(coreDatabaseTransactionsRegisterQueueArray.length === 0 && counterMetricApprovedTransactionsTotalSumValue === 0) { alert('No transaction data found in database core to compile.'); return; }
-            let csvContent = "data:text/csv;charset=utf-8,ID,Player Name,Purchased Payload,Localized Cost,Contact Email,Forwarded State\n";
-            coreDatabaseTransactionsRegisterQueueArray.forEach(row => { csvContent += `${row.uniqueTimestampID},"${row.usernameProfileKey}","${row.itemsBlockPayloadSummary}","${row.costFormattedWithSymbol}","${row.customerEmail}",${row.isForwarded}\n`; });
-            const encodedUri = encodeURI(csvContent); const link = document.createElement("a"); link.setAttribute("href", encodedUri); link.setAttribute("download", `CylestialMC_Financial_Ledger_${new Date().toLocaleDateString()}.csv`); document.body.appendChild(link); link.click(); document.body.removeChild(link); appendAuditLogMessage(`SYSTEM: Compiled and exported global transaction ledger .csv spreadsheet.`);
-        }
-
-        function executeOwnerMasterWipePurgeProtocol() {
-            let confirmationPrompt = confirm("⚠️ RESET WARNING:\nYou are initializing an absolute database core reset on CylestialMC storage footprints. This permanently deletes gross revenue statistics, pending ledger queues, and supporters logs.\n\nProceed with full master reset wipe?");
-            if(confirmationPrompt) {
-                localStorage.clear();
-                coreDatabaseTransactionsRegisterQueueArray = [];
-                counterMetricApprovedTransactionsTotalSumValue = 0;
-                adminIdentityAuthAuditTrailsRegistry = [ { id: 101, name: "System Core Reset", email: "kernel@cylestialmc.fun", role: "Owner", time: new Date().toLocaleTimeString(), status: "Active" } ];
-                publicApprovedSupportersLeaderboardArray = [];
-                syncLocalStorageDatabaseKernel();
-                alert("Database cache completely purged cleanly. Reloading session context parameters.");
-                window.location.reload();
-            }
-        }
+        function executeOwnerRevocationAction(type) { if(type === 'staff_email') { flagStaffEmailAddressIsRevokedBlacklisted = !flagStaffEmailAddressIsRevokedBlacklisted; syncLocalStorageDatabaseKernel(); synchronizeOwnerEmailRevocationUIElementsState(); alert(flagStaffEmailAddressIsRevokedBlacklisted ? 'Staff Fallback Pipeline Deactivated Globally.' : 'Staff Fallback Pipeline Restored.'); } }
+        function synchronizeOwnerEmailRevocationUIElementsState() { const btn = document.getElementById('ownerBlacklistStaffEmailToggleBtn'); if(!btn) return; if(flagStaffEmailAddressIsRevokedBlacklisted) { btn.innerText = "Activate Legacy Staff Email"; btn.style.background = "var(--color-success)"; btn.style.borderColor = "var(--color-success)"; btn.style.color = "#02040a"; } else { btn.innerText = "Deactivate Legacy Staff Email"; btn.style.background = "#7c2d12"; btn.style.borderColor = "var(--color-danger)"; btn.style.color = "#ffffff"; } }
     </script>
 </body>
 </html>
