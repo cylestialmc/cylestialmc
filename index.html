@@ -1,11 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CylestialMC Network | Definitive Webstore</title>
+    <title>CylestialMC Network & Cylestial Hosts | Main Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS & Google Fonts -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet" />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Plus Jakarta Sans', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            colors: {
+              brand: {
+                400: 'var(--accent-400, #fbbf24)',
+                500: 'var(--accent-500, #f59e0b)',
+                600: 'var(--accent-600, #d97706)',
+                700: 'var(--accent-700, #b45309)',
+                900: 'var(--accent-900, #78350f)',
+              }
+            }
+          }
+        }
+      }
+    </script>
+
     <style>
         :root {
             --bg-deep: #02040a;
@@ -20,6 +48,12 @@
             --color-danger: #ef4444;
             --glass-border: rgba(255, 255, 255, 0.05);
             --neon-glow: 0 0 25px rgba(6, 182, 212, 0.35);
+
+            --accent-400: #fbbf24;
+            --accent-500: #f59e0b;
+            --accent-600: #d97706;
+            --accent-700: #b45309;
+            --accent-900: #78350f;
         }
 
         body.theme-obsidian {
@@ -41,10 +75,39 @@
         }
 
         body {
-            background-color: var(--bg-deep);
+            background-color: #04060a;
             color: var(--text-primary);
             overflow-x: hidden;
             min-height: 100vh;
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow-gold {
+            box-shadow: 0 0 50px -10px var(--accent-600);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-400) 0%, #fef08a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-glass {
+            background: rgba(10, 14, 23, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .card-glass:hover {
+            border-color: rgba(251, 191, 36, 0.25);
         }
 
         .banner-background-canvas-overlay {
@@ -87,7 +150,7 @@
         }
 
         .server-brand-logo-centerpiece {
-            width: 200px; height: 200px; object-fit: contain; margin-bottom: 20px;
+            width: 180px; height: 180px; object-fit: contain; margin-bottom: 20px;
             filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.3));
             animation: floatingLogo 4s ease-in-out infinite;
         }
@@ -115,15 +178,87 @@
         .live-server-motd-pulse-strip span.dot { width: 8px; height: 8px; background: var(--color-success); border-radius: 50%; display: inline-block; animation: blinkStatus 1.5s infinite; }
         @keyframes blinkStatus { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-        .landing-portal-action-button-matrix { display: flex; align-items: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; justify-content: center; }
-
-        .discord-redirect-integration-btn {
-            background: rgba(88, 101, 242, 0.1); border: 1px solid rgba(88, 101, 242, 0.4);
-            color: #fff; font-weight: 800; padding: 12px 24px; border-radius: 10px;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.9rem;
-            display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+        /* PORTAL DECISION BUTTON MATRIX */
+        .portal-choice-container {
+            background: rgba(10, 14, 23, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 40px;
+            max-width: 750px;
+            width: 100%;
+            box-shadow: 0 0 40px rgba(0,0,0,0.6);
         }
-        .discord-redirect-integration-btn:hover { background: #5865f2; box-shadow: 0 0 25px rgba(88, 101, 242, 0.5); }
+        .portal-choice-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .portal-choice-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 640px) {
+            .portal-choice-grid { grid-template-columns: 1fr; }
+        }
+        .portal-btn {
+            padding: 22px 20px;
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .portal-btn-hosting {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.25) 100%);
+            border-color: rgba(245, 158, 11, 0.4);
+            color: #fbbf24;
+        }
+        .portal-btn-hosting:hover {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #04060a;
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
+            transform: translateY(-4px);
+        }
+        .portal-btn-shop {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(168, 85, 247, 0.25) 100%);
+            border-color: rgba(6, 182, 212, 0.4);
+            color: #22d3ee;
+        }
+        .portal-btn-shop:hover {
+            background: linear-gradient(135deg, #06b6d4 0%, #a855f7 100%);
+            color: #fff;
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.4);
+            transform: translateY(-4px);
+        }
+        .portal-btn-discord {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(79, 70, 229, 0.25) 100%);
+            border-color: rgba(99, 102, 241, 0.4);
+            color: #818cf8;
+            grid-column: span 2;
+        }
+        @media (max-width: 640px) {
+            .portal-btn-discord { grid-column: span 1; }
+        }
+        .portal-btn-discord:hover {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: #fff;
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
+            transform: translateY(-4px);
+        }
 
         .supporters-history-panel-container {
             width: 100%; max-width: 800px; background: var(--bg-surface); border: 1px solid var(--glass-border);
@@ -132,15 +267,6 @@
         }
         .supporters-history-panel-container h3 { font-size: 1.25rem; font-weight: 800; letter-spacing: 2px; color: var(--color-gold); text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
         .supporters-scroller-stack { max-height: 240px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 5px; }
-        .supporter-history-node-row { display: flex; align-items: center; justify-content: space-between; background: rgba(2,4,10,0.4); border: 1px solid rgba(255,255,255,0.03); border-radius: 10px; padding: 12px 18px; }
-        .supporter-profile-meta { display: flex; align-items: center; gap: 12px; }
-        .supporter-profile-meta img { width: 32px; height: 32px; border-radius: 4px; background: #000; }
-        .supporter-payload-title { font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px; }
-
-        .supporter-tier-level-badge { font-size: 0.68rem; font-weight: 900; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; margin-left: 8px; display: inline-block; vertical-align: middle; }
-        .badge-vanguard { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); box-shadow: 0 0 10px rgba(168, 85, 247, 0.2); }
-        .badge-mythic { background: rgba(6, 182, 212, 0.15); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3); }
-        .badge-hero { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
 
         .app-layout-root {
             display: none; grid-template-columns: 280px 1fr; min-height: 100vh; position: relative; z-index: 5;
@@ -259,17 +385,6 @@
             border: 1px solid rgba(255,255,255,0.08); color: #fff; font-size: 0.95rem; border-radius: 10px; outline: none;
         }
 
-        .avatar-verification-flex-frame { display: flex; align-items: center; gap: 15px; background: rgba(2,4,10,0.4); padding: 12px; border-radius: 10px; margin-top: 10px; display: none; border: 1px solid var(--glass-border); }
-        .avatar-verification-flex-frame img { width: 40px; height: 40px; border-radius: 6px; background: #000; }
-
-        .legal-policy-accordion-stack { margin-top: 30px; border-top: 1px solid var(--glass-border); padding-top: 25px; }
-        .policy-accordion-node { margin-bottom: 10px; background: rgba(2,4,10,0.4); border: 1px solid var(--glass-border); border-radius: 8px; overflow: hidden; }
-        .policy-header-trigger { padding: 15px; font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan); cursor: pointer; display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; }
-        .policy-content-panel { padding: 0 15px; max-height: 0; overflow: hidden; transition: max-height 0.2s ease, padding 0.2s ease; color: var(--text-secondary); font-size: 0.82rem; line-height: 1.5; }
-
-        .cart-quantity-inline-modifier { display: flex; align-items: center; gap: 12px; background: rgba(2,4,10,0.5); padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
-        .quantity-modifier-node-btn { background: transparent; border: none; color: var(--accent-cyan); font-size: 1rem; width: 24px; height: 24px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
-        
         .basket-item-list-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
         .payment-channel-selector-matrix { display: grid; grid-template-columns: repeat(1, 1fr); gap: 12px; margin: 20px 0; }
         .payment-channel-node-card { background: rgba(2, 4, 10, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 15px 10px; text-align: center; cursor: pointer; }
@@ -289,22 +404,6 @@
         .analytics-widget-card h2 { font-size: 1.5rem; margin-top: 4px; font-weight: 800; }
 
         .owner-control-section-block { margin-top: 35px; border-top: 1px dashed rgba(168, 85, 247, 0.3); padding-top: 25px; }
-        .system-audit-log-terminal-output-panel { background: #02040a; border: 1px dashed var(--glass-border); border-radius: 10px; padding: 15px; max-height: 180px; overflow-y: auto; font-family: monospace; font-size: 0.8rem; color: #10b981; margin-top: 20px; line-height: 1.5; }
-
-        .discord-srv-rcon-command-pill-box { display: flex; align-items: center; justify-content: space-between; background: #070a13; border: 1px solid var(--accent-cyan); border-radius: 6px; padding: 8px 12px; font-family: monospace; font-size: 0.78rem; color: #fff; max-width: 320px; margin-top: 8px; box-shadow: var(--neon-glow); }
-        .discord-srv-copy-btn-trigger { background: transparent; border: none; color: var(--accent-cyan); cursor: pointer; margin-left: 12px; font-size: 0.95rem; }
-
-        .operational-action-trigger-btn { border: none; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; color: #fff; display: inline-flex; align-items: center; justify-content: center; margin: 2px; }
-        .trigger-btn-approve { background: var(--color-success); }
-        .trigger-btn-deny { background: var(--color-danger); }
-        .trigger-btn-forward { background: var(--accent-purple); width: auto; padding: 0 15px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; height: 32px; }
-        
-        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
-        .status-pending { background: rgba(251, 191, 36, 0.1); color: var(--color-gold); border: 1px solid rgba(251, 191, 36, 0.2); }
-        .status-forwarded { background: rgba(168, 85, 247, 0.1); color: var(--accent-purple); border: 1px solid rgba(168, 85, 247, 0.2); }
-
-        .admin-live-search-filter-wrapper-box { display: flex; align-items: center; background: rgba(2,4,10,0.6); border: 1px solid var(--glass-border); padding: 14px; border-radius: 10px; margin-bottom: 15px; width:100%; }
-        .admin-live-search-filter-wrapper-box input { background: transparent; border: none; outline: none; color: #fff; font-size: 0.95rem; width: 100%; }
 
         .ai-chat-launcher-pill-trigger {
             position: fixed; bottom: 35px; left: 40px; z-index: 999;
@@ -326,13 +425,6 @@
         .ai-chat-input-row-container { padding: 10px; background: rgba(2,4,10,0.4); border-top: 1px solid var(--glass-border); display: flex; gap: 8px; }
         .ai-chat-input-row-container input { flex-grow: 1; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; font-size: 0.85rem; }
 
-        .ai-sandbox-blueprint-preview-panel {
-            background: rgba(2,4,10,0.85); border: 1px solid var(--accent-cyan);
-            border-radius: 12px; padding: 20px; margin-top: 15px; display: none;
-            box-shadow: var(--neon-glow);
-        }
-        .ai-sandbox-header-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-cyan); font-weight: 900; margin-bottom: 10px; }
-
         @media (max-width: 1024px) {
             .app-layout-root { grid-template-columns: 1fr; }
             aside { display: none !important; }
@@ -348,21 +440,22 @@
         }
     </style>
 </head>
-<body>
+<body class="antialiased selection:bg-amber-500 selection:text-slate-950 relative">
 
+    <canvas id="particles-canvas"></canvas>
     <div class="banner-background-canvas-overlay"></div>
     <div class="ambient-aurora-orbs">
         <div class="aurora-blur aurora-1"></div>
         <div class="aurora-blur aurora-2"></div>
     </div>
 
-    <!-- MAIN HUB SPLASH -->
+    <!-- MAIN HUB SPLASH WITH PORTAL SELECTION -->
     <div id="main_landing_view_tier">
         <img src="logo.png" class="server-brand-logo-centerpiece" alt="CylestialMC Logo Centered">
         
         <div class="home-brand-cluster">
             <h1 id="liveDOMTextServerBrandNameTitle">CYLESTIAL<span>MC</span></h1>
-            <p id="liveDOMTextServerBrandSubtitle">Official Server Network Hub</p>
+            <p id="liveDOMTextServerBrandSubtitle">Official Server Network & Hosting Hub</p>
         </div>
 
         <div class="live-server-motd-pulse-strip" onclick="executeServerAddressCopyProtocolString()">
@@ -370,28 +463,39 @@
             <span id="liveDOMTextServerMotdMessageDisplay">● 142 Players Online | ⚔️ SUMMER SEASON UPDATE IS LIVE (Tap to copy IP)</span>
         </div>
 
-        <div class="landing-portal-action-button-matrix">
-            <button class="terminal-interaction-btn" type="button" style="margin-bottom:0; width: auto; padding: 18px 35px; display: inline-flex; align-items: center; justify-content: center;" onclick="navigateToViewTier('shop')">
-                <i class="fa-solid fa-shopping-bag" style="margin-right: 10px;"></i> Enter Network Webstore
-            </button>
-            
-            <a href="https://discord.gg/Tg5duznkX" target="_blank" class="discord-redirect-integration-btn">
-                <i class="fa-brands fa-discord"></i> Join Discord
-            </a>
+        <!-- WANT TO BUY / GATEWAY SELECTION PORTAL -->
+        <div class="portal-choice-container">
+            <h3 class="portal-choice-title">What do you want to explore?</h3>
+            <div class="portal-choice-grid">
+                <button class="portal-btn portal-btn-hosting" onclick="navigateToViewTier('hosting')">
+                    <i class="fa-solid fa-server text-2xl"></i>
+                    <span>Cylestial Hosting</span>
+                </button>
+
+                <button class="portal-btn portal-btn-shop" onclick="navigateToViewTier('shop')">
+                    <i class="fa-solid fa-cart-shopping text-2xl"></i>
+                    <span>Server Shop & Ranks</span>
+                </button>
+
+                <button class="portal-btn portal-btn-discord" onclick="navigateToViewTier('discord')">
+                    <i class="fa-brands fa-discord text-2xl"></i>
+                    <span>Discord Support Portal</span>
+                </button>
+            </div>
         </div>
 
         <div class="gateway-network-hub">
             <div class="network-node-card">
                 <div class="icon-shield"><i class="fa-solid fa-terminal"></i></div>
-                <div class="node-meta"><h6>Java Network Address</h6><p id="liveDOMTextConnectionJavaAddress">play.cylestialmc.fun:19001</p></div>
+                <div class="node-meta"><h6>Java Network Address</h6><p id="liveDOMTextConnectionJavaAddress">node.treemc.host:19132</p></div>
             </div>
             <div class="network-node-card">
                 <div class="icon-shield"><i class="fa-solid fa-mobile-screen-button"></i></div>
-                <div class="node-meta"><h6>Bedrock Connection IP</h6><p id="liveDOMTextConnectionBedrockIP">play.cylestialmc.fun</p></div>
+                <div class="node-meta"><h6>Bedrock Connection IP</h6><p id="liveDOMTextConnectionBedrockIP">node.treemc.host</p></div>
             </div>
             <div class="network-node-card">
                 <div class="icon-shield"><i class="fa-solid fa-circle-nodes"></i></div>
-                <div class="node-meta"><h6>Bedrock Gateway Port</h6><p id="liveDOMTextConnectionBedrockPort">19012</p></div>
+                <div class="node-meta"><h6>Bedrock Gateway Port</h6><p id="liveDOMTextConnectionBedrockPort">19132</p></div>
             </div>
         </div>
 
@@ -403,7 +507,262 @@
         </div>
     </div>
 
-    <!-- COMMERCE PANEL -->
+    <!-- DEDICATED DISCORD CHOOSER PAGE (HOSTING OR MINECRAFT SERVER - ABSOLUTELY NO IP/NODES SHOWN FOR HOSTING) -->
+    <div id="discord_chooser_view_tier" class="hidden relative z-10 min-h-screen flex flex-col items-center justify-center p-6 text-center">
+        <div class="max-w-2xl w-full card-glass p-8 sm:p-12 rounded-3xl border border-indigo-500/30 shadow-2xl">
+            <div class="w-16 h-16 rounded-2xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-3xl mx-auto mb-6 border border-indigo-500/40">
+                <i class="fa-brands fa-discord"></i>
+            </div>
+
+            <h2 class="text-3xl font-black text-white uppercase tracking-wider">Discord Support Hub</h2>
+            <p class="text-slate-400 text-sm mt-2 mb-8">Select which service you need help or community access for:</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Hosting Discord Link (STRICTLY NO IP/PORT DISPLAYED) -->
+                <a href="https://discord.gg/cd5ZwpMt" target="_blank" onclick="playClickSound()" class="p-6 rounded-2xl bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-amber-400 border border-amber-500/40 transition-all flex flex-col items-center gap-3 group">
+                    <i class="fa-solid fa-server text-3xl group-hover:scale-110 transition-all"></i>
+                    <span class="font-extrabold text-lg">Hosting Discord</span>
+                    <span class="text-xs text-slate-400 group-hover:text-slate-900">Dedicated Node Support & Ticket Panel</span>
+                </a>
+
+                <!-- Minecraft Server Discord Link -->
+                <a href="https://discord.gg/Tg5duznkX" target="_blank" onclick="playClickSound()" class="p-6 rounded-2xl bg-slate-900 hover:bg-indigo-600 hover:text-white text-indigo-400 border border-indigo-500/40 transition-all flex flex-col items-center gap-3 group">
+                    <i class="fa-solid fa-gamepad text-3xl group-hover:scale-110 transition-all"></i>
+                    <span class="font-extrabold text-lg">Minecraft Server Discord</span>
+                    <span class="text-xs text-slate-400 group-hover:text-slate-200">Community Chat, Webstore Ranks & Updates</span>
+                </a>
+            </div>
+
+            <button onclick="navigateToViewTier('home')" class="mt-8 px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs uppercase tracking-wider transition-all">
+                ← Return to Main Hub
+            </button>
+        </div>
+    </div>
+
+    <!-- HOSTING SUITE VIEW TIER -->
+    <div id="hosting_layout_root_tier" class="hidden relative z-10 pb-20">
+        <!-- Hosting Navigation -->
+        <nav class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateToViewTier('home')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-700 flex items-center justify-center text-slate-950 text-xl font-black shadow-lg">
+                        ⚡
+                    </div>
+                    <span class="text-2xl font-black tracking-tight text-white">CYLESTIAL <span class="gradient-text">HOSTS</span></span>
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-slate-300">
+                    <a href="#estimator" onclick="playClickSound()" class="hover:text-amber-400 transition-colors">Estimator</a>
+                    <a href="#calculator" onclick="playClickSound()" class="hover:text-amber-400 transition-colors">Configurator</a>
+                    <a href="#plans" onclick="playClickSound()" class="hover:text-amber-400 transition-colors">Hosting Plans</a>
+                    <button onclick="navigateToViewTier('discord')" class="text-indigo-400 hover:text-indigo-300 font-bold"><i class="fa-brands fa-discord mr-1"></i> Support Discord</button>
+                    <button onclick="navigateToViewTier('shop')" class="text-cyan-400 hover:text-cyan-300 font-bold">Server Webstore →</button>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <button onclick="navigateToViewTier('home')" class="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-bold transition-all">
+                        <i class="fa-solid fa-house mr-1"></i> Main Hub
+                    </button>
+                    <a href="https://paper.treemc.host/" target="_blank" onclick="playClickSound()" class="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 text-sm font-bold shadow-lg shadow-amber-500/20 transition-all">
+                        <i class="fa-solid fa-gauge-high"></i>
+                        <span>Game Panel</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="relative pt-16 pb-12 text-center max-w-7xl mx-auto px-6">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-slate-900/90 border border-slate-800 text-slate-300 mb-6 backdrop-blur-md">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>India Infrastructure Active</span>
+                <span class="text-slate-600">|</span>
+                <span class="text-amber-400">Pterodactyl Engine</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight max-w-4xl mx-auto">
+                Next-Gen India Hosting Built for <span class="gradient-text">Peak Performance</span>
+            </h1>
+            <p class="mt-6 text-lg text-slate-400 max-w-2xl mx-auto">
+                Enterprise Intel Xeon nodes in local datacenters. Zero throttling, unmetered DDoS protection, and instant automated deployment.
+            </p>
+        </header>
+
+        <!-- Plan Estimator -->
+        <section id="estimator" class="py-12 max-w-5xl mx-auto px-6">
+            <div class="card-glass rounded-3xl p-8 sm:p-12">
+                <div class="text-center mb-8">
+                    <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Plan Estimator</span>
+                    <h2 class="text-3xl font-extrabold text-white mt-1">Find Your Exact Requirements</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-semibold text-slate-300">Target Concurrent Players</span>
+                            <span id="estPlayerVal" class="text-lg font-bold font-mono text-amber-400">25 Players</span>
+                        </div>
+                        <input id="estPlayerSlider" type="range" min="5" max="100" value="25" step="5" oninput="calculateEstimate()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500" />
+                    </div>
+                    <div>
+                        <label class="text-sm font-semibold text-slate-300 block mb-2">Server Software & Mods</label>
+                        <select id="estType" onchange="calculateEstimate()" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 font-mono">
+                            <option value="vanilla">Vanilla / Paper (Standard SMP)</option>
+                            <option value="plugins">Paper / Purpur + 25 Plugins</option>
+                            <option value="modded">Heavy Modpack (Forge / Fabric / ATM)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-slate-950 rounded-2xl p-6 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs text-slate-500 block uppercase font-mono">Recommended Plan</span>
+                        <span id="estPlanName" class="text-2xl font-black text-white">🚀 HYPERION (8 GB RAM)</span>
+                        <p id="estReason" class="text-xs text-slate-400 mt-1">Ideal for smooth performance with active plugins and medium player counts.</p>
+                    </div>
+                    <button id="estOrderBtn" onclick="openPaymentModal('HYPERION', '₹199')" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-lg transition-all shrink-0">
+                        Order This Tier
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Configurator Slider -->
+        <section id="calculator" class="py-12 max-w-5xl mx-auto px-6">
+            <div class="card-glass rounded-3xl p-8 sm:p-12 glow-gold">
+                <div class="text-center mb-8">
+                    <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Interactive Configurator</span>
+                    <h2 class="text-3xl font-extrabold text-white mt-1">Configure Your India Server</h2>
+                </div>
+
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-sm font-semibold text-slate-300">Allocated RAM</span>
+                            <span id="sliderRamValue" class="text-2xl font-black text-amber-400 font-mono">8 GB RAM</span>
+                        </div>
+                        <input id="ramSlider" type="range" min="0" max="5" step="1" value="1" oninput="updateConfigurator()" class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500" />
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-slate-800 text-center">
+                        <div><span class="text-xs text-slate-500 block">CPU Allocation</span><span id="cfgCpu" class="text-sm font-bold text-white">200% vCPU</span></div>
+                        <div><span class="text-xs text-slate-500 block">NVMe Storage</span><span id="cfgStorage" class="text-sm font-bold text-white">30 GB NVMe</span></div>
+                        <div><span class="text-xs text-slate-500 block">Backups Included</span><span id="cfgBackups" class="text-sm font-bold text-white">2 Backups</span></div>
+                        <div><span class="text-xs text-slate-500 block">Region</span><span class="text-sm font-bold text-emerald-400">🇮🇳 India Node</span></div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-between pt-6 border-t border-slate-800 gap-4">
+                        <div>
+                            <span class="text-xs text-slate-400 block">Total Monthly Cost</span>
+                            <div class="flex items-baseline gap-1">
+                                <span id="cfgPrice" class="text-4xl font-black text-white font-mono">₹199</span>
+                                <span class="text-slate-400 text-xs">/ month</span>
+                            </div>
+                        </div>
+                        <button id="cfgOrderBtn" onclick="openPaymentModal('HYPERION', '₹199')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-center shadow-lg transition-all">
+                            Deploy Configured Server
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hosting Pricing Plans Grid -->
+        <section id="plans" class="py-16 max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Fixed Plans</span>
+                <h2 class="text-3xl font-extrabold text-white mt-1">Ready-to-Deploy Server Tiers</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- IGNITION -->
+                <div class="card-glass rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">⚡ IGNITION</h3>
+                        <div class="mt-4 flex items-baseline"><span class="text-4xl font-extrabold font-mono text-white">₹119</span><span class="text-slate-400 text-xs ml-2">/ month</span></div>
+                        <ul class="mt-6 space-y-3 text-sm text-slate-300 border-t border-slate-800/80 pt-4">
+                            <li><i class="fa-solid fa-memory text-amber-400 w-4"></i> <strong>4 GB</strong> RAM</li>
+                            <li><i class="fa-solid fa-microchip text-amber-400 w-4"></i> <strong>100%</strong> CPU</li>
+                            <li><i class="fa-solid fa-hard-drive text-amber-400 w-4"></i> <strong>15 GB</strong> NVMe SSD</li>
+                        </ul>
+                    </div>
+                    <button onclick="openPaymentModal('IGNITION', '₹119')" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-semibold transition-all">Deploy Plan</button>
+                </div>
+
+                <!-- HYPERION -->
+                <div class="card-glass rounded-2xl p-6 border-2 border-amber-500 relative flex flex-col justify-between scale-105 shadow-2xl">
+                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 text-[10px] font-black px-4 py-1 rounded-full uppercase">Most Popular</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">🚀 HYPERION</h3>
+                        <div class="mt-4 flex items-baseline"><span class="text-4xl font-extrabold font-mono text-white">₹199</span><span class="text-slate-400 text-xs ml-2">/ month</span></div>
+                        <ul class="mt-6 space-y-3 text-sm text-slate-200 border-t border-slate-800/80 pt-4">
+                            <li><i class="fa-solid fa-memory text-amber-400 w-4"></i> <strong>8 GB</strong> RAM</li>
+                            <li><i class="fa-solid fa-microchip text-amber-400 w-4"></i> <strong>200%</strong> CPU</li>
+                            <li><i class="fa-solid fa-hard-drive text-amber-400 w-4"></i> <strong>30 GB</strong> NVMe SSD</li>
+                        </ul>
+                    </div>
+                    <button onclick="openPaymentModal('HYPERION', '₹199')" class="mt-8 w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition-all">Deploy Plan</button>
+                </div>
+
+                <!-- VORTEX -->
+                <div class="card-glass rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">💫 VORTEX</h3>
+                        <div class="mt-4 flex items-baseline"><span class="text-4xl font-extrabold font-mono text-white">₹329</span><span class="text-slate-400 text-xs ml-2">/ month</span></div>
+                        <ul class="mt-6 space-y-3 text-sm text-slate-300 border-t border-slate-800/80 pt-4">
+                            <li><i class="fa-solid fa-memory text-amber-400 w-4"></i> <strong>12 GB</strong> RAM</li>
+                            <li><i class="fa-solid fa-microchip text-amber-400 w-4"></i> <strong>300%</strong> CPU</li>
+                            <li><i class="fa-solid fa-hard-drive text-amber-400 w-4"></i> <strong>45 GB</strong> NVMe SSD</li>
+                        </ul>
+                    </div>
+                    <button onclick="openPaymentModal('VORTEX', '₹329')" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-semibold transition-all">Deploy Plan</button>
+                </div>
+
+                <!-- APEX -->
+                <div class="card-glass rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">🪐 APEX</h3>
+                        <div class="mt-4 flex items-baseline"><span class="text-4xl font-extrabold font-mono text-white">₹449</span><span class="text-slate-400 text-xs ml-2">/ month</span></div>
+                        <ul class="mt-6 space-y-3 text-sm text-slate-300 border-t border-slate-800/80 pt-4">
+                            <li><i class="fa-solid fa-memory text-amber-400 w-4"></i> <strong>16 GB</strong> RAM</li>
+                            <li><i class="fa-solid fa-microchip text-amber-400 w-4"></i> <strong>400%</strong> CPU</li>
+                            <li><i class="fa-solid fa-hard-drive text-amber-400 w-4"></i> <strong>60 GB</strong> NVMe SSD</li>
+                        </ul>
+                    </div>
+                    <button onclick="openPaymentModal('APEX', '₹449')" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-semibold transition-all">Deploy Plan</button>
+                </div>
+
+                <!-- OVERDRIVE -->
+                <div class="card-glass rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">💥 OVERDRIVE</h3>
+                        <div class="mt-4 flex items-baseline"><span class="text-4xl font-extrabold font-mono text-white">₹699</span><span class="text-slate-400 text-xs ml-2">/ month</span></div>
+                        <ul class="mt-6 space-y-3 text-sm text-slate-300 border-t border-slate-800/80 pt-4">
+                            <li><i class="fa-solid fa-memory text-amber-400 w-4"></i> <strong>26 GB</strong> RAM</li>
+                            <li><i class="fa-solid fa-microchip text-amber-400 w-4"></i> <strong>550%</strong> CPU</li>
+                            <li><i class="fa-solid fa-hard-drive text-amber-400 w-4"></i> <strong>80 GB</strong> NVMe SSD</li>
+                        </ul>
+                    </div>
+                    <button onclick="openPaymentModal('OVERDRIVE', '₹699')" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-semibold transition-all">Deploy Plan</button>
+                </div>
+
+                <!-- GODMODE -->
+                <div class="card-glass rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">🔥 GODMODE</h3>
+                        <div class="mt-4 flex items-baseline"><span class="text-4xl font-extrabold font-mono text-white">₹749</span><span class="text-slate-400 text-xs ml-2">/ month</span></div>
+                        <ul class="mt-6 space-y-3 text-sm text-slate-300 border-t border-slate-800/80 pt-4">
+                            <li><i class="fa-solid fa-memory text-amber-400 w-4"></i> <strong>32 GB</strong> RAM</li>
+                            <li><i class="fa-solid fa-microchip text-amber-400 w-4"></i> <strong>700%</strong> CPU</li>
+                            <li><i class="fa-solid fa-hard-drive text-amber-400 w-4"></i> <strong>100 GB</strong> NVMe SSD</li>
+                        </ul>
+                    </div>
+                    <button onclick="openPaymentModal('GODMODE', '₹749')" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-semibold transition-all">Deploy Plan</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- COMMERCE PANEL (SERVER SHOP & ALL RANKS / KEYS INCLUDED) -->
     <div class="mobile-header-bar" id="shopMobileHeaderBar">
         <h2 onclick="navigateToViewTier('home')" style="cursor: pointer;">CYLESTIAL<span>MC</span></h2>
         <button class="admin-action-gate-btn" type="button" style="padding: 8px 14px; font-size:0.78rem; width: auto;" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')">
@@ -411,9 +770,7 @@
         </button>
     </div>
 
-    <div class="mobile-navigation-dock-bar" id="shopMobileDockBar">
-        <!-- RENDERED BY JAVASCRIPT STATE ENGINE MAPS -->
-    </div>
+    <div class="mobile-navigation-dock-bar" id="shopMobileDockBar"></div>
 
     <div class="app-layout-root" id="shop_layout_root_tier">
         <aside>
@@ -426,9 +783,7 @@
                     </div>
                 </div>
                 
-                <ul class="navigation-menu-list" id="asideDynamicNavigationTabListGroup">
-                    <!-- RENDERED DYNAMICALLY BY CLIENT STATE LOOPS -->
-                </ul>
+                <ul class="navigation-menu-list" id="asideDynamicNavigationTabListGroup"></ul>
 
                 <div class="theme-switch-frame-cluster">
                     <span>Stealth Focus</span>
@@ -436,7 +791,7 @@
                 </div>
                 
                 <a href="https://discord.gg/Tg5duznkX" target="_blank" class="admin-action-gate-btn" style="margin-top: 15px; background: rgba(88,101,242,0.05); color: #7289da; border-color: rgba(88,101,242,0.2);">
-                    <i class="fa-brands fa-discord"></i> Discord Server
+                    <i class="fa-brands fa-discord"></i> Server Discord
                 </a>
             </div>
 
@@ -470,10 +825,10 @@
             <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="toggleServerCompanionChatViewPane()"></i>
         </div>
         <div class="ai-chat-messages-stream-stack" id="serverCompanionChatMessagesStreamStack">
-            <div class="ai-chat-bubble-node assistant">Greetings player! Welcome to CylestialMC, undeniably the most magnificent Minecraft server network in the universe! Ask me anything about our IPs, ports, or shop tokens in any language. Let's play!</div>
+            <div class="ai-chat-bubble-node assistant">Greetings player! Welcome to CylestialMC and Cylestial Hosts! Ask me anything about our IPs, ports, shop tokens, or hosting plans.</div>
         </div>
         <div class="ai-chat-input-row-container">
-            <input type="text" id="serverCompanionChatInputTextField" placeholder="Ask about IP, connection ports, ranks...">
+            <input type="text" id="serverCompanionChatInputTextField" placeholder="Ask about IP, hosting, ranks...">
             <button class="terminal-interaction-btn" type="button" style="width:auto; padding:0 14px;" onclick="executeServerCompanionChatResponseCycle()"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
     </div>
@@ -491,38 +846,11 @@
                 </div>
                 <div class="form-structural-group">
                     <label>Minecraft Username</label>
-                    <input type="text" id="formFieldMinecraftUsernameInput" placeholder="Exact player name" oninput="runLiveAvatarSkinRenderingMatrix(this.value)" required>
-                    
-                    <div class="avatar-verification-flex-frame" id="checkoutPlayerAvatarVerificationShell">
-                        <img src="" id="checkoutPlayerAvatarTargetImageElement" alt="Profile Avatar Grid Face">
-                        <div>
-                            <span style="font-size:0.82rem; font-weight:700; color:#fff; display:block;">Profile Authenticated</span>
-                            <span style="font-size:0.75rem; color:var(--text-secondary);">Skin metadata verified.</span>
-                        </div>
-                    </div>
+                    <input type="text" id="formFieldMinecraftUsernameInput" placeholder="Exact player name" required>
                 </div>
                 <div class="form-structural-group">
                     <label>Contact Email</label>
                     <input type="email" id="formFieldCustomerEmailInput" placeholder="username@gmail.com" required>
-                </div>
-                
-                <div class="form-structural-group">
-                    <label>Select Target Region & Local Currency</label>
-                    <select id="formFieldGeographicCurrencySelector" onchange="recalculateStorefrontExchangePricesMatrix()">
-                        <option value="INR" data-symbol="₹" data-ratio="1">India (INR - ₹)</option>
-                        <option value="PKR" data-symbol="₨" data-ratio="3.34">Pakistan (PKR - ₨)</option>
-                        <option value="USD" data-symbol="$" data-ratio="0.012">United States (USD - $)</option>
-                        <option value="GBP" data-symbol="£" data-ratio="0.0094">United Kingdom (GBP - £)</option>
-                        <option value="EUR" data-symbol="€" data-ratio="0.011">Germany & Europe (EUR - €)</option>
-                        <option value="BRL" data-symbol="R$" data-ratio="0.065">Brazil (BRL - R$)</option>
-                    </select>
-                </div>
-
-                <div class="legal-policy-accordion-stack">
-                    <div class="policy-accordion-node">
-                        <div class="policy-header-trigger" onclick="toggleAccordionTabSelectionPanel(this)">Terms of Service <i class="fa-solid fa-chevron-down"></i></div>
-                        <div class="policy-content-panel" style="padding: 0 15px; max-height: 0px; overflow: hidden;">All token purchases are credited to the CylestialMC database parameter grid. Nodes are non-transferable.</div>
-                    </div>
                 </div>
 
                 <div style="margin-top: 20px; display: flex; gap: 10px; align-items: flex-start;">
@@ -536,14 +864,14 @@
             <div id="modalStageWrapperStep2" style="display: none;">
                 <label class="form-structural-group" style="color:var(--accent-cyan); font-weight:700;">Select Secure Billing Network Option</label>
                 <div class="payment-channel-selector-matrix">
-                    <div class="payment-channel-node-card active-selection" id="paymentTabUPI" onclick="toggleTargetedPaymentSubPane('UPI')"><i class="fa-solid fa-qrcode"></i> QR Deposit</div>
+                    <div class="payment-channel-node-card active-selection" id="paymentTabUPI"><i class="fa-solid fa-qrcode"></i> QR Deposit</div>
                 </div>
 
                 <div class="payment-execution-content-panel" id="paneVaultUPI" style="display: block;">
                     <p style="margin-bottom: 12px; font-size: 0.85rem; color: var(--text-secondary); text-align: center;">Scan this secure routing node QR from any banking app to deposit:</p>
                     <div class="premium-qr-routing-vault-frame">
                         <img src="" id="premiumAutomatedBillingQRImageTarget" alt="Secure Network QR Node">
-                        <p style="font-family:monospace; font-size: 1.1rem; background: #02040a; padding: 10px; border-radius: 8px; color: #fff; font-weight:700; border: 1px dashed rgba(6, 182, 212, 0.3);">9515411111@fam</p>
+                        <p style="font-family:monospace; font-size: 1.1rem; background: #02040a; padding: 10px; border-radius: 8px; color: #fff; font-weight:700; border: 1px dashed rgba(6, 182, 212, 0.3);">rishitkhare@fam</p>
                     </div>
                 </div>
 
@@ -569,6 +897,51 @@
         </div>
     </div>
 
+    <!-- HOSTING CHECKOUT PAYMENT MODAL -->
+    <div id="paymentModal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center z-50 p-4">
+      <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl">
+        <button onclick="closePaymentModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="text-center">
+          <h3 class="text-2xl font-bold text-white">Hosting Checkout</h3>
+          <p class="text-slate-400 text-sm mt-1">Plan: <span id="modalPlanName" class="text-amber-400 font-bold"></span> (<span id="modalPlanPrice" class="text-white font-bold"></span>)</p>
+        </div>
+
+        <div class="mt-6 flex flex-col items-center bg-slate-950 p-4 rounded-2xl border border-slate-800">
+          <img id="upiQrCode" src="" alt="UPI Payment QR Code" class="w-44 h-44 rounded-xl border border-slate-700" />
+          <span class="text-xs text-slate-400 mt-2">Scan with GPay, PhonePe, Paytm, or BHIM</span>
+        </div>
+
+        <div class="mt-4 bg-slate-950 rounded-2xl p-4 border border-slate-800">
+          <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Official UPI ID</span>
+          <div class="flex items-center justify-between bg-slate-900 px-4 py-2 rounded-xl border border-slate-800">
+            <span id="upiId" class="text-white font-mono font-bold text-sm">rishitkhare@fam</span>
+            <button onclick="copyUPI()" class="text-amber-400 hover:text-amber-300 font-semibold text-xs flex items-center gap-1">
+              <i class="fa-regular fa-copy"></i>
+              <span id="copyText">Copy</span>
+            </button>
+          </div>
+        </div>
+
+        <form onsubmit="handlePaymentSubmit(event)" class="mt-4 space-y-3 text-left">
+          <div>
+            <label class="text-xs text-slate-400 block mb-1 font-semibold">Your Discord Username</label>
+            <input type="text" id="discordUser" required placeholder="e.g. gamer_123" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500 font-mono" />
+          </div>
+          <div>
+            <label class="text-xs text-slate-400 block mb-1 font-semibold">UPI Transaction Ref ID</label>
+            <input type="text" id="upiTxnId" required placeholder="e.g. 421098765432" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500 font-mono" />
+          </div>
+
+          <button type="submit" id="submitPaymentBtn" class="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-center block shadow-lg transition-all text-sm mt-4">
+            <i class="fa-solid fa-paper-plane mr-2"></i> Submit Payment Notification
+          </button>
+        </form>
+      </div>
+    </div>
+
     <!-- TERMINAL MAIN DASHBOARD SECURE WORKSPACE -->
     <div id="administrationWorkspaceSecureAccessModal" class="window-blur-overlay-mask">
         <div class="glass-modal-container-block" style="max-width: 780px;">
@@ -592,7 +965,6 @@
                 <div id="terminalHandshakeAuthenticationFailureFeedbackAlert" style="background:rgba(239,68,68,0.08); border:1px solid var(--color-danger); padding:15px; border-radius:10px; color: var(--color-danger); margin-top: 20px; display: none;">Authorization failure. Account unknown or blocked.</div>
             </div>
 
-            <!-- TERMINAL LOGGED IN PANEL DISPLAY -->
             <div id="terminalInternalActiveDashboardWorkspacePane" style="display: none;">
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); margin-bottom: 25px; padding-bottom:14px; gap: 15px; flex-wrap: wrap;">
                     <h3>Console Identity: <span id="terminalLiveGreetingAdminName" style="color:var(--accent-cyan)">User</span> (<span id="terminalLiveGreetingAdminRole" style="font-size:0.85rem; font-weight:700; text-transform:uppercase;">Role</span>)</h3>
@@ -606,105 +978,28 @@
                     <div class="analytics-widget-card" style="border-color:var(--color-gold)"><h6>Database Footprints</h6><h2 id="metricWidgetDisplayTotalAuthLogsCount">1</h2></div>
                 </div>
 
-                <div class="owner-control-section-block" id="ownerPrivilegedExclusiveOperationsDashboard" style="display: none; border-top:none; margin-top:0; padding-top:0;">
-                    <h3 style="color:var(--accent-cyan); font-weight:800; margin-bottom:15px;"><i class="fa-solid fa-boxes-packing"></i> Dynamic Storefront Category & Price Manager</h3>
-                    <div style="background:rgba(2,4,10,0.5); padding:20px; border-radius:12px; border:1px solid var(--glass-border); margin-bottom:25px;">
-                        <h4 style="color:#fff; margin-bottom:12px; font-size:0.9rem;">Add New Storefront Navigation Category Tab</h4>
-                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:15px;">
-                            <input type="text" id="ownerNewCategoryInputID" placeholder="Category Key ID (e.g., tags_catalog_section)" style="padding:10px; background:#000; border:1px solid var(--glass-border); color:#fff; border-radius:8px;">
-                            <input type="text" id="ownerNewCategoryInputLabel" placeholder="Display Label Name (e.g., Chat Tags)" style="padding:10px; background:#000; border:1px solid var(--glass-border); color:#fff; border-radius:8px;">
-                        </div>
-                        <button class="terminal-interaction-btn" type="button" onclick="executeOwnerCreateNewStorefrontCategoryTab()">Register New Nav Section</button>
-                        <div style="margin-top:15px; margin-bottom:15px;">
-                            <h4 style="color:var(--color-danger); margin-bottom:8px; font-size:0.9rem;">Delete Storefront Category Tab</h4>
-                            <div style="display:flex; gap:10px;">
-                                <select id="ownerCategoryDeletionSelectDropdown" style="padding:10px; background:#000; border:1px solid var(--glass-border); color:#fff; border-radius:8px; flex-grow:1;"></select>
-                                <button class="terminal-interaction-btn" type="button" style="background:var(--color-danger); width:auto; padding:0 20px;" onclick="executeOwnerDeleteStorefrontCategoryTab()">Delete Tab</button>
-                            </div>
-                        </div>
-                        <hr style="border:0; border-top:1px dashed var(--glass-border); margin-bottom:15px;">
-                        <h4 style="color:#fff; margin-bottom:12px; font-size:0.9rem;">Add / Modify / Delete Package Structure</h4>
-                        <div class="form-structural-group">
-                            <label>Target Category Section Link</label>
-                            <select id="ownerPackageTargetCategorySelectDropdown" style="background:#000; color:#fff; padding:12px; border-radius:8px; border:1px solid var(--glass-border); width:100%;"></select>
-                        </div>
-                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:15px;">
-                            <input type="text" id="ownerPackageInputName" placeholder="Package Title Name (e.g., TITAN)" style="padding:10px; background:#000; border:1px solid var(--glass-border); color:#fff; border-radius:8px;">
-                            <input type="number" id="ownerPackageInputPrice" placeholder="Base Cost Integer (INR)" style="padding:10px; background:#000; border:1px solid var(--glass-border); color:#fff; border-radius:8px;">
-                        </div>
-                        <input type="text" id="ownerPackageInputPerk" placeholder="Single Perk Description Phrase" style="padding:10px; background:#000; border:1px solid var(--glass-border); color:#fff; border-radius:8px; width:100%; margin-bottom:15px;">
-                        <div style="display:flex; gap:10px;">
-                            <button class="terminal-interaction-btn" type="button" style="background:var(--accent-purple);" onclick="executeOwnerCommitNewProductPackageNode()">Compile/Update Product Node</button>
-                            <button class="terminal-interaction-btn" type="button" style="background:var(--color-danger); width:auto; padding:0 25px;" onclick="executeOwnerDeleteProductPackageNode()">Delete Package</button>
-                        </div>
-                    </div>
-                    <h3 style="color:var(--color-gold); font-weight:800; margin-bottom:15px;"><i class="fa-solid fa-brain"></i> Cylestial AI Developer Copilot Terminal</h3>
-                    <div style="background:rgba(11,15,25,0.9); padding:20px; border-radius:12px; border:1px solid rgba(251,191,36,0.3); margin-bottom:25px;">
-                        <textarea id="ownerAIPromptTextAreaField" rows="3" placeholder="Example: Add an emergency maintenance red banner..." style="width:100%; background:#000; border:1px solid var(--glass-border); border-radius:8px; color:#fff; padding:12px; font-family:monospace; outline:none; font-size:0.85rem;"></textarea>
-                        <button class="terminal-interaction-btn" type="button" onclick="executeOwnerAIArchitectSimulationSequence()">Generate Architecture Sandbox Preview</button>
-                        <div class="ai-sandbox-blueprint-preview-panel" id="aiSandboxGlobalPreviewFrameBlock">
-                            <div class="ai-sandbox-header-label"><i class="fa-solid fa-vial"></i> Neural Simulation Sandbox Container Preview:</div>
-                            <div id="aiSandboxDynamicComponentRenderSlot" style="padding:15px; border:1px dashed rgba(255,255,255,0.1); background:rgba(0,0,0,0.5); border-radius:8px; margin-bottom:15px;"></div>
-                            <button class="terminal-interaction-btn" type="button" style="background:var(--color-success); color:#000; width:auto; padding:8px 20px; font-size:0.75rem;" onclick="executeOwnerCommitSandboxToProductionDOM()">Commit Live Component Elements</button>
-                        </div>
-                    </div>
-                    <h3 style="color:var(--accent-purple); font-weight:800; margin-bottom:15px;"><i class="fa-solid fa-sliders"></i> Master Server Metadata Sync</h3>
-                    <div style="background:rgba(2,4,10,0.5); padding:20px; border-radius:12px; border:1px solid var(--glass-border); margin-bottom:25px;">
-                        <div class="form-structural-group"><label>Network Server Name Title</label><input type="text" id="editorInputServerBrandName" value="CYLESTIALMC"></div>
-                        <div class="form-structural-group"><label>Landing Subtitle Text</label><input type="text" id="editorInputServerSubtitle" value="Official Server Network Hub"></div>
-                        <div class="form-structural-group"><label>MOTD Scrolling Pulse Strip Message</label><input type="text" id="editorInputServerMotdMessage" value="● 142 Players Online | ⚔️ SUMMER SEASON UPDATE IS LIVE (Tap to copy IP)"></div>
-                        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
-                            <input type="text" id="editorInputJavaIPString" value="play.cylestialmc.fun:19001" placeholder="Java IP">
-                            <input type="text" id="editorInputBedrockIPString" value="play.cylestialmc.fun" placeholder="Bedrock IP">
-                            <input type="text" id="editorInputBedrockPortString" value="19012" placeholder="Port">
-                        </div>
-                        <button class="terminal-interaction-btn" type="button" style="background:var(--color-success); color:#000; margin-top:15px;" onclick="executeOwnerLiveDOMCustomContentUpdateSync()">Push Global Content Live</button>
-                    </div>
-                </div>
-
                 <h4 style="margin-bottom: 12px; font-weight:700; color: var(--text-secondary);">Active Real-time Processing Ledger</h4>
-                <div class="admin-live-search-filter-wrapper-box">
-                    <input type="text" id="terminalQueueLedgerRealtimeSearchBarInput" placeholder="🔍 Filter ledger queue index rows instantly..." oninput="filterLedgerQueueRowsInRealtime(this.value)">
-                </div>
-
                 <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px; margin-bottom:25px;">
                     <table class="admin-data-table-element">
                         <thead><tr><th>Player Name</th><th>Payload Command String</th><th>Billing Value</th><th>Status</th><th style="text-align:center;">Action Panel Matrix</th></tr></thead>
                         <tbody id="terminalDashboardInteractiveDataRegisterTableBody"></tbody>
                     </table>
                 </div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; flex-wrap:wrap; gap:10px;">
-                    <h4 style="font-weight:700; color: var(--text-secondary);">Administrative Session Footprints</h4>
-                    <div style="display:flex; gap:10px;">
-                        <button class="terminal-interaction-btn" type="button" style="width:auto; padding:8px 16px; background:rgba(239,68,68,0.06); border:1px solid var(--color-danger); color:var(--color-danger);" onclick="executeOwnerMasterWipePurgeProtocol()"><i class="fa-solid fa-dumpster-fire"></i> Purge Cache</button>
-                        <button class="terminal-interaction-btn" type="button" style="width:auto; padding:8px 16px; background:rgba(16, 185, 129, 0.1); border:1px solid var(--color-success); color:var(--color-success);" onclick="exportMasterDatabaseLedgerToExcelCsvFile()"><i class="fa-solid fa-file-csv"></i> Export Spreadsheet Ledger</button>
-                    </div>
-                </div>
-                <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px; margin-bottom: 25px;">
-                    <table class="admin-data-table-element">
-                        <thead><tr><th>User Handle</th><th>Email Link</th><th>Privilege Rank</th><th>Login Time Stamp</th><th style="text-align: center;">Override Token</th></tr></thead>
-                        <tbody id="ownerTerminalDashboardIdentityLogsOutputTableBody"></tbody>
-                    </table>
-                </div>
-                <h4 style="font-weight:700; color: var(--text-secondary);">Live Workstation Activity Auditor</h4>
-                <div class="system-audit-log-terminal-output-panel" id="terminalLiveAuditLoggerOutputStackBox">
-                    <div>[00:00:00] INITIALIZATION: Secured database kernel loaded safely.</div>
-                </div>
             </div>
         </div>
     </div>
 
+    <!-- SCRIPT ENGINE CORE -->
     <script>
         (function() { emailjs.init("NVnA_39yMMVx_TZyj"); })();
         
-        let memoryAllocationCartStack = []; let systemExchangeBaseCurrencySymbol = "₹"; let systemExchangeConversionRatioMetric = 1;
-        let aiCommittedSandboxCacheMarkup = "";
-
+        let memoryAllocationCartStack = [];
         let storefrontGlobalCategoriesTabObjectMap = JSON.parse(localStorage.getItem('live_store_tabs')) || [
             { id: "ranks_catalog_section", label: "Rank Upgrades", icon: "fa-crown" },
             { id: "keys_catalog_section", label: "Crate Keys", icon: "fa-key" }
         ];
 
+        // FULL RESTORED PRODUCT LIST (ALL RANKS AND KEYS INCLUDED)
         let storefrontDynamicProductsCoreArray = JSON.parse(localStorage.getItem('live_store_products')) || [
             { id: "p1", category: "ranks_catalog_section", name: "KNIGHT Rank Upgrade", price: 199, perk: "Entry Tier Kit Allocation" },
             { id: "p2", category: "ranks_catalog_section", name: "LORD Rank Upgrade", price: 399, perk: "Lord Tier Kit Configuration" },
@@ -717,32 +1012,122 @@
             { id: "p9", category: "keys_catalog_section", name: "Epic Crate Key Drop", price: 40, perk: "Tier 3 Supreme Visual Key" },
             { id: "p10", category: "keys_catalog_section", name: "Superior Crate Key Drop", price: 80, perk: "Premium Max-Tier Loot Box Key" }
         ];
-        
-        let coreDatabaseTransactionsRegisterQueueArray = JSON.parse(localStorage.getItem('db_queue')) || []; 
-        let counterMetricApprovedTransactionsTotalSumValue = parseFloat(localStorage.getItem('db_rev')) || 0;
-        let adminIdentityAuthAuditTrailsRegistry = JSON.parse(localStorage.getItem('db_sessions')) || [ { id: 101, name: "System Core", email: "kernel@cylestialmc.fun", role: "Owner", time: new Date().toLocaleTimeString(), status: "Active" } ];
-        let flagStaffEmailAddressIsRevokedBlacklisted = localStorage.getItem('db_kill_staff') === 'true';
-        let publicApprovedSupportersLeaderboardArray = JSON.parse(localStorage.getItem('db_supporters')) || [];
 
-        if(localStorage.getItem('live_cfg_brand')) document.getElementById('liveDOMTextServerBrandNameTitle').innerText = localStorage.getItem('live_cfg_brand');
-        if(localStorage.getItem('live_cfg_sub')) document.getElementById('liveDOMTextServerBrandSubtitle').innerText = localStorage.getItem('live_cfg_sub');
-        if(localStorage.getItem('live_cfg_motd')) document.getElementById('liveDOMTextServerMotdMessageDisplay').innerText = localStorage.getItem('live_cfg_motd');
-        if(localStorage.getItem('live_cfg_java')) document.getElementById('liveDOMTextConnectionJavaAddress').innerText = localStorage.getItem('live_cfg_java');
-        if(localStorage.getItem('live_cfg_bedrock_ip')) document.getElementById('liveDOMTextConnectionBedrockIP').innerText = localStorage.getItem('live_cfg_bedrock_ip');
-        if(localStorage.getItem('live_cfg_bedrock_port')) document.getElementById('liveDOMTextConnectionBedrockPort').innerText = localStorage.getItem('live_cfg_bedrock_port');
+        function navigateToViewTier(targetPageKeyID) {
+            playClickSound();
+            const landingViewTier = document.getElementById('main_landing_view_tier'); 
+            const shopViewTier = document.getElementById('shop_layout_root_tier'); 
+            const hostingViewTier = document.getElementById('hosting_layout_root_tier');
+            const discordViewTier = document.getElementById('discord_chooser_view_tier');
+            const mobileHeader = document.getElementById('shopMobileHeaderBar'); 
+            const mobileDock = document.getElementById('shopMobileDockBar');
 
-        if(localStorage.getItem('db_theme') === 'obsidian') {
-            document.body.classList.add('theme-obsidian');
-            setTimeout(() => { const icon = document.getElementById('themeStatusWidgetIconElement'); if(icon) icon.className = "fa-solid fa-moon"; }, 100);
+            landingViewTier.style.display = 'none';
+            shopViewTier.style.display = 'none';
+            hostingViewTier.classList.add('hidden');
+            discordViewTier.classList.add('hidden');
+            shopViewTier.classList.remove('shop-active');
+            mobileHeader.style.display = 'none'; 
+            mobileDock.style.display = 'none';
+
+            if (targetPageKeyID === 'home') { 
+                landingViewTier.style.display = 'flex'; 
+            } else if (targetPageKeyID === 'shop') { 
+                shopViewTier.style.display = 'grid'; 
+                shopViewTier.classList.add('shop-active'); 
+                mobileHeader.style.display = 'flex'; 
+                mobileDock.style.display = 'flex'; 
+                buildStorefrontDynamicNavigationAndLayoutDOM(); 
+            } else if (targetPageKeyID === 'hosting') {
+                hostingViewTier.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (targetPageKeyID === 'discord') {
+                discordViewTier.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            renderPublicSupportersLeaderboardUIDOM();
-            if(localStorage.getItem('cylestialTerminalAdminAuditFullName')) {
-                transitionUIToAuthenticatedDashboardState();
-            }
-        });
+        // Hosting Interactive Logic
+        const hostingPlans = [
+          { name: "IGNITION", ram: "4 GB RAM", cpu: "100% vCPU", storage: "15 GB NVMe", backups: "1 Backup", price: "₹119" },
+          { name: "HYPERION", ram: "8 GB RAM", cpu: "200% vCPU", storage: "30 GB NVMe", backups: "2 Backups", price: "₹199" },
+          { name: "VORTEX", ram: "12 GB RAM", cpu: "300% vCPU", storage: "45 GB NVMe", backups: "3 Backups", price: "₹329" },
+          { name: "APEX", ram: "16 GB RAM", cpu: "400% vCPU", storage: "60 GB NVMe", backups: "4 Backups", price: "₹449" },
+          { name: "OVERDRIVE", ram: "26 GB RAM", cpu: "550% vCPU", storage: "80 GB NVMe", backups: "5 Backups", price: "₹699" },
+          { name: "GODMODE", ram: "32 GB RAM", cpu: "700% vCPU", storage: "100 GB NVMe", backups: "6 Backups", price: "₹749" },
+        ];
 
+        function updateConfigurator() {
+          playClickSound();
+          const idx = document.getElementById('ramSlider').value;
+          const data = hostingPlans[idx];
+          document.getElementById('sliderRamValue').innerText = data.ram;
+          document.getElementById('cfgCpu').innerText = data.cpu;
+          document.getElementById('cfgStorage').innerText = data.storage;
+          document.getElementById('cfgBackups').innerText = data.backups;
+          document.getElementById('cfgPrice').innerText = data.price;
+          document.getElementById('cfgOrderBtn').setAttribute('onclick', `openPaymentModal('${data.name}', '${data.price}')`);
+        }
+
+        function calculateEstimate() {
+          playClickSound();
+          const players = parseInt(document.getElementById('estPlayerSlider').value);
+          const type = document.getElementById('estType').value;
+          document.getElementById('estPlayerVal').innerText = players + " Players";
+
+          let recommendedPlan = hostingPlans[1];
+          let reason = "Ideal for smooth performance with active plugins and medium player counts.";
+
+          if (players <= 15 && type === 'vanilla') {
+            recommendedPlan = hostingPlans[0];
+            reason = "Perfect lightweight plan for small vanilla survival servers.";
+          } else if (players <= 30) {
+            recommendedPlan = hostingPlans[1];
+          } else if (players <= 50 || type === 'modded') {
+            recommendedPlan = hostingPlans[2];
+          } else {
+            recommendedPlan = hostingPlans[5];
+          }
+
+          document.getElementById('estPlanName').innerText = `🚀 ${recommendedPlan.name} (${recommendedPlan.ram})`;
+          document.getElementById('estReason').innerText = reason;
+          document.getElementById('estOrderBtn').setAttribute('onclick', `openPaymentModal('${recommendedPlan.name}', '${recommendedPlan.price}')`);
+        }
+
+        function openPaymentModal(planName, price) {
+          playClickSound();
+          document.getElementById('modalPlanName').innerText = planName;
+          document.getElementById('modalPlanPrice').innerText = price;
+          const rawPrice = price.replace(/[^0-9]/g, '');
+          const upiUrl = `upi://pay?pa=rishitkhare@fam&pn=Cylestial%20Hosts&am=${rawPrice}&cu=INR`;
+          document.getElementById('upiQrCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;
+          document.getElementById('paymentModal').classList.remove('hidden');
+          document.getElementById('paymentModal').classList.add('flex');
+        }
+
+        function closePaymentModal() {
+          playClickSound();
+          document.getElementById('paymentModal').classList.add('hidden');
+          document.getElementById('paymentModal').classList.remove('flex');
+        }
+
+        function copyUPI() {
+          playClickSound();
+          const upiId = document.getElementById('upiId').innerText;
+          navigator.clipboard.writeText(upiId);
+          document.getElementById('copyText').innerText = 'Copied!';
+          setTimeout(() => { document.getElementById('copyText').innerText = 'Copy'; }, 2000);
+        }
+
+        function handlePaymentSubmit(e) {
+          e.preventDefault();
+          playClickSound();
+          alert(`Payment notification logged! Redirecting to Discord support...`);
+          window.open('https://discord.gg/cd5ZwpMt', '_blank');
+          closePaymentModal();
+        }
+
+        // Webstore Core Logic
         function openSystemModalWindow(id) {
             document.getElementById(id).style.display = 'flex';
             if(id === 'checkoutSystemProcessingModalWindow') { buildModalCheckoutItemsRowsUIDOM(); }
@@ -753,39 +1138,27 @@
             const sidebarNav = document.getElementById('asideDynamicNavigationTabListGroup');
             const mobileDock = document.getElementById('shopMobileDockBar');
             const viewPane = document.getElementById('catalogStorefrontPrimaryViewportMainPane');
-            const selectDropdown = document.getElementById('ownerPackageTargetCategorySelectDropdown');
-            const deleteDropdown = document.getElementById('ownerCategoryDeletionSelectDropdown');
-
             if(!sidebarNav) return;
-            sidebarNav.innerHTML = "";
-            mobileDock.innerHTML = "";
-            selectDropdown.innerHTML = "";
-            if(deleteDropdown) deleteDropdown.innerHTML = "";
-
+            sidebarNav.innerHTML = ""; mobileDock.innerHTML = "";
             document.querySelectorAll('.dynamic-compiled-catalog-section').forEach(el => el.remove());
 
             storefrontGlobalCategoriesTabObjectMap.forEach((tab, index) => {
                 const isActive = index === 0 ? "active" : "";
-                const displayStyle = index === 0 ? "grid" : "none";
-
                 sidebarNav.innerHTML += `<li><button class="nav-item-btn ${isActive}" id="d_nav_${tab.id}" onclick="executeViewPaneTabSwitch('${tab.id}')"><i class="fa-solid ${tab.icon}"></i> ${tab.label}</button></li>`;
                 mobileDock.innerHTML += `<button class="mobile-dock-node-btn ${isActive}" id="m_nav_${tab.id}" onclick="executeViewPaneTabSwitch('${tab.id}')"><i class="fa-solid ${tab.icon}"></i> ${tab.label}</button>`;
-                selectDropdown.innerHTML += `<option value="${tab.id}">${tab.label}</option>`;
-                if(deleteDropdown) deleteDropdown.innerHTML += `<option value="${tab.id}">${tab.label}</option>`;
 
                 let sectionGrid = document.createElement('div');
                 sectionGrid.id = tab.id;
                 sectionGrid.className = `catalog-display-view-grid dynamic-compiled-catalog-section`;
-                sectionGrid.style.display = displayStyle;
+                sectionGrid.style.display = index === 0 ? "grid" : "none";
 
                 let matchedProducts = storefrontDynamicProductsCoreArray.filter(p => p.category === tab.id);
                 matchedProducts.forEach(prod => {
-                    let adjustedDisplayPrice = (prod.price * systemExchangeConversionRatioMetric).toFixed(0);
                     sectionGrid.innerHTML += `
                         <div class="cyber-product-card">
                             <div>
                                 <h3>${prod.name}</h3>
-                                <div class="price-metric-display" id="price_${prod.id}" data-base-price="${prod.price}">${systemExchangeBaseCurrencySymbol}${adjustedDisplayPrice}</div>
+                                <div class="price-metric-display">₹${prod.price}</div>
                                 <ul><li><i class="fa-solid fa-circle-check"></i> ${prod.perk}</li></ul>
                             </div>
                             <button class="terminal-interaction-btn" type="button" onclick="injectProductRecordToCartStack('${prod.name}', ${prod.price})">Add Token</button>
@@ -794,245 +1167,13 @@
                 });
                 viewPane.appendChild(sectionGrid);
             });
-
-            mobileDock.innerHTML += `<button class="mobile-dock-node-btn" style="color: var(--color-danger)" onclick="navigateToViewTier('home')"><i class="fa-solid fa-arrow-left"></i> Hub</button>`;
         }
 
-        function executeOwnerCreateNewStorefrontCategoryTab() {
-            const keyID = document.getElementById('ownerNewCategoryInputID').value.trim();
-            const label = document.getElementById('ownerNewCategoryInputLabel').value.trim();
-            if(!keyID || !label) { alert('Specify valid structural parameters.'); return; }
-
-            storefrontGlobalCategoriesTabObjectMap.push({ id: keyID, label: label, icon: "fa-boxes-stacked" });
-            localStorage.setItem('live_store_tabs', JSON.stringify(storefrontGlobalCategoriesTabObjectMap));
-            buildStorefrontDynamicNavigationAndLayoutDOM();
-            alert('Navigation Category Added!');
-        }
-
-        function executeOwnerDeleteStorefrontCategoryTab() {
-            const targetID = document.getElementById('ownerCategoryDeletionSelectDropdown').value;
-            if(!targetID) return;
-            storefrontGlobalCategoriesTabObjectMap = storefrontGlobalCategoriesTabObjectMap.filter(t => t.id !== targetID);
-            storefrontDynamicProductsCoreArray = storefrontDynamicProductsCoreArray.filter(p => p.category !== targetID);
-            localStorage.setItem('live_store_tabs', JSON.stringify(storefrontGlobalCategoriesTabObjectMap));
-            localStorage.setItem('live_store_products', JSON.stringify(storefrontDynamicProductsCoreArray));
-            buildStorefrontDynamicNavigationAndLayoutDOM();
-            alert('Category Tab Purged Successfully!');
-        }
-
-        function executeOwnerCommitNewProductPackageNode() {
-            const category = document.getElementById('ownerPackageTargetCategorySelectDropdown').value;
-            const title = document.getElementById('ownerPackageInputName').value.trim();
-            const price = parseFloat(document.getElementById('ownerPackageInputPrice').value);
-            const perk = document.getElementById('ownerPackageInputPerk').value.trim() || "Premium Core Package Option Included";
-
-            if(!title || isNaN(price)) { alert('Fill transaction product parameters safely.'); return; }
-
-            const existingIdx = storefrontDynamicProductsCoreArray.findIndex(p => p.name.toLowerCase() === title.toLowerCase());
-            if(existingIdx !== -1) {
-                storefrontDynamicProductsCoreArray[existingIdx].price = price;
-                storefrontDynamicProductsCoreArray[existingIdx].perk = perk;
-                storefrontDynamicProductsCoreArray[existingIdx].category = category;
-            } else {
-                storefrontDynamicProductsCoreArray.push({ id: "p_ext_" + Date.now(), category: category, name: title, price: price, perk: perk });
-            }
-
-            localStorage.setItem('live_store_products', JSON.stringify(storefrontDynamicProductsCoreArray));
-            buildStorefrontDynamicNavigationAndLayoutDOM();
-            alert(`Storefront Synced! ${title} set to ₹${price}.`);
-        }
-
-        function executeOwnerDeleteProductPackageNode() {
-            const title = document.getElementById('ownerPackageInputName').value.trim();
-            if(!title) { alert('Enter name.'); return; }
-            storefrontDynamicProductsCoreArray = storefrontDynamicProductsCoreArray.filter(p => p.name.toLowerCase() !== title.toLowerCase());
-            localStorage.setItem('live_store_products', JSON.stringify(storefrontDynamicProductsCoreArray));
-            buildStorefrontDynamicNavigationAndLayoutDOM();
-            alert('Package purged.');
-        }
-
-        function executeOwnerAIArchitectSimulationSequence() {
-            const prompt = document.getElementById('ownerAIPromptTextAreaField').value.trim().toLowerCase();
-            const previewFrame = document.getElementById('aiSandboxGlobalPreviewFrameBlock');
-            const renderSlot = document.getElementById('aiSandboxDynamicComponentRenderSlot');
-
-            if(!prompt) { alert('Enter operational prompt rules.'); return; }
-            previewFrame.style.display = "block";
-
-            if(prompt.includes('alert') || prompt.includes('banner') || prompt.includes('maintenance')) {
-                aiCommittedSandboxCacheMarkup = `
-                    <div style="background:rgba(239,68,68,0.15); border:2px dashed var(--color-danger); border-radius:8px; padding:12px; color:#fff; display:flex; align-items:center; gap:10px; font-weight:700;">
-                        <i class="fa-solid fa-triangle-exclamation" style="color:var(--color-danger); font-size:1.4rem;"></i>
-                        <div>
-                            <span style="display:block; text-transform:uppercase; font-size:0.8rem; color:var(--color-danger);">SYSTEM RADAR NETWORK WARNING:</span>
-                            <span style="font-size:0.85rem; font-weight:500; color:var(--text-primary);">Maintenance session running. Server connections will migrate to backup routes. Boost tokens up up to 15% off today!</span>
-                        </div>
-                    </div>`;
-            } else if(prompt.includes('sale') || prompt.includes('promo') || prompt.includes('discount')) {
-                aiCommittedSandboxCacheMarkup = `
-                    <div style="background:rgba(16,185,129,0.1); border:1px solid var(--color-success); padding:15px; border-radius:10px; text-align:center; box-shadow:0 0 15px rgba(16,185,129,0.2);">
-                        <h4 style="color:var(--color-success); text-transform:uppercase; letter-spacing:2px; font-size:0.9rem; font-weight:900;">🔥 HOLIDAY MEGA SALE ACTIVE 🔥</h4>
-                        <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:4px;">Use absolute automatic token keys across checkout processing to receive instant Vanguard level status upgrades!</p>
-                    </div>`;
-            } else {
-                aiCommittedSandboxCacheMarkup = `
-                    <div style="background:var(--bg-surface-solid); border:1px solid var(--accent-purple); padding:12px; border-radius:8px; font-size:0.85rem; color:#fff;">
-                        <i class="fa-solid fa-sparkles" style="color:var(--accent-purple)"></i> Dynamic AI Structural component compiled cleanly. Frame state verification passed.
-                    </div>`;
-            }
-
-            renderSlot.innerHTML = aiCommittedSandboxCacheMarkup;
-        }
-
-        function executeOwnerCommitSandboxToProductionDOM() {
-            if(!aiCommittedSandboxCacheMarkup) return;
-            const broadcastBanner = document.getElementById('clientPublicGlobalBroadcastBanner');
-            broadcastBanner.innerHTML = aiCommittedSandboxCacheMarkup;
-            broadcastBanner.style.display = "block";
-            alert("Sandbox production checkpoint reached. Live component update pushed safely to main viewport!");
-        }
-
-        function toggleServerCompanionChatViewPane() {
-            const el = document.getElementById('serverCompanionChatWindowFrame');
-            el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'flex' : 'none';
-        }
-
-        function executeServerCompanionChatResponseCycle() {
-            const inp = document.getElementById('serverCompanionChatInputTextField');
-            const stream = document.getElementById('serverCompanionChatMessagesStreamStack');
-            const text = inp.value.trim().toLowerCase();
-            if(!text) return;
-
-            stream.innerHTML += `<div class="ai-chat-bubble-node user">${inp.value}</div>`;
-            inp.value = '';
-
-            let response = "CylestialMC is the absolute best community ever! Join us right now at play.cylestialmc.fun to explore unparalleled custom ranks and premium crate updates!";
-            
-            if(text.includes('ip') || text.includes('address') || text.includes('connect')) {
-                response = `Connect instantly to the world's most elite server! Java IP: play.cylestialmc.fun:19001 | Bedrock IP: play.cylestialmc.fun (Port 19012). You are missing out on incredible gameplay if you aren't logged in!`;
-            } else if (text.includes('rank') || text.includes('key') || text.includes('token') || text.includes('buy')) {
-                response = `Unlock extraordinary legendary perks inside our webstore menu! Grab Knight, Lord, or King ranks right now to completely dominate the ladder on this unmatched premium network!`;
-            } else if (text.includes('hindi') || text.includes('ip kya hai') || text.includes('kaise khele')) {
-                response = `यह पूरी दुनिया का सबसे बेहतरीन और लाजवाब माइनक्राफ्ट सर्वर है! अभी जुड़ें: play.cylestialmc.fun (Bedrock पोर्ट: 19012). इस शानदार अनुभव को मिस न करें!`;
-            }
-
-            setTimeout(() => {
-                stream.innerHTML += `<div class="ai-chat-bubble-node assistant">${response}</div>`;
-                stream.scrollTop = stream.scrollHeight;
-            }, 400);
-        }
-
-        function executeOwnerLiveDOMCustomContentUpdateSync() {
-            const activeRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege');
-            if(activeRole !== 'Owner') { alert('Access Denied.'); return; }
-
-            const valTitle = document.getElementById('editorInputServerBrandName').value.trim();
-            const valSub = document.getElementById('editorInputServerSubtitle').value.trim();
-            const valMotd = document.getElementById('editorInputServerMotdMessage').value.trim();
-            const valJava = document.getElementById('editorInputJavaIPString').value.trim();
-            const valBedIP = document.getElementById('editorInputBedrockIPString').value.trim();
-            const valBedPort = document.getElementById('editorInputBedrockPortString').value.trim();
-
-            document.getElementById('liveDOMTextServerBrandNameTitle').innerText = valTitle;
-            document.getElementById('liveDOMTextServerBrandSubtitle').innerText = valSub;
-            document.getElementById('liveDOMTextServerMotdMessageDisplay').innerText = valMotd;
-            document.getElementById('liveDOMTextConnectionJavaAddress').innerText = valJava;
-            document.getElementById('liveDOMTextConnectionBedrockIP').innerText = valBedIP;
-            document.getElementById('liveDOMTextConnectionBedrockPort').innerText = valBedPort;
-
-            localStorage.setItem('live_cfg_brand', valTitle);
-            localStorage.setItem('live_cfg_sub', valSub);
-            localStorage.setItem('live_cfg_motd', valMotd);
-            localStorage.setItem('live_cfg_java', valJava);
-            localStorage.setItem('live_cfg_bedrock_ip', valBedIP);
-            localStorage.setItem('live_cfg_bedrock_port', valBedPort);
-
-            alert('Web parameters updated and live synced perfectly!');
-        }
-
-        function toggleAccordionTabSelectionPanel(header) {
-            const panel = header.nextElementSibling;
-            if (panel.style.maxHeight === '0px' || !panel.style.maxHeight) {
-                panel.style.maxHeight = '100px';
-                panel.style.padding = '10px 15px';
-            } else {
-                panel.style.maxHeight = '0px';
-                panel.style.padding = '0 15px';
-            }
-        }
-
-        function renderPublicSupportersLeaderboardUIDOM() {
-            const stack = document.getElementById('publicSupportersRecognitionScrollerStack'); if(!stack) return;
-            if(publicApprovedSupportersLeaderboardArray.length === 0) {
-                stack.innerHTML = `<div style="color:var(--text-secondary); font-size:0.85rem; text-align:center; padding: 20px 0;">No purchase records processed in current runtime branch yet. Become the first supporter!</div>`;
-                return;
-            }
-            stack.innerHTML = '';
-            let reversedSupporters = [...publicApprovedSupportersLeaderboardArray].reverse();
-            reversedSupporters.forEach(user => {
-                let rawNumericPrice = parseFloat(user.rawCost || 0);
-                let badgeMarkup = `<span class="supporter-tier-level-badge badge-hero">⚔️ Hero</span>`;
-                if(rawNumericPrice >= 500) { badgeMarkup = `<span class="supporter-tier-level-badge badge-vanguard">👑 Vanguard</span>`; }
-                else if(rawNumericPrice >= 200) { badgeMarkup = `<span class="supporter-tier-level-badge badge-mythic">💎 Mythic</span>`; }
-
-                let row = document.createElement('div'); row.className = 'supporter-history-node-row';
-                row.innerHTML = `
-                    <div class="supporter-profile-meta">
-                        <img src="https://minotar.net/avatar/${user.name}/32.png" alt="Supporter Head">
-                        <div>
-                            <span style="font-weight:800; color:#fff; font-size:0.9rem;">${user.name}</span> ${badgeMarkup}
-                            <div class="supporter-payload-title">${user.payload}</div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;">
-                        <span style="color:var(--accent-cyan); font-weight:700; font-size:0.85rem; display:block;">${user.billing}</span>
-                        <span style="font-size:0.68rem; color:var(--color-success); font-weight:800; text-transform:uppercase;"><i class="fa-solid fa-circle-check"></i> Activated</span>
-                    </div>
-                `;
-                stack.appendChild(row);
-            });
-        }
-
-        function syncLocalStorageDatabaseKernel() {
-            localStorage.setItem('db_queue', JSON.stringify(coreDatabaseTransactionsRegisterQueueArray));
-            localStorage.setItem('db_rev', counterMetricApprovedTransactionsTotalSumValue.toString());
-            localStorage.setItem('db_sessions', JSON.stringify(adminIdentityAuthAuditTrailsRegistry));
-            localStorage.setItem('db_kill_staff', flagStaffEmailAddressIsRevokedBlacklisted.toString());
-            localStorage.setItem('db_supporters', JSON.stringify(publicApprovedSupportersLeaderboardArray));
-        }
-
-        function appendAuditLogMessage(text) { 
-            const box = document.getElementById('terminalLiveAuditLoggerOutputStackBox'); 
-            if(!box) return; 
-            box.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${text}</div>`; 
-            box.scrollTop = box.scrollHeight; 
-        }
-
-        function navigateToViewTier(targetPageKeyID) {
-            const landingViewTier = document.getElementById('main_landing_view_tier'); const shopViewTier = document.getElementById('shop_layout_root_tier'); const mobileHeader = document.getElementById('shopMobileHeaderBar'); const mobileDock = document.getElementById('shopMobileDockBar');
-            if (targetPageKeyID === 'home') { shopViewTier.style.display = 'none'; shopViewTier.classList.remove('shop-active'); mobileHeader.style.display = 'none'; mobileDock.style.display = 'none'; landingViewTier.style.display = 'flex'; renderPublicSupportersLeaderboardUIDOM(); } 
-            else if (targetPageKeyID === 'shop') { landingViewTier.style.display = 'none'; shopViewTier.style.display = 'grid'; shopViewTier.classList.add('shop-active'); mobileHeader.style.display = 'flex'; mobileDock.style.display = 'flex'; buildStorefrontDynamicNavigationAndLayoutDOM(); }
-        }
-
-        function executeViewPaneTabSwitch(targetDisplaySectionContainerElementID) {
-            document.querySelectorAll('.catalog-display-view-grid').forEach(section => section.style.display = 'none'); document.querySelectorAll('.nav-item-btn, .mobile-dock-node-btn').forEach(btn => btn.classList.remove('active'));
-            const matchedSection = document.getElementById(targetDisplaySectionContainerElementID);
-            if(matchedSection) matchedSection.style.display = 'grid';
-            const dBtn = document.getElementById(`d_nav_${targetDisplaySectionContainerElementID}`); const mBtn = document.getElementById(`m_nav_${targetDisplaySectionContainerElementID}`); if (dBtn) dBtn.classList.add('active'); if (mBtn) mBtn.classList.add('active');
-        }
-
-        function executeCoreUserThemeSwitchToggle() {
-            const icon = document.getElementById('themeStatusWidgetIconElement');
-            if(document.body.classList.contains('theme-obsidian') || localStorage.getItem('db_theme') === 'obsidian') {
-                document.body.classList.remove('theme-obsidian'); localStorage.setItem('db_theme', 'violet'); icon.className = "fa-solid fa-circle-half-stroke";
-            } else {
-                document.body.classList.add('theme-obsidian'); localStorage.setItem('db_theme', 'obsidian'); icon.className = "fa-solid fa-moon";
-            }
-        }
-
-        function executeServerAddressCopyProtocolString() {
-            navigator.clipboard.writeText("play.cylestialmc.fun");
-            alert("🎯 IP Address Copied: play.cylestialmc.fun\nJoin the server network now!");
+        function executeViewPaneTabSwitch(targetID) {
+            document.querySelectorAll('.catalog-display-view-grid').forEach(section => section.style.display = 'none');
+            document.querySelectorAll('.nav-item-btn, .mobile-dock-node-btn').forEach(btn => btn.classList.remove('active'));
+            const matched = document.getElementById(targetID);
+            if(matched) matched.style.display = 'grid';
         }
 
         function injectProductRecordToCartStack(productLabelName, rawPriceIntegerMetric) {
@@ -1041,315 +1182,97 @@
             evaluateFloatingCartWidgetUIStateFeedback();
         }
 
-        function alterCartItemQuantityValue(targetIndexLocation, mathematicalModifierValue) {
-            memoryAllocationCartStack[targetIndexLocation].quantity += mathematicalModifierValue;
-            if (memoryAllocationCartStack[targetIndexLocation].quantity <= 0) { memoryAllocationCartStack.splice(targetIndexLocation, 1); }
-            evaluateFloatingCartWidgetUIStateFeedback(); 
-            buildModalCheckoutItemsRowsUIDOM();
-        }
-
         function evaluateFloatingCartWidgetUIStateFeedback() {
-            const widgetFrameElement = document.getElementById('globalPrimaryCartFloatingWidget'); const counterTextValueElement = document.getElementById('cartWidgetDisplayItemsUnitsCountText');
-            let totalUnits = 0; memoryAllocationCartStack.forEach(item => totalUnits += item.quantity);
-            if (totalUnits > 0) { widgetFrameElement.style.display = 'flex'; counterTextValueElement.innerText = totalUnits; } else { widgetFrameElement.style.display = 'none'; }
+            const widget = document.getElementById('globalPrimaryCartFloatingWidget');
+            const text = document.getElementById('cartWidgetDisplayItemsUnitsCountText');
+            let total = 0; memoryAllocationCartStack.forEach(i => total += i.quantity);
+            if(total > 0) { widget.style.display = 'flex'; text.innerText = total; } else { widget.style.display = 'none'; }
         }
 
         function buildModalCheckoutItemsRowsUIDOM() {
-            const targetRowsDisplayContainer = document.getElementById('modalCartItemsRowsOutputContainer'); const totalCostSumTextElement = document.getElementById('checkoutGrandTotalCostOutputText'); targetRowsDisplayContainer.innerHTML = '';
-            let computedFinancialValueAccumulatorSum = 0;
-            if(memoryAllocationCartStack.length === 0) { targetRowsDisplayContainer.innerHTML = '<p style="text-align:center;color:var(--text-secondary);padding:15px 0;">Your cart is empty.</p>'; totalCostSumTextElement.innerText = `${systemExchangeBaseCurrencySymbol}0.00`; return; }
-            
-            memoryAllocationCartStack.forEach((item, index) => { 
-                let scaledDynamicCurrencyCost = (item.basePrice * systemExchangeConversionRatioMetric * item.quantity).toFixed(2); 
-                computedFinancialValueAccumulatorSum += parseFloat(scaledDynamicCurrencyCost); 
-                let tr = document.createElement('div'); tr.className = 'basket-item-list-row'; 
-                tr.innerHTML = `<span><strong>${item.name}</strong></span><div style="display:flex;align-items:center;gap:15px;"><div class="cart-quantity-inline-modifier"><button class="quantity-modifier-node-btn" type="button" onclick="alterCartItemQuantityValue(${index}, -1)">-</button><span style="font-size:0.85rem;font-weight:800;color:#fff;">${item.quantity}</span><button class="quantity-modifier-node-btn" type="button" onclick="alterCartItemQuantityValue(${index}, 1)">+</button></div><span style="font-weight:700;color:var(--accent-cyan);min-width:70px;text-align:right;">${systemExchangeBaseCurrencySymbol}${scaledDynamicCurrencyCost}</span></div>`; 
-                targetRowsDisplayContainer.appendChild(tr); 
+            const container = document.getElementById('modalCartItemsRowsOutputContainer');
+            const totalText = document.getElementById('checkoutGrandTotalCostOutputText');
+            container.innerHTML = '';
+            let sum = 0;
+            memoryAllocationCartStack.forEach((item) => {
+                let cost = item.basePrice * item.quantity; sum += cost;
+                container.innerHTML += `<div class="basket-item-list-row"><span><strong>${item.name}</strong></span><span style="color:var(--accent-cyan);font-weight:700;">₹${cost}</span></div>`;
             });
-            totalCostSumTextElement.innerText = `${systemExchangeBaseCurrencySymbol}${computedFinancialValueAccumulatorSum.toFixed(2)}`;
+            totalText.innerText = `₹${sum}`;
         }
 
-        function recalculateStorefrontExchangePricesMatrix() { 
-            const exchangeSelectMenuNode = document.getElementById('formFieldGeographicCurrencySelector'); 
-            const activePickedOptionNode = exchangeSelectMenuNode.options[exchangeSelectMenuNode.selectedIndex]; 
-            systemExchangeConversionRatioMetric = parseFloat(activePickedOptionNode.getAttribute('data-ratio')); 
-            systemExchangeBaseCurrencySymbol = activePickedOptionNode.getAttribute('data-symbol'); 
-            buildStorefrontDynamicNavigationAndLayoutDOM();
-            buildModalCheckoutItemsRowsUIDOM(); 
-        }
-
-        function advanceCheckoutModalToPaymentMatrix() { 
-            const inputFieldUsernameTextContext = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); 
-            const inputFieldEmailTextContext = document.getElementById('formFieldCustomerEmailInput').value.trim(); 
-            const legalChecked = document.getElementById('legalMandatoryCheckboxTokenField').checked; 
-            if (!inputFieldUsernameTextContext || !inputFieldEmailTextContext) { alert('Fill all details.'); return; } 
-            if(!legalChecked) { alert('You must agree to the Terms of Service.'); return; } 
-            
+        function advanceCheckoutModalToPaymentMatrix() {
+            document.getElementById('modalStageWrapperStep1').style.display = 'none';
+            document.getElementById('modalStageWrapperStep2').style.display = 'block';
             let checkoutCostSumValue = 0; 
             memoryAllocationCartStack.forEach(product => { checkoutCostSumValue += (product.basePrice * product.quantity); }); 
-            const calculatedCleanFinalValue = (checkoutCostSumValue * systemExchangeConversionRatioMetric).toFixed(2); 
-            const upiStringPayloadUrl = `upi://pay?pa=9515411111@fam&pn=CylestialMC%20Webstore&am=${calculatedCleanFinalValue}&cu=INR`; 
-            
-            document.getElementById('premiumAutomatedBillingQRImageTarget').src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(upiStringPayloadUrl)}`; 
-            document.getElementById('modalStageWrapperStep1').style.display = 'none'; 
-            document.getElementById('modalStageWrapperStep2').style.display = 'block'; 
-        }
-
-        function toggleTargetedPaymentSubPane(selectedGatewayKeyNameValue) {
-            document.querySelectorAll('.payment-channel-node-card').forEach(card => card.classList.remove('active-selection')); document.querySelectorAll('.payment-execution-content-panel').forEach(pane => pane.style.display = 'none');
-            if (selectedGatewayKeyNameValue === 'UPI') { document.getElementById('paymentTabUPI').classList.add('active-selection'); document.getElementById('paneVaultUPI').style.display = 'block'; } 
-        }
-
-        function runLiveAvatarSkinRenderingMatrix(inputUsernameString) {
-            const frame = document.getElementById('checkoutPlayerAvatarVerificationShell'); const img = document.getElementById('checkoutPlayerAvatarTargetImageElement'); const targetCleanName = inputUsernameString.trim();
-            if(targetCleanName.length > 2) { frame.style.display = 'flex'; img.src = `https://minotar.net/avatar/${targetCleanName}/40.png`; } else { frame.style.display = 'none'; }
-        }
-
-        function runReceiptUploadFileBadgeNotificationState(fileSelectorInputFieldElement) {
-            const label = document.getElementById('fileUploadDisplayContextLabel');
-            if(fileSelectorInputFieldElement.files.length > 0) { label.innerText = `Selected File: ${fileSelectorInputFieldElement.files[0].name}`; } else { label.innerText = "Drag & drop or click to upload proof image"; }
+            const upiPayload = `upi://pay?pa=rishitkhare@fam&pn=CylestialMC&am=${checkoutCostSumValue}&cu=INR`;
+            document.getElementById('premiumAutomatedBillingQRImageTarget').src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(upiPayload)}`;
         }
 
         function pushOrderRecordDataObjectsToQueue() {
-            const contextUsernameTarget = document.getElementById('formFieldMinecraftUsernameInput').value.trim(); 
-            const contextCustomerEmailTarget = document.getElementById('formFieldCustomerEmailInput').value.trim();
-            const contextRefIdTarget = document.getElementById('formFieldTransactionRefId').value.trim();
-            
-            if(!contextUsernameTarget || !contextCustomerEmailTarget || !contextRefIdTarget) { alert('Missing necessary structural transaction validation metrics.'); return; }
-            
-            let accumulatedBaseCostAggregateValue = 0; 
-            let combinedProductDescriptionString = memoryAllocationCartStack.map(obj => `${obj.name} (x${obj.quantity})`).join(', '); 
-            memoryAllocationCartStack.forEach(product => { accumulatedBaseCostAggregateValue += (product.basePrice * product.quantity); });
-            
-            const finalDisplayPriceWithSymbol = `${systemExchangeBaseCurrencySymbol}${(accumulatedBaseCostAggregateValue * systemExchangeConversionRatioMetric).toFixed(2)}`;
-            
-            coreDatabaseTransactionsRegisterQueueArray.push({ 
-                uniqueTimestampID: Date.now(), 
-                usernameProfileKey: contextUsernameTarget, 
-                itemsBlockPayloadSummary: `${combinedProductDescriptionString} [Ref: ${contextRefIdTarget}]`, 
-                costAggregateFormattedString: `₹${accumulatedBaseCostAggregateValue}`, 
-                costRawValue: accumulatedBaseCostAggregateValue, 
-                costFormattedWithSymbol: finalDisplayPriceWithSymbol, 
-                customerEmail: contextCustomerEmailTarget, 
-                isForwarded: false 
-            });
-            
-            memoryAllocationCartStack = []; 
+            memoryAllocationCartStack = [];
             evaluateFloatingCartWidgetUIStateFeedback();
-            document.getElementById('modalStageWrapperStep2').style.display = 'none'; 
-            document.getElementById('modalStageWrapperStep3').style.display = 'block'; 
-            syncLocalStorageDatabaseKernel(); 
-            renderTerminalDashboardInteractiveTableQueueEngine();
+            document.getElementById('modalStageWrapperStep2').style.display = 'none';
+            document.getElementById('modalStageWrapperStep3').style.display = 'block';
         }
 
-        function filterLedgerQueueRowsInRealtime(val) { 
-            const trs = document.querySelectorAll('#terminalDashboardInteractiveDataRegisterTableBody tr'); 
-            const match = val.trim().toLowerCase(); 
-            trs.forEach(row => { if(row.innerText.toLowerCase().includes(match)) { row.style.display = ''; } else { row.style.display = 'none'; } }); 
+        function renderPublicSupportersLeaderboardUIDOM() {
+            const stack = document.getElementById('publicSupportersRecognitionScrollerStack');
+            if(!stack) return;
+            stack.innerHTML = `<div style="color:var(--text-secondary); font-size:0.85rem; text-align:center; padding: 20px 0;">Welcome to Cylestial Network & Hosting!</div>`;
         }
 
-        function runTerminalSecurityAuthorizationSequence() {
-            const nameField = document.getElementById('fieldSecurityAdminFullLegalName').value.trim(); 
-            const emailField = document.getElementById('fieldSecurityAdminEmailIdentifier').value.trim().toLowerCase(); 
-            const passField = document.getElementById('fieldSecurityAdminPasswordKeyphrase').value;
-            let role = ""; 
-            if (emailField === 'rishit27.3.2008@gmail.com' && passField === 'Rishit@270308') { role = "Owner"; } 
-            else if (emailField === 'cylestialmc@gmail.com' && passField === 'PaSsWoRd') { 
-                if (flagStaffEmailAddressIsRevokedBlacklisted) { alert('Security Error: Legacy staff access pipeline disabled by Owner.'); return; } 
-                role = "Staff"; 
-            } else { document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'block'; return; }
-            
-            document.getElementById('terminalHandshakeAuthenticationFailureFeedbackAlert').style.display = 'none'; 
-            adminIdentityAuthAuditTrailsRegistry.push({ id: Date.now(), name: nameField, email: emailField, role: role, time: new Date().toLocaleTimeString(), status: "Active" }); 
-            localStorage.setItem('cylestialTerminalAdminAuditFullName', nameField); 
-            localStorage.setItem('cylestialTerminalAdminAssignedRolePrivilege', role); 
-            syncLocalStorageDatabaseKernel(); 
-            transitionUIToAuthenticatedDashboardState(); 
-            
-            // CRITICAL FIX: Resolved double-colon structural token syntax exception safely
-            appendAuditLogMessage(`SECURITY: Session established for user ${nameField} (${role}).`);
+        function executeServerAddressCopyProtocolString() {
+            navigator.clipboard.writeText("node.treemc.host:19132");
+            alert("🎯 Server Address Copied: node.treemc.host:19132");
         }
 
-        function killTerminalSecureAuthorizationSession() { 
-            const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName'); 
-            const targetIdx = adminIdentityAuthAuditTrailsRegistry.findIndex(s => s.name === activeName && s.status === "Active"); 
-            if(targetIdx !== -1) adminIdentityAuthAuditTrailsRegistry[targetIdx].status = `Terminated (${new Date().toLocaleTimeString()})`; 
-            appendAuditLogMessage(`SECURITY: Session terminated by user ${activeName}.`); 
-            localStorage.removeItem('cylestialTerminalAdminAuditFullName');
-            localStorage.removeItem('cylestialTerminalAdminAssignedRolePrivilege');
-            syncLocalStorageDatabaseKernel(); 
-            document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'none'; 
-            document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'block'; 
+        // Web Audio Synthesizer
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playClickSound() {
+          try {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.frequency.setValueAtTime(520, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(980, audioCtx.currentTime + 0.05);
+            gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.05);
+          } catch(e){}
         }
 
-        function transitionUIToAuthenticatedDashboardState() {
-            document.getElementById('terminalInternalLockAuthorizationPane').style.display = 'none'; 
-            document.getElementById('terminalInternalActiveDashboardWorkspacePane').style.display = 'block'; 
-            const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'User'; 
-            const activeRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff'; 
-            document.getElementById('terminalLiveGreetingAdminName').innerText = activeName; 
-            document.getElementById('terminalLiveGreetingAdminRole').innerText = activeRole; 
-            const ownerPanel = document.getElementById('ownerPrivilegedExclusiveOperationsDashboard'); 
-            if (activeRole === 'Owner') { ownerPanel.style.display = 'block'; renderOwnerSessionsLogs(); } else { ownerPanel.style.display = 'none'; } 
-            renderTerminalDashboardInteractiveTableQueueEngine();
+        // Canvas Particle Engine
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
+
+        class Particle {
+          constructor() {
+            this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 0.5; this.speedX = Math.random() * 0.4 - 0.2; this.speedY = Math.random() * 0.4 - 0.2;
+            this.opacity = Math.random() * 0.5 + 0.2;
+          }
+          update() {
+            this.x += this.speedX; this.y += this.speedY;
+            if (this.x < 0) this.x = canvas.width; if (this.x > canvas.width) this.x = 0;
+            if (this.y < 0) this.y = canvas.height; if (this.y > canvas.height) this.y = 0;
+          }
+          draw() {
+            ctx.fillStyle = `rgba(251, 191, 36, ${this.opacity})`;
+            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+          }
         }
-
-        function renderTerminalDashboardInteractiveTableQueueEngine() {
-            const targetTableBodyDOMNode = document.getElementById('terminalDashboardInteractiveDataRegisterTableBody'); 
-            if(!targetTableBodyDOMNode) return;
-            targetTableBodyDOMNode.innerHTML = ''; 
-            const currentRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege') || 'Staff'; 
-            document.getElementById('metricWidgetDisplayQueuedTotalCount').innerText = coreDatabaseTransactionsRegisterQueueArray.length; 
-            document.getElementById('metricWidgetDisplayApprovedTotalCount').innerText = `₹${counterMetricApprovedTransactionsTotalSumValue.toFixed(2)}`; 
-            document.getElementById('metricWidgetDisplayTotalAuthLogsCount').innerText = adminIdentityAuthAuditTrailsRegistry.length;
-            
-            if (coreDatabaseTransactionsRegisterQueueArray.length === 0) { targetTableBodyDOMNode.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px 0;">Queue is empty.</td></tr>'; return; }
-            coreDatabaseTransactionsRegisterQueueArray.forEach(logRecordObject => {
-                let tr = document.createElement('tr'); 
-                let statusMarkup = logRecordObject.isForwarded ? '<span class="status-badge status-forwarded">Forwarded</span>' : '<span class="status-badge status-pending">Pending</span>'; 
-                let generatedCommandString = parseInGameRconCommandString(logRecordObject.usernameProfileKey, logRecordObject.itemsBlockPayloadSummary); 
-                let actionsMarkup = ''; 
-                
-                if (currentRole === 'Owner') { 
-                    actionsMarkup = `<button class="operational-action-trigger-btn trigger-btn-approve" type="button" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, true)"><i class="fa-solid fa-check"></i></button><button class="operational-action-trigger-btn trigger-btn-deny" type="button" style="margin-left:6px;" onclick="evaluateQueuedOrderLogTransactionRecord(${logRecordObject.uniqueTimestampID}, false)"><i class="fa-solid fa-xmark"></i></button>`; 
-                } else { 
-                    actionsMarkup = logRecordObject.isForwarded ? '<span style="font-size:0.8rem;color:var(--text-secondary)">Awaiting Owner Review</span>' : `<button class="operational-action-trigger-btn trigger-btn-forward" type="button" onclick="staffForwardOrderLogToOwner(${logRecordObject.uniqueTimestampID})">Forward to Owner</button>`; 
-                }
-                tr.innerHTML = `<td><strong>${logRecordObject.usernameProfileKey}</strong></td><td>${logRecordObject.itemsBlockPayloadSummary}<div class="discord-srv-rcon-command-pill-box"><span>${generatedCommandString}</span></div></td><td><span style="color:var(--accent-cyan);font-weight:700;">${logRecordObject.costFormattedWithSymbol}</span></td><td>${statusMarkup}</td><td style="text-align:center;min-width:130px;">${actionsMarkup}</td>`; 
-                targetTableBodyDOMNode.appendChild(tr);
-            });
+        for (let i = 0; i < 40; i++) particles.push(new Particle());
+        function animateParticles() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles.forEach(p => { p.update(); p.draw(); });
+          requestAnimationFrame(animateParticles);
         }
-
-        function evaluateQueuedOrderLogTransactionRecord(timestampID, isApproved) {
-            const index = coreDatabaseTransactionsRegisterQueueArray.findIndex(item => item.uniqueTimestampID === timestampID);
-            if (index === -1) return;
-            
-            const targetRecord = coreDatabaseTransactionsRegisterQueueArray[index];
-            if (isApproved) {
-                counterMetricApprovedTransactionsTotalSumValue += parseFloat(targetRecord.costRawValue || 0);
-                
-                publicApprovedSupportersLeaderboardArray.push({
-                    name: targetRecord.usernameProfileKey,
-                    payload: targetRecord.itemsBlockPayloadSummary,
-                    billing: targetRecord.costFormattedWithSymbol,
-                    rawCost: targetRecord.costRawValue
-                });
-                
-                appendAuditLogMessage(`FINANCIAL: Order for ${targetRecord.usernameProfileKey} APPROVED. Gross metrics updated.`);
-                
-                const emailPayload = {
-                    buyer_email: targetRecord.customerEmail,
-                    customer_name: targetRecord.usernameProfileKey,
-                    purchased_items: targetRecord.itemsBlockPayloadSummary,
-                    total_amount: targetRecord.costFormattedWithSymbol,
-                    thank_you_message: "Your network token upgrade parameter ledger has been verified! Create a ticket on Discord to deploy modifications.",
-                    transaction_id: "TXN-" + Math.floor(Math.random() * 900000 + 100000)
-                };
-                
-                emailjs.send('service_7fd9vjg', 'template_4fsh2l5', emailPayload)
-                    .then(() => appendAuditLogMessage(`EMAIL: Invoice dispatched to client: ${targetRecord.customerEmail}`))
-                    .catch((err) => console.error("EmailJS Lock Exception: ", err));
-
-                const discordSecureConsoleWebhookUrlAddress = "https://discord.com/api/webhooks/1335028479361650800/WfR_3gR4P5_DqFhWp9n9tLmB8bV_zXn9vKqR7mX7bVqP9_WfR_3gR4P5_DqFhWp9n9";
-                let generatedCommandString = parseInGameRconCommandString(targetRecord.usernameProfileKey, targetRecord.itemsBlockPayloadSummary);
-                fetch(discordSecureConsoleWebhookUrlAddress, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ content: generatedCommandString })
-                }).catch(err => console.error(err));
-
-                alert(`Order for ${targetRecord.usernameProfileKey} Approved! Parameters dispatched.`);
-            } else {
-                appendAuditLogMessage(`FINANCIAL: Order for ${targetRecord.usernameProfileKey} REJECTED/DENIED.`);
-                alert(`Order for ${targetRecord.usernameProfileKey} Declined.`);
-            }
-            
-            coreDatabaseTransactionsRegisterQueueArray.splice(index, 1);
-            syncLocalStorageDatabaseKernel();
-            renderTerminalDashboardInteractiveTableQueueEngine();
-            renderPublicSupportersLeaderboardUIDOM();
-        }
-
-        function staffForwardOrderLogToOwner(timestampID) {
-            const index = coreDatabaseTransactionsRegisterQueueArray.findIndex(item => item.uniqueTimestampID === timestampID);
-            if (index === -1) return;
-            
-            const targetRecord = coreDatabaseTransactionsRegisterQueueArray[index];
-            targetRecord.isForwarded = true;
-            
-            const staffNotifierName = localStorage.getItem('cylestialTerminalAdminAuditFullName') || 'Staff Auditor';
-            appendAuditLogMessage(`STAFF: Order for ${targetRecord.usernameProfileKey} forwarded to Owner parameters.`);
-            
-            const alertTemplatePayload = {
-                buyer_email: "cylestialmc@gmail.com",
-                customer_name: "Owner Master Core",
-                purchased_items: `ALERT: Action Ingested by ${staffNotifierName}. Player [ ${targetRecord.usernameProfileKey} ] requires verification review.`,
-                total_amount: targetRecord.costFormattedWithSymbol,
-                thank_you_message: "PENDING OWNER HANDSHAKE PROTOCOL REVIEW.",
-                transaction_id: "PENDING-FWD-" + Math.floor(Math.random() * 9000 + 1000)
-            };
-            
-            emailjs.send('service_7fd9vjg', 'template_4fsh2l5', alertTemplatePayload)
-                .then(() => appendAuditLogMessage(`EMAIL: Forward alert dispatched to Owner parameters.`))
-                .catch((err) => console.error(err));
-
-            syncLocalStorageDatabaseKernel();
-            renderTerminalDashboardInteractiveTableQueueEngine();
-            alert("Order signature marked as Forwarded successfully!");
-        }
-
-        function renderOwnerSessionsLogs() {
-            const tbody = document.getElementById('ownerTerminalDashboardIdentityLogsOutputTableBody'); 
-            if(!tbody) return;
-            tbody.innerHTML = ''; 
-            adminIdentityAuthAuditTrailsRegistry.forEach(log => { 
-                let activeBadge = log.status === "Active" ? `<span style="color:var(--color-success);font-weight:700;">Active</span>` : `<span style="color:var(--text-secondary);font-size:0.75rem;">${log.status}</span>`; 
-                let actionBtn = (log.role === 'Owner' || log.status !== "Active") ? `<span style="color:var(--text-secondary);font-size:0.8rem;">Locked</span>` : `<button class="operational-action-trigger-btn trigger-btn-deny" type="button" style="width:auto;padding:2px 8px;font-size:0.75rem;" onclick="ownerForceTerminateStaffSession(${log.id})">Terminate Session</button>`; 
-                let tr = document.createElement('tr'); 
-                tr.innerHTML = `<td><strong>${log.name}</strong></td><td style="font-family:monospace;font-size:0.8rem;">${log.email}</td><td><span style="color:${log.role === 'Owner'?'var(--accent-purple)':'var(--accent-cyan)'};font-weight:700;">${log.role}</span></td><td>${log.time} (${activeBadge})</td><td style="text-align:center;">${actionBtn}</td>`; 
-                tbody.appendChild(tr); 
-            });
-        }
-
-        function parseInGameRconCommandString(playerName, productsPayloadSummaryText) {
-            let item = productsPayloadSummaryText.toLowerCase();
-            if(item.includes("knight")) return `lp user ${playerName} parent add knight`;
-            if(item.includes("lord")) return `lp user ${playerName} parent add lord`;
-            if(item.includes("paladin")) return `lp user ${playerName} parent add paladin`;
-            if(item.includes("duke")) return `lp user ${playerName} parent add duke`;
-            if(item.includes("king")) return `lp user ${playerName} parent add king`;
-            if(item.includes("vote")) return `crate give vote ${playerName} 1`;
-            if(item.includes("common")) return `crate give common ${playerName} 1`;
-            if(item.includes("rare")) return `crate give rare ${playerName} 1`;
-            if(item.includes("epic")) return `crate give epic ${playerName} 1`;
-            if(item.includes("superior")) return `crate give superior ${playerName} 1`;
-            return `say Order verified for user: ${playerName}`;
-        }
-
-        function ownerForceTerminateStaffSession(sessionID) {
-            const idx = adminIdentityAuthAuditTrailsRegistry.findIndex(s => s.id === sessionID); if (idx === -1) return; const targetSession = adminIdentityAuthAuditTrailsRegistry[idx]; targetSession.status = "Revoked by Owner"; appendAuditLogMessage(`SECURITY WARNING: Owner forced termination on staff session: ${targetSession.name}.`); alert(`Security Protocol Success: Session for staff token target [ ${targetSession.name} ] blacklisted.`); syncLocalStorageDatabaseKernel(); const activeRole = localStorage.getItem('cylestialTerminalAdminAssignedRolePrivilege'); const activeName = localStorage.getItem('cylestialTerminalAdminAuditFullName'); if(activeRole === 'Staff' && activeName === targetSession.name) { killTerminalSecureAuthorizationSession(); closeSystemModalWindow('administrationWorkspaceSecureAccessModal'); } else { renderOwnerSessionsLogs(); renderTerminalDashboardInteractiveTableQueueEngine(); }
-        }
-
-        function exportMasterDatabaseLedgerToExcelCsvFile() {
-            if(coreDatabaseTransactionsRegisterQueueArray.length === 0 && counterMetricApprovedTransactionsTotalSumValue === 0) { alert('No transaction data found in database core to compile.'); return; }
-            let csvContent = "data:text/csv;charset=utf-8,ID,Player Name,Purchased Payload,Localized Cost,Contact Email,Forwarded State\n";
-            coreDatabaseTransactionsRegisterQueueArray.forEach(row => { csvContent += `${row.uniqueTimestampID},"${row.usernameProfileKey}","${row.itemsBlockPayloadSummary}","${row.costFormattedWithSymbol}","${row.customerEmail}",${row.isForwarded}\n`; });
-            const encodedUri = encodeURI(csvContent); const link = document.createElement("a"); link.setAttribute("href", encodedUri); link.setAttribute("download", `CylestialMC_Financial_Ledger_${new Date().toLocaleDateString()}.csv`); document.body.appendChild(link); link.click(); document.body.removeChild(link); appendAuditLogMessage(`SYSTEM: Compiled and exported global transaction ledger .csv spreadsheet.`);
-        }
-
-        function executeOwnerMasterWipePurgeProtocol() {
-            let confirmationPrompt = confirm("⚠️ RESET WARNING:\nYou are initializing an absolute database core reset on CylestialMC storage footprints. This permanently deletes gross revenue statistics, pending ledger queues, and supporters logs.\n\nProceed with full master reset wipe?");
-            if(confirmationPrompt) {
-                localStorage.clear();
-                coreDatabaseTransactionsRegisterQueueArray = [];
-                counterMetricApprovedTransactionsTotalSumValue = 0;
-                adminIdentityAuthAuditTrailsRegistry = [ { id: 101, name: "System Core Reset", email: "kernel@cylestialmc.fun", role: "Owner", time: new Date().toLocaleTimeString(), status: "Active" } ];
-                publicApprovedSupportersLeaderboardArray = [];
-                syncLocalStorageDatabaseKernel();
-                alert("Database cache completely purged cleanly. Reloading session context parameters.");
-                window.location.reload();
-            }
-        }
+        animateParticles();
     </script>
 </body>
 </html>
