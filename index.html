@@ -35,7 +35,7 @@
     </script>
 
     <style>
-        body { background-color: #03060f; color: #f8fafc; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #03060f; color: #f8fafc; overflow-x: hidden; -webkit-tap-highlight-color: transparent; min-height: 100vh; display: flex; flex-direction: column; }
 
         /* Background Effects */
         #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; opacity: 0.8; }
@@ -62,9 +62,9 @@
         input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; background: #1e293b; border-radius: 4px; }
 
-        /* Routing Utilities */
+        /* Bulletproof View Routing */
         .view-tier { display: none; opacity: 0; }
-        .view-tier.active { display: flex; animation: fadeIn 0.4s ease forwards; }
+        .view-tier.active-flex { display: flex; animation: fadeIn 0.4s ease forwards; }
         .view-tier.active-grid { display: grid; animation: fadeIn 0.4s ease forwards; }
         .view-tier.active-block { display: block; animation: fadeIn 0.4s ease forwards; }
 
@@ -93,7 +93,7 @@
         /* Store Layout */
         .app-layout-root { grid-template-columns: 280px 1fr; min-height: 100vh; position: relative; z-index: 5; }
         aside { background: rgba(7, 10, 19, 0.95); border-right: 1px solid rgba(255,255,255,0.08); padding: 40px 25px; display: flex; flex-direction: column; justify-content: space-between; position: sticky; top: 0; height: 100vh; z-index: 100; }
-        .primary-viewport-pane { padding: 40px; overflow-y: auto; max-height: 100vh; }
+        .primary-viewport-pane { padding: 40px; overflow-y: auto; max-height: 100vh; flex-grow: 1; }
         
         .catalog-display-view-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-bottom: 60px; }
 
@@ -102,17 +102,22 @@
             aside { display: none !important; }
             .primary-viewport-pane { padding: 25px 20px 100px 20px; }
             .floating-action-basket-pill { bottom: 85px; right: 20px; left: 20px; border-radius: 16px; justify-content: space-between; padding: 15px 20px; width: auto; }
-            .app-layout-root.shop-active ~ .mobile-header-bar { display: flex; }
-            .app-layout-root.shop-active ~ .mobile-navigation-dock-bar { display: flex; }
             .ai-chat-launcher-pill-trigger { bottom: 85px; left: 20px; padding: 12px 18px; font-size: 0.8rem; }
         }
 
         /* Toast Container */
         #toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 12px; pointer-events: none; }
         .toast { pointer-events: auto; }
+
+        .chat-bubble.assistant { background: rgba(6,182,212,0.18); border: 1px solid rgba(6,182,212,0.35); border-bottom-left-radius: 0; }
+        .chat-bubble.user { background: rgba(168,85,247,0.85); border-bottom-right-radius: 0; align-self: flex-end; }
+        
+        .admin-data-table-element { width: 100%; border-collapse: collapse; text-align: left; margin-top: 15px; font-size: 0.88rem; }
+        .admin-data-table-element th, .admin-data-table-element td { padding: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .admin-data-table-element th { color: #06b6d4; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 1px; }
     </style>
 </head>
-<body class="antialiased selection:bg-cyan-500 selection:text-black flex flex-col min-h-screen">
+<body class="antialiased selection:bg-cyan-500 selection:text-black">
 
     <div class="bg-mesh"></div>
     <canvas id="particles-canvas"></canvas>
@@ -143,249 +148,241 @@
         </div>
     </nav>
 
-    <div class="flex-grow flex flex-col">
-        <!-- ===================================================================== -->
-        <!-- VIEW 1: MAIN HUB (GATEWAY SPLASH)                                     -->
-        <!-- ===================================================================== -->
-        <div id="main_landing_view_tier" class="view-tier active flex-col items-center justify-center pt-32 pb-20 p-6 text-center relative z-10 w-full flex-grow">
-            
-            <img src="logo.png" class="w-36 h-36 object-contain mb-4 drop-shadow-[0_0_30px_rgba(6,182,212,0.4)] animate-float" onerror="this.style.display='none'">
-            
-            <h1 class="text-5xl md:text-7xl font-black text-white tracking-widest mb-2" id="liveDOMTextServerBrandNameTitle">
-                CYLESTIAL<span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-amber-400">MC</span>
-            </h1>
-            <p class="text-slate-400 font-bold uppercase tracking-widest text-sm mb-8" id="liveDOMTextServerBrandSubtitle">Official Server Network & Hosting Hub</p>
+    <!-- ===================================================================== -->
+    <!-- VIEW 1: MAIN HUB (GATEWAY SPLASH)                                     -->
+    <!-- ===================================================================== -->
+    <main id="main_landing_view_tier" class="view-tier flex-col items-center justify-center pt-32 pb-20 p-6 text-center relative z-10 flex-grow">
+        
+        <img src="logo.png" class="w-36 h-36 object-contain mb-4 drop-shadow-[0_0_30px_rgba(6,182,212,0.4)] animate-float" onerror="this.style.display='none'">
+        
+        <h1 class="text-5xl md:text-7xl font-black text-white tracking-widest mb-2" id="liveDOMTextServerBrandNameTitle">
+            CYLESTIAL<span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-amber-400">MC</span>
+        </h1>
+        <p class="text-slate-400 font-bold uppercase tracking-widest text-sm mb-8" id="liveDOMTextServerBrandSubtitle">Official Server Network & Hosting Hub</p>
 
-            <div class="live-server-motd-pulse-strip btn-interactive" onclick="copyText('node.treemc.host:19132', 'Server IP Copied!')">
-                <span class="dot"></span>
-                <span id="liveDOMTextServerMotdMessageDisplay">● 142 Players Online | ⚔️ SUMMER SEASON UPDATE IS LIVE (Tap to copy)</span>
+        <div class="live-server-motd-pulse-strip btn-interactive" onclick="copyText('node.treemc.host:19132', 'Server IP Copied!')">
+            <span class="dot"></span>
+            <span id="liveDOMTextServerMotdMessageDisplay">● 142 Players Online | ⚔️ SUMMER SEASON UPDATE IS LIVE (Tap to copy)</span>
+        </div>
+
+        <!-- Master Gateway Portals -->
+        <div class="glass-panel p-8 md:p-12 rounded-[2.5rem] w-full max-w-5xl mb-12 shadow-2xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none z-0"></div>
+            <h3 class="text-xl font-black text-white uppercase tracking-widest mb-8 relative z-10">What do you want to explore?</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+                <!-- Hosting -->
+                <div onclick="navigateToViewTier('hosting')" class="tilt-card cursor-pointer bg-black/40 border border-white/5 rounded-3xl p-8 hover:bg-amber-500/10 hover:border-amber-500/50 transition-colors group">
+                    <div class="glare"></div>
+                    <div class="tilt-card-content flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-2xl bg-amber-500/20 text-amber-400 text-2xl flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(245,158,11,0.25)] group-hover:scale-110 transition-transform"><i class="fa-solid fa-server"></i></div>
+                        <h4 class="text-xl font-black text-white mb-2">Cylestial Hosts</h4>
+                        <p class="text-xs text-slate-300 font-medium text-center leading-relaxed">Deploy enterprise India compute nodes. NVMe SSDs & DDoS Protection.</p>
+                    </div>
+                </div>
+                <!-- Webstore -->
+                <div onclick="navigateToViewTier('shop')" class="tilt-card cursor-pointer bg-black/40 border border-white/5 rounded-3xl p-8 hover:bg-cyan-500/10 hover:border-cyan-500/50 transition-colors group">
+                    <div class="glare"></div>
+                    <div class="tilt-card-content flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-2xl bg-cyan-500/20 text-cyan-400 text-2xl flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(6,182,212,0.25)] group-hover:scale-110 transition-transform"><i class="fa-solid fa-store"></i></div>
+                        <h4 class="text-xl font-black text-white mb-2">Server Webstore</h4>
+                        <p class="text-xs text-slate-300 font-medium text-center leading-relaxed">Purchase global ranks, crate keys, and instantly sync cosmetics.</p>
+                    </div>
+                </div>
+                <!-- Discord Support -->
+                <div onclick="navigateToViewTier('discord')" class="tilt-card cursor-pointer bg-black/40 border border-white/5 rounded-3xl p-8 hover:bg-indigo-500/10 hover:border-indigo-500/50 transition-colors group">
+                    <div class="glare"></div>
+                    <div class="tilt-card-content flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-2xl bg-indigo-500/20 text-indigo-400 text-3xl flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(99,102,241,0.25)] group-hover:scale-110 transition-transform"><i class="fa-brands fa-discord"></i></div>
+                        <h4 class="text-xl font-black text-white mb-2">Support Portal</h4>
+                        <p class="text-xs text-slate-400 font-medium text-center leading-relaxed">Join the community or open direct engineering tickets for your services.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connection Gateways -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-5xl mb-16">
+            <div class="glass-panel p-6 rounded-2xl flex items-center gap-5 btn-interactive cursor-pointer hover:border-white/20" onclick="copyText('node.treemc.host:19132', 'Java IP Copied!')">
+                <div class="w-12 h-12 rounded-xl bg-white/5 text-slate-300 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-terminal"></i></div>
+                <div class="text-left">
+                    <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Java Address</span>
+                    <span class="text-sm font-mono font-black text-white" id="liveDOMTextConnectionJavaAddress">node.treemc.host:19132</span>
+                </div>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl flex items-center gap-5 btn-interactive cursor-pointer hover:border-white/20" onclick="copyText('node.treemc.host', 'Bedrock IP Copied!')">
+                <div class="w-12 h-12 rounded-xl bg-white/5 text-slate-300 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-mobile-screen"></i></div>
+                <div class="text-left">
+                    <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Bedrock IP</span>
+                    <span class="text-sm font-mono font-black text-white" id="liveDOMTextConnectionBedrockIP">node.treemc.host</span>
+                </div>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl flex items-center gap-5 btn-interactive cursor-pointer hover:border-white/20" onclick="copyText('19132', 'Port Copied!')">
+                <div class="w-12 h-12 rounded-xl bg-white/5 text-slate-300 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-circle-nodes"></i></div>
+                <div class="text-left">
+                    <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Bedrock Port</span>
+                    <span class="text-sm font-mono font-black text-white" id="liveDOMTextConnectionBedrockPort">19132</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Supporters Ledger -->
+        <div class="glass-panel p-8 rounded-[2rem] w-full max-w-4xl text-left">
+            <h3 class="text-lg font-black text-white uppercase tracking-widest mb-6 flex items-center gap-3">
+                <i class="fa-solid fa-trophy text-amber-400"></i> Server Supporters & Purchases
+            </h3>
+            <div class="max-h-[250px] overflow-y-auto custom-scrollbar pr-2" id="publicSupportersRecognitionScrollerStack">
+                <!-- JS Injected -->
+            </div>
+        </div>
+    </main>
+
+    <!-- ===================================================================== -->
+    <!-- VIEW 2: DISCORD CHOOSER PAGE                                          -->
+    <!-- ===================================================================== -->
+    <main id="discord_chooser_view_tier" class="view-tier flex-col items-center justify-center p-6 text-center relative z-10 pt-28 flex-grow">
+        <div class="glass-panel p-10 md:p-14 rounded-[3rem] w-full max-w-3xl shadow-2xl border-indigo-500/30">
+            <div class="w-20 h-20 rounded-[2rem] bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-4xl mx-auto mb-8 shadow-[0_0_30px_rgba(99,102,241,0.3)]"><i class="fa-brands fa-discord"></i></div>
+            <h2 class="text-3xl md:text-4xl font-black text-white tracking-widest uppercase mb-4">Support Hub</h2>
+            <p class="text-slate-400 font-medium mb-12">Select the correct division so our staff can assist you instantly.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Hosting Discord (STRICTLY NO IPS) -->
+                <a href="https://discord.gg/cd5ZwpMt" target="_blank" onclick="playClickSound()" class="tilt-card group bg-black/40 border border-white/5 p-8 rounded-3xl hover:bg-amber-500/10 hover:border-amber-500/50 transition-all flex flex-col items-center">
+                    <div class="tilt-card-content flex flex-col items-center">
+                        <i class="fa-solid fa-server text-4xl text-amber-400 mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h4 class="text-xl font-black text-white mb-2">Hosting Discord</h4>
+                        <p class="text-xs text-slate-400 font-medium">Node support, custom plans, billing tickets.</p>
+                        <span class="mt-6 px-6 py-2 rounded-full bg-white/5 text-amber-400 text-xs font-bold uppercase tracking-widest border border-amber-500/30 group-hover:bg-amber-500 group-hover:text-black transition-colors">Join Server</span>
+                    </div>
+                </a>
+                <!-- Game Discord -->
+                <a href="https://discord.gg/Tg5duznkX" target="_blank" onclick="playClickSound()" class="tilt-card group bg-black/40 border border-white/5 p-8 rounded-3xl hover:bg-cyan-500/10 hover:border-cyan-500/50 transition-all flex flex-col items-center">
+                    <div class="tilt-card-content flex flex-col items-center">
+                        <i class="fa-solid fa-gamepad text-4xl text-cyan-400 mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h4 class="text-xl font-black text-white mb-2">Minecraft Discord</h4>
+                        <p class="text-xs text-slate-400 font-medium">Community chat, webstore ranks, bug reports.</p>
+                        <span class="mt-6 px-6 py-2 rounded-full bg-white/5 text-cyan-400 text-xs font-bold uppercase tracking-widest border border-cyan-500/30 group-hover:bg-cyan-500 group-hover:text-black transition-colors">Join Server</span>
+                    </div>
+                </a>
+            </div>
+            
+            <button onclick="navigateToViewTier('home')" class="mt-10 text-xs font-bold text-slate-500 hover:text-white uppercase tracking-widest transition-colors btn-interactive"><i class="fa-solid fa-arrow-left mr-2"></i> Return to Hub</button>
+        </div>
+    </main>
+
+    <!-- ===================================================================== -->
+    <!-- VIEW 3: CYLESTIAL HOSTING                                             -->
+    <!-- ===================================================================== -->
+    <main id="hosting_layout_root_tier" class="view-tier relative z-10 pb-20 pt-10 flex-grow">
+        
+        <div class="max-w-7xl mx-auto px-6 text-center mt-28">
+            <h2 class="text-5xl md:text-7xl font-black text-white tracking-tighter mb-6">Pure <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">Performance.</span></h2>
+            <p class="text-lg text-slate-400 mb-16 max-w-2xl mx-auto font-medium">Enterprise India compute nodes. PCIe 4.0 NVMe storage. Instant deployment.</p>
+
+            <!-- Configurator Slider -->
+            <div class="glass-panel p-8 md:p-12 rounded-[2.5rem] max-w-5xl mx-auto mb-20 text-left shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-amber-500/20 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 blur-[100px] rounded-full pointer-events-none"></div>
+                <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-4 relative z-10">
+                    <div><h3 class="text-3xl font-black text-white">Hardware Configurator</h3><p class="text-slate-400 text-sm font-medium mt-1">Allocate dedicated India node resources</p></div>
+                    <div class="text-left md:text-right"><span class="block text-[10px] uppercase font-bold text-amber-500 tracking-widest mb-1">Allocated Memory</span><span id="cfg-ram" class="text-4xl font-black text-white font-mono">8 GB</span></div>
+                </div>
+
+                <div class="mb-12 bg-black/40 p-6 rounded-2xl border border-white/5 relative z-10">
+                    <input type="range" id="hostSlider" min="0" max="5" value="1" step="1" oninput="updateHostConfig()">
+                    <div class="flex justify-between text-xs font-bold text-slate-500 mt-5 font-mono"><span>4G</span><span>8G</span><span>12G</span><span>16G</span><span class="text-amber-500">26G</span><span class="text-amber-500">32G</span></div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 relative z-10">
+                    <div class="bg-black/40 border border-white/5 p-5 rounded-2xl"><span class="block text-[10px] uppercase font-bold text-slate-500 mb-2">vCPU Limit</span><span id="cfg-cpu" class="text-xl font-black text-white font-mono">200%</span></div>
+                    <div class="bg-black/40 border border-white/5 p-5 rounded-2xl"><span class="block text-[10px] uppercase font-bold text-slate-500 mb-2">NVMe Space</span><span id="cfg-disk" class="text-xl font-black text-white font-mono">30 GB</span></div>
+                    <div class="bg-black/40 border border-white/5 p-5 rounded-2xl"><span class="block text-[10px] uppercase font-bold text-slate-500 mb-2">Backups</span><span id="cfg-bkups" class="text-xl font-black text-white font-mono">2 Slots</span></div>
+                    <div class="bg-black/40 border border-amber-500/20 p-5 rounded-2xl"><span class="block text-[10px] uppercase font-bold text-amber-500 mb-2">Mitigation</span><span class="text-xl font-black text-emerald-400 font-mono"><i class="fa-solid fa-shield"></i> L4/L7</span></div>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10 gap-6 relative z-10">
+                    <div><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Monthly Billing</span><div class="flex items-baseline gap-1"><span id="cfg-price" class="text-5xl font-black text-amber-400 font-mono">₹199</span><span class="text-slate-500 font-bold">/mo</span></div></div>
+                    <button id="cfg-btn" onclick="injectHostingPlanToCart('HYPERION (8GB)', 199)" class="w-full md:w-auto px-10 py-5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black uppercase tracking-widest shadow-[0_0_30px_rgba(245,158,11,0.4)] transition-all btn-interactive">Deploy Node Now</button>
+                </div>
             </div>
 
-            <!-- Master Gateway Portals -->
-            <div class="glass-panel p-8 md:p-12 rounded-[2.5rem] w-full max-w-5xl mb-12 shadow-2xl relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none z-0"></div>
-                <h3 class="text-xl font-black text-white uppercase tracking-widest mb-8 relative z-10">What do you want to explore?</h3>
+            <!-- Fixed Hosting Plans Grid (All 6 Cards) -->
+            <h3 class="text-3xl font-black text-white mb-10 uppercase tracking-widest">All Available Compute Tiers</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto text-left mb-12">
+                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between">
+                    <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Entry</span><h3 class="text-2xl font-black text-white mt-4 mb-2">IGNITION</h3><div class="text-4xl font-black font-mono text-white mb-8">₹119<span class="text-sm text-slate-500">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 4 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 100% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 15 GB NVMe</li></ul></div>
+                    <button onclick="injectHostingPlanToCart('IGNITION', 119)" class="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-amber-500 bg-amber-500/5 relative scale-100 md:scale-105 shadow-[0_0_40px_rgba(245,158,11,0.15)] z-10">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest">Popular</div>
+                    <div><span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-md">Standard</span><h3 class="text-2xl font-black text-white mt-4 mb-2">HYPERION</h3><div class="text-4xl font-black font-mono text-amber-500 mb-8">₹199<span class="text-sm text-amber-500/50">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-white mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 8 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 200% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 30 GB NVMe</li></ul></div>
+                    <button onclick="injectHostingPlanToCart('HYPERION', 199)" class="w-full py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black transition-all uppercase tracking-widest shadow-[0_0_20px_rgba(245,158,11,0.3)] btn-interactive">Deploy Plan</button>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between">
+                    <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Advanced</span><h3 class="text-2xl font-black text-white mt-4 mb-2">VORTEX</h3><div class="text-4xl font-black font-mono text-white mb-8">₹329<span class="text-sm text-slate-500">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 12 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 300% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 45 GB NVMe</li></ul></div>
+                    <button onclick="injectHostingPlanToCart('VORTEX', 329)" class="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-white/10">
+                    <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Pro</span><h3 class="text-2xl font-black text-white mt-4 mb-2">APEX</h3><div class="text-4xl font-black font-mono text-white mb-8">₹449<span class="text-sm text-slate-500">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 16 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 400% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 60 GB NVMe</li></ul></div>
+                    <button onclick="injectHostingPlanToCart('APEX', 449)" class="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-white/10">
+                    <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Extreme</span><h3 class="text-2xl font-black text-white mt-4 mb-2">OVERDRIVE</h3><div class="text-4xl font-black font-mono text-white mb-8">₹699<span class="text-sm text-slate-500">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 26 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 550% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 80 GB NVMe</li></ul></div>
+                    <button onclick="injectHostingPlanToCart('OVERDRIVE', 699)" class="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-amber-500/30">
+                    <div><span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-md">Maximum</span><h3 class="text-2xl font-black text-white mt-4 mb-2">GODMODE</h3><div class="text-4xl font-black font-mono text-amber-400 mb-8">₹749<span class="text-sm text-slate-500">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 32 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 700% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 100 GB NVMe</li></ul></div>
+                    <button onclick="injectHostingPlanToCart('GODMODE', 749)" class="w-full py-4 rounded-xl bg-amber-500/20 border border-amber-500/30 hover:bg-amber-500 hover:text-black text-amber-400 font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===================================================================== -->
+    <!-- VIEW 4: SERVER WEBSTORE & ADMIN CONSOLE (FULLY RESTORED)              -->
+    <!-- ===================================================================== -->
+    <div class="mobile-header-bar" id="shopMobileHeaderBar" style="display:none;">
+        <h2 onclick="navigateToViewTier('home')" class="text-lg font-black text-white cursor-pointer">CYLESTIAL<span class="text-cyan-400">MC</span></h2>
+        <button class="px-3 py-1.5 rounded bg-white/5 text-cyan-400 text-xs font-bold border border-white/10 btn-interactive" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')"><i class="fa-solid fa-shield-halved"></i> Admin</button>
+    </div>
+
+    <div class="mobile-navigation-dock-bar" id="shopMobileDockBar" style="display:none;"></div>
+
+    <div class="app-layout-root view-tier flex-grow" id="shop_layout_root_tier">
+        <!-- Sidebar -->
+        <aside>
+            <div>
+                <div class="flex items-center gap-3 mb-10 cursor-pointer group" onclick="navigateToViewTier('home')">
+                    <img src="logo.png" class="w-10 h-10 object-contain drop-shadow-[0_0_10px_rgba(6,182,212,0.5)] group-hover:scale-110 transition-transform" onerror="this.src='https://ui-avatars.com/api/?name=C&background=06b6d4&color=fff&rounded=true'">
+                    <div><h1 class="text-xl font-black text-white tracking-widest">CYLESTIAL<span class="text-cyan-400">MC</span></h1><p class="text-[10px] font-bold uppercase text-slate-400 tracking-widest mt-1">Webstore Core</p></div>
+                </div>
+                <ul class="list-none flex flex-col gap-2" id="asideDynamicNavigationTabListGroup"></ul>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-                    <div onclick="navigateToViewTier('hosting')" class="tilt-card cursor-pointer bg-black/40 border border-white/5 rounded-3xl p-8 hover:bg-amber-500/10 hover:border-amber-500/50 transition-colors group">
-                        <div class="glare"></div>
-                        <div class="tilt-card-content flex flex-col items-center">
-                            <div class="w-16 h-16 rounded-2xl bg-amber-500/20 text-amber-400 text-2xl flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(245,158,11,0.25)] group-hover:scale-110 transition-transform"><i class="fa-solid fa-server"></i></div>
-                            <h4 class="text-xl font-black text-white mb-2">Cylestial Hosts</h4>
-                            <p class="text-xs text-slate-300 font-medium text-center leading-relaxed">Deploy enterprise India compute nodes. NVMe SSDs & DDoS Protection.</p>
-                        </div>
-                    </div>
-                    <div onclick="navigateToViewTier('shop')" class="tilt-card cursor-pointer bg-black/40 border border-white/5 rounded-3xl p-8 hover:bg-cyan-500/10 hover:border-cyan-500/50 transition-colors group">
-                        <div class="glare"></div>
-                        <div class="tilt-card-content flex flex-col items-center">
-                            <div class="w-16 h-16 rounded-2xl bg-cyan-500/20 text-cyan-400 text-2xl flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(6,182,212,0.25)] group-hover:scale-110 transition-transform"><i class="fa-solid fa-store"></i></div>
-                            <h4 class="text-xl font-black text-white mb-2">Server Webstore</h4>
-                            <p class="text-xs text-slate-300 font-medium text-center leading-relaxed">Purchase global ranks, crate keys, and instantly sync cosmetics.</p>
-                        </div>
-                    </div>
-                    <div onclick="navigateToViewTier('discord')" class="tilt-card cursor-pointer bg-black/40 border border-white/5 rounded-3xl p-8 hover:bg-indigo-500/10 hover:border-indigo-500/50 transition-colors group">
-                        <div class="glare"></div>
-                        <div class="tilt-card-content flex flex-col items-center">
-                            <div class="w-16 h-16 rounded-2xl bg-indigo-500/20 text-indigo-400 text-3xl flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(99,102,241,0.25)] group-hover:scale-110 transition-transform"><i class="fa-brands fa-discord"></i></div>
-                            <h4 class="text-xl font-black text-white mb-2">Support Portal</h4>
-                            <p class="text-xs text-slate-400 font-medium text-center leading-relaxed">Join the community or open direct engineering tickets for your services.</p>
-                        </div>
-                    </div>
+                <div class="mt-8 bg-black/40 p-4 rounded-xl border border-white/5 text-center shadow-inner">
+                    <span class="block text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Server Target</span>
+                    <span class="text-xs font-mono font-black text-cyan-400">node.treemc.host:19132</span>
                 </div>
             </div>
-
-            <!-- Connection Gateways -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-5xl mb-16">
-                <div class="glass-panel p-6 rounded-2xl flex items-center gap-5 btn-interactive cursor-pointer hover:border-white/20" onclick="copyText('node.treemc.host:19132', 'Java IP Copied!')">
-                    <div class="w-12 h-12 rounded-xl bg-white/5 text-slate-300 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-terminal"></i></div>
-                    <div class="text-left"><span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Java Address</span><span class="text-sm font-mono font-black text-white" id="liveDOMTextConnectionJavaAddress">node.treemc.host:19132</span></div>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl flex items-center gap-5 btn-interactive cursor-pointer hover:border-white/20" onclick="copyText('node.treemc.host', 'Bedrock IP Copied!')">
-                    <div class="w-12 h-12 rounded-xl bg-white/5 text-slate-300 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-mobile-screen"></i></div>
-                    <div class="text-left"><span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Bedrock IP</span><span class="text-sm font-mono font-black text-white" id="liveDOMTextConnectionBedrockIP">node.treemc.host</span></div>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl flex items-center gap-5 btn-interactive cursor-pointer hover:border-white/20" onclick="copyText('19132', 'Port Copied!')">
-                    <div class="w-12 h-12 rounded-xl bg-white/5 text-slate-300 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-circle-nodes"></i></div>
-                    <div class="text-left"><span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Bedrock Port</span><span class="text-sm font-mono font-black text-white" id="liveDOMTextConnectionBedrockPort">19132</span></div>
-                </div>
+            <div>
+                <button class="w-full py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-bold mb-3 transition-colors uppercase tracking-widest btn-interactive" onclick="navigateToViewTier('home')"><i class="fa-solid fa-arrow-left mr-2"></i> Exit Store</button>
+                <button class="w-full py-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 text-xs font-bold transition-colors uppercase tracking-widest btn-interactive" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')"><i class="fa-solid fa-shield-halved mr-2"></i> Master Terminal</button>
             </div>
+        </aside>
 
-            <!-- Supporters Ledger -->
-            <div class="glass-panel p-8 rounded-[2rem] w-full max-w-4xl text-left">
-                <h3 class="text-lg font-black text-white uppercase tracking-widest mb-6 flex items-center gap-3"><i class="fa-solid fa-trophy text-amber-400"></i> Server Supporters</h3>
-                <div class="max-h-[250px] overflow-y-auto custom-scrollbar pr-2" id="publicSupportersRecognitionScrollerStack">
-                    <!-- JS Injected -->
-                </div>
-            </div>
-        </div>
-
-        <!-- ===================================================================== -->
-        <!-- VIEW 2: DISCORD CHOOSER PAGE                                          -->
-        <!-- ===================================================================== -->
-        <div id="discord_chooser_view_tier" class="view-tier flex-col items-center justify-center p-6 text-center relative z-10 pt-28 flex-grow">
-            <div class="glass-panel p-10 md:p-14 rounded-[3rem] w-full max-w-3xl shadow-2xl border-indigo-500/30">
-                <div class="w-20 h-20 rounded-[2rem] bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-4xl mx-auto mb-8 shadow-[0_0_30px_rgba(99,102,241,0.3)]"><i class="fa-brands fa-discord"></i></div>
-                <h2 class="text-3xl md:text-4xl font-black text-white tracking-widest uppercase mb-4">Support Hub</h2>
-                <p class="text-slate-400 font-medium mb-12">Select the correct division so our staff can assist you instantly.</p>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <a href="https://discord.gg/cd5ZwpMt" target="_blank" onclick="playClickSound()" class="tilt-card group bg-black/40 border border-white/5 p-8 rounded-3xl hover:bg-amber-500/10 hover:border-amber-500/50 transition-all flex flex-col items-center shadow-lg">
-                        <div class="glare"></div>
-                        <div class="tilt-card-content flex flex-col items-center">
-                            <i class="fa-solid fa-server text-4xl text-amber-400 mb-4 group-hover:scale-110 transition-transform"></i>
-                            <h4 class="text-xl font-black text-white mb-2">Hosting Discord</h4>
-                            <p class="text-xs text-slate-400 font-medium">Node support, custom plans, billing tickets.</p>
-                            <span class="mt-6 px-6 py-2 rounded-full bg-white/5 text-amber-400 text-xs font-bold uppercase tracking-widest border border-amber-500/30 group-hover:bg-amber-500 group-hover:text-black transition-colors">Join Server</span>
-                        </div>
-                    </a>
-                    <a href="https://discord.gg/Tg5duznkX" target="_blank" onclick="playClickSound()" class="tilt-card group bg-black/40 border border-white/5 p-8 rounded-3xl hover:bg-cyan-500/10 hover:border-cyan-500/50 transition-all flex flex-col items-center shadow-lg">
-                        <div class="glare"></div>
-                        <div class="tilt-card-content flex flex-col items-center">
-                            <i class="fa-solid fa-gamepad text-4xl text-cyan-400 mb-4 group-hover:scale-110 transition-transform"></i>
-                            <h4 class="text-xl font-black text-white mb-2">Minecraft Discord</h4>
-                            <p class="text-xs text-slate-400 font-medium">Community chat, webstore ranks, bug reports.</p>
-                            <span class="mt-6 px-6 py-2 rounded-full bg-white/5 text-cyan-400 text-xs font-bold uppercase tracking-widest border border-cyan-500/30 group-hover:bg-cyan-500 group-hover:text-black transition-colors">Join Server</span>
-                        </div>
-                    </a>
-                </div>
-                
-                <button onclick="navigateToViewTier('home')" class="mt-10 text-xs font-bold text-slate-500 hover:text-white uppercase tracking-widest transition-colors btn-interactive"><i class="fa-solid fa-arrow-left mr-2"></i> Return to Hub</button>
-            </div>
-        </div>
-
-        <!-- ===================================================================== -->
-        <!-- VIEW 3: CYLESTIAL HOSTING                                             -->
-        <!-- ===================================================================== -->
-        <div id="hosting_layout_root_tier" class="view-tier active-block relative z-10 pb-20 pt-10 flex-grow">
-            
-            <div class="max-w-7xl mx-auto px-6 text-center mt-28">
-                <h2 class="text-5xl md:text-7xl font-black text-white tracking-tighter mb-6">Pure <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">Performance.</span></h2>
-                <p class="text-lg text-slate-400 mb-16 max-w-2xl mx-auto font-medium">Enterprise India compute nodes. PCIe 4.0 NVMe storage. Instant deployment.</p>
-
-                <!-- Configurator Slider -->
-                <div class="glass-panel p-8 md:p-12 rounded-[2.5rem] max-w-5xl mx-auto mb-20 text-left shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-amber-500/20 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 blur-[100px] rounded-full pointer-events-none"></div>
-                    <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-4 relative z-10">
-                        <div><h3 class="text-3xl font-black text-white">Hardware Configurator</h3><p class="text-slate-400 text-sm font-medium mt-1">Allocate dedicated India node resources</p></div>
-                        <div class="text-left md:text-right"><span class="block text-[10px] uppercase font-bold text-amber-500 tracking-widest mb-1">Allocated Memory</span><span id="cfg-ram" class="text-4xl font-black text-white font-mono">8 GB</span></div>
-                    </div>
-
-                    <div class="mb-12 bg-black/40 p-6 rounded-2xl border border-white/5 relative z-10">
-                        <input type="range" id="hostSlider" min="0" max="5" value="1" step="1" oninput="updateHostConfig()">
-                        <div class="flex justify-between text-xs font-bold text-slate-500 mt-5 font-mono"><span>4G</span><span>8G</span><span>12G</span><span>16G</span><span class="text-amber-500">26G</span><span class="text-amber-500">32G</span></div>
-                    </div>
-
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 relative z-10">
-                        <div class="bg-black/40 border border-white/5 p-5 rounded-2xl"><span class="block text-[10px] uppercase font-bold text-slate-500 mb-2">vCPU Limit</span><span id="cfg-cpu" class="text-xl font-black text-white font-mono">200%</span></div>
-                        <div class="bg-black/40 border border-white/5 p-5 rounded-2xl"><span class="block text-[10px] uppercase font-bold text-slate-500 mb-2">NVMe Space</span><span id="cfg-disk" class="text-xl font-black text-white font-mono">30 GB</span></div>
-                        <div class="bg-black/40 border border-white/5 p-5 rounded-2xl"><span class="block text-[10px] uppercase font-bold text-slate-500 mb-2">Backups</span><span id="cfg-bkups" class="text-xl font-black text-white font-mono">2 Slots</span></div>
-                        <div class="bg-black/40 border border-amber-500/20 p-5 rounded-2xl"><span class="block text-[10px] uppercase font-bold text-amber-500 mb-2">Mitigation</span><span class="text-xl font-black text-emerald-400 font-mono"><i class="fa-solid fa-shield"></i> L4/L7</span></div>
-                    </div>
-
-                    <div class="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10 gap-6 relative z-10">
-                        <div><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Monthly Billing</span><div class="flex items-baseline gap-1"><span id="cfg-price" class="text-5xl font-black text-amber-400 font-mono">₹199</span><span class="text-slate-500 font-bold">/mo</span></div></div>
-                        <button id="cfg-btn" onclick="injectHostingPlanToCart('HYPERION (8GB)', 199)" class="w-full md:w-auto px-10 py-5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black uppercase tracking-widest shadow-[0_0_30px_rgba(245,158,11,0.4)] transition-all btn-interactive">Deploy Node Now</button>
-                    </div>
-                </div>
-
-                <!-- Fixed Plans -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto text-left">
-                    <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between">
-                        <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Entry</span><h3 class="text-2xl font-black text-white mt-4 mb-2">IGNITION</h3><div class="text-4xl font-black font-mono text-white mb-8">₹119<span class="text-sm text-slate-500">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 4 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 100% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 15 GB NVMe</li></ul></div>
-                        <button onclick="injectHostingPlanToCart('IGNITION', 119)" class="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
-                    </div>
-                    <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-amber-500 bg-amber-500/5 relative scale-100 md:scale-105 shadow-[0_0_40px_rgba(245,158,11,0.15)] z-10">
-                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest">Popular</div>
-                        <div><span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-md">Standard</span><h3 class="text-2xl font-black text-white mt-4 mb-2">HYPERION</h3><div class="text-4xl font-black font-mono text-amber-500 mb-8">₹199<span class="text-sm text-amber-500/50">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-white mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 8 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 200% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 30 GB NVMe</li></ul></div>
-                        <button onclick="injectHostingPlanToCart('HYPERION', 199)" class="w-full py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black transition-all uppercase tracking-widest shadow-[0_0_20px_rgba(245,158,11,0.3)] btn-interactive">Deploy Plan</button>
-                    </div>
-                    <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between">
-                        <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Advanced</span><h3 class="text-2xl font-black text-white mt-4 mb-2">VORTEX</h3><div class="text-4xl font-black font-mono text-white mb-8">₹329<span class="text-sm text-slate-500">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 12 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 300% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 45 GB NVMe</li></ul></div>
-                        <button onclick="injectHostingPlanToCart('VORTEX', 329)" class="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
-                    </div>
-                    <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between">
-                        <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Pro</span><h3 class="text-2xl font-black text-white mt-4 mb-2">APEX</h3><div class="text-4xl font-black font-mono text-white mb-8">₹449<span class="text-sm text-slate-500">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 16 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 400% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 60 GB NVMe</li></ul></div>
-                        <button onclick="injectHostingPlanToCart('APEX', 449)" class="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
-                    </div>
-                    <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between">
-                        <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Extreme</span><h3 class="text-2xl font-black text-white mt-4 mb-2">OVERDRIVE</h3><div class="text-4xl font-black font-mono text-white mb-8">₹699<span class="text-sm text-slate-500">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 26 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 550% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 80 GB NVMe</li></ul></div>
-                        <button onclick="injectHostingPlanToCart('OVERDRIVE', 699)" class="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
-                    </div>
-                    <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-amber-500/30 bg-amber-500/5">
-                        <div><span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-md">Maximum</span><h3 class="text-2xl font-black text-white mt-4 mb-2">GODMODE</h3><div class="text-4xl font-black font-mono text-amber-400 mb-8">₹749<span class="text-sm text-slate-500">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 32 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 700% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 100 GB NVMe</li></ul></div>
-                        <button onclick="injectHostingPlanToCart('GODMODE', 749)" class="w-full py-4 rounded-xl bg-amber-500/20 border border-amber-500/30 hover:bg-amber-500 hover:text-black text-amber-400 font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===================================================================== -->
-        <!-- VIEW 4: SERVER WEBSTORE & ADMIN CONSOLE                               -->
-        <!-- ===================================================================== -->
-        <div class="mobile-header-bar" id="shopMobileHeaderBar">
-            <h2 onclick="navigateToViewTier('home')" class="text-lg font-black text-white cursor-pointer">CYLESTIAL<span class="text-cyan-400">MC</span></h2>
-            <button class="px-3 py-1.5 rounded bg-white/5 text-cyan-400 text-xs font-bold border border-white/10 btn-interactive" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')"><i class="fa-solid fa-shield-halved"></i> Admin</button>
-        </div>
-
-        <div class="mobile-navigation-dock-bar" id="shopMobileDockBar"></div>
-
-        <div class="app-layout-root view-tier active-grid flex-grow" id="shop_layout_root_tier">
-            <aside>
+        <!-- Main Content -->
+        <main class="primary-viewport-pane" id="catalogStorefrontPrimaryViewportMainPane">
+            <div class="glass-panel p-5 rounded-2xl mb-10 flex items-center gap-4 border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.1)]">
+                <div class="w-10 h-10 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0"><i class="fa-solid fa-bolt-lightning"></i></div>
                 <div>
-                    <div class="flex items-center gap-3 mb-10 cursor-pointer group" onclick="navigateToViewTier('home')">
-                        <img src="logo.png" class="w-10 h-10 object-contain drop-shadow-[0_0_10px_rgba(6,182,212,0.5)] group-hover:scale-110 transition-transform" onerror="this.src='https://ui-avatars.com/api/?name=C&background=06b6d4&color=fff&rounded=true'">
-                        <div><h1 class="text-xl font-black text-white tracking-widest">CYLESTIAL<span class="text-cyan-400">MC</span></h1><p class="text-[10px] font-bold uppercase text-slate-400 tracking-widest mt-1">Webstore Core</p></div>
-                    </div>
-                    <ul class="list-none flex flex-col gap-2" id="asideDynamicNavigationTabListGroup"></ul>
-                    
-                    <div class="mt-8 bg-black/40 p-4 rounded-xl border border-white/5 text-center shadow-inner">
-                        <span class="block text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Server Target</span>
-                        <span class="text-xs font-mono font-black text-cyan-400">node.treemc.host:19132</span>
-                    </div>
-                </div>
-                <div>
-                    <button class="w-full py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-bold mb-3 transition-colors uppercase tracking-widest btn-interactive" onclick="navigateToViewTier('home')"><i class="fa-solid fa-arrow-left mr-2"></i> Exit Store</button>
-                    <button class="w-full py-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 text-xs font-bold transition-colors uppercase tracking-widest btn-interactive" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')"><i class="fa-solid fa-shield-halved mr-2"></i> Master Terminal</button>
-                </div>
-            </aside>
-
-            <main class="primary-viewport-pane" id="catalogStorefrontPrimaryViewportMainPane">
-                <div class="glass-panel p-5 rounded-2xl mb-10 flex items-center gap-4 border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.1)]">
-                    <div class="w-10 h-10 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0"><i class="fa-solid fa-bolt-lightning"></i></div>
-                    <div>
-                        <span class="block text-sm font-black text-white uppercase tracking-widest mb-1">Network Upgrades Active</span>
-                        <span class="text-xs text-slate-300 font-medium">Purchase a token package below to instantly upgrade your profile metadata on the server.</span>
-                    </div>
-                </div>
-
-                <div id="clientPublicGlobalBroadcastBanner"></div>
-                <!-- Products Injected via JS -->
-            </main>
-        </div>
-
-        <!-- ===================================================================== -->
-        <!-- UNIVERSAL FOOTER (NEW)                                                -->
-        <!-- ===================================================================== -->
-        <footer class="bg-black/80 border-t border-white/10 py-8 px-6 mt-auto relative z-10 backdrop-blur-md">
-            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="flex items-center gap-3">
-                    <img src="logo.png" class="w-8 h-8 opacity-50 grayscale" onerror="this.style.display='none'">
-                    <div>
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">© 2026 Cylestial Network</p>
-                        <p class="text-[10px] text-slate-600 mt-1">Not affiliated with Mojang AB.</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4 text-xs font-bold text-slate-500 uppercase tracking-widest">
-                    <a href="https://discord.gg/Tg5duznkX" target="_blank" class="hover:text-white transition-colors">Discord</a>
-                    <span class="text-slate-700">|</span>
-                    <a href="#" onclick="showToast('Terms', 'All purchases are final. Chargebacks result in network blacklisting.', 'error')" class="hover:text-white transition-colors">Terms</a>
-                    <span class="text-slate-700">|</span>
-                    <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Online</div>
+                    <span class="block text-sm font-black text-white uppercase tracking-widest mb-1">Network Upgrades Active</span>
+                    <span class="text-xs text-slate-300 font-medium">Purchase a token package below to instantly upgrade your profile metadata on the server.</span>
                 </div>
             </div>
-        </footer>
 
-    </div> <!-- End Flex Grow -->
+            <div id="clientPublicGlobalBroadcastBanner"></div>
+            <!-- Products Injected via JS -->
+        </main>
+    </div>
 
     <!-- ===================================================================== -->
     <!-- FLOATING ACTIONS & AI CHAT                                            -->
@@ -607,7 +604,7 @@
             const border = type === 'error' ? 'border-rose-500/30' : 'border-emerald-500/30';
             const icon = type === 'error' ? 'fa-triangle-exclamation' : 'fa-circle-check';
             
-            toast.className = `glass-panel ${bg} border ${border} p-4 flex items-start gap-3 w-80 animate-slide-in-right mb-3 rounded-2xl shadow-xl`;
+            toast.className = `glass-panel ${bg} border ${border} p-4 flex items-start gap-3 w-80 animate-slide-in-right mb-3 rounded-2xl shadow-xl toast`;
             toast.innerHTML = `<i class="fa-solid ${icon} ${color} mt-1 text-lg"></i><div><h4 class="text-white font-black text-sm tracking-wide">${title}</h4><p class="text-xs text-slate-300 mt-1 font-medium">${msg}</p></div>`;
             
             container.appendChild(toast);
@@ -643,6 +640,7 @@
         const storefrontGlobalCategoriesTabObjectMap = JSON.parse(localStorage.getItem('live_store_tabs')) || [ { id: "ranks", label: "Global Ranks", icon: "fa-crown" }, { id: "keys", label: "Crate Keys", icon: "fa-key" } ];
         let storefrontDynamicProductsCoreArray = JSON.parse(localStorage.getItem('live_store_products')) || [ { id: "r1", category: "ranks", name: "KNIGHT Rank Upgrade", price: 199, perk: "Entry Tier Kit Allocation" }, { id: "r2", category: "ranks", name: "LORD Rank Upgrade", price: 399, perk: "Lord Tier Kit Configuration" }, { id: "r3", category: "ranks", name: "PALADIN Rank Upgrade", price: 599, perk: "Paladin Tier Kit Access" }, { id: "r4", category: "ranks", name: "DUKE Rank Upgrade", price: 799, perk: "Duke Visual Particle Trails" }, { id: "r5", category: "ranks", name: "KING Rank Upgrade", price: 999, perk: "Max Perks Override" }, { id: "k1", category: "keys", name: "Vote Crate Key Drop", price: 10, perk: "Standard Vote Crate Roll" }, { id: "k2", category: "keys", name: "Common Crate Key Drop", price: 20, perk: "Tier 1 Common Asset Lootbox" }, { id: "k3", category: "keys", name: "Rare Crate Key Drop", price: 30, perk: "Tier 2 Rare Drops Allocation" }, { id: "k4", category: "keys", name: "Epic Crate Key Drop", price: 40, perk: "Tier 3 Supreme Visual Key" }, { id: "k5", category: "keys", name: "Superior Crate Key Drop", price: 80, perk: "Premium Max-Tier Loot Box Key" } ];
         const hostPlans = [ { ram: "4 GB", cpu: "100%", disk: "15 GB", bkups: "1", price: 119 }, { ram: "8 GB", cpu: "200%", disk: "30 GB", bkups: "2", price: 199 }, { ram: "12 GB", cpu: "300%", disk: "45 GB", bkups: "3", price: 329 }, { ram: "16 GB", cpu: "400%", disk: "60 GB", bkups: "4", price: 449 }, { ram: "26 GB", cpu: "550%", disk: "80 GB", bkups: "5", price: 699 }, { ram: "32 GB", cpu: "700%", disk: "100 GB", bkups: "6", price: 749 } ];
+        
         let coreDatabaseTransactionsRegisterQueueArray = JSON.parse(localStorage.getItem('db_queue')) || []; 
         let counterMetricApprovedTransactionsTotalSumValue = parseFloat(localStorage.getItem('db_rev')) || 0;
         let adminIdentityAuthAuditTrailsRegistry = JSON.parse(localStorage.getItem('db_sessions')) || [ { id: 101, name: "System Core", email: "kernel@cylestial.net", role: "Owner", time: new Date().toLocaleTimeString(), status: "Active" } ];
@@ -659,9 +657,12 @@
             if(localStorage.getItem('cylestialTerminalAdminAuditFullName')) transitionUIToAuthenticatedDashboardState();
             
             buildStorefrontDynamicNavigationAndLayoutDOM(); updateNavbar();
+            
+            // Ensure proper initial routing (force home on start)
+            navigateToViewTier('home');
         });
 
-        function copyText(text, msg) { playClickSound(); navigator.clipboard.writeText(text); showToast("Success", msg); }
+        // Utils
         function openSystemModalWindow(id) { playClickSound(); const el = document.getElementById(id); if(el) { el.style.display = 'flex'; if(id==='checkoutSystemProcessingModalWindow') buildModalCheckoutItemsRowsUIDOM(); } }
         function closeSystemModalWindow(id) { playClickSound(); const el = document.getElementById(id); if(el) el.style.display = 'none'; }
 
@@ -669,16 +670,43 @@
         function navigateToViewTier(targetId) {
             playClickSound(); window.scrollTo({ top: 0, behavior: 'smooth' });
             
-            const hub = document.getElementById('main_landing_view_tier'); const host = document.getElementById('hosting_layout_root_tier'); const shop = document.getElementById('shop_layout_root_tier'); const disc = document.getElementById('discord_chooser_view_tier'); const mobHead = document.getElementById('shopMobileHeaderBar'); const mobDock = document.getElementById('shopMobileDockBar');
+            // Strictly hide all views
+            ['main_landing_view_tier', 'hosting_layout_root_tier', 'shop_layout_root_tier', 'discord_chooser_view_tier'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) {
+                    el.classList.remove('active-flex', 'active-grid', 'active-block', 'shop-active');
+                    el.style.display = 'none';
+                }
+            });
 
-            if(hub) hub.classList.remove('active', 'active-grid', 'active-block'); if(host) host.classList.remove('active', 'active-grid', 'active-block');
-            if(shop) { shop.classList.remove('active', 'active-grid', 'active-block', 'shop-active'); } if(disc) disc.classList.remove('active', 'active-grid', 'active-block');
-            if(mobHead) mobHead.style.display = 'none'; if(mobDock) mobDock.style.display = 'none';
+            // Hide Mobile Docs globally
+            const mobHead = document.getElementById('shopMobileHeaderBar');
+            const mobDock = document.getElementById('shopMobileDockBar');
+            if(mobHead) mobHead.style.display = 'none';
+            if(mobDock) mobDock.style.display = 'none';
 
-            if(targetId === 'home') { if(hub) hub.classList.add('active'); renderPublicSupportersLeaderboardUIDOM(); }
-            else if(targetId === 'hosting') { if(host) host.classList.add('active-block'); }
-            else if(targetId === 'shop') { if(shop) shop.classList.add('active-grid', 'shop-active'); if(mobHead) mobHead.style.display = 'flex'; if(mobDock) mobDock.style.display = 'flex'; buildStorefrontDynamicNavigationAndLayoutDOM(); }
-            else if(targetId === 'discord') { if(disc) disc.classList.add('active'); }
+            // Show strict target
+            const targetEl = document.getElementById(targetId === 'home' ? 'main_landing_view_tier' : 
+                             targetId === 'hosting' ? 'hosting_layout_root_tier' : 
+                             targetId === 'shop' ? 'shop_layout_root_tier' : 
+                             'discord_chooser_view_tier');
+
+            if(targetId === 'home') { 
+                targetEl.classList.add('active-flex'); targetEl.style.display = 'flex';
+                renderPublicSupportersLeaderboardUIDOM(); 
+            }
+            else if(targetId === 'hosting') { 
+                targetEl.classList.add('active-block'); targetEl.style.display = 'block';
+            }
+            else if(targetId === 'shop') { 
+                targetEl.classList.add('active-grid', 'shop-active'); targetEl.style.display = 'grid';
+                if(mobHead) mobHead.style.display = 'flex'; 
+                if(mobDock) mobDock.style.display = 'flex'; 
+                buildStorefrontDynamicNavigationAndLayoutDOM(); 
+            }
+            else if(targetId === 'discord') { 
+                targetEl.classList.add('active-flex'); targetEl.style.display = 'flex';
+            }
             
             currentView = targetId; updateNavbar();
         }
@@ -712,20 +740,27 @@
         }
 
         function executeViewPaneTabSwitch(targetID) {
-            playClickSound(); document.querySelectorAll('.catalog-display-view-grid').forEach(sec => sec.style.display = 'none'); document.querySelectorAll('.nav-item-btn, .mobile-dock-node-btn').forEach(btn => btn.classList.remove('active'));
+            playClickSound(); document.querySelectorAll('.catalog-display-view-grid').forEach(sec => sec.style.display = 'none');
+            document.querySelectorAll('.nav-item-btn, .mobile-dock-node-btn').forEach(btn => btn.classList.remove('active'));
             const tg = document.getElementById(targetID); if(tg) tg.style.display = 'grid';
-            const dn = document.getElementById(`d_nav_${targetID}`); if(dn) dn.classList.add('active'); const mn = document.getElementById(`m_nav_${targetID}`); if(mn) mn.classList.add('active');
+            const dn = document.getElementById(`d_nav_${targetID}`); if(dn) dn.classList.add('active'); 
+            const mn = document.getElementById(`m_nav_${targetID}`); if(mn) mn.classList.add('active');
         }
 
         // --- Unified Cart System ---
         function injectHostingPlanToCart(planName, price) {
-            playClickSound(); memoryAllocationCartStack = []; memoryAllocationCartStack.push({ name: `HOSTING: ${planName}`, price: price, qty: 1, isHost: true });
-            evaluateFloatingCartWidgetUIStateFeedback(); openSystemModalWindow('checkoutSystemProcessingModalWindow');
+            playClickSound();
+            memoryAllocationCartStack = []; // Clear webstore cart for pure hosting checkout
+            memoryAllocationCartStack.push({ name: `HOSTING: ${planName}`, price: price, qty: 1, isHost: true });
+            evaluateFloatingCartWidgetUIStateFeedback();
+            openSystemModalWindow('checkoutSystemProcessingModalWindow');
         }
 
         function injectProductRecordToCartStack(name, price, isHost, event) {
-            playClickSound(); if(memoryAllocationCartStack.length > 0 && memoryAllocationCartStack[0].isHost) memoryAllocationCartStack = [];
-            const exist = memoryAllocationCartStack.find(i => i.name === name); if(exist) exist.qty++; else memoryAllocationCartStack.push({ name, price, qty: 1, isHost: false });
+            playClickSound();
+            if(memoryAllocationCartStack.length > 0 && memoryAllocationCartStack[0].isHost) memoryAllocationCartStack = []; // Clear host if adding shop
+            const exist = memoryAllocationCartStack.find(i => i.name === name);
+            if(exist) exist.qty++; else memoryAllocationCartStack.push({ name, price, qty: 1, isHost: false });
             evaluateFloatingCartWidgetUIStateFeedback();
             
             // Icon Bounce Animation
@@ -829,7 +864,9 @@
         
         function finishCheckoutProcess() {
             playClickSound(); closeSystemModalWindow('checkoutSystemProcessingModalWindow');
-            const link = (document.getElementById('modal-host-item') && document.getElementById('modal-host-item').style.display !== 'none') ? 'https://discord.gg/cd5ZwpMt' : 'https://discord.gg/Tg5duznkX';
+            // If they bought hosting, send to hosting discord. Else send to game discord.
+            const isHost = (document.getElementById('mc-username-field-container').style.display === 'none');
+            const link = isHost ? 'https://discord.gg/cd5ZwpMt' : 'https://discord.gg/Tg5duznkX';
             window.open(link, '_blank');
         }
 
@@ -845,6 +882,11 @@
             if(document.getElementById('cfg-disk')) document.getElementById('cfg-disk').innerText = p.disk; if(document.getElementById('cfg-bkups')) document.getElementById('cfg-bkups').innerText = p.bkups + " Slots";
             if(document.getElementById('cfg-price')) document.getElementById('cfg-price').innerText = "₹" + p.price;
             const btn = document.getElementById('cfg-btn'); if(btn) btn.setAttribute('onclick', `injectHostingPlanToCart('CUSTOM NODE (${p.ram})', ${p.price})`);
+        }
+        function runPing() {
+            playClickSound(); const res = document.getElementById('ping-result-txt'); if(!res) return;
+            res.innerText = "Testing..."; res.classList.remove('text-slate-500', 'text-emerald-400'); res.classList.add('text-amber-400', 'animate-pulse');
+            setTimeout(() => { const p = Math.floor(Math.random() * 12) + 14; res.innerText = `${p} ms`; res.classList.remove('text-amber-400', 'animate-pulse'); res.classList.add('text-emerald-400'); }, 1000);
         }
 
         // --- AI Chat Engine ---
@@ -863,7 +905,7 @@
             setTimeout(() => { str.innerHTML += `<div class="chat-bubble assistant p-3 text-sm font-medium animate-fade-in">${r}</div>`; str.scrollTop = str.scrollHeight; }, 600);
         }
 
-        // --- Admin Terminal Engine ---
+        // --- Admin Terminal Engine (RESTORED) ---
         function appendAuditLogMessage(t) { const b = document.getElementById('terminalLiveAuditLoggerOutputStackBox'); if(b){ b.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${t}</div>`; b.scrollTop = b.scrollHeight; } }
         function syncLocalStorageDatabaseKernel() { localStorage.setItem('db_queue', JSON.stringify(coreDatabaseTransactionsRegisterQueueArray)); localStorage.setItem('db_rev', counterMetricApprovedTransactionsTotalSumValue.toString()); localStorage.setItem('db_sessions', JSON.stringify(adminIdentityAuthAuditTrailsRegistry)); localStorage.setItem('db_supporters', JSON.stringify(publicApprovedSupportersLeaderboardArray)); }
         
