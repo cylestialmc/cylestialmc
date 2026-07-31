@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CylestialMC Network & Cylestial Hosts | Main Hub</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Cylestial Network | Enterprise Gaming & Hosting</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- EmailJS & Google Fonts -->
+    <!-- EmailJS -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet" />
 
     <script>
       tailwind.config = {
@@ -22,11 +23,31 @@
             },
             colors: {
               brand: {
-                400: 'var(--accent-400, #fbbf24)',
-                500: 'var(--accent-500, #f59e0b)',
-                600: 'var(--accent-600, #d97706)',
-                700: 'var(--accent-700, #b45309)',
-                900: 'var(--accent-900, #78350f)',
+                hosting: '#f59e0b', // Amber 500
+                shop: '#06b6d4',    // Cyan 500
+                discord: '#6366f1', // Indigo 500
+                dark: '#02040a',    // Ultra Deep Obsidian
+                surface: '#0f172a', // Slate 900
+              }
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'float': 'float 6s ease-in-out infinite',
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'gradient-shift': 'gradientShift 8s ease infinite',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(20px) scale(0.98)' },
+                '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-15px)' },
+              },
+              gradientShift: {
+                '0%, 100%': { backgroundPosition: '0% 50%' },
+                '50%': { backgroundPosition: '100% 50%' },
               }
             }
           }
@@ -35,1244 +56,1019 @@
     </script>
 
     <style>
-        :root {
-            --bg-deep: #02040a;
-            --bg-surface: rgba(10, 15, 30, 0.75);
-            --bg-surface-solid: #0b0f19;
-            --accent-cyan: #06b6d4;
-            --accent-purple: #a855f7;
-            --text-primary: #f3f4f6;
-            --text-secondary: #9ca3af;
-            --color-gold: #fbbf24;
-            --color-success: #10b981;
-            --color-danger: #ef4444;
-            --glass-border: rgba(255, 255, 255, 0.05);
-            --neon-glow: 0 0 25px rgba(6, 182, 212, 0.35);
-
-            --accent-400: #fbbf24;
-            --accent-500: #f59e0b;
-            --accent-600: #d97706;
-            --accent-700: #b45309;
-            --accent-900: #78350f;
-        }
-
-        body.theme-obsidian {
-            --bg-deep: #0f1115;
-            --bg-surface: rgba(25, 28, 36, 0.75);
-            --bg-surface-solid: #1e222b;
-            --accent-cyan: #94a3b8;
-            --accent-purple: #64748b;
-            --neon-glow: 0 0 20px rgba(148, 163, 184, 0.2);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-            transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        body {
+            background-color: #02040a;
+            color: #f8fafc;
+            overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
         }
 
-        body {
-            background-color: #04060a;
-            color: var(--text-primary);
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
+        /* Advanced Backgrounds */
         #particles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .glow-gold {
-            box-shadow: 0 0 50px -10px var(--accent-600);
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, var(--accent-400) 0%, #fef08a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .card-glass {
-            background: rgba(10, 14, 23, 0.75);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-        }
-        .card-glass:hover {
-            border-color: rgba(251, 191, 36, 0.25);
-        }
-
-        .banner-background-canvas-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -3;
-            background: linear-gradient(to bottom, rgba(2, 4, 10, 0.85) 0%, rgba(2, 4, 10, 0.95) 100%), url('banner.png');
-            background-size: cover;
-            background-position: center;
-            pointer-events: none;
-        }
-
-        .ambient-aurora-orbs {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .aurora-blur {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.15;
-        }
-        .aurora-1 { width: 500px; height: 500px; background: var(--accent-cyan); top: -50px; left: -50px; }
-        .aurora-2 { width: 600px; height: 600px; background: var(--accent-purple); bottom: -150px; right: -50px; }
-
-        #main_landing_view_tier {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 60px 20px;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        .server-brand-logo-centerpiece {
-            width: 180px; height: 180px; object-fit: contain; margin-bottom: 20px;
-            filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.3));
-            animation: floatingLogo 4s ease-in-out infinite;
-        }
-        @keyframes floatingLogo {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .home-brand-cluster { margin-bottom: 25px; }
-        .home-brand-cluster h1 {
-            font-size: 3.5rem; font-weight: 900; letter-spacing: 4px;
-            background: linear-gradient(to right, #ffffff, var(--accent-cyan));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 5px;
-        }
-        .home-brand-cluster p { color: var(--text-secondary); text-transform: uppercase; letter-spacing: 4px; font-size: 0.9rem; }
-
-        .live-server-motd-pulse-strip {
-            background: rgba(16, 185, 129, 0.04); border: 1px solid rgba(16, 185, 129, 0.2);
-            padding: 8px 20px; border-radius: 100px; font-family: monospace; font-size: 0.82rem;
-            color: var(--color-success); margin-bottom: 30px; display: inline-flex; align-items: center; gap: 8px;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.05); cursor: pointer;
-        }
-        .live-server-motd-pulse-strip span.dot { width: 8px; height: 8px; background: var(--color-success); border-radius: 50%; display: inline-block; animation: blinkStatus 1.5s infinite; }
-        @keyframes blinkStatus { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
-
-        /* PORTAL DECISION BUTTON MATRIX */
-        .portal-choice-container {
-            background: rgba(10, 14, 23, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 30px;
-            margin-bottom: 40px;
-            max-width: 750px;
-            width: 100%;
-            box-shadow: 0 0 40px rgba(0,0,0,0.6);
-        }
-        .portal-choice-title {
-            font-size: 1.1rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #fff;
-            margin-bottom: 20px;
-        }
-        .portal-choice-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        @media (max-width: 640px) {
-            .portal-choice-grid { grid-template-columns: 1fr; }
-        }
-        .portal-btn {
-            padding: 22px 20px;
-            border-radius: 16px;
-            font-weight: 800;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            border: 1px solid transparent;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .portal-btn-hosting {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.25) 100%);
-            border-color: rgba(245, 158, 11, 0.4);
-            color: #fbbf24;
-        }
-        .portal-btn-hosting:hover {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: #04060a;
-            box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
-            transform: translateY(-4px);
-        }
-        .portal-btn-shop {
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(168, 85, 247, 0.25) 100%);
-            border-color: rgba(6, 182, 212, 0.4);
-            color: #22d3ee;
-        }
-        .portal-btn-shop:hover {
-            background: linear-gradient(135deg, #06b6d4 0%, #a855f7 100%);
-            color: #fff;
-            box-shadow: 0 0 30px rgba(6, 182, 212, 0.4);
-            transform: translateY(-4px);
-        }
-        .portal-btn-discord {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(79, 70, 229, 0.25) 100%);
-            border-color: rgba(99, 102, 241, 0.4);
-            color: #818cf8;
-            grid-column: span 2;
-        }
-        @media (max-width: 640px) {
-            .portal-btn-discord { grid-column: span 1; }
-        }
-        .portal-btn-discord:hover {
-            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            color: #fff;
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
-            transform: translateY(-4px);
-        }
-
-        .supporters-history-panel-container {
-            width: 100%; max-width: 800px; background: var(--bg-surface); border: 1px solid var(--glass-border);
-            backdrop-filter: blur(16px); border-radius: 20px; padding: 25px; margin-top: 20px; text-align: left;
-            box-shadow: inset 0 0 20px rgba(255,255,255,0.01);
-        }
-        .supporters-history-panel-container h3 { font-size: 1.25rem; font-weight: 800; letter-spacing: 2px; color: var(--color-gold); text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-        .supporters-scroller-stack { max-height: 240px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 5px; }
-
-        .app-layout-root {
-            display: none; grid-template-columns: 280px 1fr; min-height: 100vh; position: relative; z-index: 5;
-        }
-
-        aside {
-            background: rgba(7, 10, 19, 0.8); border-right: 1px solid var(--glass-border); backdrop-filter: blur(20px);
-            padding: 40px 25px; display: flex; flex-direction: column; justify-content: space-between;
-            position: sticky; top: 0; height: 100vh; z-index: 100;
-        }
-
-        .aside-brand-cluster { display: flex; align-items: center; gap: 12px; cursor: pointer; }
-        .aside-brand-cluster img { width: 42px; height: 42px; object-fit: contain; filter: drop-shadow(0 0 8px var(--accent-cyan)); }
-        .aside-brand-cluster h1 { font-size: 1.4rem; font-weight: 800; letter-spacing: 1px; background: linear-gradient(to right, #ffffff, var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .aside-brand-cluster p { font-size: 0.68rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1px; margin-top: 2px; }
-
-        .navigation-menu-list { list-style: none; margin-top: 25px; flex-grow: 1; }
-        .nav-item-btn {
-            display: flex; align-items: center; gap: 15px; width: 100%;
-            padding: 14px 20px; background: transparent; border: 1px solid transparent;
-            color: var(--text-secondary); font-size: 0.95rem; font-weight: 600;
-            border-radius: 10px; cursor: pointer; margin-bottom: 8px;
-        }
-        .nav-item-btn.active { color: var(--accent-cyan); border-color: var(--accent-cyan); background: rgba(6, 182, 212, 0.04); }
-
-        .theme-switch-frame-cluster { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: rgba(2,4,10,0.4); border: 1px solid var(--glass-border); border-radius: 10px; margin-top: 15px; }
-        .theme-switch-frame-cluster span { font-size: 0.78rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; }
-        .theme-toggle-node-action-btn { background: transparent; border: none; color: var(--accent-cyan); cursor: pointer; font-size: 1.05rem; }
-
-        .secure-gate-trigger-container { border-top: 1px solid var(--glass-border); padding-top: 20px; display: flex; flex-direction: column; gap: 10px; }
-        .admin-action-gate-btn {
-            width: 100%; padding: 12px; background: rgba(6, 182, 212, 0.03);
-            border: 1px solid rgba(6, 182, 212, 0.15); color: var(--accent-cyan);
-            font-weight: 700; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-
-        .mobile-header-bar {
-            display: none; background: #070a13; border-bottom: 1px solid var(--glass-border);
-            padding: 15px 20px; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 200;
-        }
-        .mobile-header-bar h2 span { color: var(--accent-cyan); }
-
-        .mobile-navigation-dock-bar {
-            display: none; position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(7, 10, 19, 0.95); border-top: 1px solid var(--glass-border);
-            backdrop-filter: blur(20px); z-index: 500; padding: 10px 10px calc(env(safe-area-inset-bottom) + 10px) 10px;
-            justify-content: space-around; align-items: center;
-        }
-        .mobile-dock-node-btn {
-            background: transparent; border: none; color: var(--text-secondary);
-            display: flex; flex-direction: column; align-items: center; gap: 4px;
-            font-size: 0.72rem; font-weight: 600; cursor: pointer; flex: 1;
-        }
-        .mobile-dock-node-btn.active { color: var(--accent-cyan); }
-
-        .primary-viewport-pane { padding: 40px; overflow-y: auto; max-height: 100vh; }
-        .gateway-network-hub { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-bottom: 35px; width: 100%; max-width: 1100px; }
-        
-        .network-node-card {
-            background: var(--bg-surface); border: 1px solid var(--glass-border);
-            backdrop-filter: blur(12px); border-radius: 12px; padding: 22px; display: flex; align-items: center; gap: 18px;
-        }
-        .network-node-card .icon-shield { width: 48px; height: 48px; border-radius: 12px; background: rgba(6, 182, 212, 0.08); display: flex; align-items: center; justify-content: center; color: var(--accent-cyan); font-size: 1.3rem; }
-
-        .fomo-purchase-ticker-card {
-            background: rgba(168, 85, 247, 0.04); border: 1px solid rgba(168, 85, 247, 0.2);
-            border-radius: 12px; padding: 15px; margin-bottom: 30px; display: flex; align-items: center; gap: 12px;
-            max-width: 1100px;
-        }
-
-        .catalog-display-view-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; margin-bottom: 60px; transform-style: preserve-3d; perspective: 1000px; }
-        .cyber-product-card {
-            background: var(--bg-surface); border: 1px solid var(--glass-border);
-            backdrop-filter: blur(16px); border-radius: 16px; padding: 25px;
-            display: flex; flex-direction: column; justify-content: space-between; position: relative;
-            transform: translateZ(0px); transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        .cyber-product-card:hover { transform: translateY(-8px) scale(1.02); border-color: var(--accent-cyan); box-shadow: var(--neon-glow); }
-
-        .cyber-product-card h3 { font-size: 1.5rem; color: #fff; font-weight: 700; }
-        .cyber-product-card .price-metric-display { font-size: 2.2rem; font-weight: 800; color: #fff; margin: 15px 0; }
-        .cyber-product-card ul { list-style: none; margin-bottom: 25px; }
-        .cyber-product-card ul li { margin-bottom: 10px; color: var(--text-secondary); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
-        .cyber-product-card ul li i { color: var(--color-success); }
-
-        .terminal-interaction-btn {
-            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
-            border: none; color: #fff; font-weight: 700; padding: 14px; border-radius: 10px;
-            cursor: pointer; width: 100%; text-transform: uppercase; font-size: 0.85rem;
-        }
-
-        .floating-action-basket-pill {
-            position: fixed; bottom: 35px; right: 40px;
-            background: rgba(11, 15, 25, 0.95); border: 1px solid var(--accent-cyan);
-            box-shadow: var(--neon-glow); padding: 15px 30px; border-radius: 100px;
-            display: none; align-items: center; gap: 25px; z-index: 400; backdrop-filter: blur(20px);
-        }
-
-        .window-blur-overlay-mask {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 4, 10, 0.85); backdrop-filter: blur(12px);
-            z-index: 1000; display: none; justify-content: center; align-items: center; padding: 15px;
+            pointer-events: none; z-index: -1; opacity: 0.7;
         }
-        .glass-modal-container-block {
-            background: rgba(11, 15, 25, 0.98); border: 1px solid rgba(255,255,255,0.08);
-            width: 100%; max-width: 650px; border-radius: 20px; padding: 35px;
-            position: relative; max-height: 85vh; overflow-y: auto;
-        }
-        .window-close-trigger-node { position: absolute; top: 22px; right: 22px; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); z-index: 1100; }
-
-        .form-structural-group { margin-bottom: 20px; }
-        .form-structural-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.82rem; color: var(--accent-cyan); text-transform: uppercase; }
-        .form-structural-group input, .form-structural-group select {
-            width: 100%; padding: 14px; background: rgba(2, 4, 10, 0.6);
-            border: 1px solid rgba(255,255,255,0.08); color: #fff; font-size: 0.95rem; border-radius: 10px; outline: none;
+        .bg-aurora {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.05), transparent 30%),
+                radial-gradient(circle at 85% 30%, rgba(245, 158, 11, 0.05), transparent 30%),
+                radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.05), transparent 30%);
+            filter: blur(60px);
+            animation: gradientShift 15s ease infinite alternate;
         }
 
-        .basket-item-list-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
-        .payment-channel-selector-matrix { display: grid; grid-template-columns: repeat(1, 1fr); gap: 12px; margin: 20px 0; }
-        .payment-channel-node-card { background: rgba(2, 4, 10, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 15px 10px; text-align: center; cursor: pointer; }
-        .payment-channel-node-card.active-selection { border-color: var(--accent-cyan); background: rgba(6, 182, 212, 0.06); box-shadow: var(--neon-glow); }
-        .payment-execution-content-panel { background: rgba(2, 4, 10, 0.5); border-radius: 10px; padding: 20px; margin-bottom: 20px; display: none; }
-
-        .premium-qr-routing-vault-frame { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #02040a; border: 1px solid var(--glass-border); padding: 20px; border-radius: 14px; text-align: center; margin: 15px 0; }
-        .premium-qr-routing-vault-frame img { background: #fff; padding: 10px; border-radius: 10px; border: 2px solid var(--accent-cyan); box-shadow: var(--neon-glow); margin-bottom: 15px; width: 160px; height: 160px; }
-
-        .admin-data-table-element { width: 100%; border-collapse: collapse; text-align: left; margin-top: 15px; font-size: 0.88rem; }
-        .admin-data-table-element th, .admin-data-table-element td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
-        .admin-data-table-element th { color: var(--accent-cyan); text-transform: uppercase; font-size: 0.72rem; }
-
-        .admin-analytics-dashboard-matrix { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 25px; }
-        .analytics-widget-card { background: rgba(2, 4, 10, 0.5); padding: 15px; border-radius: 12px; border-bottom: 2px solid var(--accent-purple); }
-        .analytics-widget-card h6 { font-size: 0.68rem; text-transform: uppercase; color: var(--text-secondary); }
-        .analytics-widget-card h2 { font-size: 1.5rem; margin-top: 4px; font-weight: 800; }
-
-        .owner-control-section-block { margin-top: 35px; border-top: 1px dashed rgba(168, 85, 247, 0.3); padding-top: 25px; }
-
-        .ai-chat-launcher-pill-trigger {
-            position: fixed; bottom: 35px; left: 40px; z-index: 999;
-            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
-            color: #fff; padding: 14px 22px; border-radius: 50px; font-weight: 800;
-            display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: var(--neon-glow);
+        /* Next-Gen Premium Glassmorphism */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
         }
-        .ai-chat-window-viewport-block {
-            position: fixed; bottom: 100px; left: 40px; width: 350px; height: 450px;
-            background: rgba(11, 15, 25, 0.98); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px; display: none; flex-direction: column; z-index: 999;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; backdrop-filter: blur(20px);
+        .glass-panel:hover {
+            border-color: rgba(255, 255, 255, 0.15);
         }
-        .ai-chat-header-bar { background: rgba(2,4,10,0.6); padding: 15px; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; }
-        .ai-chat-messages-stream-stack { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-        .ai-chat-bubble-node { padding: 10px 14px; border-radius: 12px; max-width: 80%; font-size: 0.85rem; line-height: 1.4; }
-        .ai-chat-bubble-node.assistant { background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.2); color: #fff; align-self: flex-start; }
-        .ai-chat-bubble-node.user { background: var(--accent-purple); color: #fff; align-self: flex-end; }
-        .ai-chat-input-row-container { padding: 10px; background: rgba(2,4,10,0.4); border-top: 1px solid var(--glass-border); display: flex; gap: 8px; }
-        .ai-chat-input-row-container input { flex-grow: 1; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; font-size: 0.85rem; }
 
-        @media (max-width: 1024px) {
-            .app-layout-root { grid-template-columns: 1fr; }
-            aside { display: none !important; }
-            .mobile-header-bar { display: none; }
-            .mobile-navigation-dock-bar { display: none; }
-            .primary-viewport-pane { padding: 25px 20px 100px 20px; }
-            .floating-action-basket-pill { bottom: 85px; right: 20px; left: 20px; border-radius: 14px; justify-content: space-between; padding: 12px 20px; }
-            .admin-analytics-dashboard-matrix { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .app-layout-root.shop-active ~ .mobile-header-bar { display: flex; }
-            .app-layout-root.shop-active ~ .mobile-navigation-dock-bar { display: flex; }
-            .ai-chat-launcher-pill-trigger { bottom: 85px; left: 20px; padding: 10px 16px; font-size: 0.8rem; }
-            .ai-chat-window-viewport-block { left: 20px; right: 20px; width: auto; bottom: 145px; }
+        /* 3D Interactive Tilt Cards */
+        .tilt-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            position: relative;
         }
+        .tilt-card-content {
+            transform: translateZ(30px);
+        }
+        .glare {
+            position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+            transition: opacity 0.3s; opacity: 0; z-index: 10;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #02040a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; border: 2px solid #02040a; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        /* Custom Range Slider */
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; height: 26px; width: 26px; border-radius: 50%;
+            background: #f59e0b; cursor: pointer; margin-top: -9px;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.6), inset 0 0 0 4px #02040a;
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%; height: 8px; cursor: pointer; background: #1e293b;
+            border-radius: 4px; border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* View State Management */
+        .view-section { display: none; opacity: 0; }
+        .view-section.active { display: block; animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        /* Typography Gradients */
+        .text-gradient {
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* Checkout Modal Scroll */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
     </style>
 </head>
-<body class="antialiased selection:bg-amber-500 selection:text-slate-950 relative">
+<body class="antialiased selection:bg-white selection:text-black">
 
+    <div class="bg-aurora"></div>
     <canvas id="particles-canvas"></canvas>
-    <div class="banner-background-canvas-overlay"></div>
-    <div class="ambient-aurora-orbs">
-        <div class="aurora-blur aurora-1"></div>
-        <div class="aurora-blur aurora-2"></div>
-    </div>
 
-    <!-- MAIN HUB SPLASH WITH PORTAL SELECTION -->
-    <div id="main_landing_view_tier">
-        <img src="logo.png" class="server-brand-logo-centerpiece" alt="CylestialMC Logo Centered">
-        
-        <div class="home-brand-cluster">
-            <h1 id="liveDOMTextServerBrandNameTitle">CYLESTIAL<span>MC</span></h1>
-            <p id="liveDOMTextServerBrandSubtitle">Official Server Network & Hosting Hub</p>
-        </div>
-
-        <div class="live-server-motd-pulse-strip" onclick="executeServerAddressCopyProtocolString()">
-            <span class="dot"></span>
-            <span id="liveDOMTextServerMotdMessageDisplay">● 142 Players Online | ⚔️ SUMMER SEASON UPDATE IS LIVE (Tap to copy IP)</span>
-        </div>
-
-        <!-- WANT TO BUY / GATEWAY SELECTION PORTAL -->
-        <div class="portal-choice-container">
-            <h3 class="portal-choice-title">What do you want to explore?</h3>
-            <div class="portal-choice-grid">
-                <button class="portal-btn portal-btn-hosting" onclick="navigateToViewTier('hosting')">
-                    <i class="fa-solid fa-server text-2xl"></i>
-                    <span>Cylestial Hosting</span>
-                </button>
-
-                <button class="portal-btn portal-btn-shop" onclick="navigateToViewTier('shop')">
-                    <i class="fa-solid fa-cart-shopping text-2xl"></i>
-                    <span>Server Shop & Ranks</span>
-                </button>
-
-                <button class="portal-btn portal-btn-discord" onclick="navigateToViewTier('discord')">
-                    <i class="fa-brands fa-discord text-2xl"></i>
-                    <span>Discord Support Portal</span>
-                </button>
-            </div>
-        </div>
-
-        <div class="gateway-network-hub">
-            <div class="network-node-card">
-                <div class="icon-shield"><i class="fa-solid fa-terminal"></i></div>
-                <div class="node-meta"><h6>Java Network Address</h6><p id="liveDOMTextConnectionJavaAddress">node.treemc.host:19132</p></div>
-            </div>
-            <div class="network-node-card">
-                <div class="icon-shield"><i class="fa-solid fa-mobile-screen-button"></i></div>
-                <div class="node-meta"><h6>Bedrock Connection IP</h6><p id="liveDOMTextConnectionBedrockIP">node.treemc.host</p></div>
-            </div>
-            <div class="network-node-card">
-                <div class="icon-shield"><i class="fa-solid fa-circle-nodes"></i></div>
-                <div class="node-meta"><h6>Bedrock Gateway Port</h6><p id="liveDOMTextConnectionBedrockPort">19132</p></div>
-            </div>
-        </div>
-
-        <div class="supporters-history-panel-container">
-            <h3><i class="fa-solid fa-trophy"></i> Server Supporters</h3>
-            <div class="supporters-scroller-stack" id="publicSupportersRecognitionScrollerStack">
-                <div style="color:var(--text-secondary); font-size:0.85rem; text-align:center; padding: 20px 0;">No purchase records processed in current runtime branch yet. Become the first supporter!</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- DEDICATED DISCORD CHOOSER PAGE (HOSTING OR MINECRAFT SERVER - ABSOLUTELY NO IP/NODES SHOWN FOR HOSTING) -->
-    <div id="discord_chooser_view_tier" class="hidden relative z-10 min-h-screen flex flex-col items-center justify-center p-6 text-center">
-        <div class="max-w-2xl w-full card-glass p-8 sm:p-12 rounded-3xl border border-indigo-500/30 shadow-2xl">
-            <div class="w-16 h-16 rounded-2xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-3xl mx-auto mb-6 border border-indigo-500/40">
-                <i class="fa-brands fa-discord"></i>
-            </div>
-
-            <h2 class="text-3xl font-black text-white uppercase tracking-wider">Discord Support Hub</h2>
-            <p class="text-slate-400 text-sm mt-2 mb-8">Select which service you need help or community access for:</p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <!-- Hosting Discord Link (STRICTLY NO IP/PORT DISPLAYED) -->
-                <a href="https://discord.gg/cd5ZwpMt" target="_blank" onclick="playClickSound()" class="p-6 rounded-2xl bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-amber-400 border border-amber-500/40 transition-all flex flex-col items-center gap-3 group">
-                    <i class="fa-solid fa-server text-3xl group-hover:scale-110 transition-all"></i>
-                    <span class="font-extrabold text-lg">Hosting Discord</span>
-                    <span class="text-xs text-slate-400 group-hover:text-slate-900">Dedicated Node Support & Ticket Panel</span>
-                </a>
-
-                <!-- Minecraft Server Discord Link -->
-                <a href="https://discord.gg/Tg5duznkX" target="_blank" onclick="playClickSound()" class="p-6 rounded-2xl bg-slate-900 hover:bg-indigo-600 hover:text-white text-indigo-400 border border-indigo-500/40 transition-all flex flex-col items-center gap-3 group">
-                    <i class="fa-solid fa-gamepad text-3xl group-hover:scale-110 transition-all"></i>
-                    <span class="font-extrabold text-lg">Minecraft Server Discord</span>
-                    <span class="text-xs text-slate-400 group-hover:text-slate-200">Community Chat, Webstore Ranks & Updates</span>
-                </a>
-            </div>
-
-            <button onclick="navigateToViewTier('home')" class="mt-8 px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs uppercase tracking-wider transition-all">
-                ← Return to Main Hub
-            </button>
-        </div>
-    </div>
-
-    <!-- HOSTING SUITE VIEW TIER -->
-    <div id="hosting_layout_root_tier" class="hidden relative z-10 pb-20">
-        <!-- Hosting Navigation -->
-        <nav class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50">
-            <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateToViewTier('home')">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-700 flex items-center justify-center text-slate-950 text-xl font-black shadow-lg">
-                        ⚡
-                    </div>
-                    <span class="text-2xl font-black tracking-tight text-white">CYLESTIAL <span class="gradient-text">HOSTS</span></span>
+    <!-- GLOBAL NAVBAR -->
+    <nav class="fixed top-0 w-full z-50 glass-panel border-b-0 border-x-0 border-t-0 border-b border-white/5 transition-all duration-300" id="global-nav">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-3 cursor-pointer group" onclick="switchView('hub')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/10 flex items-center justify-center text-white text-xl shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:scale-110 transition-transform duration-300">
+                    <i class="fa-solid fa-cube"></i>
                 </div>
-                
-                <div class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-slate-300">
-                    <a href="#estimator" onclick="playClickSound()" class="hover:text-amber-400 transition-colors">Estimator</a>
-                    <a href="#calculator" onclick="playClickSound()" class="hover:text-amber-400 transition-colors">Configurator</a>
-                    <a href="#plans" onclick="playClickSound()" class="hover:text-amber-400 transition-colors">Hosting Plans</a>
-                    <button onclick="navigateToViewTier('discord')" class="text-indigo-400 hover:text-indigo-300 font-bold"><i class="fa-brands fa-discord mr-1"></i> Support Discord</button>
-                    <button onclick="navigateToViewTier('shop')" class="text-cyan-400 hover:text-cyan-300 font-bold">Server Webstore →</button>
-                </div>
+                <span class="text-2xl font-black tracking-tight text-white group-hover:text-slate-200 transition-colors">CYLESTIAL</span>
+            </div>
 
-                <div class="flex items-center space-x-3">
-                    <button onclick="navigateToViewTier('home')" class="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-bold transition-all">
-                        <i class="fa-solid fa-house mr-1"></i> Main Hub
+            <!-- Dynamic Central Navigation -->
+            <div id="nav-links-container" class="hidden md:flex items-center gap-8 text-sm font-bold text-slate-400">
+                <!-- Injected via JS based on active view to keep UI clean -->
+            </div>
+
+            <!-- Global Actions -->
+            <div class="flex items-center gap-4">
+                <button onclick="switchView('hub')" class="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-bold transition-all hover:scale-105">
+                    <i class="fa-solid fa-house"></i> Main Hub
+                </button>
+                <div id="nav-cart-btn" class="hidden">
+                    <button onclick="openModal('checkoutModal')" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-shop text-black text-sm font-black shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:scale-105 hover:bg-cyan-400 transition-all">
+                        <i class="fa-solid fa-shopping-cart"></i> <span id="nav-cart-count">0</span>
                     </button>
-                    <a href="https://paper.treemc.host/" target="_blank" onclick="playClickSound()" class="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 text-sm font-bold shadow-lg shadow-amber-500/20 transition-all">
-                        <i class="fa-solid fa-gauge-high"></i>
-                        <span>Game Panel</span>
-                    </a>
                 </div>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <!-- Hero Section -->
-        <header class="relative pt-16 pb-12 text-center max-w-7xl mx-auto px-6">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-slate-900/90 border border-slate-800 text-slate-300 mb-6 backdrop-blur-md">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>India Infrastructure Active</span>
-                <span class="text-slate-600">|</span>
-                <span class="text-amber-400">Pterodactyl Engine</span>
+    <!-- ========================================== -->
+    <!-- VIEW 1: MAIN HUB (GATEWAY)                 -->
+    <!-- ========================================== -->
+    <main id="view-hub" class="view-section active pt-32 pb-20 min-h-screen flex flex-col justify-center">
+        <div class="max-w-7xl mx-auto px-6 w-full text-center">
+            
+            <!-- Live Status Pill -->
+            <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full glass-panel border-emerald-500/30 mb-8 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
+                <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span></span>
+                <span class="text-xs font-bold text-emerald-400 tracking-widest uppercase">All Systems Operational</span>
             </div>
 
-            <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight max-w-4xl mx-auto">
-                Next-Gen India Hosting Built for <span class="gradient-text">Peak Performance</span>
+            <!-- Massive Hero Text -->
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-6 leading-tight">
+                The Future of <br />
+                <span class="text-gradient bg-gradient-to-r from-brand-shop via-brand-hosting to-brand-discord animate-gradient-shift bg-[length:200%_auto]">Gaming Infrastructure.</span>
             </h1>
-            <p class="mt-6 text-lg text-slate-400 max-w-2xl mx-auto">
-                Enterprise Intel Xeon nodes in local datacenters. Zero throttling, unmetered DDoS protection, and instant automated deployment.
+            <p class="text-lg md:text-xl text-slate-400 mb-16 max-w-3xl mx-auto font-medium leading-relaxed">
+                Select your portal below. Deploy high-performance enterprise server nodes or join the ultimate Minecraft network experience.
             </p>
-        </header>
 
-        <!-- Plan Estimator -->
-        <section id="estimator" class="py-12 max-w-5xl mx-auto px-6">
-            <div class="card-glass rounded-3xl p-8 sm:p-12">
-                <div class="text-center mb-8">
-                    <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Plan Estimator</span>
-                    <h2 class="text-3xl font-extrabold text-white mt-1">Find Your Exact Requirements</h2>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-sm font-semibold text-slate-300">Target Concurrent Players</span>
-                            <span id="estPlayerVal" class="text-lg font-bold font-mono text-amber-400">25 Players</span>
+            <!-- 3D Interactive Portal Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left mb-20 max-w-6xl mx-auto">
+                
+                <!-- Hosting Portal -->
+                <div onclick="switchView('hosting')" class="tilt-card cursor-pointer glass-panel rounded-[2rem] p-8 md:p-10 transition-colors duration-300 border-brand-hosting/20 hover:border-brand-hosting hover:bg-brand-hosting/5 group">
+                    <div class="glare"></div>
+                    <div class="tilt-card-content">
+                        <div class="w-16 h-16 rounded-2xl bg-brand-hosting/20 border border-brand-hosting/40 flex items-center justify-center text-brand-hosting text-2xl mb-8 shadow-[0_0_30px_rgba(245,158,11,0.3)] group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-server"></i>
                         </div>
-                        <input id="estPlayerSlider" type="range" min="5" max="100" value="25" step="5" oninput="calculateEstimate()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500" />
-                    </div>
-                    <div>
-                        <label class="text-sm font-semibold text-slate-300 block mb-2">Server Software & Mods</label>
-                        <select id="estType" onchange="calculateEstimate()" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 font-mono">
-                            <option value="vanilla">Vanilla / Paper (Standard SMP)</option>
-                            <option value="plugins">Paper / Purpur + 25 Plugins</option>
-                            <option value="modded">Heavy Modpack (Forge / Fabric / ATM)</option>
-                        </select>
+                        <h3 class="text-3xl font-black text-white mb-4">Cylestial Hosts</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-8 font-medium">Deploy enterprise India compute nodes instantly. Zero lag, NVMe SSDs, and premium automated DDoS protection built for serious owners.</p>
+                        <div class="flex items-center gap-2 text-brand-hosting font-bold text-sm tracking-wide uppercase">
+                            Configure Node <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                        </div>
                     </div>
                 </div>
 
-                <div class="mt-8 bg-slate-950 rounded-2xl p-6 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div>
-                        <span class="text-xs text-slate-500 block uppercase font-mono">Recommended Plan</span>
-                        <span id="estPlanName" class="text-2xl font-black text-white">🚀 HYPERION (8 GB RAM)</span>
-                        <p id="estReason" class="text-xs text-slate-400 mt-1">Ideal for smooth performance with active plugins and medium player counts.</p>
+                <!-- Webstore Portal -->
+                <div onclick="switchView('shop')" class="tilt-card cursor-pointer glass-panel rounded-[2rem] p-8 md:p-10 transition-colors duration-300 border-brand-shop/20 hover:border-brand-shop hover:bg-brand-shop/5 group">
+                    <div class="glare"></div>
+                    <div class="tilt-card-content">
+                        <div class="w-16 h-16 rounded-2xl bg-brand-shop/20 border border-brand-shop/40 flex items-center justify-center text-brand-shop text-2xl mb-8 shadow-[0_0_30px_rgba(6,182,212,0.3)] group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-store"></i>
+                        </div>
+                        <h3 class="text-3xl font-black text-white mb-4">Server Webstore</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-8 font-medium">Upgrade your gameplay. Purchase global ranks, unlock exclusive crate keys, and instantly sync cosmetics to the Cylestial network.</p>
+                        <div class="flex items-center gap-2 text-brand-shop font-bold text-sm tracking-wide uppercase">
+                            Browse Catalog <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                        </div>
                     </div>
-                    <button id="estOrderBtn" onclick="openPaymentModal('HYPERION', '₹199')" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-lg transition-all shrink-0">
-                        Order This Tier
+                </div>
+
+                <!-- Discord Portal -->
+                <div onclick="switchView('discord')" class="tilt-card cursor-pointer glass-panel rounded-[2rem] p-8 md:p-10 transition-colors duration-300 border-brand-discord/20 hover:border-brand-discord hover:bg-brand-discord/5 group">
+                    <div class="glare"></div>
+                    <div class="tilt-card-content">
+                        <div class="w-16 h-16 rounded-2xl bg-brand-discord/20 border border-brand-discord/40 flex items-center justify-center text-brand-discord text-3xl mb-8 shadow-[0_0_30px_rgba(99,102,241,0.3)] group-hover:scale-110 transition-transform">
+                            <i class="fa-brands fa-discord"></i>
+                        </div>
+                        <h3 class="text-3xl font-black text-white mb-4">Support Hub</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-8 font-medium">Need immediate assistance? Select your specific division to join the community or open a direct ticket with our engineering team.</p>
+                        <div class="flex items-center gap-2 text-brand-discord font-bold text-sm tracking-wide uppercase">
+                            Get Help <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Universal Player Connection Info -->
+            <div class="max-w-4xl mx-auto glass-panel p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border-white/10">
+                <div class="text-left flex items-center gap-4">
+                    <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-slate-300"><i class="fa-solid fa-gamepad"></i></div>
+                    <div>
+                        <span class="block text-[10px] uppercase font-bold text-slate-500 tracking-widest">Connect to Network (Java & Bedrock)</span>
+                        <span class="text-lg font-mono font-black text-white">node.treemc.host<span class="text-brand-shop">:<span id="hub-port">19132</span></span></span>
+                    </div>
+                </div>
+                <button onclick="copyText('node.treemc.host:19132', 'Minecraft IP Copied!')" class="w-full md:w-auto px-6 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-gray-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                    <i class="fa-regular fa-copy mr-2"></i> Copy IP
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: CYLESTIAL HOSTING SUITE            -->
+    <!-- ========================================== -->
+    <main id="view-hosting" class="view-section pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            
+            <h2 class="text-5xl md:text-7xl font-black text-white tracking-tight mb-6">
+                Zero Lag. <br class="md:hidden" />Pure <span class="text-gradient bg-gradient-to-r from-amber-400 to-orange-500">Performance.</span>
+            </h2>
+            <p class="text-lg text-slate-400 mb-12 max-w-2xl mx-auto font-medium">
+                Intel Xeon hardware. PCIe 4.0 NVMe storage. Instant automated deployment in India. Strictly built for serious server owners.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-4 mb-20">
+                <a href="#h-config" class="px-8 py-4 rounded-xl bg-brand-hosting hover:bg-brand-hosting/90 text-black font-black text-sm uppercase tracking-widest shadow-[0_0_30px_rgba(245,158,11,0.3)] transition-all hover:scale-105">
+                    Build Your Node
+                </a>
+                <a href="https://paper.treemc.host/" target="_blank" class="px-8 py-4 rounded-xl glass-panel text-white font-bold text-sm uppercase tracking-widest transition-all hover:bg-white/10 border-brand-hosting/30">
+                    <i class="fa-solid fa-gauge-high mr-2"></i> Game Panel
+                </a>
+            </div>
+
+            <!-- Datacenter Ping Tester (NO IPs SHOWN) -->
+            <div class="glass-panel p-8 md:p-10 rounded-3xl max-w-3xl mx-auto mb-20 text-center relative overflow-hidden border-brand-hosting/20">
+                <div class="absolute inset-0 bg-gradient-to-b from-brand-hosting/5 to-transparent pointer-events-none"></div>
+                <h3 class="text-2xl font-black text-white mb-2 relative z-10">Mumbai Datacenter Test</h3>
+                <p class="text-sm text-slate-400 mb-8 relative z-10 font-medium">Run a localized latency check to our primary enterprise compute routing systems.</p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
+                    <button onclick="runPing()" class="px-8 py-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 font-bold transition-all flex items-center gap-3">
+                        <i class="fa-solid fa-wifi text-brand-hosting"></i> Run Latency Check
+                    </button>
+                    <div class="px-8 py-4 rounded-xl bg-black/60 border border-white/5 min-w-[160px] shadow-inner">
+                        <span id="ping-result-txt" class="font-mono font-black text-xl text-slate-500">Ready</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Configurator -->
+            <div id="h-config" class="glass-panel p-8 md:p-12 rounded-[2rem] max-w-5xl mx-auto mb-24 text-left border-t border-brand-hosting/40 shadow-[0_-20px_60px_rgba(245,158,11,0.05)]">
+                <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div>
+                        <h3 class="text-3xl font-black text-white">Resource Configurator</h3>
+                        <p class="text-slate-400 text-sm mt-2 font-medium">Slide to allocate dedicated hardware resources</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="block text-[10px] uppercase font-bold text-brand-hosting tracking-widest mb-1">Selected Memory</span>
+                        <span id="cfg-ram" class="text-4xl font-black text-white font-mono">8 GB</span>
+                    </div>
+                </div>
+
+                <div class="mb-16 bg-black/30 p-6 md:p-8 rounded-2xl border border-white/5 shadow-inner">
+                    <input type="range" id="hostSlider" min="0" max="5" value="1" step="1" oninput="updateHostConfig()">
+                    <div class="flex justify-between text-xs font-bold text-slate-500 mt-6 font-mono">
+                        <span>4G</span><span>8G</span><span>12G</span><span>16G</span><span class="text-brand-hosting">26G</span><span class="text-brand-hosting">32G</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                    <div class="bg-black/40 border border-white/5 p-5 rounded-2xl flex flex-col justify-center">
+                        <span class="block text-[10px] uppercase font-bold text-slate-500 mb-2">Compute Units</span>
+                        <span id="cfg-cpu" class="text-xl font-black text-white">200% vCPU</span>
+                    </div>
+                    <div class="bg-black/40 border border-white/5 p-5 rounded-2xl flex flex-col justify-center">
+                        <span class="block text-[10px] uppercase font-bold text-slate-500 mb-2">Fast Storage</span>
+                        <span id="cfg-disk" class="text-xl font-black text-white">30 GB NVMe</span>
+                    </div>
+                    <div class="bg-black/40 border border-white/5 p-5 rounded-2xl flex flex-col justify-center">
+                        <span class="block text-[10px] uppercase font-bold text-slate-500 mb-2">Automated Backups</span>
+                        <span id="cfg-bkups" class="text-xl font-black text-white">2 Slots</span>
+                    </div>
+                    <div class="bg-black/40 border border-brand-hosting/20 p-5 rounded-2xl flex flex-col justify-center shadow-[inset_0_0_20px_rgba(245,158,11,0.05)]">
+                        <span class="block text-[10px] uppercase font-bold text-brand-hosting mb-2">DDoS Mitigation</span>
+                        <span class="text-xl font-black text-emerald-400"><i class="fa-solid fa-shield-check mr-1"></i> Included</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10 gap-6">
+                    <div>
+                        <span class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total Monthly Cost</span>
+                        <div class="flex items-baseline gap-1">
+                            <span id="cfg-price" class="text-5xl font-black text-brand-hosting font-mono">₹199</span>
+                            <span class="text-slate-400 font-bold text-lg">/mo</span>
+                        </div>
+                    </div>
+                    <button id="cfg-btn" onclick="initHostCheckout('HYPERION', 199)" class="w-full md:w-auto px-12 py-5 rounded-xl bg-brand-hosting hover:bg-brand-hosting/90 text-black font-black text-sm uppercase tracking-widest shadow-[0_0_30px_rgba(245,158,11,0.4)] transition-all hover:scale-105">
+                        Deploy Server Now
                     </button>
                 </div>
             </div>
-        </section>
 
-        <!-- Configurator Slider -->
-        <section id="calculator" class="py-12 max-w-5xl mx-auto px-6">
-            <div class="card-glass rounded-3xl p-8 sm:p-12 glow-gold">
-                <div class="text-center mb-8">
-                    <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Interactive Configurator</span>
-                    <h2 class="text-3xl font-extrabold text-white mt-1">Configure Your India Server</h2>
-                </div>
-
-                <div class="space-y-8">
-                    <div>
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-sm font-semibold text-slate-300">Allocated RAM</span>
-                            <span id="sliderRamValue" class="text-2xl font-black text-amber-400 font-mono">8 GB RAM</span>
-                        </div>
-                        <input id="ramSlider" type="range" min="0" max="5" step="1" value="1" oninput="updateConfigurator()" class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500" />
-                    </div>
-
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-slate-800 text-center">
-                        <div><span class="text-xs text-slate-500 block">CPU Allocation</span><span id="cfgCpu" class="text-sm font-bold text-white">200% vCPU</span></div>
-                        <div><span class="text-xs text-slate-500 block">NVMe Storage</span><span id="cfgStorage" class="text-sm font-bold text-white">30 GB NVMe</span></div>
-                        <div><span class="text-xs text-slate-500 block">Backups Included</span><span id="cfgBackups" class="text-sm font-bold text-white">2 Backups</span></div>
-                        <div><span class="text-xs text-slate-500 block">Region</span><span class="text-sm font-bold text-emerald-400">🇮🇳 India Node</span></div>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row items-center justify-between pt-6 border-t border-slate-800 gap-4">
+            <!-- Pre-built Plans Grid -->
+            <div id="plans" class="mb-12">
+                <h3 class="text-3xl font-black text-white mb-10">Or Choose a Preset Plan</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto text-left">
+                    
+                    <!-- Ignition -->
+                    <div class="glass-panel p-8 rounded-[2rem] flex flex-col justify-between border-transparent hover:border-white/20 transition-colors">
                         <div>
-                            <span class="text-xs text-slate-400 block">Total Monthly Cost</span>
-                            <div class="flex items-baseline gap-1">
-                                <span id="cfgPrice" class="text-4xl font-black text-white font-mono">₹199</span>
-                                <span class="text-slate-400 text-xs">/ month</span>
-                            </div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Entry</span>
+                            <h3 class="text-2xl font-black text-white mt-4 mb-2">IGNITION</h3>
+                            <div class="text-4xl font-black font-mono text-white mb-8">₹119<span class="text-sm text-slate-500">/mo</span></div>
+                            <ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8">
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-hosting bg-brand-hosting/10 p-1 rounded"></i> 4 GB RAM</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-hosting bg-brand-hosting/10 p-1 rounded"></i> 100% vCPU</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-hosting bg-brand-hosting/10 p-1 rounded"></i> 15 GB NVMe SSD</li>
+                            </ul>
                         </div>
-                        <button id="cfgOrderBtn" onclick="openPaymentModal('HYPERION', '₹199')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-center shadow-lg transition-all">
-                            Deploy Configured Server
-                        </button>
+                        <button onclick="initHostCheckout('IGNITION', 119)" class="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all">Deploy Plan</button>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Hosting Pricing Plans Grid -->
-        <section id="plans" class="py-16 max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Fixed Plans</span>
-                <h2 class="text-3xl font-extrabold text-white mt-1">Ready-to-Deploy Server Tiers</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- IGNITION -->
-                <div class="card-glass rounded-2xl p-6 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-white">⚡ IGNITION</h3>
-                        <div class="mt-4 flex items-baseline"><span class="text-4xl font-extrabold font-mono text-white">₹119</span><span class="text-slate-400 text-xs ml-2">/ month</span></div>
-                        <ul class="mt-6 space-y-3 text-sm text-slate-300 border-t border-slate-800/80 pt-4">
-                            <li><i class="fa-solid fa-memory text-amber-400 w-4"></i> <strong>4 GB</strong> RAM</li>
-                            <li><i class="fa-solid fa-microchip text-amber-400 w-4"></i> <strong>100%</strong> CPU</li>
-                            <li><i class="fa-solid fa-hard-drive text-amber-400 w-4"></i> <strong>15 GB</strong> NVMe SSD</li>
-                        </ul>
+                    <!-- Hyperion -->
+                    <div class="glass-panel p-8 rounded-[2rem] flex flex-col justify-between border-brand-hosting relative scale-100 md:scale-105 shadow-[0_0_40px_rgba(245,158,11,0.15)] z-10 bg-brand-hosting/5">
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-hosting text-black text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg">Most Popular</div>
+                        <div>
+                            <span class="text-[10px] font-bold text-brand-hosting uppercase tracking-widest bg-brand-hosting/10 px-3 py-1 rounded-md">Standard</span>
+                            <h3 class="text-2xl font-black text-white mt-4 mb-2">HYPERION</h3>
+                            <div class="text-4xl font-black font-mono text-brand-hosting mb-8">₹199<span class="text-sm text-brand-hosting/50">/mo</span></div>
+                            <ul class="space-y-4 text-sm font-semibold text-slate-200 mb-8">
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-hosting bg-brand-hosting/20 p-1 rounded"></i> 8 GB RAM</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-hosting bg-brand-hosting/20 p-1 rounded"></i> 200% vCPU</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-hosting bg-brand-hosting/20 p-1 rounded"></i> 30 GB NVMe SSD</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-star text-amber-300 bg-amber-300/20 p-1 rounded"></i> Priority Support</li>
+                            </ul>
+                        </div>
+                        <button onclick="initHostCheckout('HYPERION', 199)" class="w-full py-4 rounded-xl bg-brand-hosting hover:bg-brand-hosting/90 text-black font-black uppercase tracking-wider transition-all shadow-lg hover:scale-105">Deploy Plan</button>
                     </div>
-                    <button onclick="openPaymentModal('IGNITION', '₹119')" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-semibold transition-all">Deploy Plan</button>
-                </div>
 
-                <!-- HYPERION -->
-                <div class="card-glass rounded-2xl p-6 border-2 border-amber-500 relative flex flex-col justify-between scale-105 shadow-2xl">
-                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 text-[10px] font-black px-4 py-1 rounded-full uppercase">Most Popular</div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white">🚀 HYPERION</h3>
-                        <div class="mt-4 flex items-baseline"><span class="text-4xl font-extrabold font-mono text-white">₹199</span><span class="text-slate-400 text-xs ml-2">/ month</span></div>
-                        <ul class="mt-6 space-y-3 text-sm text-slate-200 border-t border-slate-800/80 pt-4">
-                            <li><i class="fa-solid fa-memory text-amber-400 w-4"></i> <strong>8 GB</strong> RAM</li>
-                            <li><i class="fa-solid fa-microchip text-amber-400 w-4"></i> <strong>200%</strong> CPU</li>
-                            <li><i class="fa-solid fa-hard-drive text-amber-400 w-4"></i> <strong>30 GB</strong> NVMe SSD</li>
-                        </ul>
-                    </div>
-                    <button onclick="openPaymentModal('HYPERION', '₹199')" class="mt-8 w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition-all">Deploy Plan</button>
-                </div>
-
-                <!-- VORTEX -->
-                <div class="card-glass rounded-2xl p-6 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-white">💫 VORTEX</h3>
-                        <div class="mt-4 flex items-baseline"><span class="text-4xl font-extrabold font-mono text-white">₹329</span><span class="text-slate-400 text-xs ml-2">/ month</span></div>
-                        <ul class="mt-6 space-y-3 text-sm text-slate-300 border-t border-slate-800/80 pt-4">
-                            <li><i class="fa-solid fa-memory text-amber-400 w-4"></i> <strong>12 GB</strong> RAM</li>
-                            <li><i class="fa-solid fa-microchip text-amber-400 w-4"></i> <strong>300%</strong> CPU</li>
-                            <li><i class="fa-solid fa-hard-drive text-amber-400 w-4"></i> <strong>45 GB</strong> NVMe SSD</li>
-                        </ul>
-                    </div>
-                    <button onclick="openPaymentModal('VORTEX', '₹329')" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-semibold transition-all">Deploy Plan</button>
-                </div>
-
-                <!-- APEX -->
-                <div class="card-glass rounded-2xl p-6 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-white">🪐 APEX</h3>
-                        <div class="mt-4 flex items-baseline"><span class="text-4xl font-extrabold font-mono text-white">₹449</span><span class="text-slate-400 text-xs ml-2">/ month</span></div>
-                        <ul class="mt-6 space-y-3 text-sm text-slate-300 border-t border-slate-800/80 pt-4">
-                            <li><i class="fa-solid fa-memory text-amber-400 w-4"></i> <strong>16 GB</strong> RAM</li>
-                            <li><i class="fa-solid fa-microchip text-amber-400 w-4"></i> <strong>400%</strong> CPU</li>
-                            <li><i class="fa-solid fa-hard-drive text-amber-400 w-4"></i> <strong>60 GB</strong> NVMe SSD</li>
-                        </ul>
-                    </div>
-                    <button onclick="openPaymentModal('APEX', '₹449')" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-semibold transition-all">Deploy Plan</button>
-                </div>
-
-                <!-- OVERDRIVE -->
-                <div class="card-glass rounded-2xl p-6 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-white">💥 OVERDRIVE</h3>
-                        <div class="mt-4 flex items-baseline"><span class="text-4xl font-extrabold font-mono text-white">₹699</span><span class="text-slate-400 text-xs ml-2">/ month</span></div>
-                        <ul class="mt-6 space-y-3 text-sm text-slate-300 border-t border-slate-800/80 pt-4">
-                            <li><i class="fa-solid fa-memory text-amber-400 w-4"></i> <strong>26 GB</strong> RAM</li>
-                            <li><i class="fa-solid fa-microchip text-amber-400 w-4"></i> <strong>550%</strong> CPU</li>
-                            <li><i class="fa-solid fa-hard-drive text-amber-400 w-4"></i> <strong>80 GB</strong> NVMe SSD</li>
-                        </ul>
-                    </div>
-                    <button onclick="openPaymentModal('OVERDRIVE', '₹699')" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-semibold transition-all">Deploy Plan</button>
-                </div>
-
-                <!-- GODMODE -->
-                <div class="card-glass rounded-2xl p-6 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-white">🔥 GODMODE</h3>
-                        <div class="mt-4 flex items-baseline"><span class="text-4xl font-extrabold font-mono text-white">₹749</span><span class="text-slate-400 text-xs ml-2">/ month</span></div>
-                        <ul class="mt-6 space-y-3 text-sm text-slate-300 border-t border-slate-800/80 pt-4">
-                            <li><i class="fa-solid fa-memory text-amber-400 w-4"></i> <strong>32 GB</strong> RAM</li>
-                            <li><i class="fa-solid fa-microchip text-amber-400 w-4"></i> <strong>700%</strong> CPU</li>
-                            <li><i class="fa-solid fa-hard-drive text-amber-400 w-4"></i> <strong>100 GB</strong> NVMe SSD</li>
-                        </ul>
-                    </div>
-                    <button onclick="openPaymentModal('GODMODE', '₹749')" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-white font-semibold transition-all">Deploy Plan</button>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- COMMERCE PANEL (SERVER SHOP & ALL RANKS / KEYS INCLUDED) -->
-    <div class="mobile-header-bar" id="shopMobileHeaderBar">
-        <h2 onclick="navigateToViewTier('home')" style="cursor: pointer;">CYLESTIAL<span>MC</span></h2>
-        <button class="admin-action-gate-btn" type="button" style="padding: 8px 14px; font-size:0.78rem; width: auto;" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')">
-            <i class="fa-solid fa-shield-halved"></i> Terminal
-        </button>
-    </div>
-
-    <div class="mobile-navigation-dock-bar" id="shopMobileDockBar"></div>
-
-    <div class="app-layout-root" id="shop_layout_root_tier">
-        <aside>
-            <div>
-                <div class="aside-brand-cluster" onclick="navigateToViewTier('home')">
-                    <img src="logo.png" alt="Mini Branded Badge">
-                    <div>
-                        <h1>CYLESTIAL<span>MC</span></h1>
-                        <p>Webstore Engine</p>
+                    <!-- Vortex -->
+                    <div class="glass-panel p-8 rounded-[2rem] flex flex-col justify-between border-transparent hover:border-white/20 transition-colors">
+                        <div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Advanced</span>
+                            <h3 class="text-2xl font-black text-white mt-4 mb-2">VORTEX</h3>
+                            <div class="text-4xl font-black font-mono text-white mb-8">₹329<span class="text-sm text-slate-500">/mo</span></div>
+                            <ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8">
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-hosting bg-brand-hosting/10 p-1 rounded"></i> 12 GB RAM</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-hosting bg-brand-hosting/10 p-1 rounded"></i> 300% vCPU</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-hosting bg-brand-hosting/10 p-1 rounded"></i> 45 GB NVMe SSD</li>
+                            </ul>
+                        </div>
+                        <button onclick="initHostCheckout('VORTEX', 329)" class="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all">Deploy Plan</button>
                     </div>
                 </div>
                 
-                <ul class="navigation-menu-list" id="asideDynamicNavigationTabListGroup"></ul>
-
-                <div class="theme-switch-frame-cluster">
-                    <span>Stealth Focus</span>
-                    <button class="theme-toggle-node-action-btn" type="button" onclick="executeCoreUserThemeSwitchToggle()"><i class="fa-solid fa-circle-half-stroke" id="themeStatusWidgetIconElement"></i></button>
+                <div class="mt-8 flex flex-wrap justify-center gap-3">
+                     <button onclick="initHostCheckout('APEX', 449)" class="px-5 py-2.5 rounded-xl glass-panel text-xs font-bold hover:bg-white/10 transition-colors">APEX (16GB) - ₹449</button>
+                     <button onclick="initHostCheckout('OVERDRIVE', 699)" class="px-5 py-2.5 rounded-xl glass-panel text-xs font-bold hover:bg-white/10 transition-colors">OVERDRIVE (26GB) - ₹699</button>
+                     <button onclick="initHostCheckout('GODMODE', 749)" class="px-5 py-2.5 rounded-xl glass-panel border-brand-hosting/30 text-brand-hosting text-xs font-bold hover:bg-brand-hosting/10 transition-colors">GODMODE (32GB) - ₹749</button>
                 </div>
-                
-                <a href="https://discord.gg/Tg5duznkX" target="_blank" class="admin-action-gate-btn" style="margin-top: 15px; background: rgba(88,101,242,0.05); color: #7289da; border-color: rgba(88,101,242,0.2);">
-                    <i class="fa-brands fa-discord"></i> Server Discord
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- VIEW 3: SERVER WEBSTORE & RANKS            -->
+    <!-- ========================================== -->
+    <main id="view-shop" class="view-section pt-24 pb-24 min-h-screen">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-8">
+            
+            <!-- Store Sidebar (Desktop) -->
+            <aside class="hidden lg:block w-72 shrink-0">
+                <div class="sticky top-28 glass-panel p-6 rounded-[2rem] border-brand-shop/20">
+                    <div class="flex items-center gap-3 mb-8 pb-6 border-b border-white/5">
+                        <div class="w-12 h-12 rounded-xl bg-brand-shop/20 flex items-center justify-center text-brand-shop text-xl shadow-[0_0_15px_rgba(6,182,212,0.3)]"><i class="fa-solid fa-store"></i></div>
+                        <div>
+                            <h3 class="text-sm font-black text-white uppercase tracking-widest">Webstore</h3>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Auto-Sync Enabled</p>
+                        </div>
+                    </div>
+                    
+                    <div id="shop-sidebar-nav" class="flex flex-col gap-2 mb-8">
+                        <!-- Populated via JS -->
+                    </div>
+                    
+                    <div class="bg-black/40 p-4 rounded-xl border border-white/5 mb-6 text-center">
+                        <span class="block text-[10px] text-slate-500 font-bold uppercase mb-1">Server IP</span>
+                        <span class="text-xs font-mono font-black text-brand-shop">node.treemc.host:19132</span>
+                    </div>
+
+                    <button onclick="alert('Admin Panel Secured.')" class="w-full py-3 rounded-xl bg-white/5 hover:bg-rose-500/20 border border-white/5 hover:border-rose-500/30 hover:text-rose-400 text-slate-500 text-xs font-bold flex items-center justify-center gap-2 transition-all">
+                        <i class="fa-solid fa-lock"></i> Master Terminal
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Store Content -->
+            <div class="flex-grow">
+                <!-- Mobile Header -->
+                <div class="lg:hidden glass-panel p-6 rounded-3xl mb-6 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-shop/20 flex items-center justify-center text-brand-shop text-2xl shadow-[0_0_15px_rgba(6,182,212,0.3)]"><i class="fa-solid fa-store"></i></div>
+                    <div>
+                        <h2 class="text-2xl font-black text-white">Global Webstore</h2>
+                        <p class="text-sm text-slate-400 mt-1">Purchases sync directly to <span class="font-mono text-brand-shop">node.treemc.host</span></p>
+                    </div>
+                </div>
+
+                <!-- Category Sections -->
+                <div id="shop-products-container">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Bottom Dock for Shop -->
+        <div id="mobile-dock" class="lg:hidden fixed bottom-0 w-full glass-panel border-t border-white/10 border-x-0 border-b-0 p-4 pb-safe flex items-center justify-around z-40 hidden">
+            <!-- Populated via JS -->
+        </div>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- VIEW 4: DISCORD SUPPORT PORTAL             -->
+    <!-- ========================================== -->
+    <main id="view-discord" class="view-section pt-32 pb-20 min-h-screen flex flex-col justify-center">
+        <div class="max-w-4xl mx-auto px-6 w-full text-center">
+            
+            <div class="inline-flex justify-center mb-8">
+                <div class="w-24 h-24 rounded-[2rem] bg-brand-discord/20 border border-brand-discord/40 flex items-center justify-center text-5xl text-brand-discord shadow-[0_0_50px_rgba(99,102,241,0.3)] animate-float">
+                    <i class="fa-brands fa-discord"></i>
+                </div>
+            </div>
+            
+            <h2 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">Support & Community</h2>
+            <p class="text-lg text-slate-400 mb-16 max-w-2xl mx-auto font-medium">Please select the correct Discord server block to ensure our engineering and moderation teams can assist you efficiently.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                <!-- Hosting Discord (NO IPs) -->
+                <a href="https://discord.gg/cd5ZwpMt" target="_blank" onclick="playClick()" class="tilt-card group glass-panel p-8 md:p-10 rounded-[2rem] border-brand-hosting/20 hover:border-brand-hosting transition-all duration-300">
+                    <div class="glare"></div>
+                    <div class="tilt-card-content flex flex-col items-center text-center">
+                        <div class="w-16 h-16 rounded-full bg-brand-hosting/10 text-brand-hosting group-hover:bg-brand-hosting group-hover:text-black flex items-center justify-center text-2xl mb-6 transition-colors shadow-lg">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <h3 class="text-2xl font-black text-white mb-3">Hosting Support</h3>
+                        <p class="text-sm text-slate-400 font-medium mb-6">For Cylestial Hosts customers. Open secure tickets for node issues, billing, setups, and custom memory allocations.</p>
+                        <span class="mt-auto px-6 py-2.5 rounded-full bg-white/5 border border-white/10 group-hover:border-brand-hosting text-brand-hosting text-xs font-bold uppercase tracking-widest transition-colors">Join Server</span>
+                    </div>
+                </a>
+
+                <!-- Game Server Discord -->
+                <a href="https://discord.gg/Tg5duznkX" target="_blank" onclick="playClick()" class="tilt-card group glass-panel p-8 md:p-10 rounded-[2rem] border-brand-shop/20 hover:border-brand-shop transition-all duration-300">
+                    <div class="glare"></div>
+                    <div class="tilt-card-content flex flex-col items-center text-center">
+                        <div class="w-16 h-16 rounded-full bg-brand-shop/10 text-brand-shop group-hover:bg-brand-shop group-hover:text-black flex items-center justify-center text-2xl mb-6 transition-colors shadow-lg">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <h3 class="text-2xl font-black text-white mb-3">Minecraft Network</h3>
+                        <p class="text-sm text-slate-400 font-medium mb-6">For active network players. Chat with the community, report rule breakers, claim webstore ranks, and view patch notes.</p>
+                        <span class="mt-auto px-6 py-2.5 rounded-full bg-white/5 border border-white/10 group-hover:border-brand-shop text-brand-shop text-xs font-bold uppercase tracking-widest transition-colors">Join Server</span>
+                    </div>
                 </a>
             </div>
 
-            <div class="secure-gate-trigger-container">
-                <button class="admin-action-gate-btn" type="button" style="background: rgba(239,68,68,0.02); color: var(--color-danger); border-color: rgba(239,68,68,0.15);" onclick="navigateToViewTier('home')"><i class="fa-solid fa-arrow-left"></i> Return to Hub</button>
-                <button class="admin-action-gate-btn" type="button" id="desktopConsoleTriggerBtn" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')"><i class="fa-solid fa-shield-halved"></i> Terminal Access</button>
-            </div>
-        </aside>
-
-        <main class="primary-viewport-pane" id="catalogStorefrontPrimaryViewportMainPane">
-            <div class="fomo-purchase-ticker-card" id="globalLivePurchaseFomoTickerCard">
-                <i class="fa-solid fa-bolt-lightning" style="color:var(--color-gold); font-size: 1.2rem;"></i>
-                <span id="fomoTickerContentMessageText" style="font-size:0.88rem; font-weight:600;">Welcome to CylestialMC webstore! Purchase a token package to upgrade your profile instantly.</span>
-            </div>
-
-            <div class="ticker-broadcast-shoutout" id="clientPublicGlobalBroadcastBanner"></div>
-        </main>
-    </div>
-
-    <!-- CART FLIP TRIGGER -->
-    <div class="floating-action-basket-pill" id="globalPrimaryCartFloatingWidget">
-        <div><i class="fa-solid fa-cube" style="color:var(--accent-cyan);"></i> <span id="cartWidgetDisplayItemsUnitsCountText" style="font-weight:800; color:#fff; margin-left:6px;">0</span> Items</div>
-        <button class="terminal-interaction-btn" type="button" style="padding: 10px 20px; font-size: 0.8rem; width:auto;" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')">Checkout</button>
-    </div>
-
-    <!-- PLAYER ASSISTANT INTERACTIVE FLOATING OVERLAY CHAT PANEL -->
-    <div class="ai-chat-launcher-pill-trigger" onclick="toggleServerCompanionChatViewPane()"><i class="fa-solid fa-robot"></i> Server AI Helper</div>
-    <div class="ai-chat-window-viewport-block" id="serverCompanionChatWindowFrame">
-        <div class="ai-chat-header-bar">
-            <span style="font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-circle-nodes" style="color:var(--accent-cyan)"></i> Cylestial AI Guide</span>
-            <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="toggleServerCompanionChatViewPane()"></i>
         </div>
-        <div class="ai-chat-messages-stream-stack" id="serverCompanionChatMessagesStreamStack">
-            <div class="ai-chat-bubble-node assistant">Greetings player! Welcome to CylestialMC and Cylestial Hosts! Ask me anything about our IPs, ports, shop tokens, or hosting plans.</div>
-        </div>
-        <div class="ai-chat-input-row-container">
-            <input type="text" id="serverCompanionChatInputTextField" placeholder="Ask about IP, hosting, ranks...">
-            <button class="terminal-interaction-btn" type="button" style="width:auto; padding:0 14px;" onclick="executeServerCompanionChatResponseCycle()"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
-    </div>
+    </main>
 
-    <!-- PIPELINE CHECKOUT MODAL -->
-    <div id="checkoutSystemProcessingModalWindow" class="window-blur-overlay-mask">
-        <div class="glass-modal-container-block">
-            <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')"></i>
-            <h2 style="margin-bottom: 25px; border-bottom: 1px solid var(--glass-border); padding-bottom: 14px; font-weight:800;"><i class="fa-solid fa-microchip" style="color:var(--accent-cyan)"></i> Order Pipeline</h2>
+    <!-- ========================================== -->
+    <!-- UNIFIED CHECKOUT MODAL                     -->
+    <!-- ========================================== -->
+    <div id="checkoutModal" class="fixed inset-0 bg-black/90 backdrop-blur-xl hidden z-[100] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="glass-panel w-full max-w-xl rounded-[2rem] border-white/10 shadow-2xl relative overflow-hidden flex flex-col max-h-[90vh]">
             
-            <div id="modalStageWrapperStep1">
-                <div id="modalCartItemsRowsOutputContainer"></div>
-                <div style="margin: 25px 0; text-align: right; font-size: 1.4rem; font-weight: 800; color: #ffffff;">
-                    Total: <span id="checkoutGrandTotalCostOutputText" style="color:var(--accent-cyan)">₹0</span>
-                </div>
-                <div class="form-structural-group">
-                    <label>Minecraft Username</label>
-                    <input type="text" id="formFieldMinecraftUsernameInput" placeholder="Exact player name" required>
-                </div>
-                <div class="form-structural-group">
-                    <label>Contact Email</label>
-                    <input type="email" id="formFieldCustomerEmailInput" placeholder="username@gmail.com" required>
-                </div>
-
-                <div style="margin-top: 20px; display: flex; gap: 10px; align-items: flex-start;">
-                    <input type="checkbox" id="legalMandatoryCheckboxTokenField" style="width: 18px; height: 18px; margin-top: 2px; cursor: pointer;">
-                    <label for="legalMandatoryCheckboxTokenField" style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">I certify that I have read the server legal disclosures and agree that chargebacks are blacklisted.</label>
-                </div>
-
-                <button class="terminal-interaction-btn" type="button" onclick="advanceCheckoutModalToPaymentMatrix()">Establish Pipelines</button>
+            <!-- Modal Header -->
+            <div class="p-6 md:p-8 border-b border-white/5 flex justify-between items-center bg-black/20 shrink-0">
+                <h3 id="modal-title" class="text-2xl font-black text-white flex items-center gap-3">
+                    <i class="fa-solid fa-lock text-emerald-400"></i> Secure Checkout
+                </h3>
+                <button onclick="closeModal('checkoutModal')" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
             </div>
 
-            <div id="modalStageWrapperStep2" style="display: none;">
-                <label class="form-structural-group" style="color:var(--accent-cyan); font-weight:700;">Select Secure Billing Network Option</label>
-                <div class="payment-channel-selector-matrix">
-                    <div class="payment-channel-node-card active-selection" id="paymentTabUPI"><i class="fa-solid fa-qrcode"></i> QR Deposit</div>
+            <!-- Step 1: Cart / Details -->
+            <div id="checkout-step-1" class="p-6 md:p-8 overflow-y-auto custom-scrollbar">
+                
+                <!-- Webstore Cart Injection -->
+                <div id="modal-cart-items" class="mb-8 hidden flex flex-col gap-3"></div>
+
+                <!-- Hosting Plan Injection -->
+                <div id="modal-host-item" class="mb-8 hidden bg-brand-hosting/10 border border-brand-hosting/30 p-5 rounded-2xl flex justify-between items-center shadow-inner">
+                    <div>
+                        <span class="text-[10px] uppercase font-bold text-brand-hosting tracking-widest block mb-1">Selected Configuration</span>
+                        <span id="modal-host-name" class="font-black text-white text-xl">PLAN</span>
+                    </div>
+                    <span id="modal-host-price" class="font-mono font-black text-brand-hosting text-2xl">₹0</span>
                 </div>
 
-                <div class="payment-execution-content-panel" id="paneVaultUPI" style="display: block;">
-                    <p style="margin-bottom: 12px; font-size: 0.85rem; color: var(--text-secondary); text-align: center;">Scan this secure routing node QR from any banking app to deposit:</p>
-                    <div class="premium-qr-routing-vault-frame">
-                        <img src="" id="premiumAutomatedBillingQRImageTarget" alt="Secure Network QR Node">
-                        <p style="font-family:monospace; font-size: 1.1rem; background: #02040a; padding: 10px; border-radius: 8px; color: #fff; font-weight:700; border: 1px dashed rgba(6, 182, 212, 0.3);">rishitkhare@fam</p>
+                <div class="flex justify-between items-end mb-8 pb-6 border-b border-white/5">
+                    <span class="text-slate-400 font-bold uppercase tracking-widest text-xs">Total Amount Due</span>
+                    <span id="modal-total-amt" class="text-5xl font-black font-mono text-white">₹0</span>
+                </div>
+
+                <div class="space-y-5">
+                    <!-- Webstore specific field -->
+                    <div id="field-mc-name" class="hidden">
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Minecraft Username <span class="text-rose-500">*</span></label>
+                        <input type="text" id="inp-mc-name" class="w-full bg-black/60 border border-white/10 rounded-xl px-5 py-4 text-white font-mono focus:border-brand-shop focus:bg-black transition-all outline-none" placeholder="Notch">
+                    </div>
+                    <!-- Global fields -->
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Discord Username <span class="text-rose-500">*</span></label>
+                        <input type="text" id="inp-discord" class="w-full bg-black/60 border border-white/10 rounded-xl px-5 py-4 text-white font-mono focus:border-emerald-400 focus:bg-black transition-all outline-none" placeholder="user#1234">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Contact Email <span class="text-rose-500">*</span></label>
+                        <input type="email" id="inp-email" class="w-full bg-black/60 border border-white/10 rounded-xl px-5 py-4 text-white font-mono focus:border-emerald-400 focus:bg-black transition-all outline-none" placeholder="name@email.com">
                     </div>
                 </div>
 
-                <div class="form-structural-group" style="margin-top: 20px;">
-                    <label>Transaction Reference ID</label>
-                    <input type="text" id="formFieldTransactionRefId" placeholder="Enter bank reference transaction ID" required>
+                <button onclick="goToPayment()" id="btn-proceed" class="w-full mt-10 py-5 rounded-xl bg-white hover:bg-gray-200 text-black font-black uppercase tracking-widest shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-all hover:scale-[1.02]">
+                    Proceed to Payment
+                </button>
+            </div>
+
+            <!-- Step 2: UPI Payment -->
+            <div id="checkout-step-2" class="p-6 md:p-8 hidden overflow-y-auto custom-scrollbar text-center flex flex-col items-center">
+                <div class="mb-8">
+                    <span class="inline-block px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold uppercase tracking-widest mb-4">Official Secure Gateway</span>
+                    <p class="text-sm text-slate-400 font-medium">Scan QR using GPay, PhonePe, Paytm, or BHIM</p>
                 </div>
 
-                <button class="terminal-interaction-btn" type="button" style="background: var(--color-success); color:#02040a; margin-top: 15px;" onclick="pushOrderRecordDataObjectsToQueue()">Submit Registration Ledger</button>
+                <div class="bg-white p-4 rounded-3xl inline-block mb-8 shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                    <img id="upi-qr" src="" alt="UPI QR" class="w-48 h-48 block rounded-xl">
+                </div>
+
+                <div class="w-full bg-black/60 border border-white/10 rounded-2xl p-4 flex justify-between items-center mb-8 text-left">
+                    <div>
+                        <span class="block text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Official UPI ID</span>
+                        <span class="font-mono font-bold text-white text-base">rishitkhare@fam</span>
+                    </div>
+                    <button onclick="copyText('rishitkhare@fam', 'UPI ID Copied!')" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-bold text-white transition-colors">COPY</button>
+                </div>
+
+                <div class="w-full text-left mb-10">
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Transaction Ref ID (12 Digits) <span class="text-rose-500">*</span></label>
+                    <input type="text" id="inp-txn" class="w-full bg-black/60 border border-white/10 rounded-xl px-5 py-4 text-white font-mono focus:border-emerald-400 focus:bg-black transition-all outline-none" placeholder="e.g. 312345678901">
+                </div>
+
+                <button onclick="submitOrder()" class="w-full py-5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-widest shadow-[0_0_30px_rgba(16,185,129,0.3)] transition-all hover:scale-[1.02]">
+                    Confirm Verification
+                </button>
+                <button onclick="backToCart()" class="w-full mt-4 py-3 text-xs font-bold text-slate-500 hover:text-white uppercase tracking-widest transition-colors">
+                    ← Back to Details
+                </button>
             </div>
 
-            <div id="modalStageWrapperStep3" style="display: none; text-align: center; padding: 30px 0;">
-                <i class="fa-solid fa-shield-heart" style="font-size: 3.5rem; color: var(--color-success); margin-bottom: 20px;"></i>
-                <h3>ORDER QUEUED SECURELY</h3>
-                <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px;">CLAIM YOUR ITEMS INSTANTLY BY CREATING A SUPPORT TICKET ON OUR DISCORD</p>
-                
-                <a href="https://discord.gg/Tg5duznkX" target="_blank" class="discord-redirect-integration-btn" style="padding: 12px 25px; font-size: 0.9rem; width: auto; margin-bottom: 25px;">
-                    <i class="fa-brands fa-discord"></i> Open Discord Ticket
-                </a>
-                
-                <button class="terminal-interaction-btn" type="button" style="margin-top: 10px; width: auto; padding: 12px 40px; display: block; margin: 0 auto;" onclick="closeSystemModalWindow('checkoutSystemProcessingModalWindow')">Return To Store</button>
+            <!-- Step 3: Success -->
+            <div id="checkout-step-3" class="p-10 md:p-16 hidden text-center flex flex-col items-center justify-center">
+                <div class="w-24 h-24 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-5xl mx-auto mb-8 border border-emerald-500/30 shadow-[0_0_50px_rgba(16,185,129,0.2)]">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h3 class="text-3xl font-black text-white mb-4">Order Authorized</h3>
+                <p class="text-base text-slate-400 mb-10 font-medium leading-relaxed max-w-sm mx-auto">Your transaction hash has been logged securely. Please open a ticket in our Discord network to instantly deploy your assets.</p>
+                <button onclick="finishOrder()" id="btn-finish" class="w-full py-5 rounded-xl bg-brand-discord hover:bg-brand-discord/90 text-white font-black uppercase tracking-widest shadow-[0_0_30px_rgba(99,102,241,0.4)] transition-all hover:scale-[1.02] flex items-center justify-center gap-3">
+                    <i class="fa-brands fa-discord text-2xl"></i> Open Support Ticket
+                </button>
             </div>
+
         </div>
     </div>
 
-    <!-- HOSTING CHECKOUT PAYMENT MODAL -->
-    <div id="paymentModal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center z-50 p-4">
-      <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl">
-        <button onclick="closePaymentModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-
-        <div class="text-center">
-          <h3 class="text-2xl font-bold text-white">Hosting Checkout</h3>
-          <p class="text-slate-400 text-sm mt-1">Plan: <span id="modalPlanName" class="text-amber-400 font-bold"></span> (<span id="modalPlanPrice" class="text-white font-bold"></span>)</p>
-        </div>
-
-        <div class="mt-6 flex flex-col items-center bg-slate-950 p-4 rounded-2xl border border-slate-800">
-          <img id="upiQrCode" src="" alt="UPI Payment QR Code" class="w-44 h-44 rounded-xl border border-slate-700" />
-          <span class="text-xs text-slate-400 mt-2">Scan with GPay, PhonePe, Paytm, or BHIM</span>
-        </div>
-
-        <div class="mt-4 bg-slate-950 rounded-2xl p-4 border border-slate-800">
-          <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Official UPI ID</span>
-          <div class="flex items-center justify-between bg-slate-900 px-4 py-2 rounded-xl border border-slate-800">
-            <span id="upiId" class="text-white font-mono font-bold text-sm">rishitkhare@fam</span>
-            <button onclick="copyUPI()" class="text-amber-400 hover:text-amber-300 font-semibold text-xs flex items-center gap-1">
-              <i class="fa-regular fa-copy"></i>
-              <span id="copyText">Copy</span>
-            </button>
-          </div>
-        </div>
-
-        <form onsubmit="handlePaymentSubmit(event)" class="mt-4 space-y-3 text-left">
-          <div>
-            <label class="text-xs text-slate-400 block mb-1 font-semibold">Your Discord Username</label>
-            <input type="text" id="discordUser" required placeholder="e.g. gamer_123" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500 font-mono" />
-          </div>
-          <div>
-            <label class="text-xs text-slate-400 block mb-1 font-semibold">UPI Transaction Ref ID</label>
-            <input type="text" id="upiTxnId" required placeholder="e.g. 421098765432" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500 font-mono" />
-          </div>
-
-          <button type="submit" id="submitPaymentBtn" class="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-center block shadow-lg transition-all text-sm mt-4">
-            <i class="fa-solid fa-paper-plane mr-2"></i> Submit Payment Notification
-          </button>
-        </form>
-      </div>
-    </div>
-
-    <!-- TERMINAL MAIN DASHBOARD SECURE WORKSPACE -->
-    <div id="administrationWorkspaceSecureAccessModal" class="window-blur-overlay-mask">
-        <div class="glass-modal-container-block" style="max-width: 780px;">
-            <i class="fa-solid fa-xmark window-close-trigger-node" onclick="closeSystemModalWindow('administrationWorkspaceSecureAccessModal')"></i>
-            
-            <div id="terminalInternalLockAuthorizationPane">
-                <h2 style="margin-bottom: 25px; color: var(--accent-cyan); font-weight:800;"><i class="fa-solid fa-key"></i> Decrypt Session Console</h2>
-                <div class="form-structural-group">
-                    <label>Identity Name</label>
-                    <input type="text" id="fieldSecurityAdminFullLegalName" placeholder="Auditor name" required>
-                </div>
-                <div class="form-structural-group">
-                    <label>Registered Email</label>
-                    <input type="email" id="fieldSecurityAdminEmailIdentifier" placeholder="name@domain.com" required>
-                </div>
-                <div class="form-structural-group">
-                    <label>Cryptographic Password Token</label>
-                    <input type="password" id="fieldSecurityAdminPasswordKeyphrase" placeholder="••••••••••••" required>
-                </div>
-                <button class="terminal-interaction-btn" type="button" onclick="runTerminalSecurityAuthorizationSequence()">Decrypt Operations Console</button>
-                <div id="terminalHandshakeAuthenticationFailureFeedbackAlert" style="background:rgba(239,68,68,0.08); border:1px solid var(--color-danger); padding:15px; border-radius:10px; color: var(--color-danger); margin-top: 20px; display: none;">Authorization failure. Account unknown or blocked.</div>
-            </div>
-
-            <div id="terminalInternalActiveDashboardWorkspacePane" style="display: none;">
-                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); margin-bottom: 25px; padding-bottom:14px; gap: 15px; flex-wrap: wrap;">
-                    <h3>Console Identity: <span id="terminalLiveGreetingAdminName" style="color:var(--accent-cyan)">User</span> (<span id="terminalLiveGreetingAdminRole" style="font-size:0.85rem; font-weight:700; text-transform:uppercase;">Role</span>)</h3>
-                    <button class="terminal-interaction-btn" type="button" style="width:auto; padding: 8px 18px; background:var(--color-danger);" onclick="killTerminalSecureAuthorizationSession()">Logout</button>
-                </div>
-
-                <div class="admin-analytics-dashboard-matrix">
-                    <div class="analytics-widget-card" style="border-color:var(--accent-cyan)"><h6>Queued Requests</h6><h2 id="metricWidgetDisplayQueuedTotalCount">0</h2></div>
-                    <div class="analytics-widget-card" style="border-color:var(--color-success)"><h6>Gross Revenue (INR)</h6><h2 id="metricWidgetDisplayApprovedTotalCount">₹0.00</h2></div>
-                    <div class="analytics-widget-card" style="border-color:var(--accent-purple)"><h6>Active Traffic</h6><h2 id="metricWidgetDisplayActiveSessionsCount">12</h2></div>
-                    <div class="analytics-widget-card" style="border-color:var(--color-gold)"><h6>Database Footprints</h6><h2 id="metricWidgetDisplayTotalAuthLogsCount">1</h2></div>
-                </div>
-
-                <h4 style="margin-bottom: 12px; font-weight:700; color: var(--text-secondary);">Active Real-time Processing Ledger</h4>
-                <div style="overflow-x: auto; background:rgba(2,4,10,0.5); border-radius:12px; margin-bottom:25px;">
-                    <table class="admin-data-table-element">
-                        <thead><tr><th>Player Name</th><th>Payload Command String</th><th>Billing Value</th><th>Status</th><th style="text-align:center;">Action Panel Matrix</th></tr></thead>
-                        <tbody id="terminalDashboardInteractiveDataRegisterTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SCRIPT ENGINE CORE -->
+    <!-- ========================================== -->
+    <!-- LOGIC & SCRIPTS                            -->
+    <!-- ========================================== -->
     <script>
-        (function() { emailjs.init("NVnA_39yMMVx_TZyj"); })();
-        
-        let memoryAllocationCartStack = [];
-        let storefrontGlobalCategoriesTabObjectMap = JSON.parse(localStorage.getItem('live_store_tabs')) || [
-            { id: "ranks_catalog_section", label: "Rank Upgrades", icon: "fa-crown" },
-            { id: "keys_catalog_section", label: "Crate Keys", icon: "fa-key" }
+        // System State
+        let currentView = 'hub';
+        let cart = [];
+        let checkoutMode = 'shop'; // 'shop' or 'hosting'
+        let hostingSelection = { name: '', price: 0 };
+
+        // Full Restored Webstore Catalog
+        const storeCategories = [
+            { id: "ranks", label: "Global Ranks", icon: "fa-crown" },
+            { id: "keys", label: "Crate Keys", icon: "fa-key" }
         ];
 
-        // FULL RESTORED PRODUCT LIST (ALL RANKS AND KEYS INCLUDED)
-        let storefrontDynamicProductsCoreArray = JSON.parse(localStorage.getItem('live_store_products')) || [
-            { id: "p1", category: "ranks_catalog_section", name: "KNIGHT Rank Upgrade", price: 199, perk: "Entry Tier Kit Allocation" },
-            { id: "p2", category: "ranks_catalog_section", name: "LORD Rank Upgrade", price: 399, perk: "Lord Tier Kit Configuration" },
-            { id: "p3", category: "ranks_catalog_section", name: "PALADIN Rank Upgrade", price: 599, perk: "Paladin Tier Kit Access" },
-            { id: "p4", category: "ranks_catalog_section", name: "DUKE Rank Upgrade", price: 799, perk: "Duke Visual Particle Trails" },
-            { id: "p5", category: "ranks_catalog_section", name: "KING Rank Upgrade", price: 999, perk: "Max Perks Override" },
-            { id: "p6", category: "keys_catalog_section", name: "Vote Crate Key Drop", price: 10, perk: "Standard Vote Crate Key Roll" },
-            { id: "p7", category: "keys_catalog_section", name: "Common Crate Key Drop", price: 20, perk: "Tier 1 Common Asset Lootbox" },
-            { id: "p8", category: "keys_catalog_section", name: "Rare Crate Key Drop", price: 30, perk: "Tier 2 Rare Drops Allocation" },
-            { id: "p9", category: "keys_catalog_section", name: "Epic Crate Key Drop", price: 40, perk: "Tier 3 Supreme Visual Key" },
-            { id: "p10", category: "keys_catalog_section", name: "Superior Crate Key Drop", price: 80, perk: "Premium Max-Tier Loot Box Key" }
+        const storeProducts = [
+            // RANKS
+            { id: "r1", cat: "ranks", name: "KNIGHT Rank", price: 199, perk: "Entry Tier Kit Allocation" },
+            { id: "r2", cat: "ranks", name: "LORD Rank", price: 399, perk: "Lord Tier Kit Configuration" },
+            { id: "r3", cat: "ranks", name: "PALADIN Rank", price: 599, perk: "Paladin Tier Kit Access" },
+            { id: "r4", cat: "ranks", name: "DUKE Rank", price: 799, perk: "Duke Visual Particle Trails" },
+            { id: "r5", cat: "ranks", name: "KING Rank", price: 999, perk: "Max Perks Override" },
+            // KEYS
+            { id: "k1", cat: "keys", name: "Vote Key", price: 10, perk: "Standard Vote Crate Roll" },
+            { id: "k2", cat: "keys", name: "Common Key", price: 20, perk: "Tier 1 Common Asset Lootbox" },
+            { id: "k3", cat: "keys", name: "Rare Key", price: 30, perk: "Tier 2 Rare Drops Allocation" },
+            { id: "k4", cat: "keys", name: "Epic Key", price: 40, perk: "Tier 3 Supreme Visual Key" },
+            { id: "k5", cat: "keys", name: "Superior Key", price: 80, perk: "Premium Max-Tier Loot Box Key" }
         ];
 
-        function navigateToViewTier(targetPageKeyID) {
-            playClickSound();
-            const landingViewTier = document.getElementById('main_landing_view_tier'); 
-            const shopViewTier = document.getElementById('shop_layout_root_tier'); 
-            const hostingViewTier = document.getElementById('hosting_layout_root_tier');
-            const discordViewTier = document.getElementById('discord_chooser_view_tier');
-            const mobileHeader = document.getElementById('shopMobileHeaderBar'); 
-            const mobileDock = document.getElementById('shopMobileDockBar');
+        // Hosting Data
+        const hostPlans = [
+            { ram: "4 GB", cpu: "100%", disk: "15 GB", bkups: "1", price: 119 },
+            { ram: "8 GB", cpu: "200%", disk: "30 GB", bkups: "2", price: 199 },
+            { ram: "12 GB", cpu: "300%", disk: "45 GB", bkups: "3", price: 329 },
+            { ram: "16 GB", cpu: "400%", disk: "60 GB", bkups: "4", price: 449 },
+            { ram: "26 GB", cpu: "550%", disk: "80 GB", bkups: "5", price: 699 },
+            { ram: "32 GB", cpu: "700%", disk: "100 GB", bkups: "6", price: 749 }
+        ];
 
-            landingViewTier.style.display = 'none';
-            shopViewTier.style.display = 'none';
-            hostingViewTier.classList.add('hidden');
-            discordViewTier.classList.add('hidden');
-            shopViewTier.classList.remove('shop-active');
-            mobileHeader.style.display = 'none'; 
-            mobileDock.style.display = 'none';
+        // Advanced Audio Engine
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playClick() {
+            try {
+                if(audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05);
+                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+                osc.connect(gain); gain.connect(audioCtx.destination);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.05);
+            } catch(e){}
+        }
 
-            if (targetPageKeyID === 'home') { 
-                landingViewTier.style.display = 'flex'; 
-            } else if (targetPageKeyID === 'shop') { 
-                shopViewTier.style.display = 'grid'; 
-                shopViewTier.classList.add('shop-active'); 
-                mobileHeader.style.display = 'flex'; 
-                mobileDock.style.display = 'flex'; 
-                buildStorefrontDynamicNavigationAndLayoutDOM(); 
-            } else if (targetPageKeyID === 'hosting') {
-                hostingViewTier.classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else if (targetPageKeyID === 'discord') {
-                discordViewTier.classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+        // View Routing Engine
+        function switchView(viewId) {
+            playClick();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Fade out current views
+            document.querySelectorAll('.view-section').forEach(el => {
+                el.classList.remove('active');
+                setTimeout(() => el.style.display = 'none', 300);
+            });
+
+            // Display target view
+            setTimeout(() => {
+                const target = document.getElementById(`view-${viewId}`);
+                target.style.display = 'block';
+                void target.offsetWidth; // force reflow
+                target.classList.add('active');
+            }, 300);
+
+            currentView = viewId;
+            updateNavbar();
+        }
+
+        function updateNavbar() {
+            const container = document.getElementById('nav-links-container');
+            const cartBtn = document.getElementById('nav-cart-btn');
+            const navbg = document.getElementById('global-nav');
+            
+            if(currentView === 'hub' || currentView === 'discord') {
+                container.innerHTML = '';
+                cartBtn.classList.add('hidden');
+                navbg.style.borderColor = 'rgba(255,255,255,0.05)';
+            } 
+            else if (currentView === 'hosting') {
+                container.innerHTML = `
+                    <a href="#h-config" class="hover:text-brand-hosting transition-colors">Hardware</a>
+                    <a href="#plans" class="hover:text-brand-hosting transition-colors">Pricing</a>
+                    <span class="w-px h-4 bg-white/20 mx-2"></span>
+                    <button onclick="switchView('shop')" class="text-brand-shop hover:text-white transition-colors">Webstore →</button>
+                `;
+                cartBtn.classList.add('hidden');
+                navbg.style.borderColor = 'rgba(245,158,11,0.2)'; // amber border
+            }
+            else if (currentView === 'shop') {
+                container.innerHTML = `
+                    <span class="text-white font-black">Store Catalog</span>
+                    <span class="w-px h-4 bg-white/20 mx-2"></span>
+                    <button onclick="switchView('hosting')" class="text-brand-hosting hover:text-white transition-colors">← Hosting</button>
+                `;
+                cartBtn.classList.remove('hidden');
+                navbg.style.borderColor = 'rgba(6,182,212,0.2)'; // cyan border
             }
         }
 
-        // Hosting Interactive Logic
-        const hostingPlans = [
-          { name: "IGNITION", ram: "4 GB RAM", cpu: "100% vCPU", storage: "15 GB NVMe", backups: "1 Backup", price: "₹119" },
-          { name: "HYPERION", ram: "8 GB RAM", cpu: "200% vCPU", storage: "30 GB NVMe", backups: "2 Backups", price: "₹199" },
-          { name: "VORTEX", ram: "12 GB RAM", cpu: "300% vCPU", storage: "45 GB NVMe", backups: "3 Backups", price: "₹329" },
-          { name: "APEX", ram: "16 GB RAM", cpu: "400% vCPU", storage: "60 GB NVMe", backups: "4 Backups", price: "₹449" },
-          { name: "OVERDRIVE", ram: "26 GB RAM", cpu: "550% vCPU", storage: "80 GB NVMe", backups: "5 Backups", price: "₹699" },
-          { name: "GODMODE", ram: "32 GB RAM", cpu: "700% vCPU", storage: "100 GB NVMe", backups: "6 Backups", price: "₹749" },
-        ];
+        // Webstore Logic
+        function initStore() {
+            const sidebar = document.getElementById('shop-sidebar-nav');
+            const mobDock = document.getElementById('mobile-dock');
+            const container = document.getElementById('shop-products-container');
+            
+            sidebar.innerHTML = ''; mobDock.innerHTML = ''; container.innerHTML = '';
 
-        function updateConfigurator() {
-          playClickSound();
-          const idx = document.getElementById('ramSlider').value;
-          const data = hostingPlans[idx];
-          document.getElementById('sliderRamValue').innerText = data.ram;
-          document.getElementById('cfgCpu').innerText = data.cpu;
-          document.getElementById('cfgStorage').innerText = data.storage;
-          document.getElementById('cfgBackups').innerText = data.backups;
-          document.getElementById('cfgPrice').innerText = data.price;
-          document.getElementById('cfgOrderBtn').setAttribute('onclick', `openPaymentModal('${data.name}', '${data.price}')`);
-        }
+            storeCategories.forEach((cat, idx) => {
+                const activeCls = idx === 0 ? 'text-brand-shop bg-brand-shop/10 border-brand-shop/30' : 'text-slate-400 border-transparent hover:bg-white/5';
+                const mobActive = idx === 0 ? 'text-brand-shop' : 'text-slate-500';
+                
+                sidebar.innerHTML += `<button onclick="switchCategory('${cat.id}')" id="nav-${cat.id}" class="cat-nav w-full text-left px-5 py-4 rounded-xl border font-bold text-sm transition-all ${activeCls}"><i class="fa-solid ${cat.icon} w-6 text-center"></i> ${cat.label}</button>`;
+                mobDock.innerHTML += `<button onclick="switchCategory('${cat.id}')" id="mob-${cat.id}" class="mob-nav flex flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-wider ${mobActive}"><i class="fa-solid ${cat.icon} text-xl mb-1"></i> ${cat.label}</button>`;
 
-        function calculateEstimate() {
-          playClickSound();
-          const players = parseInt(document.getElementById('estPlayerSlider').value);
-          const type = document.getElementById('estType').value;
-          document.getElementById('estPlayerVal').innerText = players + " Players";
-
-          let recommendedPlan = hostingPlans[1];
-          let reason = "Ideal for smooth performance with active plugins and medium player counts.";
-
-          if (players <= 15 && type === 'vanilla') {
-            recommendedPlan = hostingPlans[0];
-            reason = "Perfect lightweight plan for small vanilla survival servers.";
-          } else if (players <= 30) {
-            recommendedPlan = hostingPlans[1];
-          } else if (players <= 50 || type === 'modded') {
-            recommendedPlan = hostingPlans[2];
-          } else {
-            recommendedPlan = hostingPlans[5];
-          }
-
-          document.getElementById('estPlanName').innerText = `🚀 ${recommendedPlan.name} (${recommendedPlan.ram})`;
-          document.getElementById('estReason').innerText = reason;
-          document.getElementById('estOrderBtn').setAttribute('onclick', `openPaymentModal('${recommendedPlan.name}', '${recommendedPlan.price}')`);
-        }
-
-        function openPaymentModal(planName, price) {
-          playClickSound();
-          document.getElementById('modalPlanName').innerText = planName;
-          document.getElementById('modalPlanPrice').innerText = price;
-          const rawPrice = price.replace(/[^0-9]/g, '');
-          const upiUrl = `upi://pay?pa=rishitkhare@fam&pn=Cylestial%20Hosts&am=${rawPrice}&cu=INR`;
-          document.getElementById('upiQrCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;
-          document.getElementById('paymentModal').classList.remove('hidden');
-          document.getElementById('paymentModal').classList.add('flex');
-        }
-
-        function closePaymentModal() {
-          playClickSound();
-          document.getElementById('paymentModal').classList.add('hidden');
-          document.getElementById('paymentModal').classList.remove('flex');
-        }
-
-        function copyUPI() {
-          playClickSound();
-          const upiId = document.getElementById('upiId').innerText;
-          navigator.clipboard.writeText(upiId);
-          document.getElementById('copyText').innerText = 'Copied!';
-          setTimeout(() => { document.getElementById('copyText').innerText = 'Copy'; }, 2000);
-        }
-
-        function handlePaymentSubmit(e) {
-          e.preventDefault();
-          playClickSound();
-          alert(`Payment notification logged! Redirecting to Discord support...`);
-          window.open('https://discord.gg/cd5ZwpMt', '_blank');
-          closePaymentModal();
-        }
-
-        // Webstore Core Logic
-        function openSystemModalWindow(id) {
-            document.getElementById(id).style.display = 'flex';
-            if(id === 'checkoutSystemProcessingModalWindow') { buildModalCheckoutItemsRowsUIDOM(); }
-        }
-        function closeSystemModalWindow(id) { document.getElementById(id).style.display = 'none'; }
-
-        function buildStorefrontDynamicNavigationAndLayoutDOM() {
-            const sidebarNav = document.getElementById('asideDynamicNavigationTabListGroup');
-            const mobileDock = document.getElementById('shopMobileDockBar');
-            const viewPane = document.getElementById('catalogStorefrontPrimaryViewportMainPane');
-            if(!sidebarNav) return;
-            sidebarNav.innerHTML = ""; mobileDock.innerHTML = "";
-            document.querySelectorAll('.dynamic-compiled-catalog-section').forEach(el => el.remove());
-
-            storefrontGlobalCategoriesTabObjectMap.forEach((tab, index) => {
-                const isActive = index === 0 ? "active" : "";
-                sidebarNav.innerHTML += `<li><button class="nav-item-btn ${isActive}" id="d_nav_${tab.id}" onclick="executeViewPaneTabSwitch('${tab.id}')"><i class="fa-solid ${tab.icon}"></i> ${tab.label}</button></li>`;
-                mobileDock.innerHTML += `<button class="mobile-dock-node-btn ${isActive}" id="m_nav_${tab.id}" onclick="executeViewPaneTabSwitch('${tab.id}')"><i class="fa-solid ${tab.icon}"></i> ${tab.label}</button>`;
-
-                let sectionGrid = document.createElement('div');
-                sectionGrid.id = tab.id;
-                sectionGrid.className = `catalog-display-view-grid dynamic-compiled-catalog-section`;
-                sectionGrid.style.display = index === 0 ? "grid" : "none";
-
-                let matchedProducts = storefrontDynamicProductsCoreArray.filter(p => p.category === tab.id);
-                matchedProducts.forEach(prod => {
-                    sectionGrid.innerHTML += `
-                        <div class="cyber-product-card">
+                const display = idx === 0 ? 'grid' : 'none';
+                let gridHTML = `<div id="grid-${cat.id}" class="shop-grid" style="display: ${display};">`;
+                
+                storeProducts.filter(p => p.cat === cat.id).forEach(p => {
+                    gridHTML += `
+                        <div class="glass-panel p-6 md:p-8 rounded-3xl flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300 group border-transparent hover:border-brand-shop/40">
                             <div>
-                                <h3>${prod.name}</h3>
-                                <div class="price-metric-display">₹${prod.price}</div>
-                                <ul><li><i class="fa-solid fa-circle-check"></i> ${prod.perk}</li></ul>
+                                <h3 class="text-xl font-black text-white mb-2 group-hover:text-brand-shop transition-colors">${p.name}</h3>
+                                <div class="text-4xl font-black font-mono text-white mb-6">₹${p.price}</div>
+                                <p class="text-sm font-medium text-slate-400 mb-8 flex items-start gap-3 leading-relaxed">
+                                    <i class="fa-solid fa-circle-check text-brand-shop mt-1"></i> ${p.perk}
+                                </p>
                             </div>
-                            <button class="terminal-interaction-btn" type="button" onclick="injectProductRecordToCartStack('${prod.name}', ${prod.price})">Add Token</button>
+                            <button onclick="addToCart('${p.id}', event)" class="w-full py-4 rounded-xl bg-white/5 hover:bg-brand-shop text-white hover:text-black font-black uppercase tracking-widest border border-white/10 hover:border-brand-shop transition-all text-xs">Add to Basket</button>
                         </div>
                     `;
                 });
-                viewPane.appendChild(sectionGrid);
+                gridHTML += `</div>`;
+                container.innerHTML += gridHTML;
             });
+            
+            mobDock.innerHTML += `<button onclick="openModal('checkoutModal')" class="flex flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400"><i class="fa-solid fa-shopping-cart text-xl mb-1"></i> Checkout</button>`;
         }
 
-        function executeViewPaneTabSwitch(targetID) {
-            document.querySelectorAll('.catalog-display-view-grid').forEach(section => section.style.display = 'none');
-            document.querySelectorAll('.nav-item-btn, .mobile-dock-node-btn').forEach(btn => btn.classList.remove('active'));
-            const matched = document.getElementById(targetID);
-            if(matched) matched.style.display = 'grid';
+        function switchCategory(catId) {
+            playClick();
+            document.querySelectorAll('.cat-nav').forEach(el => { el.className = "cat-nav w-full text-left px-5 py-4 rounded-xl border font-bold text-sm transition-all text-slate-400 border-transparent hover:bg-white/5"; });
+            document.querySelectorAll('.mob-nav').forEach(el => { el.className = "mob-nav flex flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-slate-500"; });
+            
+            document.getElementById(`nav-${catId}`).className = "cat-nav w-full text-left px-5 py-4 rounded-xl border font-bold text-sm transition-all text-brand-shop bg-brand-shop/10 border-brand-shop/30";
+            document.getElementById(`mob-${catId}`).className = "mob-nav flex flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-brand-shop";
+
+            document.querySelectorAll('.shop-grid').forEach(el => el.style.display = 'none');
+            const targetGrid = document.getElementById(`grid-${catId}`);
+            targetGrid.style.display = 'grid';
+            targetGrid.classList.remove('animate-fade-in');
+            void targetGrid.offsetWidth;
+            targetGrid.classList.add('animate-fade-in');
         }
 
-        function injectProductRecordToCartStack(productLabelName, rawPriceIntegerMetric) {
-            const index = memoryAllocationCartStack.findIndex(item => item.name === productLabelName);
-            if (index !== -1) { memoryAllocationCartStack[index].quantity += 1; } else { memoryAllocationCartStack.push({ name: productLabelName, basePrice: rawPriceIntegerMetric, quantity: 1 }); }
-            evaluateFloatingCartWidgetUIStateFeedback();
+        function addToCart(pId, event) {
+            playClick();
+            const prod = storeProducts.find(p => p.id === pId);
+            const existing = cart.find(i => i.id === pId);
+            if(existing) existing.qty++; else cart.push({...prod, qty: 1});
+            
+            updateCartCount();
+            
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "Added ✓";
+            btn.classList.add('bg-emerald-500', 'text-black', 'border-emerald-500');
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.remove('bg-emerald-500', 'text-black', 'border-emerald-500');
+            }, 1000);
         }
 
-        function evaluateFloatingCartWidgetUIStateFeedback() {
-            const widget = document.getElementById('globalPrimaryCartFloatingWidget');
-            const text = document.getElementById('cartWidgetDisplayItemsUnitsCountText');
-            let total = 0; memoryAllocationCartStack.forEach(i => total += i.quantity);
-            if(total > 0) { widget.style.display = 'flex'; text.innerText = total; } else { widget.style.display = 'none'; }
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('nav-cart-count').innerText = count;
         }
 
-        function buildModalCheckoutItemsRowsUIDOM() {
-            const container = document.getElementById('modalCartItemsRowsOutputContainer');
-            const totalText = document.getElementById('checkoutGrandTotalCostOutputText');
-            container.innerHTML = '';
-            let sum = 0;
-            memoryAllocationCartStack.forEach((item) => {
-                let cost = item.basePrice * item.quantity; sum += cost;
-                container.innerHTML += `<div class="basket-item-list-row"><span><strong>${item.name}</strong></span><span style="color:var(--accent-cyan);font-weight:700;">₹${cost}</span></div>`;
+        // Hosting Logic
+        function updateHostConfig() {
+            playClick();
+            const val = document.getElementById('hostSlider').value;
+            const plan = hostPlans[val];
+            document.getElementById('cfg-ram').innerText = plan.ram;
+            document.getElementById('cfg-cpu').innerText = plan.cpu;
+            document.getElementById('cfg-disk').innerText = plan.disk + " NVMe";
+            document.getElementById('cfg-bkups').innerText = plan.bkups + " Slots";
+            document.getElementById('cfg-price').innerText = "₹" + plan.price;
+            document.getElementById('cfg-btn').setAttribute('onclick', `initHostCheckout('CUSTOM NODE (${plan.ram})', ${plan.price})`);
+        }
+
+        function runPing() {
+            playClick();
+            const res = document.getElementById('ping-result-txt');
+            res.innerText = "Testing...";
+            res.classList.remove('text-slate-500', 'text-emerald-400');
+            res.classList.add('text-brand-hosting', 'animate-pulse');
+            
+            setTimeout(() => {
+                const ping = Math.floor(Math.random() * 12) + 14; // 14-25ms
+                res.innerText = `${ping} ms`;
+                res.classList.remove('text-brand-hosting', 'animate-pulse');
+                res.classList.add('text-emerald-400');
+            }, 1000);
+        }
+
+        // Master Modal & Checkout Engine
+        function openModal(id) {
+            playClick();
+            const modal = document.getElementById(id);
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+
+            if(id === 'checkoutModal') {
+                if(currentView === 'shop') initShopCheckout();
+            }
+        }
+
+        function closeModal(id) {
+            playClick();
+            const modal = document.getElementById(id);
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.getElementById('checkout-step-1').style.display = 'block';
+                document.getElementById('checkout-step-2').style.display = 'none';
+                document.getElementById('checkout-step-3').style.display = 'none';
+            }, 300);
+        }
+
+        function initShopCheckout() {
+            checkoutMode = 'shop';
+            document.getElementById('modal-title').innerHTML = `<i class="fa-solid fa-cart-shopping text-brand-shop"></i> Store Checkout`;
+            document.getElementById('btn-proceed').className = "w-full mt-10 py-5 rounded-xl bg-brand-shop hover:bg-cyan-400 text-black font-black uppercase tracking-widest shadow-[0_0_30px_rgba(6,182,212,0.3)] transition-all hover:scale-[1.02]";
+            document.getElementById('field-mc-name').style.display = 'block';
+            document.getElementById('modal-host-item').style.display = 'none';
+            
+            const cartContainer = document.getElementById('modal-cart-items');
+            cartContainer.style.display = 'flex';
+            cartContainer.innerHTML = '';
+
+            let total = 0;
+            if(cart.length === 0) {
+                cartContainer.innerHTML = '<p class="text-center text-slate-500 text-sm py-6 font-bold uppercase tracking-widest">Cart is empty.</p>';
+            } else {
+                cart.forEach(item => {
+                    const cost = item.price * item.qty;
+                    total += cost;
+                    cartContainer.innerHTML += `
+                        <div class="flex justify-between items-center bg-black/40 p-4 rounded-2xl border border-white/5 shadow-inner">
+                            <div>
+                                <span class="text-white font-black text-sm block tracking-wide">${item.name}</span>
+                                <span class="text-xs font-bold text-brand-shop">Qty: ${item.qty}</span>
+                            </div>
+                            <span class="font-mono font-black text-white text-lg">₹${cost}</span>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('modal-total-amt').innerText = `₹${total}`;
+        }
+
+        function initHostCheckout(planName, price) {
+            checkoutMode = 'hosting';
+            hostingSelection = { name: planName, price: price };
+            
+            document.getElementById('modal-title').innerHTML = `<i class="fa-solid fa-server text-brand-hosting"></i> Deploy Infrastructure`;
+            document.getElementById('btn-proceed').className = "w-full mt-10 py-5 rounded-xl bg-brand-hosting hover:bg-amber-400 text-black font-black uppercase tracking-widest shadow-[0_0_30px_rgba(245,158,11,0.3)] transition-all hover:scale-[1.02]";
+            document.getElementById('field-mc-name').style.display = 'none';
+            document.getElementById('modal-cart-items').style.display = 'none';
+            
+            const hostContainer = document.getElementById('modal-host-item');
+            hostContainer.style.display = 'flex';
+            document.getElementById('modal-host-name').innerText = planName;
+            document.getElementById('modal-host-price').innerText = `₹${price}`;
+            
+            document.getElementById('modal-total-amt').innerText = `₹${price}`;
+            openModal('checkoutModal');
+        }
+
+        function goToPayment() {
+            playClick();
+            let total = checkoutMode === 'shop' ? cart.reduce((s, i) => s + (i.price * i.qty), 0) : hostingSelection.price;
+            if(total === 0) { alert("Cart is empty."); return; }
+
+            const disc = document.getElementById('inp-discord').value.trim();
+            const eml = document.getElementById('inp-email').value.trim();
+            if(!disc || !eml) { alert("Discord Username and Contact Email are absolutely required."); return; }
+            if(checkoutMode === 'shop' && !document.getElementById('inp-mc-name').value.trim()) { alert("Minecraft Username is required to credit items."); return; }
+
+            // Dynamic Unified UPI ID Link Generation
+            const upi = `upi://pay?pa=rishitkhare@fam&pn=Cylestial&am=${total}&cu=INR`;
+            document.getElementById('upi-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upi)}`;
+
+            document.getElementById('checkout-step-1').style.display = 'none';
+            document.getElementById('checkout-step-2').style.display = 'block';
+        }
+
+        function backToCart() {
+            playClick();
+            document.getElementById('checkout-step-2').style.display = 'none';
+            document.getElementById('checkout-step-1').style.display = 'block';
+        }
+
+        function submitOrder() {
+            playClick();
+            const txn = document.getElementById('inp-txn').value.trim();
+            if(!txn || txn.length < 8) { alert("Verification Failed. Invalid Transaction Reference ID."); return; }
+
+            if(checkoutMode === 'shop') {
+                cart = []; updateCartCount();
+            }
+
+            document.getElementById('btn-finish').className = checkoutMode === 'shop' 
+                ? "w-full py-5 rounded-xl bg-brand-shop hover:bg-cyan-400 text-black font-black uppercase tracking-widest shadow-[0_0_30px_rgba(6,182,212,0.4)] transition-all flex items-center justify-center gap-3 hover:scale-[1.02]"
+                : "w-full py-5 rounded-xl bg-brand-hosting hover:bg-amber-400 text-black font-black uppercase tracking-widest shadow-[0_0_30px_rgba(245,158,11,0.4)] transition-all flex items-center justify-center gap-3 hover:scale-[1.02]";
+
+            document.getElementById('checkout-step-2').style.display = 'none';
+            document.getElementById('checkout-step-3').style.display = 'block';
+        }
+
+        function finishOrder() {
+            playClick();
+            const link = checkoutMode === 'shop' ? 'https://discord.gg/Tg5duznkX' : 'https://discord.gg/cd5ZwpMt';
+            window.open(link, '_blank');
+            closeModal('checkoutModal');
+        }
+
+        // Utils
+        function copyText(text, msg) {
+            playClick();
+            navigator.clipboard.writeText(text);
+            alert(msg);
+        }
+
+        // ========================================== //
+        // 3D Card Engine & Interactive Particles     //
+        // ========================================== //
+        
+        // 3D Card Hover Effect
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                let rect = card.getBoundingClientRect();
+                let x = e.clientX - rect.left;
+                let y = e.clientY - rect.top;
+                
+                let rotateY = -1 * ((x - rect.width / 2) / 20);
+                let rotateX = ((y - rect.height / 2) / 20);
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                
+                let glare = card.querySelector('.glare');
+                if(glare) {
+                    glare.style.opacity = '1';
+                    glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.1), transparent)`;
+                }
             });
-            totalText.innerText = `₹${sum}`;
-        }
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+                let glare = card.querySelector('.glare');
+                if(glare) { glare.style.opacity = '0'; }
+            });
+        });
 
-        function advanceCheckoutModalToPaymentMatrix() {
-            document.getElementById('modalStageWrapperStep1').style.display = 'none';
-            document.getElementById('modalStageWrapperStep2').style.display = 'block';
-            let checkoutCostSumValue = 0; 
-            memoryAllocationCartStack.forEach(product => { checkoutCostSumValue += (product.basePrice * product.quantity); }); 
-            const upiPayload = `upi://pay?pa=rishitkhare@fam&pn=CylestialMC&am=${checkoutCostSumValue}&cu=INR`;
-            document.getElementById('premiumAutomatedBillingQRImageTarget').src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(upiPayload)}`;
-        }
-
-        function pushOrderRecordDataObjectsToQueue() {
-            memoryAllocationCartStack = [];
-            evaluateFloatingCartWidgetUIStateFeedback();
-            document.getElementById('modalStageWrapperStep2').style.display = 'none';
-            document.getElementById('modalStageWrapperStep3').style.display = 'block';
-        }
-
-        function renderPublicSupportersLeaderboardUIDOM() {
-            const stack = document.getElementById('publicSupportersRecognitionScrollerStack');
-            if(!stack) return;
-            stack.innerHTML = `<div style="color:var(--text-secondary); font-size:0.85rem; text-align:center; padding: 20px 0;">Welcome to Cylestial Network & Hosting!</div>`;
-        }
-
-        function executeServerAddressCopyProtocolString() {
-            navigator.clipboard.writeText("node.treemc.host:19132");
-            alert("🎯 Server Address Copied: node.treemc.host:19132");
-        }
-
-        // Web Audio Synthesizer
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function playClickSound() {
-          try {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.frequency.setValueAtTime(520, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(980, audioCtx.currentTime + 0.05);
-            gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
-            osc.connect(gain); gain.connect(audioCtx.destination);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.05);
-          } catch(e){}
-        }
-
-        // Canvas Particle Engine
+        // Mouse Interactive Particle System
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.addEventListener('resize', resizeCanvas); resizeCanvas();
+        let mouse = { x: -1000, y: -1000 };
+
+        window.addEventListener('mousemove', e => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
         class Particle {
-          constructor() {
-            this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2 + 0.5; this.speedX = Math.random() * 0.4 - 0.2; this.speedY = Math.random() * 0.4 - 0.2;
-            this.opacity = Math.random() * 0.5 + 0.2;
-          }
-          update() {
-            this.x += this.speedX; this.y += this.speedY;
-            if (this.x < 0) this.x = canvas.width; if (this.x > canvas.width) this.x = 0;
-            if (this.y < 0) this.y = canvas.height; if (this.y > canvas.height) this.y = 0;
-          }
-          draw() {
-            ctx.fillStyle = `rgba(251, 191, 36, ${this.opacity})`;
-            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-          }
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.baseX = Math.random() * 0.5 - 0.25;
+                this.baseY = Math.random() * -0.5 - 0.1;
+                this.opacity = Math.random() * 0.6 + 0.1;
+            }
+            update() {
+                // Mouse interaction physics
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                let forceDirX = dx / distance;
+                let forceDirY = dy / distance;
+                
+                // Repel effect
+                if (distance < 100) {
+                    this.x -= forceDirX * 2;
+                    this.y -= forceDirY * 2;
+                } else {
+                    this.x += this.baseX;
+                    this.y += this.baseY;
+                }
+
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+                if (this.x < 0 || this.x > canvas.width) {
+                    this.baseX = -this.baseX;
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
-        for (let i = 0; i < 40; i++) particles.push(new Particle());
+
+        for (let i = 0; i < 70; i++) particles.push(new Particle());
+
         function animateParticles() {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          particles.forEach(p => { p.update(); p.draw(); });
-          requestAnimationFrame(animateParticles);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
         }
         animateParticles();
+
+        // Boot system
+        initStore();
+        updateNavbar();
+
     </script>
 </body>
 </html>
