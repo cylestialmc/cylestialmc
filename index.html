@@ -23,11 +23,12 @@
             colors: {
               brand: { hosting: '#f59e0b', shop: '#06b6d4', discord: '#6366f1', success: '#10b981', danger: '#ef4444', surface: '#0b101d', }
             },
-            animation: { 'fade-in': 'fadeIn 0.4s ease forwards', 'slide-in': 'slideIn 0.3s ease forwards', 'bounce-sm': 'bounceSm 0.3s ease' },
+            animation: { 'fade-in': 'fadeIn 0.4s ease forwards', 'slide-in-right': 'slideInRight 0.3s ease forwards', 'bounce-sm': 'bounceSm 0.3s ease', 'float': 'float 5s ease-in-out infinite' },
             keyframes: {
               fadeIn: { '0%': { opacity: '0', transform: 'translateY(15px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
-              slideIn: { '0%': { opacity: '0', transform: 'translateX(50px)' }, '100%': { opacity: '1', transform: 'translateX(0)' } },
-              bounceSm: { '0%, 100%': { transform: 'scale(1)' }, '50%': { transform: 'scale(1.15)' } }
+              slideInRight: { '0%': { opacity: '0', transform: 'translateX(50px)' }, '100%': { opacity: '1', transform: 'translateX(0)' } },
+              bounceSm: { '0%, 100%': { transform: 'scale(1)' }, '50%': { transform: 'scale(1.15)' } },
+              float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } }
             }
           }
         }
@@ -35,9 +36,9 @@
     </script>
 
     <style>
-        body { background-color: #03060f; color: #f8fafc; overflow-x: hidden; -webkit-tap-highlight-color: transparent; display: flex; flex-direction: column; min-height: 100vh; }
+        body { background-color: #03060f; color: #f8fafc; overflow-x: hidden; -webkit-tap-highlight-color: transparent; min-height: 100vh; display: flex; flex-direction: column; }
 
-        /* Background Effects */
+        /* Dynamic Backgrounds */
         #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; opacity: 0.8; }
         .bg-mesh { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: radial-gradient(circle at 15% 30%, rgba(99, 102, 241, 0.08), transparent 45%), radial-gradient(circle at 85% 70%, rgba(245, 158, 11, 0.08), transparent 45%), radial-gradient(circle at 50% 90%, rgba(6, 182, 212, 0.08), transparent 45%); filter: blur(60px); }
 
@@ -50,23 +51,22 @@
         .tilt-card-content { transform: translateZ(30px); }
         .glare { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; transition: opacity 0.3s; opacity: 0; z-index: 10; }
 
-        /* Scrollbar */
+        /* Scrollbars & Sliders */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #475569; }
 
-        /* Range Slider */
         input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 26px; width: 26px; border-radius: 50%; background: #f59e0b; cursor: pointer; margin-top: -9px; box-shadow: 0 0 20px rgba(245, 158, 11, 0.6), inset 0 0 0 4px #000; transition: transform 0.1s; }
         input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; background: #1e293b; border-radius: 4px; }
 
-        /* Bulletproof View Routing Classes */
-        .view-tier { display: none; opacity: 0; }
-        .view-tier.active-flex { display: flex; animation: fadeIn 0.4s ease forwards; }
-        .view-tier.active-grid { display: grid; animation: fadeIn 0.4s ease forwards; }
-        .view-tier.active-block { display: block; animation: fadeIn 0.4s ease forwards; }
+        /* Bulletproof View Routing Engine */
+        .view-section { display: none; opacity: 0; }
+        .view-section.active-flex { display: flex !important; animation: fadeIn 0.4s ease forwards; }
+        .view-section.active-block { display: block !important; animation: fadeIn 0.4s ease forwards; }
+        .view-section.active-grid { display: grid !important; animation: fadeIn 0.4s ease forwards; }
 
         /* MOTD Strip */
         .live-server-motd-pulse-strip { background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); padding: 10px 24px; border-radius: 100px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #10b981; margin-bottom: 40px; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 0 20px rgba(16, 185, 129, 0.15); cursor: pointer; transition: all 0.2s; }
@@ -93,7 +93,6 @@
         .app-layout-root { grid-template-columns: 280px 1fr; min-height: 100vh; position: relative; z-index: 5; }
         aside { background: rgba(7, 10, 19, 0.95); border-right: 1px solid rgba(255,255,255,0.08); padding: 40px 25px; display: flex; flex-direction: column; justify-content: space-between; position: sticky; top: 0; height: 100vh; z-index: 100; }
         .primary-viewport-pane { padding: 40px; overflow-y: auto; max-height: 100vh; flex-grow: 1; }
-        
         .catalog-display-view-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-bottom: 60px; }
 
         @media (max-width: 1024px) {
@@ -120,11 +119,8 @@
 </head>
 <body class="antialiased selection:bg-cyan-500 selection:text-black">
 
-    <!-- Backgrounds -->
     <div class="bg-mesh"></div>
     <canvas id="particles-canvas"></canvas>
-
-    <!-- Global Toast Notifications -->
     <div id="toast-container"></div>
 
     <!-- GLOBAL NAVBAR -->
@@ -135,10 +131,8 @@
                 <span class="text-2xl font-black tracking-tight text-white group-hover:text-slate-300 transition-colors">CYLESTIAL</span>
             </div>
 
-            <!-- Dynamic Links -->
             <div id="nav-links" class="hidden md:flex items-center gap-8 text-sm font-bold text-slate-400"></div>
 
-            <!-- Global Actions -->
             <div class="flex items-center gap-4">
                 <button onclick="switchView('view-home')" class="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-bold btn-interactive shadow-md">
                     <i class="fa-solid fa-house"></i> Main Hub
@@ -153,9 +147,9 @@
     <!-- ===================================================================== -->
     <!-- VIEW 1: MAIN HUB (GATEWAY SPLASH)                                     -->
     <!-- ===================================================================== -->
-    <main id="view-home" class="view-tier active-flex flex-col items-center justify-center pt-32 pb-20 p-6 text-center relative z-10 w-full flex-grow">
+    <main id="view-home" class="view-section active-flex flex-col items-center justify-center pt-32 pb-20 p-6 text-center relative z-10 w-full flex-grow">
         
-        <img src="logo.png" class="w-36 h-36 object-contain mb-4 drop-shadow-[0_0_30px_rgba(6,182,212,0.4)]" style="animation: float 5s ease-in-out infinite;" onerror="this.style.display='none'">
+        <img src="logo.png" class="w-36 h-36 object-contain mb-4 drop-shadow-[0_0_30px_rgba(6,182,212,0.4)] animate-float" onerror="this.style.display='none'">
         
         <h1 class="text-5xl md:text-7xl font-black text-white tracking-widest mb-2" id="liveDOMTextServerBrandNameTitle">
             CYLESTIAL<span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-amber-400">MC</span>
@@ -167,7 +161,6 @@
             <span id="liveDOMTextServerMotdMessageDisplay">● 142 Players Online | ⚔️ SUMMER SEASON UPDATE IS LIVE (Tap to copy)</span>
         </div>
 
-        <!-- Master Gateway Portals -->
         <div class="glass-panel p-8 md:p-12 rounded-[2.5rem] w-full max-w-5xl mb-12 shadow-2xl relative overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none z-0"></div>
             <h3 class="text-xl font-black text-white uppercase tracking-widest mb-8 relative z-10">What do you want to explore?</h3>
@@ -222,16 +215,14 @@
         <!-- Supporters Ledger -->
         <div class="glass-panel p-8 rounded-[2rem] w-full max-w-4xl text-left shadow-lg">
             <h3 class="text-lg font-black text-white uppercase tracking-widest mb-6 flex items-center gap-3"><i class="fa-solid fa-trophy text-amber-400"></i> Server Supporters & Purchases</h3>
-            <div class="max-h-[250px] overflow-y-auto custom-scrollbar pr-2" id="publicSupportersRecognitionScrollerStack">
-                <!-- JS Injected -->
-            </div>
+            <div class="max-h-[250px] overflow-y-auto custom-scrollbar pr-2" id="publicSupportersRecognitionScrollerStack"></div>
         </div>
     </main>
 
     <!-- ===================================================================== -->
     <!-- VIEW 2: DISCORD CHOOSER PAGE                                          -->
     <!-- ===================================================================== -->
-    <main id="view-discord" class="view-tier flex-col items-center justify-center min-h-screen p-6 text-center relative z-10 pt-28 flex-grow w-full">
+    <main id="view-discord" class="view-section flex-col items-center justify-center min-h-screen p-6 text-center relative z-10 pt-28 flex-grow w-full">
         <div class="glass-panel p-10 md:p-14 rounded-[3rem] w-full max-w-3xl shadow-2xl border-indigo-500/30">
             <div class="w-20 h-20 rounded-[2rem] bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-4xl mx-auto mb-8 shadow-[0_0_30px_rgba(99,102,241,0.3)]"><i class="fa-brands fa-discord"></i></div>
             <h2 class="text-3xl md:text-4xl font-black text-white tracking-widest uppercase mb-4">Support Hub</h2>
@@ -267,7 +258,7 @@
     <!-- ===================================================================== -->
     <!-- VIEW 3: CYLESTIAL HOSTING                                             -->
     <!-- ===================================================================== -->
-    <main id="view-hosting" class="view-tier relative z-10 pb-20 pt-10 flex-grow w-full">
+    <main id="view-hosting" class="view-section relative z-10 pb-20 pt-10 flex-grow w-full">
         <div class="max-w-7xl mx-auto px-6 text-center mt-28">
             <h2 class="text-5xl md:text-7xl font-black text-white tracking-tighter mb-6">Pure <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">Performance.</span></h2>
             <p class="text-lg text-slate-400 mb-16 max-w-2xl mx-auto font-medium">Enterprise India compute nodes. PCIe 4.0 NVMe storage. Instant deployment.</p>
@@ -294,41 +285,35 @@
 
                 <div class="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10 gap-6 relative z-10">
                     <div><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Monthly Billing</span><div class="flex items-baseline gap-1"><span id="cfg-price" class="text-5xl font-black text-amber-400 font-mono">₹199</span><span class="text-slate-500 font-bold">/mo</span></div></div>
-                    <button id="cfg-btn" onclick="injectHostingPlanToCart('HYPERION (8GB)', 199)" class="w-full md:w-auto px-10 py-5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black uppercase tracking-widest shadow-[0_0_30px_rgba(245,158,11,0.4)] transition-all btn-interactive">Deploy Node Now</button>
+                    <button id="cfg-btn" onclick="injectHostingPlanToCart('HYPERION', 199)" class="w-full md:w-auto px-10 py-5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black uppercase tracking-widest shadow-[0_0_30px_rgba(245,158,11,0.4)] transition-all btn-interactive">Deploy Node Now</button>
                 </div>
             </div>
 
-            <!-- Fixed Hosting Plans Grid (All 6 Cards) -->
+            <!-- Fixed Hosting Plans Grid -->
             <h3 class="text-3xl font-black text-white mb-10 uppercase tracking-widest" id="plans">Preset Infrastructure</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto text-left mb-12">
-                <!-- Ignition -->
                 <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-white/10 hover:border-amber-500/50 transition-colors">
                     <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Entry</span><h3 class="text-2xl font-black text-white mt-4 mb-2">IGNITION</h3><div class="text-4xl font-black font-mono text-white mb-8">₹119<span class="text-sm text-slate-400">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-200 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 4 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 100% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 15 GB NVMe SSD</li></ul></div>
                     <button onclick="injectHostingPlanToCart('IGNITION', 119)" class="w-full py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
                 </div>
-                <!-- Hyperion -->
-                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-amber-500 bg-amber-500/5 relative scale-100 md:scale-105 shadow-[0_0_40px_rgba(245,158,11,0.15)] z-10">
+                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-amber-500/80 bg-amber-500/10 relative scale-100 md:scale-105 shadow-[0_0_40px_rgba(245,158,11,0.2)] z-10">
                     <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-400 text-black text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg">Most Popular</div>
-                    <div><span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-md">Standard</span><h3 class="text-2xl font-black text-white mt-4 mb-2">HYPERION</h3><div class="text-4xl font-black font-mono text-amber-400 mb-8">₹199<span class="text-sm text-amber-400/60">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-white mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 8 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 200% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 30 GB NVMe SSD</li></ul></div>
+                    <div><span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-500/20 px-3 py-1 rounded-md">Standard</span><h3 class="text-2xl font-black text-white mt-4 mb-2">HYPERION</h3><div class="text-4xl font-black font-mono text-amber-400 mb-8">₹199<span class="text-sm text-amber-400/60">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-white mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 8 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 200% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 30 GB NVMe SSD</li></ul></div>
                     <button onclick="injectHostingPlanToCart('HYPERION', 199)" class="w-full py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black transition-all uppercase tracking-widest shadow-lg btn-interactive">Deploy Plan</button>
                 </div>
-                <!-- Vortex -->
                 <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-white/10 hover:border-amber-500/50 transition-colors">
                     <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Advanced</span><h3 class="text-2xl font-black text-white mt-4 mb-2">VORTEX</h3><div class="text-4xl font-black font-mono text-white mb-8">₹329<span class="text-sm text-slate-400">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-200 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 12 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 300% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 45 GB NVMe SSD</li></ul></div>
                     <button onclick="injectHostingPlanToCart('VORTEX', 329)" class="w-full py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
                 </div>
-                <!-- Apex -->
                 <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-white/10 hover:border-amber-500/50 transition-colors">
                     <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Pro</span><h3 class="text-2xl font-black text-white mt-4 mb-2">APEX</h3><div class="text-4xl font-black font-mono text-white mb-8">₹449<span class="text-sm text-slate-400">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-200 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 16 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 400% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 60 GB NVMe SSD</li></ul></div>
                     <button onclick="injectHostingPlanToCart('APEX', 449)" class="w-full py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
                 </div>
-                <!-- Overdrive -->
                 <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-white/10 hover:border-amber-500/50 transition-colors">
                     <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Extreme</span><h3 class="text-2xl font-black text-white mt-4 mb-2">OVERDRIVE</h3><div class="text-4xl font-black font-mono text-white mb-8">₹699<span class="text-sm text-slate-400">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-200 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 26 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 550% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 80 GB NVMe SSD</li></ul></div>
                     <button onclick="injectHostingPlanToCart('OVERDRIVE', 699)" class="w-full py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
                 </div>
-                <!-- Godmode -->
-                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-amber-500/30 bg-amber-500/5">
+                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-amber-500/40 border-2 bg-amber-500/5">
                     <div><span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-md">Maximum</span><h3 class="text-2xl font-black text-white mt-4 mb-2">GODMODE</h3><div class="text-4xl font-black font-mono text-amber-400 mb-8">₹749<span class="text-sm text-slate-400">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 32 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 700% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 100 GB NVMe SSD</li></ul></div>
                     <button onclick="injectHostingPlanToCart('GODMODE', 749)" class="w-full py-4 rounded-xl bg-amber-500/20 border border-amber-500/30 hover:bg-amber-500 hover:text-black text-amber-400 font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
                 </div>
@@ -340,13 +325,12 @@
     <!-- VIEW 4: SERVER WEBSTORE & ADMIN CONSOLE (GRID)                        -->
     <!-- ===================================================================== -->
     <div class="mobile-header-bar" id="shopMobileHeaderBar" style="display:none;">
-        <h2 onclick="switchView('view-home')" class="text-lg font-black text-white cursor-pointer hover:scale-105 transition-transform">CYLESTIAL<span class="text-cyan-400">MC</span></h2>
+        <h2 onclick="switchView('view-home')" class="text-lg font-black text-white cursor-pointer btn-interactive">CYLESTIAL<span class="text-cyan-400">MC</span></h2>
         <button class="px-3 py-1.5 rounded bg-white/5 text-cyan-400 text-xs font-bold border border-white/10 btn-interactive" onclick="openSystemModalWindow('administrationWorkspaceSecureAccessModal')"><i class="fa-solid fa-shield-halved"></i> Admin</button>
     </div>
     <div class="mobile-navigation-dock-bar" id="shopMobileDockBar" style="display:none;"></div>
 
-    <main id="view-shop" class="view-tier app-layout-root flex-grow w-full z-10 pt-20">
-        <!-- Sidebar -->
+    <main id="view-shop" class="view-section app-layout-root flex-grow w-full z-10 pt-20">
         <aside>
             <div>
                 <div class="flex items-center gap-3 mb-10 cursor-pointer group btn-interactive" onclick="switchView('view-home')">
@@ -365,14 +349,13 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
         <div class="primary-viewport-pane" id="catalogStorefrontPrimaryViewportMainPane">
             <div class="glass-panel p-5 rounded-2xl mb-10 flex items-center gap-4 border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.1)]">
                 <div class="w-10 h-10 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0"><i class="fa-solid fa-bolt-lightning"></i></div>
-                <div><span class="block text-sm font-black text-white uppercase tracking-widest mb-1">Network Upgrades Active</span><span class="text-xs text-slate-300 font-medium leading-relaxed">Purchase a token package below to instantly upgrade your profile metadata on the server.</span></div>
+                <div><span class="block text-sm font-black text-white uppercase tracking-widest mb-1">Network Upgrades Active</span><span class="text-xs text-slate-300 font-medium">Purchase a token package below to instantly upgrade your profile metadata on the server.</span></div>
             </div>
             <div id="clientPublicGlobalBroadcastBanner"></div>
-            <!-- Products Injected via JS -->
+            <div id="shop-products-container"></div>
         </div>
     </main>
 
@@ -552,10 +535,11 @@
     </div>
 
     <!-- ===================================================================== -->
-    <!-- MASTER SCRIPT LOGIC (FLAWLESS & RESTORED)                             -->
+    <!-- MASTER SCRIPT LOGIC ENGINE (ROBUST & ERROR FREE)                      -->
     <!-- ===================================================================== -->
     <script>
-        (function() { emailjs.init("NVnA_39yMMVx_TZyj"); })();
+        // Ensure EmailJS safely initializes
+        try { if(typeof emailjs !== 'undefined') emailjs.init("NVnA_39yMMVx_TZyj"); } catch(e){}
         
         // --- Custom Toast System ---
         function showToast(title, msg, type = 'success') {
@@ -567,14 +551,14 @@
             const icon = type === 'error' ? 'fa-triangle-exclamation' : 'fa-circle-check';
             
             toast.className = `glass-panel ${bg} border ${border} p-4 flex items-start gap-3 w-80 animate-slide-in-right mb-3 rounded-2xl shadow-xl toast`;
-            toast.innerHTML = `<i class="fa-solid ${icon} ${color} mt-1 text-lg"></i><div><h4 class="text-white font-black text-sm tracking-wide">${title}</h4><p class="text-xs text-slate-300 mt-1 font-medium leading-relaxed">${msg}</p></div>`;
+            toast.innerHTML = `<i class="fa-solid ${icon} ${color} mt-1 text-lg"></i><div><h4 class="text-white font-black text-sm tracking-wide">${title}</h4><p class="text-xs text-slate-300 mt-1 font-medium">${msg}</p></div>`;
             
             container.appendChild(toast);
             setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(20px)'; setTimeout(() => toast.remove(), 300); }, 3500);
         }
 
         window.alert = function(message) {
-            if(message.toLowerCase().includes('error') || message.toLowerCase().includes('fail') || message.toLowerCase().includes('invalid') || message.toLowerCase().includes('required') || message.toLowerCase().includes('empty')) {
+            if(typeof message === 'string' && (message.toLowerCase().includes('error') || message.toLowerCase().includes('fail') || message.toLowerCase().includes('invalid') || message.toLowerCase().includes('required') || message.toLowerCase().includes('empty'))) {
                 showToast("Action Required", message, 'error');
             } else {
                 showToast("System Notice", message, 'success');
@@ -582,9 +566,10 @@
         };
 
         // --- Audio Engine ---
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let audioCtx;
         function playClickSound() {
             try {
+                if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 if(audioCtx.state === 'suspended') audioCtx.resume();
                 const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
                 osc.type = 'sine'; osc.frequency.setValueAtTime(600, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05);
@@ -593,20 +578,31 @@
             } catch(e){}
         }
 
-        // --- Global State ---
+        // --- Global State & Storage ---
         let currentView = 'home';
         let memoryAllocationCartStack = [];
         let aiCommittedSandboxCacheMarkup = "";
 
-        const storefrontGlobalCategoriesTabObjectMap = JSON.parse(localStorage.getItem('live_store_tabs')) || [ { id: "ranks", label: "Global Ranks", icon: "fa-crown" }, { id: "keys", label: "Crate Keys", icon: "fa-key" } ];
-        let storefrontDynamicProductsCoreArray = JSON.parse(localStorage.getItem('live_store_products')) || [ { id: "r1", category: "ranks", name: "KNIGHT Rank Upgrade", price: 199, perk: "Entry Tier Kit Allocation" }, { id: "r2", category: "ranks", name: "LORD Rank Upgrade", price: 399, perk: "Lord Tier Kit Configuration" }, { id: "r3", category: "ranks", name: "PALADIN Rank Upgrade", price: 599, perk: "Paladin Tier Kit Access" }, { id: "r4", category: "ranks", name: "DUKE Rank Upgrade", price: 799, perk: "Duke Visual Particle Trails" }, { id: "r5", category: "ranks", name: "KING Rank Upgrade", price: 999, perk: "Max Perks Override" }, { id: "k1", category: "keys", name: "Vote Crate Key Drop", price: 10, perk: "Standard Vote Crate Roll" }, { id: "k2", category: "keys", name: "Common Crate Key Drop", price: 20, perk: "Tier 1 Common Asset Lootbox" }, { id: "k3", category: "keys", name: "Rare Crate Key Drop", price: 30, perk: "Tier 2 Rare Drops Allocation" }, { id: "k4", category: "keys", name: "Epic Crate Key Drop", price: 40, perk: "Tier 3 Supreme Visual Key" }, { id: "k5", category: "keys", name: "Superior Crate Key Drop", price: 80, perk: "Premium Max-Tier Loot Box Key" } ];
+        let storefrontGlobalCategoriesTabObjectMap = [ { id: "ranks", label: "Global Ranks", icon: "fa-crown" }, { id: "keys", label: "Crate Keys", icon: "fa-key" } ];
+        try { const lsTabs = JSON.parse(localStorage.getItem('live_store_tabs')); if(lsTabs && lsTabs.length > 0) storefrontGlobalCategoriesTabObjectMap = lsTabs; } catch(e){}
+
+        let storefrontDynamicProductsCoreArray = [ { id: "r1", category: "ranks", name: "KNIGHT Rank Upgrade", price: 199, perk: "Entry Tier Kit Allocation" }, { id: "r2", category: "ranks", name: "LORD Rank Upgrade", price: 399, perk: "Lord Tier Kit Configuration" }, { id: "r3", category: "ranks", name: "PALADIN Rank Upgrade", price: 599, perk: "Paladin Tier Kit Access" }, { id: "r4", category: "ranks", name: "DUKE Rank Upgrade", price: 799, perk: "Duke Visual Particle Trails" }, { id: "r5", category: "ranks", name: "KING Rank Upgrade", price: 999, perk: "Max Perks Override" }, { id: "k1", category: "keys", name: "Vote Crate Key Drop", price: 10, perk: "Standard Vote Crate Roll" }, { id: "k2", category: "keys", name: "Common Crate Key Drop", price: 20, perk: "Tier 1 Common Asset Lootbox" }, { id: "k3", category: "keys", name: "Rare Crate Key Drop", price: 30, perk: "Tier 2 Rare Drops Allocation" }, { id: "k4", category: "keys", name: "Epic Crate Key Drop", price: 40, perk: "Tier 3 Supreme Visual Key" }, { id: "k5", category: "keys", name: "Superior Crate Key Drop", price: 80, perk: "Premium Max-Tier Loot Box Key" } ];
+        try { const lsProds = JSON.parse(localStorage.getItem('live_store_products')); if(lsProds && lsProds.length > 0) storefrontDynamicProductsCoreArray = lsProds; } catch(e){}
+
         const hostPlans = [ { ram: "4 GB", cpu: "100%", disk: "15 GB", bkups: "1", price: 119 }, { ram: "8 GB", cpu: "200%", disk: "30 GB", bkups: "2", price: 199 }, { ram: "12 GB", cpu: "300%", disk: "45 GB", bkups: "3", price: 329 }, { ram: "16 GB", cpu: "400%", disk: "60 GB", bkups: "4", price: 449 }, { ram: "26 GB", cpu: "550%", disk: "80 GB", bkups: "5", price: 699 }, { ram: "32 GB", cpu: "700%", disk: "100 GB", bkups: "6", price: 749 } ];
         
-        let coreDatabaseTransactionsRegisterQueueArray = JSON.parse(localStorage.getItem('db_queue')) || []; 
-        let counterMetricApprovedTransactionsTotalSumValue = parseFloat(localStorage.getItem('db_rev')) || 0;
-        let adminIdentityAuthAuditTrailsRegistry = JSON.parse(localStorage.getItem('db_sessions')) || [ { id: 101, name: "System Core", email: "kernel@cylestial.net", role: "Owner", time: new Date().toLocaleTimeString(), status: "Active" } ];
-        let publicApprovedSupportersLeaderboardArray = JSON.parse(localStorage.getItem('db_supporters')) || [];
+        let coreDatabaseTransactionsRegisterQueueArray = [];
+        try { const lsQueue = JSON.parse(localStorage.getItem('db_queue')); if(lsQueue) coreDatabaseTransactionsRegisterQueueArray = lsQueue; } catch(e){}
 
+        let counterMetricApprovedTransactionsTotalSumValue = parseFloat(localStorage.getItem('db_rev')) || 0;
+        
+        let adminIdentityAuthAuditTrailsRegistry = [ { id: 101, name: "System Core", email: "kernel@cylestial.net", role: "Owner", time: new Date().toLocaleTimeString(), status: "Active" } ];
+        try { const lsSess = JSON.parse(localStorage.getItem('db_sessions')); if(lsSess && lsSess.length > 0) adminIdentityAuthAuditTrailsRegistry = lsSess; } catch(e){}
+
+        let publicApprovedSupportersLeaderboardArray = [];
+        try { const lsSupp = JSON.parse(localStorage.getItem('db_supporters')); if(lsSupp) publicApprovedSupportersLeaderboardArray = lsSupp; } catch(e){}
+
+        // --- DOM Initialization ---
         window.addEventListener('DOMContentLoaded', () => {
             if(localStorage.getItem('live_cfg_brand') && document.getElementById('liveDOMTextServerBrandNameTitle')) document.getElementById('liveDOMTextServerBrandNameTitle').innerHTML = localStorage.getItem('live_cfg_brand');
             if(localStorage.getItem('live_cfg_sub') && document.getElementById('liveDOMTextServerBrandSubtitle')) document.getElementById('liveDOMTextServerBrandSubtitle').innerText = localStorage.getItem('live_cfg_sub');
@@ -614,10 +610,12 @@
             if(localStorage.getItem('live_cfg_java') && document.getElementById('liveDOMTextConnectionJavaAddress')) document.getElementById('liveDOMTextConnectionJavaAddress').innerText = localStorage.getItem('live_cfg_java');
             if(localStorage.getItem('live_cfg_bedrock_ip') && document.getElementById('liveDOMTextConnectionBedrockIP')) document.getElementById('liveDOMTextConnectionBedrockIP').innerText = localStorage.getItem('live_cfg_bedrock_ip');
             if(localStorage.getItem('live_cfg_bedrock_port') && document.getElementById('liveDOMTextConnectionBedrockPort')) document.getElementById('liveDOMTextConnectionBedrockPort').innerText = localStorage.getItem('live_cfg_bedrock_port');
-            renderPublicSupportersLeaderboardUIDOM();
+            
             if(localStorage.getItem('cylestialTerminalAdminAuditFullName')) transitionUIToAuthenticatedDashboardState();
             
-            buildStorefrontDynamicNavigationAndLayoutDOM(); updateNavbar(); switchView('view-home');
+            buildStorefrontDynamicNavigationAndLayoutDOM(); 
+            updateNavbar(); 
+            switchView('home'); // Force load Home safely
         });
 
         function copyText(text, msg) { playClickSound(); navigator.clipboard.writeText(text); showToast("Copied", msg); }
@@ -628,42 +626,50 @@
         function switchView(targetId) {
             playClickSound(); window.scrollTo({ top: 0, behavior: 'smooth' });
             
-            const views = ['view-home', 'view-hosting', 'view-shop', 'view-discord'];
+            const views = ['main_landing_view_tier', 'hosting_layout_root_tier', 'shop_layout_root_tier', 'discord_chooser_view_tier'];
             views.forEach(id => {
                 const el = document.getElementById(id);
-                if(el) { el.classList.remove('active-flex', 'active-grid', 'active-block', 'shop-active'); el.style.display = 'none'; }
+                if(el) {
+                    el.classList.remove('active-flex', 'active-grid', 'active-block', 'shop-active');
+                    el.style.display = 'none';
+                }
             });
 
             const mobHead = document.getElementById('shopMobileHeaderBar'); const mobDock = document.getElementById('shopMobileDockBar');
             if(mobHead) mobHead.style.display = 'none'; if(mobDock) mobDock.style.display = 'none';
 
-            const targetEl = document.getElementById(targetId);
+            // Mapping friendly ID to actual DOM ID
+            let domId = '';
+            if (targetId === 'home') domId = 'main_landing_view_tier';
+            else if (targetId === 'hosting') domId = 'hosting_layout_root_tier';
+            else if (targetId === 'shop') domId = 'shop_layout_root_tier';
+            else if (targetId === 'discord') domId = 'discord_chooser_view_tier';
+
+            const targetEl = document.getElementById(domId);
             if(targetEl) {
-                if(targetId === 'view-home') { targetEl.classList.add('active-flex'); targetEl.style.display = 'flex'; currentView = 'home'; renderPublicSupportersLeaderboardUIDOM(); }
-                else if(targetId === 'view-hosting') { targetEl.classList.add('active-block'); targetEl.style.display = 'block'; currentView = 'hosting'; }
-                else if(targetId === 'view-shop') { 
+                if(targetId === 'home') { targetEl.classList.add('active-flex'); targetEl.style.display = 'flex'; renderPublicSupportersLeaderboardUIDOM(); }
+                else if(targetId === 'hosting') { targetEl.classList.add('active-block'); targetEl.style.display = 'block'; }
+                else if(targetId === 'shop') { 
                     targetEl.classList.add('active-grid', 'shop-active'); targetEl.style.display = 'grid'; 
-                    if(mobHead) mobHead.style.display = 'flex'; if(mobDock) mobDock.style.display = 'flex'; 
-                    buildStorefrontDynamicNavigationAndLayoutDOM(); currentView = 'shop'; 
+                    if(mobHead) mobHead.style.display = 'flex'; 
+                    if(mobDock) mobDock.style.display = 'flex'; 
+                    buildStorefrontDynamicNavigationAndLayoutDOM(); 
                 }
-                else if(targetId === 'view-discord') { targetEl.classList.add('active-flex'); targetEl.style.display = 'flex'; currentView = 'discord'; }
+                else if(targetId === 'discord') { targetEl.classList.add('active-flex'); targetEl.style.display = 'flex'; }
             }
-            updateNavbar();
+            
+            currentView = targetId; updateNavbar();
         }
 
-        function navigateToViewTier(id) {
-            if(id === 'home') switchView('view-home');
-            else if(id === 'hosting') switchView('view-hosting');
-            else if(id === 'shop') switchView('view-shop');
-            else if(id === 'discord') switchView('view-discord');
-        }
+        // Keep alias for HTML onclicks
+        function navigateToViewTier(targetId) { switchView(targetId); }
 
         function updateNavbar() {
             const container = document.getElementById('nav-links'); const cartBtn = document.getElementById('nav-cart-btn');
             if(!container || !cartBtn) return;
             if(currentView === 'home' || currentView === 'discord') { container.innerHTML = ''; cartBtn.classList.add('hidden'); }
-            else if(currentView === 'hosting') { container.innerHTML = `<a href="#h-config" class="hover:text-amber-400 transition-colors font-bold uppercase tracking-widest text-[10px]">Hardware</a><a href="#plans" class="hover:text-amber-400 transition-colors font-bold uppercase tracking-widest text-[10px]">Pricing</a><span class="w-px h-4 bg-white/20 mx-2"></span><button onclick="navigateToViewTier('shop')" class="text-cyan-400 hover:text-white transition-colors font-bold uppercase tracking-widest text-[10px] btn-interactive">Webstore →</button>`; cartBtn.classList.add('hidden'); }
-            else if(currentView === 'shop') { container.innerHTML = `<span class="text-white font-black tracking-widest uppercase text-[10px] hidden sm:block">Store Catalog</span><span class="w-px h-4 bg-white/20 mx-2 hidden sm:block"></span><button onclick="navigateToViewTier('hosting')" class="text-amber-400 hover:text-white transition-colors font-bold uppercase tracking-widest text-[10px] btn-interactive">← Hosting</button>`; cartBtn.classList.remove('hidden'); cartBtn.classList.add('flex'); }
+            else if(currentView === 'hosting') { container.innerHTML = `<a href="#h-config" class="hover:text-amber-400 transition-colors">Hardware</a><a href="#plans" class="hover:text-amber-400 transition-colors">Pricing</a><span class="w-px h-4 bg-white/20 mx-2"></span><button onclick="navigateToViewTier('shop')" class="text-cyan-400 hover:text-white transition-colors">Webstore →</button>`; cartBtn.classList.add('hidden'); }
+            else if(currentView === 'shop') { container.innerHTML = `<span class="text-white font-black tracking-widest uppercase text-xs hidden sm:block">Store Catalog</span><span class="w-px h-4 bg-white/20 mx-2 hidden sm:block"></span><button onclick="navigateToViewTier('hosting')" class="text-amber-400 hover:text-white transition-colors">← Hosting</button>`; cartBtn.classList.remove('hidden'); cartBtn.classList.add('flex'); }
         }
 
         // --- Webstore Engine ---
@@ -683,7 +689,7 @@
                 });
                 viewPane.appendChild(sectionGrid);
             });
-            mobileDock.innerHTML += `<button onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')" class="flex flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400 btn-interactive"><i class="fa-solid fa-shopping-cart text-xl mb-1"></i> Checkout</button>`;
+            mobileDock.innerHTML += `<button onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')" class="flex flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400 btn-interactive"><i class="fa-solid fa-shopping-cart text-xl mb-1"></i> Cart</button>`;
         }
 
         function executeViewPaneTabSwitch(targetID) {
@@ -707,7 +713,7 @@
             const floatIcon = document.getElementById('float-cart-icon'); if(floatIcon) { floatIcon.classList.remove('animate-bounce-sm'); void floatIcon.offsetWidth; floatIcon.classList.add('animate-bounce-sm'); }
             
             if(event) {
-                showToast("Added to Cart", `${name} added successfully.`, "success");
+                showToast("Added to Cart", `${name} added.`, "success");
                 const btn = event.target; const og = btn.innerText; btn.innerText = "Added ✓"; btn.classList.add('bg-emerald-500', 'text-black', 'border-emerald-500');
                 setTimeout(() => { btn.innerText = og; btn.classList.remove('bg-emerald-500', 'text-black', 'border-emerald-500'); }, 1000);
             }
@@ -750,7 +756,7 @@
             const discord = discInput ? discInput.value.trim() : ''; const email = emailInput ? emailInput.value.trim() : ''; const legal = legalBox ? legalBox.checked : false; const mcName = mcInput ? mcInput.value.trim() : '';
             const isHostCheckout = memoryAllocationCartStack.length > 0 && memoryAllocationCartStack[0].isHost;
             
-            [discInput, emailInput, mcInput].forEach(inp => { if(inp) inp.classList.remove('error-border'); });
+            if(discInput) discInput.classList.remove('error-border'); if(emailInput) emailInput.classList.remove('error-border'); if(mcInput) mcInput.classList.remove('error-border');
             let hasError = false;
             if(!discord && discInput) { discInput.classList.add('error-border'); hasError = true; }
             if(!email && emailInput) { emailInput.classList.add('error-border'); hasError = true; }
