@@ -44,11 +44,11 @@
     <style>
         body { background-color: #03060f; color: #f8fafc; overflow-x: hidden; -webkit-tap-highlight-color: transparent; min-height: 100vh; display: flex; flex-direction: column; }
 
-        /* Dynamic Background */
+        /* Background Graphics */
         #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; opacity: 0.8; }
         .bg-mesh { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: radial-gradient(circle at 15% 30%, rgba(99, 102, 241, 0.08), transparent 45%), radial-gradient(circle at 85% 70%, rgba(245, 158, 11, 0.08), transparent 45%), radial-gradient(circle at 50% 90%, rgba(6, 182, 212, 0.08), transparent 45%); filter: blur(60px); }
 
-        /* Premium Glassmorphism */
+        /* Premium Opaque Glassmorphism */
         .glass-panel { background: rgba(11, 16, 28, 0.95); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .glass-panel:hover { border-color: rgba(255, 255, 255, 0.2); }
 
@@ -57,7 +57,7 @@
         .tilt-card-content { transform: translateZ(30px); }
         .glare { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; transition: opacity 0.3s; opacity: 0; z-index: 10; }
 
-        /* Scrollbar & Sliders */
+        /* Scrollbars & Controls */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
@@ -68,9 +68,11 @@
         input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; background: #1e293b; border-radius: 4px; }
 
-        /* Page Routing Classes */
-        .view-section { display: none; opacity: 0; }
-        .view-section.active { display: block; animation: fadeIn 0.4s ease forwards; }
+        /* View Layer Management */
+        .view-section { display: none; opacity: 0; width: 100%; flex-grow: 1; }
+        .view-section.active-flex { display: flex !important; animation: fadeIn 0.4s ease forwards; }
+        .view-section.active-block { display: block !important; animation: fadeIn 0.4s ease forwards; }
+        .view-section.active-grid { display: grid !important; animation: fadeIn 0.4s ease forwards; }
 
         /* MOTD Strip */
         .live-server-motd-pulse-strip { background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); padding: 10px 24px; border-radius: 100px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #10b981; margin-bottom: 40px; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 0 20px rgba(16, 185, 129, 0.15); cursor: pointer; transition: all 0.2s; }
@@ -93,11 +95,10 @@
         .btn-interactive:hover { transform: translateY(-2px); }
         .btn-interactive:active { transform: scale(0.96); }
 
-        /* Store Layout */
+        /* Webstore Layout */
         .app-layout-root { grid-template-columns: 280px 1fr; min-height: 100vh; position: relative; z-index: 5; }
         aside { background: rgba(7, 10, 19, 0.95); border-right: 1px solid rgba(255,255,255,0.08); padding: 40px 25px; display: flex; flex-direction: column; justify-content: space-between; position: sticky; top: 0; height: 100vh; z-index: 100; }
         .primary-viewport-pane { padding: 40px; overflow-y: auto; max-height: 100vh; flex-grow: 1; }
-        
         .catalog-display-view-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-bottom: 60px; }
 
         @media (max-width: 1024px) {
@@ -127,26 +128,26 @@
     <div class="bg-mesh"></div>
     <canvas id="particles-canvas"></canvas>
 
-    <!-- TOAST CONTAINER -->
+    <!-- TOAST NOTIFICATIONS -->
     <div id="toast-container"></div>
 
-    <!-- GLOBAL NAVBAR -->
+    <!-- GLOBAL NAVIGATION BAR -->
     <nav id="global-nav" class="fixed top-0 w-full z-50 glass-panel border-b-0 border-x-0 border-t-0 border-b border-white/10 rounded-none bg-black/60 backdrop-blur-xl">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3 cursor-pointer group btn-interactive" onclick="switchView('home')">
-                <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain drop-shadow-[0_0_10px_rgba(6,182,212,0.5)] group-hover:scale-110 transition-transform" onerror="this.style.display='none'">
+                <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain drop-shadow-[0_0_10px_rgba(6,182,212,0.5)] group-hover:scale-110 transition-transform" onerror="this.src='https://ui-avatars.com/api/?name=C&background=06b6d4&color=fff&rounded=true'">
                 <span class="text-2xl font-black tracking-tight text-white group-hover:text-slate-300 transition-colors">CYLESTIAL</span>
             </div>
 
-            <!-- Dynamic Nav Links -->
+            <!-- Dynamic Links Injected via JS -->
             <div id="nav-links" class="hidden md:flex items-center gap-8 text-sm font-bold text-slate-400"></div>
 
             <div class="flex items-center gap-4">
-                <button onclick="switchView('home')" class="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-bold btn-interactive">
+                <button onclick="switchView('home')" class="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-bold btn-interactive shadow-md">
                     <i class="fa-solid fa-house"></i> Main Hub
                 </button>
-                <button id="nav-cart-btn" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')" class="hidden items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-400 text-black text-sm font-black shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:bg-cyan-300 btn-interactive">
-                    <i id="nav-cart-icon" class="fa-solid fa-shopping-cart"></i> <span id="nav-cart-count">0</span>
+                <button id="nav-cart-btn" onclick="openSystemModalWindow('checkoutSystemProcessingModalWindow')" class="hidden items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-400 text-black text-sm font-black shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:bg-cyan-300 btn-interactive transition-all">
+                    <i id="nav-cart-icon" class="fa-solid fa-shopping-cart transition-transform"></i> <span id="nav-cart-count">0</span>
                 </button>
             </div>
         </div>
@@ -155,7 +156,7 @@
     <!-- ===================================================================== -->
     <!-- VIEW 1: MAIN HUB (GATEWAY SPLASH)                                     -->
     <!-- ===================================================================== -->
-    <main id="view-home" class="view-section active flex-col items-center justify-center pt-32 pb-20 p-6 text-center relative z-10 w-full flex-grow">
+    <main id="view-home" class="view-section active-flex flex-col items-center justify-center pt-32 pb-20 p-6 text-center relative z-10 w-full flex-grow">
         
         <img src="logo.png" class="w-36 h-36 object-contain mb-4 drop-shadow-[0_0_30px_rgba(6,182,212,0.4)] animate-float" onerror="this.style.display='none'">
         
@@ -164,12 +165,12 @@
         </h1>
         <p class="text-slate-400 font-bold uppercase tracking-widest text-sm mb-8" id="liveDOMTextServerBrandSubtitle">Official Server Network & Hosting Hub</p>
 
-        <div class="live-server-motd-pulse-strip btn-interactive" onclick="copyText('node.treemc.host:19132', 'Server IP Copied!')">
+        <div class="live-server-motd-pulse-strip btn-interactive" onclick="copyTextToClipboard('node.treemc.host:19132', 'Server IP Copied!')">
             <span class="dot"></span>
             <span id="liveDOMTextServerMotdMessageDisplay">● 142 Players Online | ⚔️ SUMMER SEASON UPDATE IS LIVE (Tap to copy)</span>
         </div>
 
-        <!-- Master Gateway Portals -->
+        <!-- Portal Cards -->
         <div class="glass-panel p-8 md:p-12 rounded-[2.5rem] w-full max-w-5xl mb-12 shadow-2xl relative overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none z-0"></div>
             <h3 class="text-xl font-black text-white uppercase tracking-widest mb-8 relative z-10">What do you want to explore?</h3>
@@ -207,21 +208,21 @@
 
         <!-- Connection Gateways -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-5xl mb-16">
-            <div class="glass-panel p-6 rounded-2xl flex items-center gap-5 btn-interactive cursor-pointer hover:border-white/20" onclick="copyText('node.treemc.host:19132', 'Java IP Copied!')">
+            <div class="glass-panel p-6 rounded-2xl flex items-center gap-5 btn-interactive cursor-pointer hover:border-white/20" onclick="copyTextToClipboard('node.treemc.host:19132', 'Java IP Copied!')">
                 <div class="w-12 h-12 rounded-xl bg-white/5 text-slate-300 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-terminal"></i></div>
                 <div class="text-left"><span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Java Address</span><span class="text-sm font-mono font-black text-white" id="liveDOMTextConnectionJavaAddress">node.treemc.host:19132</span></div>
             </div>
-            <div class="glass-panel p-6 rounded-2xl flex items-center gap-5 btn-interactive cursor-pointer hover:border-white/20" onclick="copyText('node.treemc.host', 'Bedrock IP Copied!')">
+            <div class="glass-panel p-6 rounded-2xl flex items-center gap-5 btn-interactive cursor-pointer hover:border-white/20" onclick="copyTextToClipboard('node.treemc.host', 'Bedrock IP Copied!')">
                 <div class="w-12 h-12 rounded-xl bg-white/5 text-slate-300 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-mobile-screen"></i></div>
                 <div class="text-left"><span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Bedrock IP</span><span class="text-sm font-mono font-black text-white" id="liveDOMTextConnectionBedrockIP">node.treemc.host</span></div>
             </div>
-            <div class="glass-panel p-6 rounded-2xl flex items-center gap-5 btn-interactive cursor-pointer hover:border-white/20" onclick="copyText('19132', 'Port Copied!')">
+            <div class="glass-panel p-6 rounded-2xl flex items-center gap-5 btn-interactive cursor-pointer hover:border-white/20" onclick="copyTextToClipboard('19132', 'Port Copied!')">
                 <div class="w-12 h-12 rounded-xl bg-white/5 text-slate-300 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-circle-nodes"></i></div>
                 <div class="text-left"><span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Bedrock Port</span><span class="text-sm font-mono font-black text-white" id="liveDOMTextConnectionBedrockPort">19132</span></div>
             </div>
         </div>
 
-        <!-- Supporters Ledger -->
+        <!-- Supporters Wall -->
         <div class="glass-panel p-8 rounded-[2rem] w-full max-w-4xl text-left shadow-lg">
             <h3 class="text-lg font-black text-white uppercase tracking-widest mb-6 flex items-center gap-3"><i class="fa-solid fa-trophy text-amber-400"></i> Server Supporters & Purchases</h3>
             <div class="max-h-[250px] overflow-y-auto custom-scrollbar pr-2" id="publicSupportersRecognitionScrollerStack"></div>
@@ -229,7 +230,7 @@
     </main>
 
     <!-- ===================================================================== -->
-    <!-- VIEW 2: DISCORD CHOOSER PAGE                                          -->
+    <!-- VIEW 2: DISCORD SUPPORT CHOOSER                                       -->
     <!-- ===================================================================== -->
     <main id="view-discord" class="view-section flex-col items-center justify-center min-h-screen p-6 text-center relative z-10 pt-28 flex-grow w-full">
         <div class="glass-panel p-10 md:p-14 rounded-[3rem] w-full max-w-3xl shadow-2xl border-indigo-500/30">
@@ -298,32 +299,32 @@
                 </div>
             </div>
 
-            <!-- Fixed Hosting Plans Grid (All 6 Cards) -->
+            <!-- Fixed Hosting Plans Grid -->
             <h3 class="text-3xl font-black text-white mb-10 uppercase tracking-widest" id="plans">Preset Infrastructure</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto text-left mb-12">
-                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between">
-                    <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Entry</span><h3 class="text-2xl font-black text-white mt-4 mb-2">IGNITION</h3><div class="text-4xl font-black font-mono text-white mb-8">₹119<span class="text-sm text-slate-500">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 4 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 100% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 15 GB NVMe</li></ul></div>
-                    <button onclick="injectHostingPlanToCart('IGNITION', 119)" class="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
+                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-white/10 hover:border-amber-500/50 transition-colors">
+                    <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Entry</span><h3 class="text-2xl font-black text-white mt-4 mb-2">IGNITION</h3><div class="text-4xl font-black font-mono text-white mb-8">₹119<span class="text-sm text-slate-400">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 4 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 100% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 15 GB NVMe SSD</li></ul></div>
+                    <button onclick="injectHostingPlanToCart('IGNITION', 119)" class="w-full py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
                 </div>
-                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-amber-500 bg-amber-500/5 relative scale-100 md:scale-105 shadow-[0_0_40px_rgba(245,158,11,0.15)] z-10">
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest">Popular</div>
-                    <div><span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-md">Standard</span><h3 class="text-2xl font-black text-white mt-4 mb-2">HYPERION</h3><div class="text-4xl font-black font-mono text-amber-500 mb-8">₹199<span class="text-sm text-amber-500/50">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-white mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 8 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 200% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 30 GB NVMe</li></ul></div>
+                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-amber-500/80 bg-amber-500/10 relative scale-100 md:scale-105 shadow-[0_0_40px_rgba(245,158,11,0.2)] z-10">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-400 text-black text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg">Most Popular</div>
+                    <div><span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-500/20 px-3 py-1 rounded-md">Standard</span><h3 class="text-2xl font-black text-white mt-4 mb-2">HYPERION</h3><div class="text-4xl font-black font-mono text-amber-400 mb-8">₹199<span class="text-sm text-amber-400/60">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-white mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 8 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 200% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 30 GB NVMe SSD</li></ul></div>
                     <button onclick="injectHostingPlanToCart('HYPERION', 199)" class="w-full py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black transition-all uppercase tracking-widest shadow-lg btn-interactive">Deploy Plan</button>
                 </div>
-                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between">
-                    <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Advanced</span><h3 class="text-2xl font-black text-white mt-4 mb-2">VORTEX</h3><div class="text-4xl font-black font-mono text-white mb-8">₹329<span class="text-sm text-slate-500">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 12 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 300% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 45 GB NVMe</li></ul></div>
-                    <button onclick="injectHostingPlanToCart('VORTEX', 329)" class="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
+                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-white/10 hover:border-amber-500/50 transition-colors">
+                    <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Advanced</span><h3 class="text-2xl font-black text-white mt-4 mb-2">VORTEX</h3><div class="text-4xl font-black font-mono text-white mb-8">₹329<span class="text-sm text-slate-400">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 12 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 300% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 45 GB NVMe SSD</li></ul></div>
+                    <button onclick="injectHostingPlanToCart('VORTEX', 329)" class="w-full py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
                 </div>
-                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between">
-                    <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Pro</span><h3 class="text-2xl font-black text-white mt-4 mb-2">APEX</h3><div class="text-4xl font-black font-mono text-white mb-8">₹449<span class="text-sm text-slate-500">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 16 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 400% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 60 GB NVMe</li></ul></div>
-                    <button onclick="injectHostingPlanToCart('APEX', 449)" class="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
+                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-white/10 hover:border-amber-500/50 transition-colors">
+                    <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Pro</span><h3 class="text-2xl font-black text-white mt-4 mb-2">APEX</h3><div class="text-4xl font-black font-mono text-white mb-8">₹449<span class="text-sm text-slate-400">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 16 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 400% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 60 GB NVMe SSD</li></ul></div>
+                    <button onclick="injectHostingPlanToCart('APEX', 449)" class="w-full py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
                 </div>
-                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between">
-                    <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Extreme</span><h3 class="text-2xl font-black text-white mt-4 mb-2">OVERDRIVE</h3><div class="text-4xl font-black font-mono text-white mb-8">₹699<span class="text-sm text-slate-500">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 26 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 550% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 80 GB NVMe</li></ul></div>
-                    <button onclick="injectHostingPlanToCart('OVERDRIVE', 699)" class="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
+                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-white/10 hover:border-amber-500/50 transition-colors">
+                    <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-md">Extreme</span><h3 class="text-2xl font-black text-white mt-4 mb-2">OVERDRIVE</h3><div class="text-4xl font-black font-mono text-white mb-8">₹699<span class="text-sm text-slate-400">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 26 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 550% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 80 GB NVMe SSD</li></ul></div>
+                    <button onclick="injectHostingPlanToCart('OVERDRIVE', 699)" class="w-full py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-white font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
                 </div>
-                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-amber-500/30 bg-amber-500/5">
-                    <div><span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-md">Maximum</span><h3 class="text-2xl font-black text-white mt-4 mb-2">GODMODE</h3><div class="text-4xl font-black font-mono text-amber-400 mb-8">₹749<span class="text-sm text-slate-500">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 32 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 700% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-500"></i> 100 GB NVMe</li></ul></div>
+                <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-amber-500/40 border-2 bg-amber-500/5">
+                    <div><span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-md">Maximum</span><h3 class="text-2xl font-black text-white mt-4 mb-2">GODMODE</h3><div class="text-4xl font-black font-mono text-amber-400 mb-8">₹749<span class="text-sm text-slate-400">/mo</span></div><ul class="space-y-4 text-sm font-semibold text-slate-300 mb-8"><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 32 GB RAM</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 700% vCPU</li><li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 100 GB NVMe SSD</li></ul></div>
                     <button onclick="injectHostingPlanToCart('GODMODE', 749)" class="w-full py-4 rounded-xl bg-amber-500/20 border border-amber-500/30 hover:bg-amber-500 hover:text-black text-amber-400 font-bold transition-all btn-interactive uppercase tracking-widest text-xs">Deploy Plan</button>
                 </div>
             </div>
@@ -331,7 +332,7 @@
     </main>
 
     <!-- ===================================================================== -->
-    <!-- VIEW 4: SERVER WEBSTORE & ADMIN CONSOLE (GRID)                        -->
+    <!-- VIEW 4: SERVER WEBSTORE & ADMIN CONSOLE                               -->
     <!-- ===================================================================== -->
     <div class="mobile-header-bar" id="shopMobileHeaderBar" style="display:none;">
         <h2 onclick="switchView('view-home')" class="text-lg font-black text-white cursor-pointer btn-interactive">CYLESTIAL<span class="text-cyan-400">MC</span></h2>
@@ -361,10 +362,10 @@
         <div class="primary-viewport-pane" id="catalogStorefrontPrimaryViewportMainPane">
             <div class="glass-panel p-5 rounded-2xl mb-10 flex items-center gap-4 border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.1)]">
                 <i class="fa-solid fa-bolt-lightning text-cyan-400 text-2xl ml-2"></i>
-                <div><span class="block text-sm font-black text-white uppercase tracking-widest mb-1">Network Upgrades Active</span><span class="text-xs text-slate-300 font-medium">Purchase a token package below to instantly upgrade your profile metadata on the server.</span></div>
+                <div><span class="block text-sm font-black text-white uppercase tracking-widest mb-1">Network Upgrades Active</span><span class="text-xs text-slate-300 font-medium leading-relaxed">Purchase a token package below to instantly upgrade your profile metadata on the server.</span></div>
             </div>
             <div id="clientPublicGlobalBroadcastBanner"></div>
-            <!-- Products Injected via JS -->
+            <div id="shop-products-container"></div>
         </div>
     </main>
 
@@ -405,7 +406,6 @@
 
             <div class="flex-grow overflow-y-auto custom-scrollbar bg-[#050810] p-6 md:p-8">
                 
-                <!-- STEP 1 -->
                 <div id="modalStageWrapperStep1">
                     <div id="modalCartItemsRowsOutputContainer" class="flex flex-col gap-3 mb-6"></div>
                     <div class="flex justify-between items-end mb-8 pt-4 border-t border-white/10"><span class="text-slate-400 font-bold uppercase tracking-widest text-xs">Total Amount</span><span id="checkoutGrandTotalCostOutputText" class="text-4xl font-black font-mono text-white">₹0</span></div>
@@ -429,7 +429,6 @@
                     <button class="w-full mt-8 py-5 rounded-xl bg-white hover:bg-gray-200 text-black font-black uppercase tracking-widest shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-all btn-interactive" type="button" onclick="advanceCheckoutModalToPaymentMatrix()">Proceed to Payment</button>
                 </div>
 
-                <!-- STEP 2 (UPI) -->
                 <div id="modalStageWrapperStep2" style="display: none;" class="text-center">
                     <span class="inline-block px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-black uppercase tracking-widest mb-6">Official Verification Node</span>
                     <div class="bg-white p-4 rounded-3xl inline-block mb-8 shadow-[0_0_40px_rgba(255,255,255,0.1)]"><img src="" id="premiumAutomatedBillingQRImageTarget" alt="UPI QR" class="w-48 h-48 block rounded-xl"></div>
@@ -442,7 +441,6 @@
                     <button class="w-full mt-4 py-3 text-[10px] font-bold text-slate-500 hover:text-white uppercase tracking-widest transition-colors btn-interactive" type="button" onclick="backToCartStep()">← Back to Summary</button>
                 </div>
 
-                <!-- STEP 3 (SUCCESS) -->
                 <div id="modalStageWrapperStep3" style="display: none; text-align: center; padding: 20px 0;">
                     <div class="w-24 h-24 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-5xl mx-auto mb-8 border border-emerald-500/30 shadow-[0_0_50px_rgba(16,185,129,0.2)]"><i class="fa-solid fa-check"></i></div>
                     <h3 class="text-3xl font-black text-white uppercase tracking-widest mb-4">Order Queued</h3>
@@ -544,7 +542,7 @@
     </div>
 
     <!-- ===================================================================== -->
-    <!-- MASTER SCRIPT LOGIC ENGINE (ROBUST & ERROR FREE)                      -->
+    <!-- MASTER SCRIPT LOGIC ENGINE                                            -->
     <!-- ===================================================================== -->
     <script>
         (function() { try { emailjs.init("NVnA_39yMMVx_TZyj"); } catch(e){} })();
@@ -568,9 +566,7 @@
         window.alert = function(message) {
             if(typeof message === 'string' && (message.toLowerCase().includes('error') || message.toLowerCase().includes('fail') || message.toLowerCase().includes('invalid') || message.toLowerCase().includes('required') || message.toLowerCase().includes('empty'))) {
                 showToast("Action Required", message, 'error');
-            } else {
-                showToast("System Notice", message, 'success');
-            }
+            } else { showToast("System Notice", message, 'success'); }
         };
 
         // --- Audio Engine ---
@@ -600,7 +596,7 @@
         let adminIdentityAuthAuditTrailsRegistry = JSON.parse(localStorage.getItem('db_sessions')) || [ { id: 101, name: "System Core", email: "kernel@cylestial.net", role: "Owner", time: new Date().toLocaleTimeString(), status: "Active" } ];
         let publicApprovedSupportersLeaderboardArray = JSON.parse(localStorage.getItem('db_supporters')) || [];
 
-        // DOM Setup
+        // DOM Initialization
         window.addEventListener('DOMContentLoaded', () => {
             if(localStorage.getItem('live_cfg_brand') && document.getElementById('liveDOMTextServerBrandNameTitle')) document.getElementById('liveDOMTextServerBrandNameTitle').innerHTML = localStorage.getItem('live_cfg_brand');
             if(localStorage.getItem('live_cfg_sub') && document.getElementById('liveDOMTextServerBrandSubtitle')) document.getElementById('liveDOMTextServerBrandSubtitle').innerText = localStorage.getItem('live_cfg_sub');
@@ -608,12 +604,11 @@
             if(localStorage.getItem('live_cfg_java') && document.getElementById('liveDOMTextConnectionJavaAddress')) document.getElementById('liveDOMTextConnectionJavaAddress').innerText = localStorage.getItem('live_cfg_java');
             if(localStorage.getItem('live_cfg_bedrock_ip') && document.getElementById('liveDOMTextConnectionBedrockIP')) document.getElementById('liveDOMTextConnectionBedrockIP').innerText = localStorage.getItem('live_cfg_bedrock_ip');
             if(localStorage.getItem('live_cfg_bedrock_port') && document.getElementById('liveDOMTextConnectionBedrockPort')) document.getElementById('liveDOMTextConnectionBedrockPort').innerText = localStorage.getItem('live_cfg_bedrock_port');
-            
             renderPublicSupportersLeaderboardUIDOM();
             if(localStorage.getItem('cylestialTerminalAdminAuditFullName')) transitionUIToAuthenticatedDashboardState();
             
             buildStorefrontDynamicNavigationAndLayoutDOM(); updateNavbar(); 
-            switchView('view-home');
+            switchView('home'); // Safe Load
         });
 
         function copyText(text, msg) { playClickSound(); navigator.clipboard.writeText(text); showToast("Copied", msg); }
@@ -623,48 +618,51 @@
         function openModal(id) { openSystemModalWindow(id); }
         function closeModal(id) { closeSystemModalWindow(id); }
 
-        // --- BULLETPROOF ROUTING ENGINE ---
+        // --- BULLETPROOF ROUTER ---
         function switchView(targetId) {
             playClickSound(); window.scrollTo({ top: 0, behavior: 'smooth' });
             
-            const views = ['view-home', 'view-hosting', 'view-shop', 'view-discord'];
-            views.forEach(id => {
-                const el = document.getElementById(id);
-                if(el) { el.classList.remove('active-flex', 'active-grid', 'active-block', 'shop-active'); el.style.display = 'none'; }
-            });
-
-            const mobHead = document.getElementById('shopMobileHeaderBar'); const mobDock = document.getElementById('shopMobileDockBar');
-            if(mobHead) mobHead.style.display = 'none'; if(mobDock) mobDock.style.display = 'none';
-
-            // Map friendly aliases
+            // Map legacy aliases strictly
             let actualId = targetId;
             if(targetId === 'home' || targetId === 'main_landing_view_tier') actualId = 'view-home';
             if(targetId === 'hosting' || targetId === 'hosting_layout_root_tier') actualId = 'view-hosting';
             if(targetId === 'shop' || targetId === 'shop_layout_root_tier') actualId = 'view-shop';
             if(targetId === 'discord' || targetId === 'discord_chooser_view_tier') actualId = 'view-discord';
 
+            const views = ['view-home', 'view-hosting', 'view-shop', 'view-discord'];
+            views.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) {
+                    el.classList.remove('active-flex', 'active-grid', 'active-block', 'shop-active');
+                    el.style.display = 'none';
+                }
+            });
+
+            const mobHead = document.getElementById('shopMobileHeaderBar'); const mobDock = document.getElementById('shopMobileDockBar');
+            if(mobHead) mobHead.style.display = 'none'; if(mobDock) mobDock.style.display = 'none';
+
             const targetEl = document.getElementById(actualId);
             if(targetEl) {
                 if(actualId === 'view-home') { targetEl.classList.add('active-flex'); targetEl.style.display = 'flex'; currentView = 'home'; renderPublicSupportersLeaderboardUIDOM(); }
                 else if(actualId === 'view-hosting') { targetEl.classList.add('active-block'); targetEl.style.display = 'block'; currentView = 'hosting'; }
                 else if(actualId === 'view-shop') { 
-                    targetEl.classList.add('active-grid', 'shop-active'); targetEl.style.display = 'grid'; 
+                    targetEl.classList.add('active-grid', 'shop-active'); targetEl.style.display = 'grid'; currentView = 'shop'; 
                     if(mobHead) mobHead.style.display = 'flex'; if(mobDock) mobDock.style.display = 'flex'; 
-                    buildStorefrontDynamicNavigationAndLayoutDOM(); currentView = 'shop'; 
+                    buildStorefrontDynamicNavigationAndLayoutDOM(); 
                 }
                 else if(actualId === 'view-discord') { targetEl.classList.add('active-flex'); targetEl.style.display = 'flex'; currentView = 'discord'; }
             }
             updateNavbar();
         }
 
-        function navigateToViewTier(id) { switchView(id); }
+        function navigateToViewTier(targetId) { switchView(targetId); }
 
         function updateNavbar() {
             const container = document.getElementById('nav-links'); const cartBtn = document.getElementById('nav-cart-btn');
             if(!container || !cartBtn) return;
             if(currentView === 'home' || currentView === 'discord') { container.innerHTML = ''; cartBtn.classList.add('hidden'); }
-            else if(currentView === 'hosting') { container.innerHTML = `<a href="#h-config" class="hover:text-amber-400 transition-colors">Hardware</a><a href="#plans" class="hover:text-amber-400 transition-colors">Pricing</a><span class="w-px h-4 bg-white/20 mx-2"></span><button onclick="switchView('shop')" class="text-cyan-400 hover:text-white transition-colors font-bold uppercase tracking-widest text-[10px] btn-interactive">Webstore →</button>`; cartBtn.classList.add('hidden'); }
-            else if(currentView === 'shop') { container.innerHTML = `<span class="text-white font-black tracking-widest uppercase text-xs hidden sm:block">Store Catalog</span><span class="w-px h-4 bg-white/20 mx-2 hidden sm:block"></span><button onclick="switchView('hosting')" class="text-amber-400 hover:text-white transition-colors font-bold uppercase tracking-widest text-[10px] btn-interactive">← Hosting</button>`; cartBtn.classList.remove('hidden'); cartBtn.classList.add('flex'); }
+            else if(currentView === 'hosting') { container.innerHTML = `<a href="#h-config" class="hover:text-amber-400 transition-colors">Hardware</a><a href="#plans" class="hover:text-amber-400 transition-colors">Pricing</a><span class="w-px h-4 bg-white/20 mx-2"></span><button onclick="switchView('shop')" class="text-cyan-400 hover:text-white transition-colors">Webstore →</button>`; cartBtn.classList.add('hidden'); }
+            else if(currentView === 'shop') { container.innerHTML = `<span class="text-white font-black tracking-widest uppercase text-xs hidden sm:block">Store Catalog</span><span class="w-px h-4 bg-white/20 mx-2 hidden sm:block"></span><button onclick="switchView('hosting')" class="text-amber-400 hover:text-white transition-colors">← Hosting</button>`; cartBtn.classList.remove('hidden'); cartBtn.classList.add('flex'); }
         }
 
         // --- Webstore Engine ---
@@ -675,7 +673,7 @@
             storefrontGlobalCategoriesTabObjectMap.forEach((tab, index) => {
                 const activeCls = index === 0 ? "active" : "";
                 sidebarNav.innerHTML += `<li><button class="nav-item-btn ${activeCls} btn-interactive" id="d_nav_${tab.id}" onclick="executeViewPaneTabSwitch('${tab.id}')"><i class="fa-solid ${tab.icon} w-6 text-center"></i> ${tab.label}</button></li>`;
-                mobileDock.innerHTML += `<button class="mobile-dock-node-btn ${activeCls}" id="m_nav_${tab.id}" onclick="executeViewPaneTabSwitch('${tab.id}')"><i class="fa-solid ${tab.icon} text-lg mb-1"></i><span class="uppercase tracking-widest text-[8px]">${tab.label}</span></button>`;
+                mobileDock.innerHTML += `<button class="mobile-dock-node-btn ${activeCls}" id="m_nav_${tab.id}" onclick="executeViewPaneTabSwitch('${tab.id}')"><i class="fa-solid ${tab.icon} text-lg mb-1"></i><span class="uppercase tracking-widest text-[8px] mt-1">${tab.label}</span></button>`;
 
                 let sectionGrid = document.createElement('div'); sectionGrid.id = tab.id; sectionGrid.className = `catalog-display-view-grid dynamic-compiled-catalog-section`; sectionGrid.style.display = index === 0 ? "grid" : "none";
                 
@@ -693,7 +691,7 @@
             const dn = document.getElementById(`d_nav_${targetID}`); if(dn) dn.classList.add('active'); const mn = document.getElementById(`m_nav_${targetID}`); if(mn) mn.classList.add('active');
         }
 
-        // --- Unified Cart System ---
+        // --- Cart System ---
         function injectHostingPlanToCart(planName, price) {
             playClickSound(); memoryAllocationCartStack = []; memoryAllocationCartStack.push({ name: `HOSTING: ${planName}`, price: price, qty: 1, isHost: true });
             evaluateFloatingCartWidgetUIStateFeedback(); openSystemModalWindow('checkoutSystemProcessingModalWindow');
@@ -830,7 +828,7 @@
             setTimeout(() => { str.innerHTML += `<div class="chat-bubble assistant p-3 text-sm font-medium animate-fade-in">${r}</div>`; str.scrollTop = str.scrollHeight; }, 600);
         }
 
-        // --- Admin Terminal (RESTORED) ---
+        // --- Admin Terminal Engine (RESTORED) ---
         function appendAuditLogMessage(t) { const b = document.getElementById('terminalLiveAuditLoggerOutputStackBox'); if(b){ b.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${t}</div>`; b.scrollTop = b.scrollHeight; } }
         function syncLocalStorageDatabaseKernel() { localStorage.setItem('db_queue', JSON.stringify(coreDatabaseTransactionsRegisterQueueArray)); localStorage.setItem('db_rev', counterMetricApprovedTransactionsTotalSumValue.toString()); localStorage.setItem('db_sessions', JSON.stringify(adminIdentityAuthAuditTrailsRegistry)); localStorage.setItem('db_supporters', JSON.stringify(publicApprovedSupportersLeaderboardArray)); }
         
@@ -950,7 +948,7 @@
             rev.forEach(u => { st.innerHTML += `<div class="bg-black/40 border border-white/5 rounded-2xl p-4 flex items-center justify-between mb-3"><div class="flex items-center gap-4"><img src="https://minotar.net/avatar/${u.name}/40.png" class="w-10 h-10 rounded-lg"><div><span class="text-sm font-bold text-white">${u.name}</span><p class="text-[10px] font-mono text-slate-400 mt-1 truncate max-w-[200px]">${u.payload}</p></div></div><div class="text-right"><span class="block text-cyan-400 font-black text-sm">${u.billing}</span><span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest"><i class="fa-solid fa-check"></i> Verified</span></div></div>`; });
         }
 
-        // --- Particles & Tilt ---
+        // Particle System
         document.querySelectorAll('.tilt-card').forEach(card => {
             card.addEventListener('mousemove', e => { let rect = card.getBoundingClientRect(); let x = e.clientX - rect.left; let y = e.clientY - rect.top; let rotateY = -1 * ((x - rect.width / 2) / 30); let rotateX = ((y - rect.height / 2) / 30); card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`; });
             card.addEventListener('mouseleave', () => { card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`; });
